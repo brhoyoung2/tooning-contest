@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+  <rect width="900" height="600" fill="#fff5f5" rx="18"/>
+  <rect x="40" y="40" width="380" height="280" rx="12" fill="#ff6b6b" opacity="0.12"/>
+  <rect x="460" y="40" width="400" height="130" rx="12" fill="#ff6b6b" opacity="0.1"/>
+  <rect x="460" y="190" width="400" height="130" rx="12" fill="#ff6b6b" opacity="0.07"/>
+  <rect x="40" y="360" width="820" height="200" rx="12" fill="#ff6b6b" opacity="0.06"/>
+  <text x="450" y="310" font-family="sans-serif" font-weight="900" font-size="64" fill="#ff6b6b" text-anchor="middle">🎨</text>
+  <text x="450" y="390" font-family="sans-serif" font-weight="800" font-size="42" fill="#141b31" text-anchor="middle">만화 부문</text>
+  <text x="450" y="440" font-family="sans-serif" font-size="26" fill="#636e82" text-anchor="middle">DIVISION 01 — Comic</text>
+  <text x="450" y="490" font-family="sans-serif" font-size="22" fill="#636e82" text-anchor="middle">10컷 이상 · 1080×1080px · 3종 세트 제출</text>
+</svg>

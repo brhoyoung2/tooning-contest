@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774 887" width="1774" height="887">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f4ff"/>
+      <stop offset="100%" style="stop-color:#dceefa"/>
+    </linearGradient>
+  </defs>
+  <rect width="1774" height="887" fill="url(#bg)"/>
+  <circle cx="250" cy="180" r="140" fill="#bba5ff" opacity="0.15"/>
+  <circle cx="1600" cy="700" r="160" fill="#5ba2dc" opacity="0.12"/>
+  <circle cx="1350" cy="120" r="80" fill="#7bdcc3" opacity="0.2"/>
+  <circle cx="280" cy="750" r="110" fill="#ffd54f" opacity="0.15"/>
+  <text x="887" y="360" font-family="sans-serif" font-weight="900" font-size="96" fill="#141b31" text-anchor="middle" opacity="0.9">📚 교과목 연계 주제</text>
+  <text x="887" y="480" font-family="sans-serif" font-weight="600" font-size="48" fill="#bba5ff" text-anchor="middle">THEME 02 — Subject-based</text>
+  <text x="887" y="570" font-family="sans-serif" font-size="36" fill="#636e82" text-anchor="middle">국어·사회·과학·예술 등 학교 수업에서 영감을 받은 작품.</text>
+</svg>

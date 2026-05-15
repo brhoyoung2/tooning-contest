@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1774 887" width="1774" height="887">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff8f0"/>
+      <stop offset="100%" style="stop-color:#ffe0d0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1774" height="887" fill="url(#bg)"/>
+  <circle cx="200" cy="200" r="120" fill="#ff6b6b" opacity="0.15"/>
+  <circle cx="1574" cy="687" r="180" fill="#bba5ff" opacity="0.12"/>
+  <circle cx="1400" cy="150" r="90" fill="#ffd54f" opacity="0.2"/>
+  <circle cx="300" cy="750" r="100" fill="#7bdcc3" opacity="0.15"/>
+  <text x="887" y="360" font-family="sans-serif" font-weight="900" font-size="96" fill="#141b31" text-anchor="middle" opacity="0.9">🎨 자율 창작 주제</text>
+  <text x="887" y="480" font-family="sans-serif" font-weight="600" font-size="48" fill="#ff6b6b" text-anchor="middle">THEME 01 — Free Creative</text>
+  <text x="887" y="570" font-family="sans-serif" font-size="36" fill="#636e82" text-anchor="middle">상상력을 마음껏 펼치세요. 장르·소재 모두 자유로운 창작.</text>
+</svg>

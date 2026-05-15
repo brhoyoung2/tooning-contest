@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="800" height="200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff8f0"/>
+      <stop offset="100%" style="stop-color:#fde8d8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="200" fill="url(#bg)" rx="18"/>
+  <circle cx="100" cy="100" r="60" fill="#ffd54f" opacity="0.3"/>
+  <circle cx="700" cy="50" r="40" fill="#ff6b6b" opacity="0.2"/>
+  <circle cx="650" cy="160" r="50" fill="#bba5ff" opacity="0.15"/>
+  <text x="400" y="85" font-family="sans-serif" font-weight="900" font-size="42" fill="#141b31" text-anchor="middle">Tooning</text>
+  <text x="400" y="125" font-family="sans-serif" font-size="22" fill="#ff6b6b" text-anchor="middle" font-weight="600">AI 웹툰·웹소설 창작 도구</text>
+  <text x="400" y="160" font-family="sans-serif" font-size="18" fill="#636e82" text-anchor="middle">K-12 청소년을 위한 AI 창작 플랫폼</text>
+</svg>

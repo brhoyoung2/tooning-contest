@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="800" height="200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a2f4d"/>
+      <stop offset="100%" style="stop-color:#141b31"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="200" fill="url(#bg)" rx="18"/>
+  <circle cx="100" cy="100" r="60" fill="#ff6b6b" opacity="0.2"/>
+  <circle cx="700" cy="50" r="40" fill="#bba5ff" opacity="0.15"/>
+  <circle cx="650" cy="160" r="50" fill="#7bdcc3" opacity="0.1"/>
+  <text x="400" y="85" font-family="sans-serif" font-weight="900" font-size="42" fill="#ffffff" text-anchor="middle">Tooning Plus</text>
+  <text x="400" y="125" font-family="sans-serif" font-size="22" fill="#ffafbd" text-anchor="middle" font-weight="600">대학 수업용 AI 창작 전문 도구</text>
+  <text x="400" y="160" font-family="sans-serif" font-size="18" fill="rgba(255,255,255,0.6)" text-anchor="middle">대학·전공자를 위한 AI 창작 플랫폼</text>
+</svg>

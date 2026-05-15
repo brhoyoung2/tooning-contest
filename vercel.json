@@ -1,0 +1,36 @@
+{
+  "headers": [
+    {
+      "source": "/theme-free.jpg",
+      "headers": [{ "key": "Content-Type", "value": "image/svg+xml" }]
+    },
+    {
+      "source": "/theme-subject.jpg",
+      "headers": [{ "key": "Content-Type", "value": "image/svg+xml" }]
+    },
+    {
+      "source": "/spec-comic.jpg",
+      "headers": [{ "key": "Content-Type", "value": "image/svg+xml" }]
+    },
+    {
+      "source": "/spec-novel.jpg",
+      "headers": [{ "key": "Content-Type", "value": "image/svg+xml" }]
+    },
+    {
+      "source": "/spec-cardnews.jpg",
+      "headers": [{ "key": "Content-Type", "value": "image/svg+xml" }]
+    },
+    {
+      "source": "/spec-poster.jpg",
+      "headers": [{ "key": "Content-Type", "value": "image/svg+xml" }]
+    },
+    {
+      "source": "/tooning.jpg",
+      "headers": [{ "key": "Content-Type", "value": "image/svg+xml" }]
+    },
+    {
+      "source": "/tooning-plus.jpg",
+      "headers": [{ "key": "Content-Type", "value": "image/svg+xml" }]
+    }
+  ]
+}

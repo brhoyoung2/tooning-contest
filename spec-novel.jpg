@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+  <rect width="900" height="600" fill="#f7f5ff" rx="18"/>
+  <rect x="80" y="60" width="280" height="360" rx="14" fill="#bba5ff" opacity="0.2"/>
+  <rect x="80" y="80" width="280" height="24" rx="4" fill="#bba5ff" opacity="0.4"/>
+  <rect x="80" y="120" width="280" height="10" rx="3" fill="#bba5ff" opacity="0.25"/>
+  <rect x="80" y="140" width="240" height="10" rx="3" fill="#bba5ff" opacity="0.2"/>
+  <rect x="80" y="160" width="260" height="10" rx="3" fill="#bba5ff" opacity="0.2"/>
+  <rect x="80" y="180" width="220" height="10" rx="3" fill="#bba5ff" opacity="0.18"/>
+  <rect x="420" y="60" width="420" height="360" rx="14" fill="#bba5ff" opacity="0.1"/>
+  <text x="450" y="310" font-family="sans-serif" font-weight="900" font-size="64" fill="#bba5ff" text-anchor="middle">📚</text>
+  <text x="450" y="390" font-family="sans-serif" font-weight="800" font-size="42" fill="#141b31" text-anchor="middle">소설 부문</text>
+  <text x="450" y="440" font-family="sans-serif" font-size="26" fill="#636e82" text-anchor="middle">DIVISION 02 — Novel</text>
+  <text x="450" y="490" font-family="sans-serif" font-size="22" fill="#636e82" text-anchor="middle">1화당 2,000자 이상 · 3화 분량 · 기획서 제출</text>
+</svg>
