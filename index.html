@@ -4,18 +4,20 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>제2회 국제 AI 투닝 공모전 — 대학과 함께하는 투닝 공모전</title>
-<meta name="description" content="AI와 함께 그리는 K-스토리, 대학에서 미래를 만나다. 10개 대학과 함께하는 제2회 국제 AI 투닝 공모전." />
+<meta name="description" content="AI와 함께 그리는 K-스토리, 대학에서 미래를 만나다. 14개 대학과 함께하는 제2회 국제 AI 투닝 공모전." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<script>if('scrollRestoration'in history){history.scrollRestoration='manual';}window.scrollTo(0,0);</script>
 <script type="importmap">
 {"imports":{"three":"https://esm.sh/three@0.124.0","cannon-es":"https://esm.sh/cannon-es@0.18.0","postprocessing":"https://esm.sh/postprocessing@6.22.2"}}
 </script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-body{font-family:'Pretendard Variable',Pretendard,'Archivo',-apple-system,sans-serif;color:#141b31;background:#fef8f0;line-height:1.5;overflow-x:hidden}
+body{font-family:'Pretendard Variable',Pretendard,'Archivo',-apple-system,sans-serif;color:#141b31;background:#fef8f0;line-height:1.5;overflow-x:hidden;word-break:keep-all;text-wrap:pretty}
+h1,h2,h3,h4,h5,h6,.hero-title,.lifetime-main-title,.bonus-title,.timeline-title-1,.timeline-title-2,.awards-title-1,.awards-title-2,.specs-title,.eligibility-title-1,.eligibility-title-2,.topic-title-1,.topic-title-2{text-wrap:balance}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;border:none;background:none}
@@ -72,6 +74,9 @@ section{position:relative;width:100%;overflow:hidden}
 .topic-card-num{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;color:var(--text-soft)}
 .topic-card-title{font-weight:700;font-size:28px;letter-spacing:-.02em;color:var(--text-dark);margin-top:8px}
 .topic-card-desc{font-size:15px;line-height:1.7;color:var(--text-soft);margin-top:12px}
+.topic-card.image-card{padding:0;display:block;overflow:hidden;cursor:pointer;text-decoration:none}
+.topic-card.image-card img{width:100%;height:auto;display:block;aspect-ratio:1774/887;object-fit:cover;transition:transform .4s}
+.topic-card.image-card:hover img{transform:scale(1.03)}
 @media(max-width:1024px){.topic-grid{grid-template-columns:1fr}}
 .eligibility{background:var(--sky-light);padding-bottom:120px}
 .eligibility-header{text-align:center}
@@ -91,14 +96,14 @@ section{position:relative;width:100%;overflow:hidden}
 .specs-title{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(40px,5vw,64px);letter-spacing:-.03em;line-height:1;color:var(--text-dark);margin-top:30px}
 .specs-sub{font-size:16px;line-height:1.75;color:var(--text-soft);margin-top:30px}
 .specs-divisions{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:60px;max-width:1200px;margin-left:auto;margin-right:auto}
-.division-card{background:#fff;border-radius:32px;padding:44px;box-shadow:0 12px 28px rgba(20,27,49,.1);transition:transform .3s}
-.division-card:hover{transform:translateY(-4px)}
-.division-header{display:flex;align-items:center;gap:20px;margin-bottom:32px}
-.division-emoji{flex-shrink:0;width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px}
+.division-card{background:#fff;border-radius:32px;padding:24px 24px 0;box-shadow:0 12px 28px rgba(20,27,49,.1);transition:transform .3s,box-shadow .3s;overflow:hidden;display:flex;flex-direction:column}
+.division-card:hover{transform:translateY(-6px);box-shadow:0 20px 36px rgba(20,27,49,.14)}
+.division-image{width:100%;aspect-ratio:3/2;object-fit:contain;object-position:center;display:block;border-radius:18px;background:#f8f9fa;border:1px solid rgba(99,110,130,.06)}
+.division-body{padding:24px 4px 32px;flex:1;display:flex;flex-direction:column}
 .division-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase}
-.division-title{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:32px;letter-spacing:-.02em;color:var(--text-dark);margin-top:6px}
+.division-title{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:28px;letter-spacing:-.02em;color:var(--text-dark);margin-top:6px;margin-bottom:18px}
 .division-list{list-style:none}
-.division-list li{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px dashed rgba(99,110,130,.15);font-size:16px;line-height:1.6;color:var(--text-dark)}
+.division-list li{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px dashed rgba(99,110,130,.15);font-size:15px;line-height:1.6;color:var(--text-dark)}
 .division-list li:last-child{border-bottom:none}
 .division-list li strong{font-weight:700}
 .division-dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:8px}
@@ -119,48 +124,52 @@ section{position:relative;width:100%;overflow:hidden}
 .bonus{background:var(--cream-soft);padding-bottom:120px}
 .bonus-header{text-align:center}
 .bonus-title{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(40px,5vw,64px);letter-spacing:-.03em;line-height:1;color:var(--text-dark);margin-top:30px}
-.bonus-single{margin-top:60px;max-width:1100px;margin-left:auto;margin-right:auto}
-.bonus-card-large{background:#fff;border-radius:32px;padding:50px;box-shadow:0 12px 28px rgba(20,27,49,.1)}
-.bonus-large-header{display:flex;align-items:center;gap:24px;margin-bottom:24px}
-.bonus-plus{flex-shrink:0;width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:36px}
-.bonus-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase}
-.bonus-card-title{font-weight:700;font-size:30px;letter-spacing:-.01em;color:var(--text-dark);margin-top:6px}
-.bonus-card-desc{font-size:16px;line-height:1.75;color:var(--text-soft);margin-top:8px}
-.bonus-steps{display:flex;flex-direction:column;gap:18px;margin-top:36px}
-.bonus-step{display:flex;gap:20px;background:#fafbfc;border-radius:20px;padding:24px;align-items:flex-start}
-.bonus-step-num{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--coral);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-weight:800;font-size:18px}
-.bonus-step-body{flex:1}
-.bonus-step-title{font-weight:700;font-size:18px;letter-spacing:-.01em;color:var(--text-dark)}
-.bonus-step-desc{font-size:14px;line-height:1.7;color:var(--text-soft);margin-top:6px}
-.bonus-step-desc strong{color:var(--coral);font-weight:700}
-.bonus-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.bonus-tag{background:var(--coral);color:#fff;padding:8px 16px;border-radius:16px;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px}
-.bonus-platforms{margin-top:32px;padding:20px 24px;background:#f5f9ff;border-radius:16px}
-.bonus-platforms-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;color:var(--sky-deep);text-transform:uppercase;margin-bottom:10px}
-.bonus-platform-list{display:flex;flex-wrap:wrap;gap:14px}
-.bonus-platform{font-size:14px;color:var(--text-dark);font-weight:600}
-.bonus-pill{background:#fff8e6;border-radius:16px;padding:18px 24px;margin-top:20px;font-weight:600;font-size:14px;color:#997d1c;line-height:1.6}
-@media(max-width:768px){.bonus-card-large{padding:32px 24px}.bonus-large-header{flex-direction:column;align-items:flex-start;gap:16px}.bonus-step{flex-direction:column;gap:12px}}
+.bonus-sub{font-size:17px;line-height:1.7;color:var(--text-soft);margin-top:24px;max-width:600px;margin-left:auto;margin-right:auto}
+.bonus-comic{display:block;width:100%;max-width:1000px;margin:60px auto 50px;border-radius:24px;box-shadow:0 16px 40px rgba(20,27,49,.12);background:#fff}
+.bonus-steps-simple{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.bonus-step-simple{background:#fff;border-radius:24px;padding:32px 28px;box-shadow:0 8px 20px rgba(20,27,49,.08);transition:transform .3s,box-shadow .3s}
+.bonus-step-simple:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(20,27,49,.12)}
+.bonus-step-num-simple{width:48px;height:48px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;margin-bottom:18px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+.bonus-step-title-simple{font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--text-dark);margin-bottom:10px;line-height:1.35}
+.bonus-step-desc-simple{font-size:14px;line-height:1.65;color:var(--text-soft)}
+.bonus-step-desc-simple strong{color:var(--coral);font-weight:700}
+.bonus-tags-inline{display:inline-block;margin-top:8px;padding:6px 12px;background:#fff8e6;border-radius:10px;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;color:#997d1c;letter-spacing:.02em}
+@media(max-width:900px){.bonus-steps-simple{grid-template-columns:1fr;gap:18px}.bonus-comic{margin:40px auto 32px}}
+@media(max-width:768px){.bonus-step-simple{padding:24px 20px}}
 .timeline{background:var(--sky-light);padding-bottom:120px}
 .timeline-header{text-align:center}
 .timeline-title-1,.timeline-title-2{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(40px,5vw,64px);letter-spacing:-.03em;line-height:1}
 .timeline-title-1{color:var(--text-dark);margin-top:30px}
 .timeline-title-2{color:var(--coral);margin-top:16px}
-.timeline-track-wrap{position:relative;margin-top:100px;padding:60px 0}
-.timeline-track-line{position:absolute;top:50%;left:0;right:0;height:4px;background:var(--coral);opacity:.2;border-radius:2px}
+.timeline-track-wrap{position:relative;margin-top:80px;padding:50px 0}
+.timeline-track-line{position:absolute;top:50%;left:0;right:0;height:3px;background:var(--coral);opacity:.25;border-radius:2px}
 .timeline-events{display:grid;grid-template-columns:repeat(6,1fr);gap:24px;position:relative}
 .timeline-events.four-events{grid-template-columns:repeat(4,1fr);max-width:1100px;margin:0 auto}
 .timeline-event{position:relative;display:flex;flex-direction:column;align-items:center}
-.timeline-event:nth-child(odd){padding-bottom:100px;flex-direction:column-reverse}
-.timeline-event:nth-child(even){padding-top:100px}
-.timeline-dot{width:24px;height:24px;border-radius:50%;box-shadow:0 4px 8px rgba(0,0,0,.2);flex-shrink:0;z-index:2}
+.timeline-event:nth-child(odd){padding-bottom:80px;flex-direction:column-reverse}
+.timeline-event:nth-child(even){padding-top:80px}
+.timeline-dot{width:24px;height:24px;border-radius:50%;box-shadow:0 4px 10px rgba(0,0,0,.15);flex-shrink:0;z-index:3}
 .timeline-event.special .timeline-dot{width:36px;height:36px}
-.timeline-card{background:#fff;border-radius:20px;padding:16px;width:100%;box-shadow:0 6px 16px rgba(20,27,49,.1);margin-top:16px;position:relative}
-.timeline-event:nth-child(odd) .timeline-card{margin-top:0;margin-bottom:16px}
-.timeline-emoji{font-size:24px;margin-bottom:8px}
-.timeline-date{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.05em;margin-top:4px}
-.timeline-name{font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--text-dark);margin-top:4px}
-@media(max-width:1024px){.timeline-events{grid-template-columns:repeat(2,1fr)}.timeline-event:nth-child(odd),.timeline-event:nth-child(even){padding:16px 0;flex-direction:column}.timeline-track-line{display:none}}
+.timeline-card{background:#fff;border-radius:18px;padding:22px 14px;width:100%;max-width:200px;margin-left:auto;margin-right:auto;box-shadow:0 8px 20px rgba(20,27,49,.08);position:relative;text-align:center;transition:transform .3s,box-shadow .3s;z-index:2}
+.timeline-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(20,27,49,.14)}
+.timeline-event:nth-child(odd) .timeline-card{margin-top:0;margin-bottom:32px}
+.timeline-event:nth-child(even) .timeline-card{margin-top:32px}
+/* Speech bubble pointer (small triangle) */
+.timeline-card::after{content:'';position:absolute;width:14px;height:14px;background:#fff;transform:rotate(45deg);z-index:1}
+.timeline-event:nth-child(odd) .timeline-card::after{bottom:-7px;left:50%;margin-left:-7px;box-shadow:3px 3px 6px rgba(20,27,49,.05)}
+.timeline-event:nth-child(even) .timeline-card::after{top:-7px;left:50%;margin-left:-7px;box-shadow:-3px -3px 6px rgba(20,27,49,.05)}
+/* Connecting dashed line: card → timeline dot */
+.timeline-event:nth-child(odd) .timeline-card::before{content:'';position:absolute;top:100%;left:50%;margin-left:-1px;width:2px;height:32px;background:repeating-linear-gradient(to bottom,var(--coral) 0,var(--coral) 4px,transparent 4px,transparent 8px);opacity:.4}
+.timeline-event:nth-child(even) .timeline-card::before{content:'';position:absolute;bottom:100%;left:50%;margin-left:-1px;width:2px;height:32px;background:repeating-linear-gradient(to bottom,var(--coral) 0,var(--coral) 4px,transparent 4px,transparent 8px);opacity:.4}
+.timeline-emoji{font-size:32px;margin-bottom:6px;line-height:1}
+.timeline-date{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.02em;margin-top:6px}
+.timeline-name{font-weight:700;font-size:14px;letter-spacing:-.01em;color:var(--text-dark);margin-top:6px;line-height:1.4}
+@media(max-width:1024px){
+  .timeline-events{grid-template-columns:repeat(2,1fr)}
+  .timeline-event:nth-child(odd),.timeline-event:nth-child(even){padding:16px 0;flex-direction:column}
+  .timeline-track-line{display:none}
+  .timeline-card::before,.timeline-card::after{display:none}
+}
 @media(max-width:600px){.timeline-events{grid-template-columns:1fr}}
 .awards{background:var(--cream-soft);padding-bottom:120px}
 .awards-header{text-align:center}
@@ -190,26 +199,24 @@ section{position:relative;width:100%;overflow:hidden}
 .tier-3-badge{background:#fff;color:var(--text-soft);border:1.5px solid rgba(99,110,130,.2)}
 .tier-caption{font-size:14px;font-weight:600;color:var(--text-soft);letter-spacing:-.01em}
 
-/* ----- TIER 1: 대상 (가로 풀폭 hero) ----- */
-.award-grand{position:relative;background:linear-gradient(135deg,#1a2f4d 0%,#141b31 60%,#2a1a2d 100%);border-radius:36px;padding:48px 56px;box-shadow:0 24px 50px rgba(20,27,49,.3);overflow:hidden;color:#fff}
-.grand-bg-deco{position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,107,107,.25) 0%,rgba(255,107,107,0) 70%);border-radius:50%;pointer-events:none}
-.grand-content{position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
-.grand-left{display:flex;align-items:center;gap:32px}
-.grand-ball{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ff8c8c,#d94040);display:flex;align-items:center;justify-content:center;font-size:60px;box-shadow:0 12px 28px rgba(217,64,64,.5);flex-shrink:0}
-.grand-meta{display:flex;flex-direction:column;gap:6px}
-.grand-name{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:56px;letter-spacing:-.04em;color:#fff;line-height:1}
-.grand-pill{background:#ff6b6b !important;color:#fff !important;font-size:14px !important;padding:8px 20px !important;align-self:flex-start;margin-top:6px !important}
-.grand-prize-list{display:flex;flex-direction:column;gap:14px;padding:24px 32px;background:rgba(255,255,255,.06);border-radius:20px;border:1.5px solid rgba(255,255,255,.1);min-width:280px}
-.grand-prize-line{display:flex;align-items:center;gap:14px;font-size:16px;font-weight:600;color:#fff;line-height:1.3}
+/* ----- TIER 1: 대상 (가로 풀폭 hero) — WHITE THEME · CENTER ALIGNED ----- */
+.award-grand{position:relative;background:#fff;border-radius:36px;padding:56px 56px 48px;box-shadow:0 24px 50px rgba(255,107,107,.18),0 8px 20px rgba(20,27,49,.06);border:2px solid rgba(255,107,107,.18);overflow:hidden;color:var(--text-dark);text-align:center}
+.grand-bg-deco{position:absolute;top:-100px;right:-80px;width:340px;height:340px;background:radial-gradient(circle,rgba(255,107,107,.18) 0%,rgba(255,107,107,0) 70%);border-radius:50%;pointer-events:none}
+.grand-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:24px}
+.grand-left{display:flex;flex-direction:column;align-items:center;gap:20px}
+.grand-ball{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ff8c8c,#d94040);display:flex;align-items:center;justify-content:center;font-size:60px;box-shadow:0 12px 28px rgba(217,64,64,.4),0 0 0 6px rgba(255,107,107,.1);flex-shrink:0}
+.grand-meta{display:flex;flex-direction:column;align-items:center;gap:8px}
+.grand-name{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:56px;letter-spacing:-.04em;color:var(--text-dark);line-height:1}
+.grand-pill{background:#ff6b6b !important;color:#fff !important;font-size:14px !important;padding:8px 20px !important;margin-top:6px !important}
+.grand-prize-list{display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 32px;background:#fafbfc;border-radius:20px;border:1.5px solid rgba(99,110,130,.1);min-width:340px;max-width:480px;width:100%;margin-top:8px}
+.grand-prize-line{display:flex;align-items:center;justify-content:center;gap:12px;font-size:16px;font-weight:600;color:var(--text-dark);line-height:1.3}
 .grand-prize-emoji{font-size:22px;flex-shrink:0;width:32px;text-align:center}
 
 @media(max-width:900px){
-  .award-grand{padding:36px 28px}
-  .grand-content{grid-template-columns:1fr;gap:28px}
-  .grand-left{flex-direction:column;align-items:flex-start;gap:20px}
-  .grand-ball{width:100px;height:100px;font-size:52px}
+  .award-grand{padding:36px 24px}
+  .grand-prize-list{min-width:0;padding:20px 24px}
   .grand-name{font-size:44px}
-  .grand-prize-list{min-width:0;width:100%}
+  .grand-ball{width:100px;height:100px;font-size:52px}
 }
 
 /* ----- TIER 2: 대학상 + 최우수상 ----- */
@@ -228,20 +235,20 @@ section{position:relative;width:100%;overflow:hidden}
 .award-mini-prize{font-size:13px;line-height:1.55;color:var(--text-soft);margin-top:10px}
 @media(max-width:900px){.tier-3-grid{grid-template-columns:1fr}}
 
-/* ----- 공통 award-square (Tier 2에서 사용) ----- */
+/* ----- 공통 award-square (Tier 2에서 사용) — WHITE THEME ----- */
 .award-square{background:#fff;border-radius:32px;padding:36px 24px;box-shadow:0 12px 28px rgba(20,27,49,.08);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;transition:transform .35s,box-shadow .35s;position:relative;overflow:hidden}
 .award-square:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(20,27,49,.14)}
-.award-square.hero{background:var(--text-dark);color:#fff;box-shadow:0 18px 40px rgba(20,27,49,.2)}
-.award-square.hero.special{background:linear-gradient(160deg,#1a2f4d 0%,#141b31 100%)}
-.award-square .award-ball{width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;box-shadow:0 6px 16px rgba(0,0,0,.2);flex-shrink:0}
+.award-square.hero{background:#fff;color:var(--text-dark);box-shadow:0 16px 36px rgba(91,162,220,.18),0 4px 12px rgba(20,27,49,.06);border:2px solid rgba(91,162,220,.22)}
+.award-square.hero.special{background:#fff;border:2px solid rgba(91,162,220,.22)}
+.award-square .award-ball{width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;box-shadow:0 6px 16px rgba(0,0,0,.15);flex-shrink:0}
 .award-square .award-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
 .award-square .award-name{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em;margin-top:8px;color:var(--text-dark)}
-.award-square.hero .award-name{color:#fff}
+.award-square.hero .award-name{color:var(--text-dark)}
 .award-square .award-count-pill{display:inline-block;padding:6px 18px;border-radius:14px;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;margin-top:14px;color:var(--text-dark)}
 .award-square .award-prize{font-size:13px;line-height:1.7;margin-top:16px;opacity:.9;color:var(--text-dark)}
-.award-square.hero .award-prize{color:#fff;opacity:.92}
-.award-link{color:#82c2e8;font-weight:700;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
-.award-link:hover{color:#fff}
+.award-square.hero .award-prize{color:var(--text-dark);opacity:.85}
+.award-link{color:var(--sky-deep);font-weight:700;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
+.award-link:hover{color:var(--coral)}
 @media(max-width:1024px){.awards-grid{grid-template-columns:repeat(2,1fr)}.award-card.hero{transform:none}}
 @media(max-width:600px){.awards-grid{grid-template-columns:1fr}}
 .lifetime{background:linear-gradient(180deg,#fef8f0 0%,#dceefa 100%);padding-bottom:120px}
@@ -249,13 +256,16 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-title-1,.lifetime-title-2{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(48px,6vw,72px);letter-spacing:-.04em;line-height:1}
 .lifetime-title-1{color:var(--text-dark);margin-top:30px}
 .lifetime-title-2{color:var(--coral);margin-top:16px}
-.lifetime-sub{font-size:16px;line-height:1.75;color:var(--text-soft);max-width:700px;margin:30px auto 0}
-.lifetime-bridge{display:grid;grid-template-columns:1fr auto 1fr;gap:30px;align-items:center;margin-top:80px}
-.lifetime-card{background:#fff;border-radius:32px;padding:36px 30px;box-shadow:0 12px 28px rgba(20,27,49,.1);position:relative;min-height:320px}
+.lifetime-main-title{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:clamp(36px,5vw,64px);letter-spacing:-.03em;line-height:1.25;color:var(--text-dark);margin-top:30px;max-width:900px;margin-left:auto;margin-right:auto}
+.lifetime-main-title strong{color:var(--coral);font-weight:800}
+.lifetime-sub{font-size:18px;line-height:1.6;color:var(--text-soft);max-width:700px;margin:30px auto 0}
+.lifetime-sub strong{color:var(--coral);font-weight:700}
+.lifetime-bridge{display:grid;grid-template-columns:1fr auto 1fr;gap:30px;align-items:stretch;margin-top:80px}
+.lifetime-card{background:#fff;border-radius:32px;padding:30px 30px 0;box-shadow:0 12px 28px rgba(20,27,49,.1);position:relative;overflow:hidden;display:flex;flex-direction:column}
 .lifetime-card.dark{background:var(--text-dark);color:#fff}
-.lifetime-card-ball{position:absolute;top:30px;right:30px;width:80px;height:80px;border-radius:50%}
-.lifetime-card-ball.gold{background:radial-gradient(circle at 30% 30%,#ffeb94,#d9a633)}
-.lifetime-card-ball.coral{background:radial-gradient(circle at 30% 30%,#ff8c8c,#d94040)}
+.lifetime-card-image{width:100%;height:200px;object-fit:cover;object-position:center;display:block;background:#f5f6f9;border-radius:18px;border:1px solid rgba(99,110,130,.08)}
+.lifetime-card.dark .lifetime-card-image{background:#1f2942;border:1px solid rgba(255,255,255,.06)}
+.lifetime-card-body{padding:28px 0 36px;flex:1;display:flex;flex-direction:column}
 .lifetime-stage{font-family:'Archivo',sans-serif;font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.65}
 .lifetime-name{font-family:'Archivo',sans-serif;font-weight:800;font-size:48px;letter-spacing:-.03em;margin-top:12px;line-height:1.05}
 .lifetime-name .plus{color:var(--coral)}
@@ -403,40 +413,145 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   .form-actions{flex-direction:column-reverse}
   .form-actions button{width:100%}
 }
+
+/* ============ LANGUAGE TOGGLE ============ */
+.lang-toggle{display:flex;align-items:center;gap:6px;margin-left:16px;background:#f5f6f9;border-radius:20px;padding:4px 6px}
+.lang-btn{padding:5px 14px;border-radius:16px;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;cursor:pointer;border:none;background:transparent;color:var(--text-soft);transition:all .2s}
+.lang-btn.active{background:#fff;color:var(--text-dark);box-shadow:0 2px 8px rgba(20,27,49,.1)}
+[lang-mode="en"] .ko-text{display:none}
+[lang-mode="en"] .en-text{display:inline}
+[lang-mode="ko"] .en-text{display:none}
+[lang-mode="ko"] .ko-text{display:inline}
+.ko-text,.en-text{display:inline}
+
+/* ============ TIMELINE (NEW STYLE) ============ */
+.timeline-bar-wrap{position:relative;margin-top:80px;overflow-x:auto;padding-bottom:20px}
+.timeline-bar{position:relative;display:flex;align-items:flex-start;min-width:600px;padding:0 40px}
+.timeline-bar-line{position:absolute;top:20px;left:40px;right:40px;height:3px;background:linear-gradient(90deg,#ff6b6b,#d9a633,#bba5ff,#5ba2dc);border-radius:2px;opacity:.35}
+.tl-item{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;padding-top:0}
+.tl-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0;z-index:2;margin-bottom:12px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.tl-month{font-family:'Archivo',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.01em;margin-bottom:6px;line-height:1}
+.tl-label{font-size:15px;font-weight:700;color:var(--text-dark);line-height:1.35;text-align:center}
+@media(max-width:768px){.tl-month{font-size:15px}.tl-label{font-size:13px}}
+
+/* ============ BONUS PLUSPOINT IMAGE ============ */
+.bonus-pluspoint{display:block;width:100%;max-width:900px;margin:48px auto 0;border-radius:20px;box-shadow:0 12px 32px rgba(20,27,49,.1)}
+
+/* ============ AUTHOR AWARD (작가상) ============ */
+.tier-special-badge{background:linear-gradient(135deg,#ff6b6b,#c93030);color:#fff}
+.author-awards-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.author-award-card{background:#fff;border-radius:32px;padding:32px;box-shadow:0 12px 28px rgba(20,27,49,.1);display:flex;align-items:center;gap:28px;transition:transform .3s,box-shadow .3s}
+.author-award-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(20,27,49,.14)}
+.author-left{display:flex;flex-direction:column;align-items:center;gap:12px;flex-shrink:0}
+.author-profile-circle{width:96px;height:96px;border-radius:50%;overflow:hidden;border:3px solid #ff6b6b;box-shadow:0 6px 16px rgba(255,107,107,.3)}
+.author-profile-circle img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.author-work-thumb{width:80px;height:104px;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.author-work-thumb img{width:100%;height:100%;object-fit:cover}
+.author-info{flex:1;min-width:0}
+.author-badge{font-family:'Archivo',sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#ff6b6b}
+.author-name{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em;color:var(--text-dark);margin-top:6px}
+.author-work-title{font-weight:700;font-size:15px;color:var(--coral);margin-top:6px}
+.author-desc{font-size:13px;line-height:1.7;color:var(--text-soft);margin-top:10px}
+.author-award-pill{display:inline-block;margin-top:14px;padding:7px 16px;border-radius:14px;background:#fff5f0;border:1.5px solid #ffccc0;font-family:'Archivo',sans-serif;font-weight:700;font-size:12px;color:#c93030}
+@media(max-width:900px){.author-awards-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.author-award-card{flex-direction:column;text-align:center}.author-left{flex-direction:row;justify-content:center}}
+
+/* ============ 제1회 공모전 회고 ============ */
+.first-contest{background:linear-gradient(180deg,#f4f0ff 0%,#e6f2ff 100%);padding-bottom:120px}
+.first-contest-badge{display:inline-block;background:var(--text-dark);color:#fff;padding:6px 18px;border-radius:20px;font-family:'Archivo',sans-serif;font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-top:50px}
+.first-contest-title{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(36px,5vw,60px);letter-spacing:-.03em;line-height:1.1;color:var(--text-dark);margin-top:20px}
+.first-contest-title .accent{color:var(--coral)}
+.first-contest-sub{font-size:17px;line-height:1.8;color:var(--text-soft);max-width:640px;margin:20px auto 0}
+.fcs-stats{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:48px}
+.fcs-item{background:#fff;border-radius:20px;padding:18px 28px;box-shadow:0 6px 16px rgba(20,27,49,.08);text-align:center;min-width:120px}
+.fcs-num{font-family:'Archivo',sans-serif;font-weight:800;font-size:30px;letter-spacing:-.03em;color:var(--coral);line-height:1}
+.fcs-label{font-size:13px;color:var(--text-soft);margin-top:6px;font-weight:600;letter-spacing:.05em}
+.fcs-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:56px;max-width:1100px;margin-left:auto;margin-right:auto}
+.fcs-gallery-item{border-radius:18px;overflow:hidden;cursor:pointer;position:relative;aspect-ratio:4/3;box-shadow:0 8px 20px rgba(20,27,49,.1);transition:transform .3s,box-shadow .3s}
+.fcs-gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(20,27,49,.16)}
+.fcs-gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.fcs-gallery-item:hover img{transform:scale(1.06)}
+.fcs-zoom-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(20,27,49,0);transition:background .3s;color:#fff;font-size:32px;opacity:0;pointer-events:none}
+.fcs-gallery-item:hover .fcs-zoom-icon{background:rgba(20,27,49,.28);opacity:1}
+@media(max-width:768px){.fcs-gallery{grid-template-columns:repeat(2,1fr)}.fcs-stats{gap:12px}}
+@media(max-width:480px){.fcs-gallery{grid-template-columns:1fr}}
+
+/* ============ LIGHTBOX ============ */
+.lightbox-overlay{position:fixed;inset:0;z-index:3000;background:rgba(8,12,24,.94);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px)}
+.lightbox-overlay.open{display:flex}
+.lightbox-img-wrap{position:relative;max-width:90vw;max-height:88vh;display:flex;align-items:center;justify-content:center}
+.lightbox-img{max-width:90vw;max-height:84vh;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.6);object-fit:contain;animation:lbIn .28s cubic-bezier(.22,1,.36,1)}
+@keyframes lbIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.lightbox-close{position:fixed;top:20px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.22);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;z-index:10}
+.lightbox-close:hover{background:rgba(255,107,107,.75)}
+.lightbox-nav{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.22);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;z-index:10}
+.lightbox-nav:hover{background:rgba(255,255,255,.28)}
+.lightbox-prev{left:16px}
+.lightbox-next{right:16px}
+.lightbox-counter{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.65);font-size:13px;font-weight:600;letter-spacing:.12em;z-index:10}
+
+/* ============ TEXT SIZE INCREASE (+3-4pt) ============ */
+.info-label{font-size:15px!important}
+.section-label{font-size:17px!important}
+.nav ul a{font-size:17px!important}
+.nav-cta{font-size:17px!important}
+.topic-card-num{font-size:17px!important}
+.topic-card-desc{font-size:18px!important}
+.elig-desc{font-size:18px!important}
+.award-label{font-size:14px!important}
+.award-prize,.award-mini-prize{font-size:16px!important}
+.division-list li{font-size:16px!important}
+.deans-desc{font-size:18px!important}
+.uni-en{font-size:14px!important}
+.uni-award{font-size:15px!important}
+.fcs-label{font-size:16px!important}
+.tl-label{font-size:17px!important}
+.tl-month{font-size:19px!important}
+.footer-addr{font-size:15px!important}
+.footer-col a{font-size:15px!important}
+.bonus-step-desc-simple{font-size:16px!important}
+.bonus-step-title-simple{font-size:17px!important}
+.info-val{font-size:18px!important}
 </style>
 </head>
-<body>
+<body lang-mode="ko">
 <nav>
   <div class="nav-brand-wrap">
     <div class="nav-heart">♡</div>
     <div class="nav-brand">Tooning</div>
   </div>
   <ul>
-    <li><a href="#topic">주제</a></li>
-    <li><a href="#eligibility">지원자격</a></li>
-    <li><a href="#submit">접수</a></li>
-    <li><a href="#timeline">일정</a></li>
-    <li><a href="#awards">시상</a></li>
-    <li><a href="#deans">대학상</a></li>
+    <li><a href="#topic"><span class="ko-text">주제</span><span class="en-text">Theme</span></a></li>
+    <li><a href="#eligibility"><span class="ko-text">지원자격</span><span class="en-text">Eligibility</span></a></li>
+    <li><a href="#submit"><span class="ko-text">접수</span><span class="en-text">Submit</span></a></li>
+    <li><a href="#timeline"><span class="ko-text">일정</span><span class="en-text">Schedule</span></a></li>
+    <li><a href="#awards"><span class="ko-text">시상</span><span class="en-text">Awards</span></a></li>
+    <li><a href="#deans"><span class="ko-text">대학상</span><span class="en-text">University</span></a></li>
+    <li><a href="#first-contest"><span class="ko-text">1회 공모전</span><span class="en-text">1st Contest</span></a></li>
   </ul>
-  <a href="#" data-open-modal="apply" class="nav-cta">접수하기 →</a>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btnKo" onclick="setLang('ko')">KO</button>
+    <button class="lang-btn" id="btnEn" onclick="setLang('en')">EN</button>
+  </div>
+  <a href="#" data-open-modal="apply" class="nav-cta"><span class="ko-text">접수하기 →</span><span class="en-text">Apply Now →</span></a>
 </nav>
 
 <section class="hero" id="hero">
   <div class="hero-bg-canvas bouncy-balloon bg-white-grad-1"></div>
   <div class="hero-overlay"></div>
   <div class="section-inner hero-content">
-    <div class="hero-label reveal">✨ 제2회 국제 AI 투닝 공모전 · 2026 ✨</div>
-    <h1 class="hero-title reveal delay-1">투닝 <span class="accent">국제 공모전</span></h1>
-    <h2 class="hero-kor-title reveal delay-2">대학과 함께하는 투닝 공모전</h2>
-    <p class="hero-desc reveal delay-2">AI와 함께 그리는 K-스토리, 대학에서 미래를 만나다.<br/>10개 대학과 함께하는 청소년 창작자들의 새로운 무대.</p>
+    <div class="hero-label reveal"><span class="ko-text">✨ 제2회 국제 AI 투닝 공모전 · 2026 ✨</span><span class="en-text">✨ 2nd International AI Tooning Contest · 2026 ✨</span></div>
+    <h1 class="hero-title reveal delay-1"><span class="ko-text">투닝 <span class="accent">국제 공모전</span></span><span class="en-text">Tooning <span class="accent">Int'l Contest</span></span></h1>
+    <h2 class="hero-kor-title reveal delay-2"><span class="ko-text">대학과 함께하는 투닝 공모전</span><span class="en-text">Tooning Contest with Universities</span></h2>
+    <p class="hero-desc reveal delay-2"><span class="ko-text">AI와 함께 그리는 K-스토리, 대학에서 미래를 만나다.<br/>14개 대학과 함께하는 청소년 창작자들의 새로운 무대.</span><span class="en-text">Drawing K-stories with AI, meeting the future at universities.<br/>A new stage for young creators with 14 partner universities.</span></p>
     <div class="hero-info-bar reveal delay-3">
-      <div class="info-item"><span class="info-emoji">📅</span><div class="info-text"><span class="info-label">접수 기간</span><span class="info-val">8월 — 10월</span></div></div>
-      <div class="info-item"><span class="info-emoji">🎓</span><div class="info-text"><span class="info-label">협력 대학</span><span class="info-val">10개 대학</span></div></div>
-      <div class="info-item"><span class="info-emoji">🏆</span><div class="info-text"><span class="info-label">총 시상</span><span class="info-val">1,004명 + 대학상</span></div></div>
-      <div class="info-item"><span class="info-emoji">📍</span><div class="info-text"><span class="info-label">자격</span><span class="info-val">19세 이하</span></div></div>
+      <div class="info-item"><span class="info-emoji">📅</span><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Entry Period</span></span><span class="info-val">8월 — 10월</span></div></div>
+      <div class="info-item"><span class="info-emoji">🎓</span><div class="info-text"><span class="info-label"><span class="ko-text">협력 대학</span><span class="en-text">Partner Univ.</span></span><span class="info-val"><span class="ko-text">14개 대학</span><span class="en-text">14 Univ.</span></span></div></div>
+      <div class="info-item"><span class="info-emoji">🏆</span><div class="info-text"><span class="info-label"><span class="ko-text">총 시상</span><span class="en-text">Total Awards</span></span><span class="info-val"><span class="ko-text">100명</span><span class="en-text">100 winners</span></span></div></div>
+      <div class="info-item"><span class="info-emoji">📍</span><div class="info-text"><span class="info-label"><span class="ko-text">자격</span><span class="en-text">Eligibility</span></span><span class="info-val"><span class="ko-text">국내·해외 초중고 학생</span><span class="en-text">K–12 students worldwide</span></span></div></div>
+      <div class="info-item"><span class="info-emoji">🎉</span><div class="info-text"><span class="info-label"><span class="ko-text">시상식</span><span class="en-text">Ceremony</span></span><span class="info-val"><span class="ko-text">11월</span><span class="en-text">November</span></span></div></div>
     </div>
-    <a href="#" data-open-modal="apply" class="hero-cta reveal delay-3">지금 참가하기 <span class="arrow">→</span></a>
+    <a href="#" data-open-modal="apply" class="hero-cta reveal delay-3"><span class="ko-text">지금 참가하기 <span class="arrow">→</span></span><span class="en-text">Apply Now <span class="arrow">→</span></span></a>
   </div>
 </section>
 
@@ -445,27 +560,17 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="section-tag">01 / 작품 주제</div>
     <div class="topic-header">
       <div class="section-label reveal">✨ MAIN THEME ✨</div>
-      <h2 class="topic-title-1 reveal delay-1">자유롭게 펼쳐요</h2>
-      <h2 class="topic-title-2 reveal delay-1">나만의 이야기 ✨</h2>
+      <h2 class="topic-title-1 reveal delay-1">아이들의 수업결과물은</h2>
+      <h2 class="topic-title-2 reveal delay-1">'작품'이 됩니다 ✨</h2>
       <p class="topic-sub reveal delay-2">두 가지 주제 중에서 자유롭게 선택해 작품을 만들어보세요.</p>
     </div>
     <div class="topic-grid">
-      <div class="topic-card simple reveal">
-        <div class="topic-card-tab" style="background:#ff6b6b">🎨</div>
-        <div class="topic-card-content">
-          <div class="topic-card-num">THEME 01</div>
-          <div class="topic-card-title">자율 창작 주제</div>
-          <div class="topic-card-desc">상상력을 마음껏 펼치세요. 장르·소재 모두 자유로운 창작.</div>
-        </div>
-      </div>
-      <div class="topic-card simple reveal delay-1">
-        <div class="topic-card-tab" style="background:#bba5ff">📚</div>
-        <div class="topic-card-content">
-          <div class="topic-card-num">THEME 02</div>
-          <div class="topic-card-title">교과목과 관련된 자유 주제</div>
-          <div class="topic-card-desc">국어·사회·과학·예술 등 학교 수업에서 영감을 받은 작품.</div>
-        </div>
-      </div>
+      <a class="topic-card image-card reveal" href="#apply">
+        <img src="./theme-free.jpg" alt="자율 창작 주제 - 상상력과 관심을 바탕으로, 나만의 주제를 자유롭게 탐구해요!" loading="lazy" />
+      </a>
+      <a class="topic-card image-card reveal delay-1" href="#apply">
+        <img src="./theme-subject.jpg" alt="교과목 주제 - 국어, 사회, 과학, 예술 등 교과와 연결된 주제로 배움을 더 깊고 넓게 확장해요!" loading="lazy" />
+      </a>
     </div>
   </div>
 </section>
@@ -509,60 +614,52 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     </div>
     <div class="specs-divisions">
       <div class="division-card reveal delay-1">
-        <div class="division-header">
-          <div class="division-emoji" style="background:#ff6b6b">🎨</div>
-          <div>
-            <div class="division-label" style="color:#ff6b6b">DIVISION 01</div>
-            <div class="division-title">만화 부문</div>
-          </div>
+        <img class="division-image" src="./spec-comic.jpg" alt="만화 부문" loading="lazy" />
+        <div class="division-body">
+          <div class="division-label" style="color:#ff6b6b">DIVISION 01</div>
+          <div class="division-title">만화 부문</div>
+          <ul class="division-list">
+            <li><span class="division-dot" style="background:#ff6b6b"></span><div><strong>10컷 이상</strong> (표지 포함)</div></li>
+            <li><span class="division-dot" style="background:#ff6b6b"></span><div>해상도 <strong>1080 × 1080 px</strong></div></li>
+            <li><span class="division-dot" style="background:#ff6b6b"></span><div><strong>3종 세트</strong> 제출 — 이미지 + 설명 + 에디터 링크</div></li>
+          </ul>
         </div>
-        <ul class="division-list">
-          <li><span class="division-dot" style="background:#ff6b6b"></span><div><strong>10컷 이상</strong> (표지 포함)</div></li>
-          <li><span class="division-dot" style="background:#ff6b6b"></span><div>해상도 <strong>1080 × 1080 px</strong></div></li>
-          <li><span class="division-dot" style="background:#ff6b6b"></span><div><strong>3종 세트</strong> 제출 — 이미지 + 설명 + 에디터 링크</div></li>
-        </ul>
       </div>
       <div class="division-card reveal delay-2">
-        <div class="division-header">
-          <div class="division-emoji" style="background:#bba5ff">📚</div>
-          <div>
-            <div class="division-label" style="color:#bba5ff">DIVISION 02</div>
-            <div class="division-title">소설 부문</div>
-          </div>
+        <img class="division-image" src="./spec-novel.jpg" alt="소설 부문" loading="lazy" />
+        <div class="division-body">
+          <div class="division-label" style="color:#bba5ff">DIVISION 02</div>
+          <div class="division-title">소설 부문</div>
+          <ul class="division-list">
+            <li><span class="division-dot" style="background:#bba5ff"></span><div>1화당 <strong>2,000자 이상</strong></div></li>
+            <li><span class="division-dot" style="background:#bba5ff"></span><div><strong>기획서</strong> 제출</div></li>
+            <li><span class="division-dot" style="background:#bba5ff"></span><div>소설 <strong>3화 분량</strong> 제출</div></li>
+          </ul>
         </div>
-        <ul class="division-list">
-          <li><span class="division-dot" style="background:#bba5ff"></span><div>1화당 <strong>2,000자 이상</strong></div></li>
-          <li><span class="division-dot" style="background:#bba5ff"></span><div><strong>기획서</strong> 제출</div></li>
-          <li><span class="division-dot" style="background:#bba5ff"></span><div>소설 <strong>3화 분량</strong> 제출</div></li>
-        </ul>
       </div>
       <div class="division-card reveal delay-2">
-        <div class="division-header">
-          <div class="division-emoji" style="background:#7bdcc3">📰</div>
-          <div>
-            <div class="division-label" style="color:#5ab39c">DIVISION 03</div>
-            <div class="division-title">카드뉴스 부문</div>
-          </div>
+        <img class="division-image" src="./spec-cardnews.jpg" alt="카드뉴스 부문" loading="lazy" />
+        <div class="division-body">
+          <div class="division-label" style="color:#5ab39c">DIVISION 03</div>
+          <div class="division-title">카드뉴스 부문</div>
+          <ul class="division-list">
+            <li><span class="division-dot" style="background:#7bdcc3"></span><div><strong>10컷 이상</strong> (표지 포함)</div></li>
+            <li><span class="division-dot" style="background:#7bdcc3"></span><div>정보 전달형 콘텐츠 — 이슈·교과·시사</div></li>
+            <li><span class="division-dot" style="background:#7bdcc3"></span><div>이미지 + 설명 + 에디터 링크 제출</div></li>
+          </ul>
         </div>
-        <ul class="division-list">
-          <li><span class="division-dot" style="background:#7bdcc3"></span><div><strong>10컷 이상</strong> (표지 포함)</div></li>
-          <li><span class="division-dot" style="background:#7bdcc3"></span><div>정보 전달형 콘텐츠 — 이슈·교과·시사</div></li>
-          <li><span class="division-dot" style="background:#7bdcc3"></span><div>이미지 + 설명 + 에디터 링크 제출</div></li>
-        </ul>
       </div>
       <div class="division-card reveal delay-3">
-        <div class="division-header">
-          <div class="division-emoji" style="background:#ffd54f">🖼️</div>
-          <div>
-            <div class="division-label" style="color:#d9a633">DIVISION 04</div>
-            <div class="division-title">포스터 부문</div>
-          </div>
+        <img class="division-image" src="./spec-poster.jpg" alt="포스터 부문" loading="lazy" />
+        <div class="division-body">
+          <div class="division-label" style="color:#d9a633">DIVISION 04</div>
+          <div class="division-title">포스터 부문</div>
+          <ul class="division-list">
+            <li><span class="division-dot" style="background:#ffd54f"></span><div><strong>1장</strong>의 포스터 이미지</div></li>
+            <li><span class="division-dot" style="background:#ffd54f"></span><div><strong>기획서 포함</strong> 필수</div></li>
+            <li><span class="division-dot" style="background:#ffd54f"></span><div>포스터 + 기획서 + 에디터 링크 제출</div></li>
+          </ul>
         </div>
-        <ul class="division-list">
-          <li><span class="division-dot" style="background:#ffd54f"></span><div><strong>1장</strong>의 포스터 이미지</div></li>
-          <li><span class="division-dot" style="background:#ffd54f"></span><div><strong>기획서 포함</strong> 필수</div></li>
-          <li><span class="division-dot" style="background:#ffd54f"></span><div>포스터 + 기획서 + 에디터 링크 제출</div></li>
-        </ul>
       </div>
     </div>
   </div>
@@ -590,61 +687,27 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="section-tag">05 / 가산점</div>
     <div class="bonus-header">
       <div class="section-label reveal">✨ EXTRA POINTS ✨</div>
-      <h2 class="bonus-title reveal delay-1">더 많이 받을 수 있어요!</h2>
+      <h2 class="bonus-title reveal delay-1"><span class="ko-text">SNS에 업로드하고 가산점 받으세요!</span><span class="en-text">Upload to SNS &amp; Get Bonus Points!</span></h2>
+      <p class="bonus-sub reveal delay-2"><span class="ko-text">SNS 공개 계정에 공유하면 심사에서 가산점이 적용됩니다.</span><span class="en-text">Share on your public SNS account for bonus points in judging.</span></p>
     </div>
-    <div class="bonus-single">
-      <div class="bonus-card-large reveal">
-        <div class="bonus-large-header">
-          <div class="bonus-plus" style="background:#ff6b6b">+</div>
-          <div>
-            <div class="bonus-label" style="color:#ff6b6b">SNS PROMOTION</div>
-            <div class="bonus-card-title">📱 SNS 홍보로 가산점 받기</div>
-          </div>
-        </div>
-        <p class="bonus-card-desc">개인 SNS에 작품 또는 공모전 홍보 게시물을 올려주세요. 게시물 링크를 제출란에 함께 입력하시면 가산점이 부여됩니다.</p>
 
-        <div class="bonus-steps">
-          <div class="bonus-step">
-            <div class="bonus-step-num">1</div>
-            <div class="bonus-step-body">
-              <div class="bonus-step-title">SNS에 게시물 업로드</div>
-              <div class="bonus-step-desc">완성한 작품 이미지 또는 공모전 홍보 콘텐츠를 자신의 SNS 계정에 공개로 게시</div>
-            </div>
-          </div>
-          <div class="bonus-step">
-            <div class="bonus-step-num">2</div>
-            <div class="bonus-step-body">
-              <div class="bonus-step-title">필수 해시태그 포함</div>
-              <div class="bonus-step-desc">아래 4개의 해시태그를 모두 게시물에 포함시켜주세요</div>
-              <div class="bonus-tags">
-                <span class="bonus-tag">#투닝</span>
-                <span class="bonus-tag">#투닝국제공모전</span>
-                <span class="bonus-tag">#웹툰</span>
-                <span class="bonus-tag">#대학과함께</span>
-              </div>
-            </div>
-          </div>
-          <div class="bonus-step">
-            <div class="bonus-step-num">3</div>
-            <div class="bonus-step-body">
-              <div class="bonus-step-title">게시물 링크를 제출란에 입력</div>
-              <div class="bonus-step-desc">접수 시 마지막 단계의 <strong>"SNS 홍보 링크"</strong> 입력란에 게시물 URL을 붙여넣어 주세요. 입력하지 않으면 가산점이 적용되지 않아요.</div>
-            </div>
-          </div>
-        </div>
+    <img class="bonus-pluspoint reveal delay-1" src="./images/contest-pluspoint.png" alt="가산점 안내" loading="lazy" />
 
-        <div class="bonus-platforms">
-          <div class="bonus-platforms-label">지원 플랫폼</div>
-          <div class="bonus-platform-list">
-            <span class="bonus-platform">📷 인스타그램</span>
-            <span class="bonus-platform">🐦 X (트위터)</span>
-            <span class="bonus-platform">📘 페이스북</span>
-            <span class="bonus-platform">🎬 유튜브 쇼츠</span>
-            <span class="bonus-platform">🎵 틱톡</span>
-          </div>
-        </div>
-
-        <div class="bonus-pill">💡 공개 계정에 올린 게시물만 인정되며, 비공개 게시물은 가산점 대상에서 제외됩니다</div>
+    <div class="bonus-steps-simple">
+      <div class="bonus-step-simple reveal">
+        <div class="bonus-step-num-simple" style="background:#ff6b6b">1</div>
+        <div class="bonus-step-title-simple"><span class="ko-text">게시물 작성</span><span class="en-text">Create a Post</span></div>
+        <div class="bonus-step-desc-simple"><span class="ko-text">작품 이미지 또는 공모전 홍보 콘텐츠를 준비해주세요.</span><span class="en-text">Prepare your artwork or contest promotion content.</span></div>
+      </div>
+      <div class="bonus-step-simple reveal delay-1">
+        <div class="bonus-step-num-simple" style="background:#bba5ff">2</div>
+        <div class="bonus-step-title-simple"><span class="ko-text">SNS 해시태그 공유</span><span class="en-text">Share with Hashtags</span></div>
+        <div class="bonus-step-desc-simple"><span class="ko-text">공개 계정에 게시하고 해시태그를 붙여주세요.</span><span class="en-text">Post on a public account with hashtags.</span><br/><span class="bonus-tags-inline">#투닝공모전 #웹툰 #가산점GET</span></div>
+      </div>
+      <div class="bonus-step-simple reveal delay-2">
+        <div class="bonus-step-num-simple" style="background:#7bdcc3">3</div>
+        <div class="bonus-step-title-simple"><span class="ko-text">접수 시 링크 입력</span><span class="en-text">Submit the Link</span></div>
+        <div class="bonus-step-desc-simple"><span class="ko-text">접수란의 <strong>SNS 홍보 링크</strong>에 URL 입력 → 가산점 적용!</span><span class="en-text">Paste your URL in the <strong>SNS Link</strong> field → bonus points applied!</span></div>
       </div>
     </div>
   </div>
@@ -655,43 +718,31 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="section-tag">06 / 주요 일정</div>
     <div class="timeline-header">
       <div class="section-label reveal">📅 SCHEDULE</div>
-      <h2 class="timeline-title-1 reveal delay-1">중요한 네 번의</h2>
-      <h2 class="timeline-title-2 reveal delay-1">순간이 있어요!</h2>
+      <h2 class="timeline-title-1 reveal delay-1"><span class="ko-text">중요한 네 번의</span><span class="en-text">Four Key</span></h2>
+      <h2 class="timeline-title-2 reveal delay-1"><span class="ko-text">순간이 있어요!</span><span class="en-text">Milestones!</span></h2>
     </div>
-    <div class="timeline-track-wrap">
-      <div class="timeline-track-line"></div>
-      <div class="timeline-events four-events">
-        <div class="timeline-event reveal">
-          <div class="timeline-card">
-            <div class="timeline-emoji">📝</div>
-            <div class="timeline-date" style="color:#ff6b6b">8월 — 10월</div>
-            <div class="timeline-name">작품 접수</div>
-          </div>
-          <div class="timeline-dot" style="background:radial-gradient(circle at 30% 30%, #ff8c8c, #d94040)"></div>
+    <div class="timeline-bar-wrap reveal delay-2">
+      <div class="timeline-bar">
+        <div class="timeline-bar-line"></div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:#ff6b6b"></div>
+          <div class="tl-month" style="color:#ff6b6b"><span class="ko-text">8 — 10월</span><span class="en-text">Aug — Oct</span></div>
+          <div class="tl-label"><span class="ko-text">📝 작품 접수</span><span class="en-text">📝 Entry Period</span></div>
         </div>
-        <div class="timeline-event reveal delay-1">
-          <div class="timeline-dot" style="background:radial-gradient(circle at 30% 30%, #ffeb94, #d9a633)"></div>
-          <div class="timeline-card">
-            <div class="timeline-emoji">🔍</div>
-            <div class="timeline-date" style="color:#d9a633">10월 1일 — 9일</div>
-            <div class="timeline-name">심사 기간</div>
-          </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:#d9a633"></div>
+          <div class="tl-month" style="color:#d9a633"><span class="ko-text">10월 초</span><span class="en-text">Early Oct</span></div>
+          <div class="tl-label"><span class="ko-text">🔍 심사 기간</span><span class="en-text">🔍 Judging</span></div>
         </div>
-        <div class="timeline-event reveal delay-2">
-          <div class="timeline-card">
-            <div class="timeline-emoji">🎉</div>
-            <div class="timeline-date" style="color:#bba5ff">10월 10일</div>
-            <div class="timeline-name">결과 발표</div>
-          </div>
-          <div class="timeline-dot" style="background:radial-gradient(circle at 30% 30%, #d4c4ff, #8a73d4)"></div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:#bba5ff"></div>
+          <div class="tl-month" style="color:#bba5ff"><span class="ko-text">10월 10일</span><span class="en-text">Oct 10</span></div>
+          <div class="tl-label"><span class="ko-text">🎉 결과 발표</span><span class="en-text">🎉 Results</span></div>
         </div>
-        <div class="timeline-event special reveal delay-3">
-          <div class="timeline-dot" style="background:radial-gradient(circle at 30% 30%, #82c2e8, #4080b0)"></div>
-          <div class="timeline-card">
-            <div class="timeline-emoji">🏛</div>
-            <div class="timeline-date" style="color:#5ba2dc">11월 ~</div>
-            <div class="timeline-name">🎉 시상식 및 마무리</div>
-          </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:#5ba2dc"></div>
+          <div class="tl-month" style="color:#5ba2dc"><span class="ko-text">11월</span><span class="en-text">November</span></div>
+          <div class="tl-label"><span class="ko-text">🏛 시상식</span><span class="en-text">🏛 Ceremony</span></div>
         </div>
       </div>
     </div>
@@ -703,21 +754,21 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="section-tag">07 / 시상 안내</div>
     <div class="awards-header">
       <div class="section-label reveal">🏆 AWARDS — 6가지 시상 부문</div>
-      <h2 class="awards-title-1 reveal delay-1">1,004명 모두에게</h2>
+      <h2 class="awards-title-1 reveal delay-1">100명 모두에게</h2>
       <h2 class="awards-title-2 reveal delay-1">디지털 상장 🎖️</h2>
       <p class="awards-desc-large reveal delay-2">
-        총 <strong>1,004명</strong>에게 공식 디지털 상장이 수여되며, 이 중 <strong>10명</strong>은 대학상으로 별도 수여됩니다.<br/>
+        총 <strong>100명</strong>에게 공식 디지털 상장이 수여됩니다.<br/>
         ※ 본 규모는 대규모로 진행되어 <strong>실물 상장은 발급하지 않습니다</strong>. 모든 상장은 위·변조 방지가 적용된 디지털 형식입니다.
       </p>
     </div>
 
     <div class="awards-pyramid">
 
-      <!-- TIER 1 — 대상 (가로 풀폭, 가장 영광) -->
+      <!-- TIER 1 — 교육감상 (가로 풀폭, 가장 영광) -->
       <div class="tier-row tier-1">
         <div class="tier-label-row">
           <span class="tier-badge tier-1-badge">TIER 1</span>
-          <span class="tier-caption">최고 영광 — 가장 영예로운 자리</span>
+          <span class="tier-caption"><span class="ko-text">최고 영광 — 가장 영예로운 자리</span><span class="en-text">Top Honor — The most prestigious award</span></span>
         </div>
         <div class="award-grand reveal">
           <div class="grand-bg-deco"></div>
@@ -726,14 +777,14 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
               <div class="grand-ball">👑</div>
               <div class="grand-meta">
                 <div class="award-label" style="color:#ff6b6b">GRAND PRIZE</div>
-                <div class="grand-name">대상</div>
-                <div class="award-count-pill grand-pill">3명</div>
+                <div class="grand-name"><span class="ko-text">교육감상</span><span class="en-text">Superintendent Award</span></div>
+                <div class="award-count-pill grand-pill"><span class="ko-text">3명</span><span class="en-text">3 winners</span></div>
               </div>
             </div>
             <div class="grand-prize-list">
-              <div class="grand-prize-line"><span class="grand-prize-emoji">🏅</span> <span>대표이사상</span></div>
-              <div class="grand-prize-line"><span class="grand-prize-emoji">📱</span> <span>아이패드 Wi-Fi 256GB</span></div>
-              <div class="grand-prize-line"><span class="grand-prize-emoji">📜</span> <span>디지털 상장</span></div>
+              <div class="grand-prize-line"><span class="grand-prize-emoji">🏅</span> <span><span class="ko-text">충남교육감상</span><span class="en-text">Chungnam Supt. of Education Award</span></span></div>
+              <div class="grand-prize-line"><span class="grand-prize-emoji">📱</span> <span>iPad Wi-Fi 256GB</span></div>
+              <div class="grand-prize-line"><span class="grand-prize-emoji">📜</span> <span><span class="ko-text">디지털 상장</span><span class="en-text">Digital Certificate</span></span></div>
             </div>
           </div>
         </div>
@@ -752,7 +803,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <div class="award-label" style="color:#5ba2dc">UNIVERSITY AWARD</div>
             <div class="award-name">대학상</div>
             <div class="award-count-pill" style="background:#5ba2dc;color:#fff">10명</div>
-            <p class="award-prize">📜 10개 대학 명의 공식 상장<br/>+ 학과장 직접 심사<br/><a href="#deans" class="award-link">자세히 보기 →</a></p>
+            <p class="award-prize">📜 <span class="ko-text">14개 대학 명의 공식 상장<br/>+ 대학 직접 심사<br/></span><span class="en-text">Official certificate from 14 universities<br/>+ Direct university judging<br/></span><a href="#deans" class="award-link"><span class="ko-text">자세히 보기 →</span><span class="en-text">Learn more →</span></a></p>
           </div>
           <!-- 최우수상 -->
           <div class="award-square reveal delay-1">
@@ -760,7 +811,51 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <div class="award-label" style="color:#bba5ff">EXCELLENCE</div>
             <div class="award-name">최우수상</div>
             <div class="award-count-pill" style="background:#bba5ff">6명</div>
-            <p class="award-prize">🥈 갤럭시 탭 또는 Galaxy Buds<br/>+ 디지털 상장</p>
+            <p class="award-prize">🏅 대표이사상<br/>+ 갤럭시 탭 또는 Galaxy Buds<br/>+ 디지털 상장</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER SPECIAL — 작가상 -->
+      <div class="tier-row" style="margin-top:32px">
+        <div class="tier-label-row">
+          <span class="tier-badge tier-special-badge">✨ SPECIAL</span>
+          <span class="tier-caption"><span class="ko-text">특별상 — 웹툰 거장 작가님의 직접 시상</span><span class="en-text">Special Award — Presented by legendary webtoon authors</span></span>
+        </div>
+        <div class="author-awards-grid" style="margin-top:20px">
+          <div class="author-award-card reveal">
+            <div class="author-left">
+              <div class="author-profile-circle">
+                <img src="./images/author-wonsooyeon.jpg" alt="원수연 작가" />
+              </div>
+              <div class="author-work-thumb">
+                <img src="./images/work-fullhouse.jpg" alt="풀하우스" />
+              </div>
+            </div>
+            <div class="author-info">
+              <div class="author-badge">AUTHOR AWARD 01</div>
+              <div class="author-name"><span class="ko-text">원수연 작가</span><span class="en-text">Author Won Soo-yeon</span></div>
+              <div class="author-work-title"><span class="ko-text">대표작: 풀하우스</span><span class="en-text">Known for: Full House</span></div>
+              <div class="author-desc"><span class="ko-text">수십 년간 한국 만화·웹툰계를 이끌어온 원수연 작가님이 직접 선정하고 시상합니다.</span><span class="en-text">Won Soo-yeon, a leading figure in Korean comics and webtoons for decades, personally selects and presents this award.</span></div>
+              <div class="author-award-pill">🏆 <span class="ko-text">작가 직접 시상</span><span class="en-text">Personally awarded</span></div>
+            </div>
+          </div>
+          <div class="author-award-card reveal delay-1">
+            <div class="author-left">
+              <div class="author-profile-circle">
+                <img src="./images/author-huhyoungman.jpg" alt="허영만 작가" />
+              </div>
+              <div class="author-work-thumb">
+                <img src="./images/work-sikhae.jpg" alt="식객" />
+              </div>
+            </div>
+            <div class="author-info">
+              <div class="author-badge">AUTHOR AWARD 02</div>
+              <div class="author-name"><span class="ko-text">허영만 작가</span><span class="en-text">Author Huh Young-man</span></div>
+              <div class="author-work-title"><span class="ko-text">대표작: 식객</span><span class="en-text">Known for: Sikhae (Food Story)</span></div>
+              <div class="author-desc"><span class="ko-text">한국 만화의 전설 허영만 작가님이 직접 선정하고 시상하는 영예로운 특별상입니다.</span><span class="en-text">A prestigious special award personally selected and presented by Huh Young-man, a legend of Korean comics.</span></div>
+              <div class="author-award-pill">🏆 <span class="ko-text">작가 직접 시상</span><span class="en-text">Personally awarded</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -769,16 +864,16 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <div class="tier-row tier-3">
         <div class="tier-label-row">
           <span class="tier-badge tier-3-badge">TIER 3</span>
-          <span class="tier-caption">함께 빛나는 모두 — 995명에게 선물이 갑니다</span>
+          <span class="tier-caption">함께 빛나는 모두 — 81명에게 선물이 갑니다</span>
         </div>
         <div class="tier-3-grid">
-          <!-- 우수상 -->
+          <!-- 대학상 (was 우수상) -->
           <div class="award-mini reveal">
             <div class="award-mini-ball" style="background:radial-gradient(circle at 30% 30%, #ffeb94, #d9a633)">🥉</div>
             <div class="award-mini-meta">
-              <div class="award-label" style="color:#d9a633">MERIT</div>
-              <div class="award-mini-name">우수상</div>
-              <div class="award-count-pill" style="background:#ffd54f">90명</div>
+              <div class="award-label" style="color:#d9a633">UNIVERSITY</div>
+              <div class="award-mini-name">대학상</div>
+              <div class="award-count-pill" style="background:#ffd54f">30명</div>
               <p class="award-mini-prize">🥉 문화상품권 5만원 · 디지털 상장</p>
             </div>
           </div>
@@ -788,7 +883,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <div class="award-mini-meta">
               <div class="award-label" style="color:#5ab39c">PARTICIPATION</div>
               <div class="award-mini-name">장려상</div>
-              <div class="award-count-pill" style="background:#7bdcc3">900명</div>
+              <div class="award-count-pill" style="background:#7bdcc3">46명</div>
               <p class="award-mini-prize">🎀 문화상품권 1만원 · 디지털 상장</p>
             </div>
           </div>
@@ -811,33 +906,35 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 
 <section class="lifetime" id="lifetime">
   <div class="section-inner">
-    <div class="section-tag">08 / 왜 대학과 함께?</div>
+    <div class="section-tag">08 / 대학과 함께</div>
     <div class="lifetime-header">
       <div class="section-label reveal">💞 WHY UNIVERSITIES?</div>
-      <h2 class="lifetime-title-1 reveal delay-1">왜 대학과</h2>
-      <h2 class="lifetime-title-2 reveal delay-1">함께할까?</h2>
-      <p class="lifetime-sub reveal delay-2">투닝을 배운 학생들은 자연스럽게 대학에서 투닝 플러스를 만나요.<br/>같은 DNA, 다른 무대 — 한 번의 학습이 평생을 따라갑니다.</p>
+      <h2 class="lifetime-main-title reveal delay-1"><strong>14개 대학</strong>도<br/><strong>투닝 플러스</strong>를 사용합니다.</h2>
     </div>
     <div class="lifetime-bridge">
       <div class="lifetime-card reveal delay-1">
-        <div class="lifetime-card-ball gold"></div>
-        <div class="lifetime-stage">STAGE 01 — 청소년</div>
+        <img class="lifetime-card-image" src="./tooning.jpg" alt="Tooning 제품 화면" loading="lazy" />
+        <div class="lifetime-card-body">
+          <div class="lifetime-stage">STAGE 01 — 청소년</div>
         <div class="lifetime-name">Tooning</div>
         <div class="lifetime-ko">투닝</div>
         <div class="lifetime-tag">AI 창작의 첫 걸음을 떼다</div>
         <ul class="lifetime-features"><li>✓ 웹툰·웹소설 AI 저작 도구</li><li>✓ 직관적 인터페이스</li><li>✓ K-12 교육 활용</li></ul>
+        </div>
       </div>
       <div class="lifetime-arrow reveal delay-2">
         <div class="lifetime-arrow-circle">→</div>
         <div class="lifetime-arrow-label">평생 동반자</div>
       </div>
       <div class="lifetime-card dark reveal delay-3">
-        <div class="lifetime-card-ball coral"></div>
-        <div class="lifetime-stage" style="color:#ffafbd">STAGE 02 — 대학 / 전공자</div>
+        <img class="lifetime-card-image" src="./tooning-plus.jpg" alt="Tooning Plus 제품 화면" loading="lazy" />
+        <div class="lifetime-card-body">
+          <div class="lifetime-stage" style="color:#ffafbd">STAGE 02 — 대학 / 전공자</div>
         <div class="lifetime-name">Tooning Plus</div>
         <div class="lifetime-ko">투닝 플러스</div>
         <div class="lifetime-tag">전문가의 손에서 깊어지다</div>
         <ul class="lifetime-features"><li>✓ 대학 수업용 AI 창작 도구</li><li>✓ AI 창작 특화 전문가 기능</li><li>✓ 투닝과 동일한 사용성</li></ul>
+        </div>
       </div>
     </div>
     <div class="lifetime-manifesto reveal">"AI 투닝과 투닝 플러스로<br/>전체적인 Life 창작을 지원합니다 💫"</div>
@@ -849,29 +946,55 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="section-tag">09 / 대학상</div>
     <div class="deans-header">
       <div class="section-label reveal">🎓 OFFICIAL UNIVERSITY CERTIFICATES 🎓</div>
-      <div class="deans-num reveal delay-1">10개 대학</div>
-      <h2 class="deans-title reveal delay-1">명의의 상장,<br/>학과장이 직접 심사합니다</h2>
+      <div class="deans-num reveal delay-1">14개 대학</div>
+      <h2 class="deans-title reveal delay-1">명의의 상장,<br/>대학이 직접 심사합니다</h2>
       <p class="deans-desc reveal delay-2">
         본 공모전의 가장 큰 차별점은 <strong>대학 명의의 공식 상장</strong>입니다.<br/>
-        10개 협력 대학의 학과장이 직접 심사하고 시상하며,<br/>
-        학과장 직인이 들어간 <strong>대학 명의의 공식 상장</strong>이 발급됩니다.
+        14개 협력 대학이 직접 심사하고 시상하며,<br/>
+        대학 직인이 들어간 <strong>대학 명의의 공식 상장</strong>이 발급됩니다.
       </p>
       <div class="deans-strategy-pills reveal delay-3">
         <span class="strategy-pill">📜 대학 직인 공식 상장</span>
-        <span class="strategy-pill">🏛️ 학과장 직접 심사</span>
+        <span class="strategy-pill">🏛️ 대학 직접 심사</span>
       </div>
     </div>
     <div class="deans-grid">
-      <div class="uni-card reveal"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ff8c8c, #d94040)">🎓</div><div class="uni-num" style="color:#ff6b6b">#01</div><div class="uni-name">세종대학교</div><div class="uni-en">Sejong Univ.</div><div class="uni-award" style="color:#ff6b6b">대학상 ✨</div></div>
+      <div class="uni-card reveal"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #82c2e8, #4080b0)">🎓</div><div class="uni-num" style="color:#5ba2dc">#01</div><div class="uni-name">서울대학교</div><div class="uni-en">Seoul Nat'l Univ.</div><div class="uni-award" style="color:#5ba2dc">대학상 ✨</div></div>
       <div class="uni-card reveal delay-1"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ffeb94, #d9a633)">🎓</div><div class="uni-num" style="color:#d9a633">#02</div><div class="uni-name">홍익대학교</div><div class="uni-en">Hongik Univ.</div><div class="uni-award" style="color:#d9a633">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #d4c4ff, #8a73d4)">🎓</div><div class="uni-num" style="color:#bba5ff">#03</div><div class="uni-name">배재대학교</div><div class="uni-en">Pai Chai Univ.</div><div class="uni-award" style="color:#bba5ff">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-3"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #a3eed7, #5ab39c)">🎓</div><div class="uni-num" style="color:#5ab39c">#04</div><div class="uni-name">청강문화산업대</div><div class="uni-en">Chungkang Univ.</div><div class="uni-award" style="color:#5ab39c">대학상 ✨</div></div>
-      <div class="uni-card reveal"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ffc8d3, #d97a8e)">🎓</div><div class="uni-num" style="color:#ffafbd">#05</div><div class="uni-name">한양여자대학교</div><div class="uni-en">Hanyang W. Univ.</div><div class="uni-award" style="color:#ffafbd">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #82c2e8, #4080b0)">🎓</div><div class="uni-num" style="color:#5ba2dc">#06</div><div class="uni-name">공주대학교</div><div class="uni-en">Kongju Univ.</div><div class="uni-award" style="color:#5ba2dc">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ff8c8c, #d94040)">🎓</div><div class="uni-num" style="color:#ff6b6b">#07</div><div class="uni-name">중앙대학교</div><div class="uni-en">Chung-Ang Univ.</div><div class="uni-award" style="color:#ff6b6b">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-3"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #d4c4ff, #8a73d4)">🎓</div><div class="uni-num" style="color:#bba5ff">#08</div><div class="uni-name">부천대학교</div><div class="uni-en">Bucheon Univ.</div><div class="uni-award" style="color:#bba5ff">대학상 ✨</div></div>
-      <div class="uni-card reveal"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ffeb94, #d9a633)">🎓</div><div class="uni-num" style="color:#d9a633">#09</div><div class="uni-name">정화예술대학</div><div class="uni-en">Jeonghwa Univ.</div><div class="uni-award" style="color:#d9a633">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #a3eed7, #5ab39c)">🎓</div><div class="uni-num" style="color:#5ab39c">#10</div><div class="uni-name">연성대학교</div><div class="uni-en">Yeonsung Univ.</div><div class="uni-award" style="color:#5ab39c">대학상 ✨</div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ff8c8c, #d94040)">🎓</div><div class="uni-num" style="color:#ff6b6b">#03</div><div class="uni-name">국민대학교</div><div class="uni-en">Kookmin Univ.</div><div class="uni-award" style="color:#ff6b6b">대학상 ✨</div></div>
+      <div class="uni-card reveal delay-3"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #d4c4ff, #8a73d4)">🎓</div><div class="uni-num" style="color:#bba5ff">#04</div><div class="uni-name">세종대학교</div><div class="uni-en">Sejong Univ.</div><div class="uni-award" style="color:#bba5ff">대학상 ✨</div></div>
+      <div class="uni-card reveal"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #a3eed7, #5ab39c)">🎓</div><div class="uni-num" style="color:#5ab39c">#05</div><div class="uni-name">배재대학교</div><div class="uni-en">Pai Chai Univ.</div><div class="uni-award" style="color:#5ab39c">대학상 ✨</div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ffc8d3, #d97a8e)">🎓</div><div class="uni-num" style="color:#ffafbd">#06</div><div class="uni-name">청강문화산업대</div><div class="uni-en">Chungkang Univ.</div><div class="uni-award" style="color:#ffafbd">대학상 ✨</div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #82c2e8, #4080b0)">🎓</div><div class="uni-num" style="color:#5ba2dc">#07</div><div class="uni-name">한양여자대학교</div><div class="uni-en">Hanyang W. Univ.</div><div class="uni-award" style="color:#5ba2dc">대학상 ✨</div></div>
+      <div class="uni-card reveal delay-3"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ffeb94, #d9a633)">🎓</div><div class="uni-num" style="color:#d9a633">#08</div><div class="uni-name">공주대학교</div><div class="uni-en">Kongju Univ.</div><div class="uni-award" style="color:#d9a633">대학상 ✨</div></div>
+      <div class="uni-card reveal"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ff8c8c, #d94040)">🎓</div><div class="uni-num" style="color:#ff6b6b">#09</div><div class="uni-name">중앙대학교</div><div class="uni-en">Chung-Ang Univ.</div><div class="uni-award" style="color:#ff6b6b">대학상 ✨</div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #d4c4ff, #8a73d4)">🎓</div><div class="uni-num" style="color:#bba5ff">#10</div><div class="uni-name">부천대학교</div><div class="uni-en">Bucheon Univ.</div><div class="uni-award" style="color:#bba5ff">대학상 ✨</div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #a3eed7, #5ab39c)">🎓</div><div class="uni-num" style="color:#5ab39c">#11</div><div class="uni-name">정화예술대학</div><div class="uni-en">Jeonghwa Univ.</div><div class="uni-award" style="color:#5ab39c">대학상 ✨</div></div>
+      <div class="uni-card reveal delay-3"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ffc8d3, #d97a8e)">🎓</div><div class="uni-num" style="color:#ffafbd">#12</div><div class="uni-name">연성대학교</div><div class="uni-en">Yeonsung Univ.</div><div class="uni-award" style="color:#ffafbd">대학상 ✨</div></div>
+      <div class="uni-card reveal"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ffeb94, #d9a633)">🎓</div><div class="uni-num" style="color:#d9a633">#13</div><div class="uni-name">성결대학교</div><div class="uni-en">Sungkyul Univ.</div><div class="uni-award" style="color:#d9a633">대학상 ✨</div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-blob" style="background:radial-gradient(circle at 30% 30%, #ffc8d3, #d97a8e)">🎓</div><div class="uni-num" style="color:#ffafbd">#14</div><div class="uni-name">숭의여자대학교</div><div class="uni-en">Soongeui Women's Univ.</div><div class="uni-award" style="color:#ffafbd">대학상 ✨</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="first-contest" id="first-contest">
+  <div class="section-inner" style="text-align:center">
+    <div class="first-contest-badge reveal"><span class="ko-text">제1회 · 2025</span><span class="en-text">1st Contest · 2025</span></div>
+    <h2 class="first-contest-title reveal delay-1"><span class="ko-text">이렇게 <span class="accent">진행했어요!</span></span><span class="en-text">Here's <span class="accent">how it went!</span></span></h2>
+    <p class="first-contest-sub reveal delay-2"><span class="ko-text">2025년, 제1회 국제 AI 투닝 공모전의 열기를 함께 돌아봅니다.<br/>수많은 학생들이 AI 창작의 첫 발을 내딛었습니다.</span><span class="en-text">Looking back on the 1st International AI Tooning Contest of 2025.<br/>Countless students took their first steps in AI creative work.</span></p>
+    <div class="fcs-stats reveal delay-2">
+      <div class="fcs-item"><div class="fcs-num">500+</div><div class="fcs-label"><span class="ko-text">참가 작품</span><span class="en-text">Entries</span></div></div>
+      <div class="fcs-item"><div class="fcs-num">10</div><div class="fcs-label"><span class="ko-text">협력 대학</span><span class="en-text">Univ. Partners</span></div></div>
+      <div class="fcs-item"><div class="fcs-num">100</div><div class="fcs-label"><span class="ko-text">수상자</span><span class="en-text">Winners</span></div></div>
+      <div class="fcs-item"><div class="fcs-num">2025</div><div class="fcs-label"><span class="ko-text">개최 연도</span><span class="en-text">Year</span></div></div>
+    </div>
+    <div class="fcs-gallery reveal delay-3">
+      <div class="fcs-gallery-item" data-lb-src="./images/contest1-01.jpg"><img src="./images/contest1-01.jpg" alt="제1회 공모전 현장 1" loading="lazy"/><div class="fcs-zoom-icon">🔍</div></div>
+      <div class="fcs-gallery-item" data-lb-src="./images/contest1-02.jpg"><img src="./images/contest1-02.jpg" alt="제1회 공모전 현장 2" loading="lazy"/><div class="fcs-zoom-icon">🔍</div></div>
+      <div class="fcs-gallery-item" data-lb-src="./images/contest1-03.jpg"><img src="./images/contest1-03.jpg" alt="제1회 공모전 현장 3" loading="lazy"/><div class="fcs-zoom-icon">🔍</div></div>
+      <div class="fcs-gallery-item" data-lb-src="./images/contest1-04.jpg"><img src="./images/contest1-04.jpg" alt="제1회 공모전 현장 4" loading="lazy"/><div class="fcs-zoom-icon">🔍</div></div>
+      <div class="fcs-gallery-item" data-lb-src="./images/contest1-05.jpg"><img src="./images/contest1-05.jpg" alt="제1회 공모전 현장 5" loading="lazy"/><div class="fcs-zoom-icon">🔍</div></div>
+      <div class="fcs-gallery-item" data-lb-src="./images/contest1-06.jpg"><img src="./images/contest1-06.jpg" alt="제1회 공모전 현장 6" loading="lazy"/><div class="fcs-zoom-icon">🔍</div></div>
     </div>
   </div>
 </section>
@@ -881,10 +1004,21 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="cta-label reveal">✨ NOW IS THE TIME ✨</div>
     <h2 class="cta-t1 reveal delay-1">지금 바로</h2>
     <h2 class="cta-t2 reveal delay-1">참가하기!</h2>
-    <p class="cta-sub reveal delay-2">당신의 한 컷이 10개 대학으로 향하는<br/>첫 걸음이 됩니다 🚀</p>
+    <p class="cta-sub reveal delay-2"><span class="ko-text">당신의 한 컷이 14개 대학으로 향하는<br/>첫 걸음이 됩니다 🚀</span><span class="en-text">Your single frame is the first step toward 14 universities 🚀</span></p>
     <a href="#" data-open-modal="apply" class="cta-button reveal delay-3">접수 시작하기 <span>→</span></a>
   </div>
 </section>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox-overlay" id="lightbox">
+  <div class="lightbox-img-wrap">
+    <img class="lightbox-img" id="lbImg" src="" alt="" />
+  </div>
+  <button class="lightbox-close" id="lbClose">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev">‹</button>
+  <button class="lightbox-nav lightbox-next" id="lbNext">›</button>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
 
 <!-- ============ APPLY MODAL ============ -->
 <div class="apply-modal" id="applyModal" aria-hidden="true">
@@ -1110,7 +1244,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       </div>
       <div class="footer-col">
         <h6>PARTNERS</h6>
-        <a href="#deans">10개 협력 대학</a>
+        <a href="#deans">14개 협력 대학</a>
         <a href="#lifetime">투닝 플러스</a>
       </div>
       <div class="footer-col">
@@ -1606,6 +1740,70 @@ if (document.readyState === "loading") {
   // Init
   updateConditionalFields();
   updateContactFields();
+})();
+</script>
+
+<script>
+// ============ LANGUAGE TOGGLE ============
+function setLang(lang) {
+  document.body.setAttribute('lang-mode', lang);
+  document.getElementById('btnKo').classList.toggle('active', lang === 'ko');
+  document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+  localStorage.setItem('tooning-lang', lang);
+}
+(function() {
+  var saved = localStorage.getItem('tooning-lang') || 'ko';
+  setLang(saved);
+})();
+
+// ============ LIGHTBOX ============
+(function() {
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  var lbClose = document.getElementById('lbClose');
+  var lbPrev = document.getElementById('lbPrev');
+  var lbNext = document.getElementById('lbNext');
+  var lbCounter = document.getElementById('lbCounter');
+  var items = [];
+  var cur = 0;
+
+  function openLb(idx) {
+    cur = idx;
+    lbImg.src = items[cur];
+    lbImg.alt = 'photo ' + (cur + 1);
+    lbCounter.textContent = (cur + 1) + ' / ' + items.length;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+  function navigate(dir) {
+    cur = (cur + dir + items.length) % items.length;
+    lbImg.style.animation = 'none';
+    lbImg.offsetHeight;
+    lbImg.style.animation = '';
+    lbImg.src = items[cur];
+    lbCounter.textContent = (cur + 1) + ' / ' + items.length;
+  }
+
+  document.querySelectorAll('.fcs-gallery-item').forEach(function(el, i) {
+    items.push(el.getAttribute('data-lb-src'));
+    el.addEventListener('click', function() { openLb(i); });
+  });
+
+  lbClose.addEventListener('click', closeLb);
+  lbPrev.addEventListener('click', function() { navigate(-1); });
+  lbNext.addEventListener('click', function() { navigate(1); });
+  lb.addEventListener('click', function(e) { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', function(e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  });
 })();
 </script>
 </body>
