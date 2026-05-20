@@ -286,7 +286,7 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-goto{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:24px;padding:20px 28px;background:var(--coral);color:#fff;border-radius:16px;font-weight:700;font-size:14px;letter-spacing:.03em;transition:transform .2s,box-shadow .2s;text-decoration:none;align-self:flex-start}
 .lifetime-goto:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,107,.4)}
 .lifetime-card-link{text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%}
-.lifetime-audience-tag{background:#141b31;color:#fff;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-align:center;padding:10px 20px;border-radius:16px 16px 0 0;text-transform:uppercase}
+.lifetime-audience-label{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em;color:var(--text-dark);text-align:center;margin-bottom:18px}
 @media(max-width:1024px){.lifetime-bridge{grid-template-columns:1fr}}
 .deans{background:linear-gradient(180deg,#dceefa 0%,#b8e0f5 100%);padding-bottom:120px}
 .deans-header{text-align:center}
@@ -870,9 +870,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <p class="lifetime-manifesto reveal delay-2" style="margin-top:20px;font-size:16px">"AI 투닝과 투닝 플러스로 전체적인 Life 창작을 지원합니다 💫"</p>
     </div>
     <div class="lifetime-bridge">
-      <div class="lifetime-card reveal delay-1">
+      <div>
+        <p class="lifetime-audience-label"><span class="ko-text">초·중·고등용</span><span class="en-text">For K–12 Students</span></p>
+        <div class="lifetime-card reveal delay-1">
         <a class="lifetime-card-link" href="https://tooning.io" target="_blank" rel="noopener">
-          <div class="lifetime-audience-tag"><span class="ko-text">초·중·고등용</span><span class="en-text">For K–12 Students</span></div>
           <img class="lifetime-card-image" src="./images/tooning.jpg" alt="Tooning 제품 화면" loading="lazy" onerror="this.style.display='none'" />
           <div class="lifetime-card-body">
             <div class="lifetime-stage">STAGE 01 — 청소년</div>
@@ -883,10 +884,12 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <span class="lifetime-goto" style="margin-top:24px">tooning.io 바로가기 →</span>
           </div>
         </a>
+        </div>
       </div>
-      <div class="lifetime-card reveal delay-2">
+      <div>
+        <p class="lifetime-audience-label"><span class="ko-text">대학·예비·전문 작가용</span><span class="en-text">For College &amp; Professional Creators</span></p>
+        <div class="lifetime-card reveal delay-2">
         <a class="lifetime-card-link" href="https://plus.tooning.io" target="_blank" rel="noopener">
-          <div class="lifetime-audience-tag" style="background:var(--coral)"><span class="ko-text">대학·예비·전문 작가용</span><span class="en-text">For College &amp; Professional Creators</span></div>
           <img class="lifetime-card-image" src="./images/tooning-plus.jpg" alt="Tooning Plus 제품 화면" loading="lazy" onerror="this.style.display='none'" />
           <div class="lifetime-card-body">
             <div class="lifetime-stage">STAGE 02 — 대학 / 전공자</div>
@@ -897,6 +900,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <span class="lifetime-goto" style="margin-top:24px">plus.tooning.io 바로가기 →</span>
           </div>
         </a>
+        </div>
       </div>
     </div>
   </div>
