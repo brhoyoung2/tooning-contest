@@ -473,8 +473,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .first-contest-title{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(36px,5vw,60px);letter-spacing:-.03em;line-height:1.1;color:var(--text-dark);margin-top:20px}
 .first-contest-title .accent{color:var(--coral)}
 .first-contest-sub{font-size:17px;line-height:1.8;color:var(--text-soft);max-width:640px;margin:20px auto 0}
-.fcs-stats{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:48px}
-.fcs-item{background:#fff;border-radius:20px;padding:18px 28px;box-shadow:0 6px 16px rgba(20,27,49,.08);text-align:center;min-width:120px}
+.fcs-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px;max-width:1100px;margin-left:auto;margin-right:auto}
+.fcs-item{background:#fff;border-radius:20px;padding:24px 28px;box-shadow:0 6px 16px rgba(20,27,49,.08);text-align:center}
 .fcs-num{font-family:'Archivo',sans-serif;font-weight:800;font-size:30px;letter-spacing:-.03em;color:var(--coral);line-height:1}
 .fcs-label{font-size:13px;color:var(--text-soft);margin-top:6px;font-weight:600;letter-spacing:.05em}
 .fcs-detail-row{display:flex;flex-direction:column;gap:10px;margin-top:24px;max-width:800px;margin-left:auto;margin-right:auto}
@@ -486,7 +486,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .fcs-gallery-item:hover img{transform:scale(1.06)}
 .fcs-zoom-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(20,27,49,0);transition:background .3s;color:#fff;font-size:32px;opacity:0;pointer-events:none}
 .fcs-gallery-item:hover .fcs-zoom-icon{background:rgba(20,27,49,.28);opacity:1}
-@media(max-width:768px){.fcs-gallery{grid-template-columns:repeat(2,1fr)}.fcs-stats{gap:12px}}
+@media(max-width:768px){.fcs-gallery{grid-template-columns:repeat(2,1fr)}.fcs-stats{grid-template-columns:repeat(2,1fr);gap:12px}}
+@media(max-width:480px){.fcs-stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.fcs-gallery{grid-template-columns:1fr}}
 
 /* ============ LIGHTBOX ============ */
