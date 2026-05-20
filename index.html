@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>제2회 국제 AI 투닝 공모전 — 대학과 함께하는 투닝 공모전</title>
-<meta name="description" content="AI와 함께 그리는 K-스토리, 대학에서 미래를 만나다. 13개 대학과 함께하는 제2회 국제 AI 투닝 공모전." />
+<meta name="description" content="AI와 함께 그리는 K-스토리, 대학에서 미래를 만나다. 14개 대학과 함께하는 제2회 국제 AI 투닝 공모전." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -297,12 +297,19 @@ section{position:relative;width:100%;overflow:hidden}
 .uni-card{background:#fff;border-radius:24px;padding:24px;box-shadow:0 8px 20px rgba(20,27,49,.1);transition:transform .3s;position:relative}
 .uni-card:hover{transform:translateY(-6px)}
 .uni-blob{position:absolute;top:20px;right:20px;width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 4px 8px rgba(0,0,0,.1)}
-.uni-num{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.15em;margin-top:90px}
-.uni-name{font-weight:700;font-size:18px;letter-spacing:-.01em;color:var(--text-dark);margin-top:10px}
-.uni-en{font-size:13px;color:var(--text-soft);margin-top:4px}
-.uni-award{font-weight:700;font-size:13px;letter-spacing:.05em;margin-top:14px}
+.uni-prof{font-weight:800;font-size:17px;letter-spacing:-.02em;color:var(--text-dark);line-height:1.3}
+.uni-fullname{font-size:12px;color:var(--text-soft);margin-top:6px;line-height:1.4}
 @media(max-width:1024px){.deans-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:700px){.deans-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ============ TIMELINE CARDS ============ */
+.tl-card-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:40px;margin-top:60px;position:relative}
+.tl-card{background:#fff;border-radius:24px;padding:32px 20px 24px;box-shadow:0 8px 20px rgba(20,27,49,.08);position:relative;text-align:center}
+.tl-card+.tl-card::before{content:'→';position:absolute;top:50%;left:-28px;transform:translateY(-50%);font-size:24px;font-weight:800;color:var(--coral)}
+.tl-card-month{font-family:'Archivo',sans-serif;font-weight:800;font-size:18px;margin-bottom:10px}
+.tl-card-label{font-weight:700;font-size:15px;color:var(--text-dark)}
+@media(max-width:1024px){.tl-card-grid{grid-template-columns:repeat(3,1fr);gap:28px}.tl-card+.tl-card::before{display:none}}
+@media(max-width:600px){.tl-card-grid{grid-template-columns:1fr}}
 .tour{background:var(--cream-soft);padding-bottom:120px}
 .tour-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:60px;align-items:center}
 .tour-left .tour-tag{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;color:var(--coral);text-transform:uppercase}
@@ -549,10 +556,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="hero-label reveal"><span class="ko-text">✨ 제2회 국제 AI 투닝 공모전 · 2026 ✨</span><span class="en-text">✨ 2nd International AI Tooning Contest · 2026 ✨</span></div>
     <h1 class="hero-title reveal delay-1"><span class="ko-text">제 2회 투닝 <span class="accent">국제 공모전</span></span><span class="en-text">2nd Tooning <span class="accent">Int'l Contest</span></span></h1>
     <h2 class="hero-kor-title reveal delay-2"><span class="ko-text">대학과 함께하는 투닝 공모전</span><span class="en-text">Tooning Contest with Universities</span></h2>
-    <p class="hero-desc reveal delay-2"><span class="ko-text">AI와 함께 그리는 K-스토리, 대학에서 미래를 만나다.<br/>13개 대학과 함께하는 청소년 창작자들의 새로운 무대.</span><span class="en-text">Drawing K-stories with AI, meeting the future at universities.<br/>A new stage for young creators with 13 partner universities.</span></p>
+    <p class="hero-desc reveal delay-2"><span class="ko-text">AI와 함께 그리는 K-스토리, 대학에서 미래를 만나다.<br/>14개 대학과 함께하는 청소년 창작자들의 새로운 무대.</span><span class="en-text">Drawing K-stories with AI, meeting the future at universities.<br/>A new stage for young creators with 14 partner universities.</span></p>
     <div class="hero-info-bar reveal delay-3">
       <div class="info-item"><span class="info-emoji">📅</span><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Entry Period</span></span><span class="info-val">8월 — 10월</span></div></div>
-      <div class="info-item"><span class="info-emoji">🎓</span><div class="info-text"><span class="info-label"><span class="ko-text">협력 대학</span><span class="en-text">Partner Univ.</span></span><span class="info-val"><span class="ko-text">13개 대학</span><span class="en-text">13 Univ.</span></span></div></div>
+      <div class="info-item"><span class="info-emoji">🎓</span><div class="info-text"><span class="info-label"><span class="ko-text">협력 대학</span><span class="en-text">Partner Univ.</span></span><span class="info-val"><span class="ko-text">14개 대학</span><span class="en-text">14 Univ.</span></span></div></div>
       <div class="info-item"><span class="info-emoji">🏆</span><div class="info-text"><span class="info-label"><span class="ko-text">총 시상</span><span class="en-text">Total Awards</span></span><span class="info-val"><span class="ko-text">100명</span><span class="en-text">100 winners</span></span></div></div>
       <div class="info-item"><span class="info-emoji">📍</span><div class="info-text"><span class="info-label"><span class="ko-text">자격</span><span class="en-text">Eligibility</span></span><span class="info-val"><span class="ko-text">국내·해외 초중고 학생</span><span class="en-text">K–12 students worldwide</span></span></div></div>
       <div class="info-item"><span class="info-emoji">🎉</span><div class="info-text"><span class="info-label"><span class="ko-text">시상식</span><span class="en-text">Ceremony</span></span><span class="info-val"><span class="ko-text">11월</span><span class="en-text">November</span></span></div></div>
@@ -572,7 +579,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <p class="reveal delay-3" style="font-size:14px;color:var(--text-soft);margin-top:-30px;margin-bottom:20px;opacity:.75"><span class="ko-text">※ 최종 주제는 변경 예정입니다. (현재는 임시)</span><span class="en-text">※ Final themes are subject to change. (Placeholder)</span></p>
     </div>
     <div class="reveal delay-2" style="text-align:center;margin-top:16px;padding:40px 32px;background:#fff;border-radius:24px;box-shadow:0 8px 24px rgba(20,27,49,.08);max-width:640px;margin-left:auto;margin-right:auto">
-      <div style="font-size:40px;margin-bottom:16px">📅</div>
       <p style="font-weight:800;font-size:22px;color:var(--text-dark);letter-spacing:-.02em"><span class="ko-text">공모 주제 8월 공개예정</span><span class="en-text">Themes to be announced in August</span></p>
       <p style="font-size:15px;color:var(--text-soft);margin-top:10px;line-height:1.7"><span class="ko-text">최종 주제는 8월에 공식 발표됩니다. 조금만 기다려주세요!</span><span class="en-text">Final themes will be officially announced in August. Stay tuned!</span></p>
     </div>
@@ -613,7 +619,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="section-tag">03 / 출품 규격</div>
     <div class="specs-header">
       <div class="section-label reveal">📐 SUBMISSION SPECS</div>
-      <h2 class="specs-title reveal delay-1"><span class="ko-text">네 가지 부문</span><span class="en-text">Four Divisions</span></h2>
+      <h2 class="specs-title reveal delay-1"><span class="ko-text">출품 규격은 네 가지 부문</span><span class="en-text">Four Submission Divisions</span></h2>
       <p class="specs-sub reveal delay-2"><span class="ko-text">원하는 부문에 자유롭게 출품하세요. 같은 작품을 여러 부문에 출품할 수 없습니다 ✨</span><span class="en-text">Submit freely to any division. A single work may not be submitted to multiple divisions ✨</span></p>
     </div>
     <div class="specs-divisions">
@@ -677,11 +683,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <h2 class="submit-title reveal delay-1"><span class="ko-text">4단계로 끝!</span><span class="en-text">Done in 4 Steps!</span></h2>
       <p class="submit-sub reveal delay-2"><span class="ko-text">복잡하지 않아요. 차근차근 따라오세요!</span><span class="en-text">It's simple. Follow along step by step!</span></p>
     </div>
-    <div class="submit-steps">
-      <div class="submit-step reveal"><div class="step-num-ball" style="background:radial-gradient(circle at 30% 30%, #ff8c8c, #d94040)">1</div><div class="step-title"><span class="ko-text">작품 제작</span><span class="en-text">Create</span></div><div class="step-desc"><span class="ko-text">투닝 에디터에서 작품을 만들어요</span><span class="en-text">Create your work in the Tooning editor</span></div></div>
-      <div class="submit-step reveal delay-1"><div class="step-num-ball" style="background:radial-gradient(circle at 30% 30%, #ffeb94, #d9a633)">2</div><div class="step-title"><span class="ko-text">접수 클릭</span><span class="en-text">Click Apply</span></div><div class="step-desc"><span class="ko-text">공모전 페이지의 접수하기 버튼</span><span class="en-text">Click the Apply button on this page</span></div></div>
-      <div class="submit-step reveal delay-2"><div class="step-num-ball" style="background:radial-gradient(circle at 30% 30%, #d4c4ff, #8a73d4)">3</div><div class="step-title"><span class="ko-text">정보 입력</span><span class="en-text">Fill Info</span></div><div class="step-desc"><span class="ko-text">링크 + 설명 + 이미지 첨부</span><span class="en-text">Link + description + image</span></div></div>
-      <div class="submit-step reveal delay-3"><div class="step-num-ball" style="background:radial-gradient(circle at 30% 30%, #a3eed7, #5ab39c)">4</div><div class="step-title"><span class="ko-text">제출 완료</span><span class="en-text">Submit!</span></div><div class="step-desc"><span class="ko-text">'학교명_응모자명' 형식 준수</span><span class="en-text">Format: 'School_YourName'</span></div></div>
+    <div class="submit-steps" style="margin-top:60px">
+      <div class="submit-step reveal"><div class="step-title"><span class="ko-text">1. 작품 제작</span><span class="en-text">1. Create</span></div><div class="step-desc"><span class="ko-text">투닝 에디터에서 작품을 만들어요</span><span class="en-text">Create your work in the Tooning editor</span></div></div>
+      <div class="submit-step reveal delay-1"><div class="step-title"><span class="ko-text">2. 접수 클릭</span><span class="en-text">2. Click Apply</span></div><div class="step-desc"><span class="ko-text">공모전 페이지의 접수하기 버튼</span><span class="en-text">Click the Apply button on this page</span></div></div>
+      <div class="submit-step reveal delay-2"><div class="step-title"><span class="ko-text">3. 정보 입력</span><span class="en-text">3. Fill Info</span></div><div class="step-desc"><span class="ko-text">링크 + 설명 + 이미지 첨부</span><span class="en-text">Link + description + image</span></div></div>
+      <div class="submit-step reveal delay-3"><div class="step-title"><span class="ko-text">4. 제출 완료</span><span class="en-text">4. Submit!</span></div><div class="step-desc"><span class="ko-text">'학교명_응모자명' 형식 준수</span><span class="en-text">Format: 'School_YourName'</span></div></div>
     </div>
   </div>
 </section>
@@ -695,34 +701,26 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <h2 class="timeline-title-1 reveal delay-1"><span class="ko-text">중요한 네 번의</span><span class="en-text">Four Key</span></h2>
       <h2 class="timeline-title-2 reveal delay-1"><span class="ko-text">순간이 있어요!</span><span class="en-text">Milestones!</span></h2>
     </div>
-    <div class="timeline-bar-wrap reveal delay-2">
-      <div class="timeline-bar">
-        <div class="timeline-bar-line"></div>
-        <div class="tl-item">
-          <div class="tl-dot" style="background:#ff6b6b"></div>
-          <div class="tl-month" style="color:#ff6b6b"><span class="ko-text">8월</span><span class="en-text">August</span></div>
-          <div class="tl-label"><span class="ko-text">📣 공모 주제 공지</span><span class="en-text">📣 Theme Announced</span></div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot" style="background:#ff6b6b"></div>
-          <div class="tl-month" style="color:#ff6b6b"><span class="ko-text">8 — 10월</span><span class="en-text">Aug — Oct</span></div>
-          <div class="tl-label"><span class="ko-text">📝 작품 접수</span><span class="en-text">📝 Entry Period</span></div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot" style="background:#d9a633"></div>
-          <div class="tl-month" style="color:#d9a633"><span class="ko-text">10월 초</span><span class="en-text">Early Oct</span></div>
-          <div class="tl-label"><span class="ko-text">🔍 심사 기간</span><span class="en-text">🔍 Judging</span></div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot" style="background:#bba5ff"></div>
-          <div class="tl-month" style="color:#bba5ff"><span class="ko-text">10월 10일</span><span class="en-text">Oct 10</span></div>
-          <div class="tl-label"><span class="ko-text">🎉 결과 발표</span><span class="en-text">🎉 Results</span></div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot" style="background:#5ba2dc"></div>
-          <div class="tl-month" style="color:#5ba2dc"><span class="ko-text">11월</span><span class="en-text">November</span></div>
-          <div class="tl-label"><span class="ko-text">🏛 시상식</span><span class="en-text">🏛 Ceremony</span></div>
-        </div>
+    <div class="tl-card-grid reveal delay-2">
+      <div class="tl-card">
+        <div class="tl-card-month" style="color:#ff6b6b"><span class="ko-text">8월</span><span class="en-text">August</span></div>
+        <div class="tl-card-label"><span class="ko-text">공모 주제 공지</span><span class="en-text">Theme Announced</span></div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-card-month" style="color:#ff6b6b"><span class="ko-text">8 — 10월</span><span class="en-text">Aug — Oct</span></div>
+        <div class="tl-card-label"><span class="ko-text">작품 접수</span><span class="en-text">Entry Period</span></div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-card-month" style="color:#d9a633"><span class="ko-text">10월 초</span><span class="en-text">Early Oct</span></div>
+        <div class="tl-card-label"><span class="ko-text">심사 기간</span><span class="en-text">Judging</span></div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-card-month" style="color:#bba5ff"><span class="ko-text">10월 10일</span><span class="en-text">Oct 10</span></div>
+        <div class="tl-card-label"><span class="ko-text">결과 발표</span><span class="en-text">Results</span></div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-card-month" style="color:#5ba2dc"><span class="ko-text">11월</span><span class="en-text">November</span></div>
+        <div class="tl-card-label"><span class="ko-text">시상식</span><span class="en-text">Ceremony</span></div>
       </div>
     </div>
   </div>
@@ -760,7 +758,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <div class="award-label" style="color:#5ba2dc">UNIVERSITY AWARD</div>
             <div class="award-name"><span class="ko-text">대학상</span><span class="en-text">University Award</span></div>
             <div class="award-count-pill" style="background:#5ba2dc;color:#fff"><span class="ko-text">10명</span><span class="en-text">10 winners</span></div>
-            <p class="award-prize">📜 <span class="ko-text">13개 대학 명의 공식 상장<br/>+ 대학 직접 심사<br/></span><span class="en-text">Official certificate from 13 universities<br/>+ Direct university judging<br/></span><a href="#deans" class="award-link"><span class="ko-text">자세히 보기 →</span><span class="en-text">Learn more →</span></a></p>
+            <p class="award-prize">📜 <span class="ko-text">14개 대학 명의 공식 상장<br/>+ 대학 직접 심사<br/></span><span class="en-text">Official certificate from 14 universities<br/>+ Direct university judging<br/></span><a href="#deans" class="award-link"><span class="ko-text">자세히 보기 →</span><span class="en-text">Learn more →</span></a></p>
           </div>
           <!-- 최우수상 -->
           <div class="award-square reveal delay-2" style="border-top:4px solid #bba5ff">
@@ -787,7 +785,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             </div>
             <div class="author-info">
               <div class="author-badge">AUTHOR AWARD 01</div>
-              <div class="author-name"><span class="ko-text">원수연 작가</span><span class="en-text">Author Won Soo-yeon</span></div>
+              <div class="author-name"><span class="ko-text">원수연 작가상</span><span class="en-text">Won Soo-yeon Author Award</span></div>
               <div class="author-work-title"><span class="ko-text">대표작: 풀하우스</span><span class="en-text">Known for: Full House</span></div>
               <div class="author-desc"><span class="ko-text">수십 년간 한국 만화·웹툰계를 이끌어온 원수연 작가님이 직접 선정하고 시상합니다.</span><span class="en-text">Won Soo-yeon, a leading figure in Korean comics and webtoons for decades, personally selects and presents this award.</span></div>
               <div class="author-award-pill">🏆 <span class="ko-text">작가 직접 시상</span><span class="en-text">Personally awarded</span></div>
@@ -804,7 +802,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             </div>
             <div class="author-info">
               <div class="author-badge">AUTHOR AWARD 02</div>
-              <div class="author-name"><span class="ko-text">허영만 작가</span><span class="en-text">Author Huh Young-man</span></div>
+              <div class="author-name"><span class="ko-text">허영만 작가상</span><span class="en-text">Huh Young-man Author Award</span></div>
               <div class="author-work-title"><span class="ko-text">대표작: 식객</span><span class="en-text">Known for: Sikhae (Food Story)</span></div>
               <div class="author-desc"><span class="ko-text">한국 만화의 전설 허영만 작가님이 직접 선정하고 시상하는 영예로운 특별상입니다.</span><span class="en-text">A prestigious special award personally selected and presented by Huh Young-man, a legend of Korean comics.</span></div>
               <div class="author-award-pill">🏆 <span class="ko-text">작가 직접 시상</span><span class="en-text">Personally awarded</span></div>
@@ -848,7 +846,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="section-tag">08 / 대학과 함께</div>
     <div class="lifetime-header">
       <div class="section-label reveal">💞 WHY UNIVERSITIES?</div>
-      <h2 class="lifetime-main-title reveal delay-1"><strong>13개 대학</strong>도<br/><strong>투닝 플러스</strong>를 사용합니다.</h2>
+      <h2 class="lifetime-main-title reveal delay-1"><strong>14개 대학</strong>도<br/><strong>투닝 플러스</strong>를 사용합니다.</h2>
+      <p class="lifetime-manifesto reveal delay-2" style="margin-top:20px;font-size:16px">"AI 투닝과 투닝 플러스로 전체적인 Life 창작을 지원합니다 💫"</p>
     </div>
     <div class="lifetime-bridge">
       <div class="lifetime-card reveal delay-1">
@@ -861,10 +860,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <ul class="lifetime-features"><li>✓ 웹툰·웹소설 AI 저작 도구</li><li>✓ 직관적 인터페이스</li><li>✓ K-12 교육 활용</li></ul>
         </div>
       </div>
-      <div class="lifetime-arrow reveal delay-2">
-        <div class="lifetime-arrow-circle">→</div>
-        <div class="lifetime-arrow-label">평생 동반자</div>
-      </div>
       <div class="lifetime-card dark reveal delay-3">
         <img class="lifetime-card-image" src="./images/tooning-plus.jpg" alt="Tooning Plus 제품 화면" loading="lazy" onerror="this.style.display='none'" />
         <div class="lifetime-card-body">
@@ -876,7 +871,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         </div>
       </div>
     </div>
-    <div class="lifetime-manifesto reveal">"AI 투닝과 투닝 플러스로<br/>전체적인 Life 창작을 지원합니다 💫"</div>
   </div>
 </section>
 
@@ -885,14 +879,14 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="section-tag">09 / 대학상</div>
     <div class="deans-header">
       <div class="section-label reveal">🎓 OFFICIAL UNIVERSITY CERTIFICATES 🎓</div>
-      <div class="deans-num reveal delay-1"><span class="ko-text">13개 대학</span><span class="en-text">13 Universities</span></div>
+      <div class="deans-num reveal delay-1"><span class="ko-text">14개 대학</span><span class="en-text">14 Universities</span></div>
       <h2 class="deans-title reveal delay-1"><span class="ko-text">명의의 상장,<br/>대학이 직접 심사합니다</span><span class="en-text">Official certificates<br/>directly judged by universities</span></h2>
       <p class="deans-desc reveal delay-2">
         <span class="ko-text">본 공모전의 가장 큰 차별점은 <strong>대학 명의의 공식 상장</strong>입니다.<br/>
-        13개 협력 대학이 직접 심사하고 시상하며,<br/>
+        14개 협력 대학이 직접 심사하고 시상하며,<br/>
         <strong>대학 명의의 공식 상장</strong>이 발급됩니다.</span>
         <span class="en-text">The biggest differentiator of this contest is the <strong>official university certificate</strong>.<br/>
-        13 partner universities directly judge and present awards,<br/>
+        14 partner universities directly judge and present awards,<br/>
         issuing <strong>official certificates in the university's name</strong>.</span>
       </p>
       <div class="deans-strategy-pills reveal delay-3">
@@ -901,19 +895,20 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       </div>
     </div>
     <div class="deans-grid">
-      <div class="uni-card reveal"><div class="uni-num" style="color:#d9a633">#01</div><div class="uni-name">홍익대학교</div><div class="uni-en">Hongik Univ.</div><div class="uni-award" style="color:#d9a633">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-num" style="color:#ff6b6b">#02</div><div class="uni-name">국민대학교</div><div class="uni-en">Kookmin Univ.</div><div class="uni-award" style="color:#ff6b6b">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-num" style="color:#bba5ff">#03</div><div class="uni-name">세종대학교</div><div class="uni-en">Sejong Univ.</div><div class="uni-award" style="color:#bba5ff">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-3"><div class="uni-num" style="color:#5ab39c">#04</div><div class="uni-name">배재대학교</div><div class="uni-en">Pai Chai Univ.</div><div class="uni-award" style="color:#5ab39c">대학상 ✨</div></div>
-      <div class="uni-card reveal"><div class="uni-num" style="color:#ffafbd">#05</div><div class="uni-name">청강문화산업대</div><div class="uni-en">Chungkang Univ.</div><div class="uni-award" style="color:#ffafbd">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-num" style="color:#5ba2dc">#06</div><div class="uni-name">한양여자대학교</div><div class="uni-en">Hanyang W. Univ.</div><div class="uni-award" style="color:#5ba2dc">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-num" style="color:#d9a633">#07</div><div class="uni-name">공주대학교</div><div class="uni-en">Kongju Univ.</div><div class="uni-award" style="color:#d9a633">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-3"><div class="uni-num" style="color:#ff6b6b">#08</div><div class="uni-name">중앙대학교</div><div class="uni-en">Chung-Ang Univ.</div><div class="uni-award" style="color:#ff6b6b">대학상 ✨</div></div>
-      <div class="uni-card reveal"><div class="uni-num" style="color:#bba5ff">#09</div><div class="uni-name">부천대학교</div><div class="uni-en">Bucheon Univ.</div><div class="uni-award" style="color:#bba5ff">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-num" style="color:#5ab39c">#10</div><div class="uni-name">정화예술대학</div><div class="uni-en">Jeonghwa Univ.</div><div class="uni-award" style="color:#5ab39c">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-num" style="color:#ffafbd">#11</div><div class="uni-name">연성대학교</div><div class="uni-en">Yeonsung Univ.</div><div class="uni-award" style="color:#ffafbd">대학상 ✨</div></div>
-      <div class="uni-card reveal delay-3"><div class="uni-num" style="color:#d9a633">#12</div><div class="uni-name">성결대학교</div><div class="uni-en">Sungkyul Univ.</div><div class="uni-award" style="color:#d9a633">대학상 ✨</div></div>
-      <div class="uni-card reveal"><div class="uni-num" style="color:#ffafbd">#13</div><div class="uni-name">숭의여자대학교</div><div class="uni-en">Soongeui Women's Univ.</div><div class="uni-award" style="color:#ffafbd">대학상 ✨</div></div>
+      <div class="uni-card reveal"><div class="uni-prof">박세혁 교수님</div><div class="uni-fullname">홍익대학교 (Hongik Univ.)</div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-prof">허정윤 교수님</div><div class="uni-fullname">국민대학교 (Kookmin Univ.)</div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-prof">왕덕원 교수님</div><div class="uni-fullname">세종대학교 (Sejong Univ.)</div></div>
+      <div class="uni-card reveal delay-3"><div class="uni-prof">김세종 교수님</div><div class="uni-fullname">배재대학교 (Pai Chai Univ.)</div></div>
+      <div class="uni-card reveal"><div class="uni-prof">임재환 교수님</div><div class="uni-fullname">청강문화산업대 (Chungkang Univ.)</div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-prof">이혜주 교수님</div><div class="uni-fullname">한양여자대학교 (Hanyang W. Univ.)</div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-prof">이중호 교수님</div><div class="uni-fullname">부천대학교 (Bucheon Univ.)</div></div>
+      <div class="uni-card reveal delay-3"><div class="uni-prof">강민지 교수님</div><div class="uni-fullname">정화예술대학 (Jeonghwa Univ.)</div></div>
+      <div class="uni-card reveal"><div class="uni-prof">김정영 교수님</div><div class="uni-fullname">연성대학교 (Yeonsung Univ.)</div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-prof">박구만 교수님</div><div class="uni-fullname">과학기술대학교 (Korea Univ. of Science & Tech.)</div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-prof">김병수 교수님</div><div class="uni-fullname">상명대학교 (Sangmyung Univ.)</div></div>
+      <div class="uni-card reveal delay-3"><div class="uni-prof">김신 교수님</div><div class="uni-fullname">중부대학교 (Joongbu Univ.)</div></div>
+      <div class="uni-card reveal"><div class="uni-prof">유현식 교수님</div><div class="uni-fullname">성결대학교 (Sungkyul Univ.)</div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-prof">이정아 교수님</div><div class="uni-fullname">숭의여자대학교 (Soongeui Women's Univ.)</div></div>
     </div>
   </div>
 </section>
@@ -945,7 +940,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="cta-label reveal">✨ NOW IS THE TIME ✨</div>
     <h2 class="cta-t1 reveal delay-1">지금 바로</h2>
     <h2 class="cta-t2 reveal delay-1">참가하기!</h2>
-    <p class="cta-sub reveal delay-2"><span class="ko-text">당신의 한 컷이 13개 대학으로 향하는<br/>첫 걸음이 됩니다 🚀</span><span class="en-text">Your single frame is the first step toward 13 universities 🚀</span></p>
+    <p class="cta-sub reveal delay-2"><span class="ko-text">당신의 한 컷이 14개 대학으로 향하는<br/>첫 걸음이 됩니다 🚀</span><span class="en-text">Your single frame is the first step toward 14 universities 🚀</span></p>
     <a href="#" data-open-modal="apply" class="cta-button reveal delay-3">접수 시작하기 <span>→</span></a>
   </div>
 </section>
@@ -1185,7 +1180,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       </div>
       <div class="footer-col">
         <h6>PARTNERS</h6>
-        <a href="#deans">13개 협력 대학</a>
+        <a href="#deans">14개 협력 대학</a>
         <a href="#lifetime">투닝 플러스</a>
       </div>
       <div class="footer-col">
