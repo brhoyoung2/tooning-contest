@@ -286,6 +286,7 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-goto{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:24px;padding:20px 28px;background:var(--coral);color:#fff;border-radius:16px;font-weight:700;font-size:14px;letter-spacing:.03em;transition:transform .2s,box-shadow .2s;text-decoration:none;align-self:flex-start}
 .lifetime-goto:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,107,.4)}
 .lifetime-card-link{text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%}
+.lifetime-audience-tag{background:#141b31;color:#fff;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-align:center;padding:10px 20px;border-radius:16px 16px 0 0;text-transform:uppercase}
 @media(max-width:1024px){.lifetime-bridge{grid-template-columns:1fr}}
 .deans{background:linear-gradient(180deg,#dceefa 0%,#b8e0f5 100%);padding-bottom:120px}
 .deans-header{text-align:center}
@@ -476,6 +477,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .fcs-item{background:#fff;border-radius:20px;padding:18px 28px;box-shadow:0 6px 16px rgba(20,27,49,.08);text-align:center;min-width:120px}
 .fcs-num{font-family:'Archivo',sans-serif;font-weight:800;font-size:30px;letter-spacing:-.03em;color:var(--coral);line-height:1}
 .fcs-label{font-size:13px;color:var(--text-soft);margin-top:6px;font-weight:600;letter-spacing:.05em}
+.fcs-detail-row{display:flex;flex-direction:column;gap:10px;margin-top:24px;max-width:800px;margin-left:auto;margin-right:auto}
+.fcs-detail-item{background:#fff;border-radius:14px;padding:14px 22px;font-size:14px;color:var(--text-soft);font-weight:600;box-shadow:0 4px 12px rgba(20,27,49,.06);text-align:center;line-height:1.6}
 .fcs-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:56px;max-width:1100px;margin-left:auto;margin-right:auto}
 .fcs-gallery-item{border-radius:18px;overflow:hidden;cursor:pointer;position:relative;aspect-ratio:4/3;box-shadow:0 8px 20px rgba(20,27,49,.1);transition:transform .3s,box-shadow .3s}
 .fcs-gallery-item:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(20,27,49,.16)}
@@ -561,7 +564,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <h2 class="hero-kor-title reveal delay-2"><span class="ko-text">대학과 함께하는 투닝 공모전</span><span class="en-text">Tooning Contest with Universities</span></h2>
     <p class="hero-desc reveal delay-2"><span class="ko-text">AI와 함께 그리는 K-스토리, 대학에서 미래를 만나다.<br/>15개 대학과 함께하는 청소년 창작자들의 새로운 무대.</span><span class="en-text">Drawing K-stories with AI, meeting the future at universities.<br/>A new stage for young creators with 14 partner universities.</span></p>
     <div class="hero-info-bar reveal delay-3">
-      <div class="info-item"><span class="info-emoji">📅</span><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Entry Period</span></span><span class="info-val">8월 — 10월</span></div></div>
+      <div class="info-item"><span class="info-emoji">📅</span><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Entry Period</span></span><span class="info-val"><span class="ko-text">8월 — 10월</span><span class="en-text">Aug — Oct</span></span></div></div>
       <div class="info-item"><span class="info-emoji">🎓</span><div class="info-text"><span class="info-label"><span class="ko-text">협력 대학</span><span class="en-text">Partner Univ.</span></span><span class="info-val"><span class="ko-text">15개 대학</span><span class="en-text">15 Univ.</span></span></div></div>
       <div class="info-item"><span class="info-emoji">🏆</span><div class="info-text"><span class="info-label"><span class="ko-text">총 시상</span><span class="en-text">Total Awards</span></span><span class="info-val"><span class="ko-text">100명</span><span class="en-text">100 winners</span></span></div></div>
       <div class="info-item"><span class="info-emoji">📍</span><div class="info-text"><span class="info-label"><span class="ko-text">자격</span><span class="en-text">Eligibility</span></span><span class="info-val"><span class="ko-text">국내·해외 초중고 학생</span><span class="en-text">K–12 students worldwide</span></span></div></div>
@@ -630,11 +633,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <img class="division-image" src="./images/spec-comic.png" alt="만화 부문" loading="lazy" />
         <div class="division-body">
           <div class="division-label" style="color:#ff6b6b">DIVISION 01</div>
-          <div class="division-title">만화 부문</div>
+          <div class="division-title"><span class="ko-text">만화 부문</span><span class="en-text">Comics / Webtoon</span></div>
           <ul class="division-list">
-            <li><span class="division-dot" style="background:#ff6b6b"></span><div><strong>10컷 이상</strong> (표지 포함)</div></li>
-            <li><span class="division-dot" style="background:#ff6b6b"></span><div>해상도 <strong>1080 × 1080 px</strong></div></li>
-            <li><span class="division-dot" style="background:#ff6b6b"></span><div><strong>3종 세트</strong> 제출 — 이미지 + 설명 + 에디터 링크</div></li>
+            <li><span class="division-dot" style="background:#ff6b6b"></span><div><span class="ko-text"><strong>10컷 이상</strong> (표지 포함)</span><span class="en-text"><strong>10+ panels</strong> (incl. cover)</span></div></li>
+            <li><span class="division-dot" style="background:#ff6b6b"></span><div><span class="ko-text">해상도 <strong>1080 × 1080 px</strong></span><span class="en-text">Resolution <strong>1080 × 1080 px</strong></span></div></li>
+            <li><span class="division-dot" style="background:#ff6b6b"></span><div><span class="ko-text"><strong>3종 세트</strong> 제출 — 이미지 + 설명 + 에디터 링크</span><span class="en-text"><strong>3-item set</strong> — image + description + editor link</span></div></li>
           </ul>
         </div>
       </div>
@@ -642,11 +645,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <img class="division-image" src="./images/spec-novel.png" alt="소설 부문" loading="lazy" />
         <div class="division-body">
           <div class="division-label" style="color:#bba5ff">DIVISION 02</div>
-          <div class="division-title">소설 부문</div>
+          <div class="division-title"><span class="ko-text">소설 부문</span><span class="en-text">Novel / Story</span></div>
           <ul class="division-list">
-            <li><span class="division-dot" style="background:#bba5ff"></span><div>1화당 <strong>2,000자 이상</strong></div></li>
-            <li><span class="division-dot" style="background:#bba5ff"></span><div><strong>기획서</strong> 제출</div></li>
-            <li><span class="division-dot" style="background:#bba5ff"></span><div>소설 <strong>3화 분량</strong> 제출</div></li>
+            <li><span class="division-dot" style="background:#bba5ff"></span><div><span class="ko-text">1화당 <strong>2,000자 이상</strong></span><span class="en-text"><strong>2,000+ characters</strong> per episode</span></div></li>
+            <li><span class="division-dot" style="background:#bba5ff"></span><div><span class="ko-text"><strong>기획서</strong> 제출</span><span class="en-text">Submit <strong>proposal</strong></span></div></li>
+            <li><span class="division-dot" style="background:#bba5ff"></span><div><span class="ko-text">소설 <strong>3화 분량</strong> 제출</span><span class="en-text">Submit <strong>3 episodes</strong></span></div></li>
           </ul>
         </div>
       </div>
@@ -654,11 +657,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <img class="division-image" src="./images/spec-cardnews.png" alt="카드뉴스 부문" loading="lazy" />
         <div class="division-body">
           <div class="division-label" style="color:#5ab39c">DIVISION 03</div>
-          <div class="division-title">카드뉴스 부문</div>
+          <div class="division-title"><span class="ko-text">카드뉴스 부문</span><span class="en-text">Card News</span></div>
           <ul class="division-list">
-            <li><span class="division-dot" style="background:#7bdcc3"></span><div><strong>10컷 이상</strong> (표지 포함)</div></li>
-            <li><span class="division-dot" style="background:#7bdcc3"></span><div>정보 전달형 콘텐츠 — 이슈·교과·시사</div></li>
-            <li><span class="division-dot" style="background:#7bdcc3"></span><div>이미지 + 설명 + 에디터 링크 제출</div></li>
+            <li><span class="division-dot" style="background:#7bdcc3"></span><div><span class="ko-text"><strong>10컷 이상</strong> (표지 포함)</span><span class="en-text"><strong>10+ panels</strong> (incl. cover)</span></div></li>
+            <li><span class="division-dot" style="background:#7bdcc3"></span><div><span class="ko-text">정보 전달형 콘텐츠 — 이슈·교과·시사</span><span class="en-text">Informational content — issues, curriculum, current events</span></div></li>
+            <li><span class="division-dot" style="background:#7bdcc3"></span><div><span class="ko-text">이미지 + 설명 + 에디터 링크 제출</span><span class="en-text">Image + description + editor link</span></div></li>
           </ul>
         </div>
       </div>
@@ -666,11 +669,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <img class="division-image" src="./images/spec-poster.png" alt="포스터 부문" loading="lazy" />
         <div class="division-body">
           <div class="division-label" style="color:#d9a633">DIVISION 04</div>
-          <div class="division-title">포스터 부문</div>
+          <div class="division-title"><span class="ko-text">포스터 부문</span><span class="en-text">Poster</span></div>
           <ul class="division-list">
-            <li><span class="division-dot" style="background:#ffd54f"></span><div><strong>1장</strong>의 포스터 이미지</div></li>
-            <li><span class="division-dot" style="background:#ffd54f"></span><div><strong>기획서 포함</strong> 필수</div></li>
-            <li><span class="division-dot" style="background:#ffd54f"></span><div>포스터 + 기획서 + 에디터 링크 제출</div></li>
+            <li><span class="division-dot" style="background:#ffd54f"></span><div><span class="ko-text"><strong>1장</strong>의 포스터 이미지</span><span class="en-text"><strong>1</strong> poster image</span></div></li>
+            <li><span class="division-dot" style="background:#ffd54f"></span><div><span class="ko-text"><strong>기획서 포함</strong> 필수</span><span class="en-text"><strong>Proposal required</strong></span></div></li>
+            <li><span class="division-dot" style="background:#ffd54f"></span><div><span class="ko-text">포스터 + 기획서 + 에디터 링크 제출</span><span class="en-text">Poster + proposal + editor link</span></div></li>
           </ul>
         </div>
       </div>
@@ -701,7 +704,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="section-tag">06 / 주요 일정</div>
     <div class="timeline-header">
       <div class="section-label reveal">📅 SCHEDULE</div>
-      <h2 class="timeline-title-1 reveal delay-1"><span class="ko-text">중요한 네 번의</span><span class="en-text">Four Key</span></h2>
+      <h2 class="timeline-title-1 reveal delay-1"><span class="ko-text">중요한 다섯 번의</span><span class="en-text">Five Key</span></h2>
       <h2 class="timeline-title-2 reveal delay-1"><span class="ko-text">순간이 있어요!</span><span class="en-text">Milestones!</span></h2>
     </div>
     <div class="tl-card-grid reveal delay-2">
@@ -734,11 +737,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="section-tag">07 / 시상 안내</div>
     <div class="awards-header">
       <div class="section-label reveal">🏆 AWARDS — 6가지 시상 부문</div>
-      <h2 class="awards-title-1 reveal delay-1">100명 모두에게</h2>
-      <h2 class="awards-title-2 reveal delay-1">디지털 상장 🎖️</h2>
+      <h2 class="awards-title-1 reveal delay-1"><span class="ko-text">100명 모두에게</span><span class="en-text">For all 100 winners</span></h2>
+      <h2 class="awards-title-2 reveal delay-1"><span class="ko-text">디지털 상장 🎖️</span><span class="en-text">Digital Certificate 🎖️</span></h2>
       <p class="awards-desc-large reveal delay-2">
-        총 <strong>100명</strong>에게 공식 디지털 상장이 수여됩니다.<br/>
-        ※ 본 규모는 대규모로 진행되어 <strong>실물 상장은 발급하지 않습니다</strong>. 모든 상장은 위·변조 방지가 적용된 디지털 형식입니다.
+        <span class="ko-text">총 <strong>100명</strong>에게 공식 디지털 상장이 수여됩니다.<br/>
+        ※ 본 규모는 대규모로 진행되어 <strong>실물 상장은 발급하지 않습니다</strong>. 모든 상장은 위·변조 방지가 적용된 디지털 형식입니다.</span>
+        <span class="en-text">Official digital certificates are awarded to all <strong>100</strong> winners.<br/>
+        ※ Due to the large scale of this contest, <strong>physical certificates are not issued</strong>. All certificates are in tamper-proof digital format.</span>
       </p>
     </div>
 
@@ -752,7 +757,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <div class="award-ball" style="background:radial-gradient(circle at 30% 30%, #ffb3b3, #c93030)">👑</div>
             <div class="award-label" style="color:#ff6b6b">GRAND PRIZE</div>
             <div class="award-name"><span class="ko-text">교육감상</span><span class="en-text">Superintendent Award</span></div>
-            <div class="award-count-pill" style="background:#ff6b6b;color:#fff"><span class="ko-text">3명</span><span class="en-text">3 winners</span></div>
+            <div class="award-count-pill" style="background:#ff6b6b;color:#fff"><span class="ko-text">1명</span><span class="en-text">1 winner</span></div>
             <p class="award-prize">🏅 <span class="ko-text">충남교육감상</span><span class="en-text">Chungnam Supt. of Education Award</span><br/>📱 iPad Wi-Fi 256GB<br/>📜 <span class="ko-text">디지털 상장</span><span class="en-text">Digital Certificate</span></p>
           </div>
           <!-- 대학상 -->
@@ -760,7 +765,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <div class="award-ball" style="background:radial-gradient(circle at 30% 30%, #82c2e8, #4080b0)">🎓</div>
             <div class="award-label" style="color:#5ba2dc">UNIVERSITY AWARD</div>
             <div class="award-name"><span class="ko-text">대학상</span><span class="en-text">University Award</span></div>
-            <div class="award-count-pill" style="background:#5ba2dc;color:#fff"><span class="ko-text">10명</span><span class="en-text">10 winners</span></div>
+            <div class="award-count-pill" style="background:#5ba2dc;color:#fff"><span class="ko-text">60명 (15개 대학 × 4부문)</span><span class="en-text">60 winners (15 univ. × 4 div.)</span></div>
             <p class="award-prize">📜 <span class="ko-text">15개 대학 명의 공식 상장<br/>+ 대학 직접 심사<br/></span><span class="en-text">Official certificate from 15 universities<br/>+ Direct university judging<br/></span><a href="#deans" class="award-link"><span class="ko-text">자세히 보기 →</span><span class="en-text">Learn more →</span></a></p>
           </div>
           <!-- 최우수상 -->
@@ -822,19 +827,29 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <div class="award-mini-ball" style="background:radial-gradient(circle at 30% 30%, #a3eed7, #5ab39c)">🎀</div>
             <div class="award-mini-meta">
               <div class="award-label" style="color:#5ab39c">PARTICIPATION</div>
-              <div class="award-mini-name">장려상</div>
-              <div class="award-count-pill" style="background:#7bdcc3">46명</div>
-              <p class="award-mini-prize">🎀 문화상품권 1만원 · 디지털 상장</p>
+              <div class="award-mini-name"><span class="ko-text">장려상</span><span class="en-text">Honorable Mention</span></div>
+              <div class="award-count-pill" style="background:#7bdcc3"><span class="ko-text">46명</span><span class="en-text">46 winners</span></div>
+              <p class="award-mini-prize"><span class="ko-text">🎀 문화상품권 1만원 · 디지털 상장</span><span class="en-text">🎀 KRW 10,000 gift card · Digital Certificate</span></p>
+            </div>
+          </div>
+          <!-- 웹툰산업협회상 -->
+          <div class="award-mini reveal delay-2">
+            <div class="award-mini-ball" style="background:radial-gradient(circle at 30% 30%, #ffe0a0, #d9a633)">🏢</div>
+            <div class="award-mini-meta">
+              <div class="award-label" style="color:#d9a633">INDUSTRY AWARD</div>
+              <div class="award-mini-name"><span class="ko-text">웹툰산업협회상</span><span class="en-text">Webtoon Industry Assoc. Award</span></div>
+              <div class="award-count-pill" style="background:#ffd54f"><span class="ko-text">수명</span><span class="en-text">winners</span></div>
+              <p class="award-mini-prize"><span class="ko-text">🏢 한국웹툰산업협회 명의 공식 상장</span><span class="en-text">🏢 Official certificate from Korea Webtoon Industry Assoc.</span></p>
             </div>
           </div>
           <!-- 지도교사상 -->
-          <div class="award-mini reveal delay-2">
+          <div class="award-mini reveal delay-3">
             <div class="award-mini-ball" style="background:radial-gradient(circle at 30% 30%, #ffc8d3, #d97a8e)">💝</div>
             <div class="award-mini-meta">
               <div class="award-label" style="color:#ffafbd">GUIDANCE</div>
-              <div class="award-mini-name">지도교사상</div>
-              <div class="award-count-pill" style="background:#ffafbd">5명</div>
-              <p class="award-mini-prize">🚚 간식 트럭/박스 · 학교 Pro 6개월</p>
+              <div class="award-mini-name"><span class="ko-text">지도교사상</span><span class="en-text">Teacher Award</span></div>
+              <div class="award-count-pill" style="background:#ffafbd"><span class="ko-text">5명</span><span class="en-text">5 winners</span></div>
+              <p class="award-mini-prize"><span class="ko-text">🚚 간식 트럭/박스 · 학교 Pro 6개월</span><span class="en-text">🚚 Snack truck/box · School Pro 6 months</span></p>
             </div>
           </div>
         </div>
@@ -855,6 +870,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="lifetime-bridge">
       <div class="lifetime-card reveal delay-1">
         <a class="lifetime-card-link" href="https://tooning.io" target="_blank" rel="noopener">
+          <div class="lifetime-audience-tag"><span class="ko-text">초·중·고등용</span><span class="en-text">For K–12 Students</span></div>
           <img class="lifetime-card-image" src="./images/tooning.jpg" alt="Tooning 제품 화면" loading="lazy" onerror="this.style.display='none'" />
           <div class="lifetime-card-body">
             <div class="lifetime-stage">STAGE 01 — 청소년</div>
@@ -868,6 +884,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       </div>
       <div class="lifetime-card reveal delay-2">
         <a class="lifetime-card-link" href="https://plus.tooning.io" target="_blank" rel="noopener">
+          <div class="lifetime-audience-tag" style="background:var(--coral)"><span class="ko-text">대학·예비·전문 작가용</span><span class="en-text">For College &amp; Professional Creators</span></div>
           <img class="lifetime-card-image" src="./images/tooning-plus.jpg" alt="Tooning Plus 제품 화면" loading="lazy" onerror="this.style.display='none'" />
           <div class="lifetime-card-body">
             <div class="lifetime-stage">STAGE 02 — 대학 / 전공자</div>
@@ -933,10 +950,14 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <div class="fcs-zoom-icon">🔍</div>
     </div>
     <div class="fcs-stats reveal delay-2">
-      <div class="fcs-item"><div class="fcs-num">500+</div><div class="fcs-label"><span class="ko-text">참가 작품</span><span class="en-text">Entries</span></div></div>
-      <div class="fcs-item"><div class="fcs-num">10</div><div class="fcs-label"><span class="ko-text">협력 대학</span><span class="en-text">Univ. Partners</span></div></div>
-      <div class="fcs-item"><div class="fcs-num">100</div><div class="fcs-label"><span class="ko-text">수상자</span><span class="en-text">Winners</span></div></div>
+      <div class="fcs-item"><div class="fcs-num">674</div><div class="fcs-label"><span class="ko-text">참가 작품</span><span class="en-text">Entries</span></div></div>
+      <div class="fcs-item"><div class="fcs-num">40</div><div class="fcs-label"><span class="ko-text">수상작</span><span class="en-text">Winners</span></div></div>
+      <div class="fcs-item"><div class="fcs-num">4</div><div class="fcs-label"><span class="ko-text">1등상 수상자</span><span class="en-text">Grand Prize</span></div></div>
       <div class="fcs-item"><div class="fcs-num">2025</div><div class="fcs-label"><span class="ko-text">개최 연도</span><span class="en-text">Year</span></div></div>
+    </div>
+    <div class="fcs-detail-row reveal delay-3">
+      <div class="fcs-detail-item"><span class="ko-text">📊 초등 395 · 중학교 109 · 고등학교 191 · 국제학교 49</span><span class="en-text">📊 Elementary 395 · Middle 109 · High 191 · Int'l 49</span></div>
+      <div class="fcs-detail-item"><span class="ko-text">🏆 1등상: 충남교육감상 + 와콤 무빙크패드 11 수여</span><span class="en-text">🏆 Grand Prize: Chungnam Supt. Award + Wacom MoveInk Pad 11</span></div>
     </div>
     <div class="fcs-gallery reveal delay-3">
       <div class="fcs-gallery-item" data-lb-src="./images/contest1-01.jpg"><img src="./images/contest1-01.jpg" alt="제1회 공모전 현장 1" loading="lazy"/><div class="fcs-zoom-icon">🔍</div></div>
@@ -1187,15 +1208,15 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       </div>
       <div class="footer-col">
         <h6>CONTEST</h6>
-        <a href="#topic">주제</a>
-        <a href="#submit">접수</a>
-        <a href="#timeline">일정</a>
-        <a href="#awards">시상</a>
+        <a href="#topic"><span class="ko-text">주제</span><span class="en-text">Theme</span></a>
+        <a href="#submit"><span class="ko-text">접수</span><span class="en-text">Submit</span></a>
+        <a href="#timeline"><span class="ko-text">일정</span><span class="en-text">Schedule</span></a>
+        <a href="#awards"><span class="ko-text">시상</span><span class="en-text">Awards</span></a>
       </div>
       <div class="footer-col">
         <h6>PARTNERS</h6>
-        <a href="#deans">15개 협력 대학</a>
-        <a href="#lifetime">투닝 플러스</a>
+        <a href="#deans"><span class="ko-text">15개 협력 대학</span><span class="en-text">15 Partner Univ.</span></a>
+        <a href="#lifetime"><span class="ko-text">투닝 플러스</span><span class="en-text">Tooning Plus</span></a>
       </div>
       <div class="footer-col">
         <h6>CONTACT</h6>
@@ -1205,7 +1226,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     </div>
     <div class="footer-bottom">
       <span>© 2026 TOONINGPLUS. All rights reserved.</span>
-      <span>제2회 국제 AI 투닝 공모전 — 대학과 함께하는 투닝 공모전</span>
+      <span><span class="ko-text">제2회 국제 AI 투닝 공모전 — 대학과 함께하는 투닝 공모전</span><span class="en-text">2nd Int'l AI Tooning Contest — with Universities</span></span>
     </div>
   </div>
 </footer>
