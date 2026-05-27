@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="./favicon.svg" />
 <title>제2회 국제 AI 투닝 공모전 — 대학과 함께하는 투닝 공모전</title>
 <meta name="description" content="AI와 함께 그리는 K-스토리, 대학에서 미래를 만나다. 15개 대학과 함께하는 제2회 국제 AI 투닝 공모전." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1864,17 +1865,22 @@ function setLang(lang) {
   var track = document.querySelector('.uni-slider-track');
   if (!wrap || !track) return;
 
-  function setSpeed(duration) {
-    var matrix = new DOMMatrix(window.getComputedStyle(track).transform);
-    var currentX = matrix.m41; // current translateX in px
-    var totalTravel = track.offsetWidth / 2; // -50% distance
-    var progress = Math.max(0, Math.min(1, Math.abs(currentX) / totalTravel));
-    track.style.animationDuration = duration + 's';
-    track.style.animationDelay = -(progress * duration) + 's';
+  var NORMAL = 105, SLOW = 315;
+  var currentDur = NORMAL;
+  var cycleStart = performance.now();
+
+  function setSpeed(newDur) {
+    var now = performance.now();
+    var elapsedSec = (now - cycleStart) / 1000;
+    var progress = (elapsedSec % currentDur) / currentDur;
+    track.style.animationDuration = newDur + 's';
+    track.style.animationDelay = -(progress * newDur) + 's';
+    cycleStart = now - progress * newDur * 1000;
+    currentDur = newDur;
   }
 
-  wrap.addEventListener('mouseenter', function() { setSpeed(315); });
-  wrap.addEventListener('mouseleave', function() { setSpeed(105); });
+  wrap.addEventListener('mouseenter', function() { setSpeed(SLOW); });
+  wrap.addEventListener('mouseleave', function() { setSpeed(NORMAL); });
 })();
 
 // ============ UNI SLIDER LIGHTBOX ============
