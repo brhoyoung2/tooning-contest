@@ -296,9 +296,9 @@ section{position:relative;width:100%;overflow:hidden}
 .uni-slider-wrap::before,.uni-slider-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
 .uni-slider-wrap::before{left:0;background:linear-gradient(to right,#dceefa,transparent)}
 .uni-slider-wrap::after{right:0;background:linear-gradient(to left,#b8e0f5,transparent)}
-.uni-slider-track{display:flex;gap:16px;width:max-content;animation:uni-scroll 35s linear infinite}
-.uni-slider-track:hover{animation-play-state:paused}
-.uni-slider-img{height:200px;width:auto;border-radius:16px;object-fit:cover;box-shadow:0 6px 18px rgba(20,27,49,.12);flex-shrink:0}
+.uni-slider-track{display:flex;gap:16px;width:max-content;animation:uni-scroll 105s linear infinite}
+.uni-slider-img{height:200px;width:auto;border-radius:16px;object-fit:cover;box-shadow:0 6px 18px rgba(20,27,49,.12);flex-shrink:0;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.uni-slider-img:hover{transform:scale(1.03);box-shadow:0 10px 28px rgba(20,27,49,.2)}
 .uni-slider-caption{text-align:center;font-size:13px;color:var(--text-soft);margin-bottom:40px;letter-spacing:.02em}
 @keyframes uni-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .deans-header{text-align:center}
@@ -1049,6 +1049,17 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <a href="#" data-open-modal="apply" class="cta-button reveal delay-3">접수 시작하기 <span>→</span></a>
   </div>
 </section>
+
+<!-- ============ UNI SLIDER LIGHTBOX ============ -->
+<div class="lightbox-overlay" id="uni-lightbox">
+  <div class="lightbox-img-wrap">
+    <img class="lightbox-img" id="uniLbImg" src="" alt="" />
+  </div>
+  <button class="lightbox-close" id="uniLbClose">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="uniLbPrev">‹</button>
+  <button class="lightbox-nav lightbox-next" id="uniLbNext">›</button>
+  <div class="lightbox-counter" id="uniLbCounter"></div>
+</div>
 
 <!-- ============ LIGHTBOX ============ -->
 <div class="lightbox-overlay" id="lightbox">
@@ -1834,6 +1845,89 @@ function setLang(lang) {
     items.push(el.getAttribute('data-lb-src'));
     el.addEventListener('click', function() { openLb(i); });
   });
+
+  lbClose.addEventListener('click', closeLb);
+  lbPrev.addEventListener('click', function() { navigate(-1); });
+  lbNext.addEventListener('click', function() { navigate(1); });
+  lb.addEventListener('click', function(e) { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', function(e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  });
+})();
+
+// ============ UNI SLIDER — hover slowdown ============
+(function() {
+  var wrap = document.querySelector('.uni-slider-wrap');
+  var track = document.querySelector('.uni-slider-track');
+  if (!wrap || !track) return;
+  wrap.addEventListener('mouseenter', function() {
+    track.style.animationDuration = '315s';
+  });
+  wrap.addEventListener('mouseleave', function() {
+    track.style.animationDuration = '105s';
+  });
+})();
+
+// ============ UNI SLIDER LIGHTBOX ============
+(function() {
+  var lb = document.getElementById('uni-lightbox');
+  var lbImg = document.getElementById('uniLbImg');
+  var lbClose = document.getElementById('uniLbClose');
+  var lbPrev = document.getElementById('uniLbPrev');
+  var lbNext = document.getElementById('uniLbNext');
+  var lbCounter = document.getElementById('uniLbCounter');
+  var uniImages = [
+    './images/image 3046.png',
+    './images/image 3057.png',
+    './images/image 3079.png',
+    './images/image 3080.png',
+    './images/image 3082.png',
+    './images/image 3084.png',
+    './images/image 3110.png',
+    './images/image 3124.png',
+    './images/image 3125.png',
+    './images/IMG_1064.png',
+    './images/IMG_1697.png',
+    './images/IMG_8884.png',
+    './images/IMG_8899.png',
+    './images/IMG_8903.png',
+    './images/IMG_8912.png',
+    './images/IMG_8942.png',
+    './images/IMG_9021.png',
+    './images/IMG_9325.png',
+    './images/IMG_1014 1.png',
+    './images/IMG_1019 1.png'
+  ];
+  var cur = 0;
+
+  function openLb(idx) {
+    cur = idx;
+    lbImg.src = uniImages[cur];
+    lbCounter.textContent = (cur + 1) + ' / ' + uniImages.length;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+  function navigate(dir) {
+    cur = (cur + dir + uniImages.length) % uniImages.length;
+    lbImg.src = uniImages[cur];
+    lbCounter.textContent = (cur + 1) + ' / ' + uniImages.length;
+  }
+
+  // Only bind clicks on the first 20 images (not duplicates)
+  var allImgs = document.querySelectorAll('.uni-slider-img');
+  for (var i = 0; i < uniImages.length; i++) {
+    (function(idx) {
+      allImgs[idx].addEventListener('click', function() { openLb(idx); });
+    })(i);
+  }
 
   lbClose.addEventListener('click', closeLb);
   lbPrev.addEventListener('click', function() { navigate(-1); });
