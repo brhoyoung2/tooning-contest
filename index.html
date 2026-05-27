@@ -1859,28 +1859,34 @@ function setLang(lang) {
   });
 })();
 
-// ============ UNI SLIDER — hover slowdown ============
+// ============ UNI SLIDER — rAF-based scroll (hover slowdown) ============
 (function() {
   var wrap = document.querySelector('.uni-slider-wrap');
   var track = document.querySelector('.uni-slider-track');
   if (!wrap || !track) return;
 
-  var NORMAL = 105, SLOW = 315;
-  var currentDur = NORMAL;
-  var cycleStart = performance.now();
+  var NORMAL = 105000, SLOW = 315000; // ms per full cycle
+  var cur = NORMAL;
+  var pos = 0;
+  var lastT = null;
 
-  function setSpeed(newDur) {
-    var now = performance.now();
-    var elapsedSec = (now - cycleStart) / 1000;
-    var progress = (elapsedSec % currentDur) / currentDur;
-    track.style.animationDuration = newDur + 's';
-    track.style.animationDelay = -(progress * newDur) + 's';
-    cycleStart = now - progress * newDur * 1000;
-    currentDur = newDur;
+  // Disable CSS animation; rAF takes full control
+  track.style.animationName = 'none';
+
+  function step(t) {
+    var travel = track.scrollWidth / 2;
+    if (lastT !== null && travel > 0) {
+      pos = (pos + (travel / cur) * (t - lastT)) % travel;
+      track.style.transform = 'translateX(-' + pos + 'px)';
+    }
+    lastT = t;
+    requestAnimationFrame(step);
   }
 
-  wrap.addEventListener('mouseenter', function() { setSpeed(SLOW); });
-  wrap.addEventListener('mouseleave', function() { setSpeed(NORMAL); });
+  requestAnimationFrame(step);
+
+  wrap.addEventListener('mouseenter', function() { cur = SLOW; });
+  wrap.addEventListener('mouseleave', function() { cur = NORMAL; });
 })();
 
 // ============ UNI SLIDER LIGHTBOX ============
