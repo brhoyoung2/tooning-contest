@@ -30,7 +30,7 @@ nav{position:fixed;top:28px;left:80px;right:80px;height:64px;background:#fff;bor
 nav ul{display:flex;gap:36px;list-style:none;margin-left:60px}
 nav ul a{font-weight:600;font-size:14px;color:var(--text-dark);transition:color .2s}
 nav ul a:hover{color:var(--coral)}
-.nav-cta{margin-left:auto;padding:8px 24px;border:1.5px solid var(--text-dark);border-radius:16px;font-weight:700;font-size:14px;color:var(--text-dark);transition:all .2s}
+.nav-cta{margin-left:12px;padding:8px 24px;border:1.5px solid var(--text-dark);border-radius:16px;font-weight:700;font-size:14px;color:var(--text-dark);transition:all .2s}
 .nav-cta:hover{background:var(--text-dark);color:#fff}
 @media(max-width:1024px){nav{left:20px;right:20px}nav ul{display:none}}
 section{position:relative;width:100%;overflow:hidden}
@@ -291,6 +291,16 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-audience-label{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em;color:var(--text-dark);text-align:center;margin-bottom:18px}
 @media(max-width:1024px){.lifetime-bridge{grid-template-columns:1fr}}
 .deans{background:linear-gradient(180deg,#dceefa 0%,#b8e0f5 100%);padding-bottom:120px}
+/* ===== UNI PHOTO SLIDER ===== */
+.uni-slider-wrap{overflow:hidden;margin:48px 0 16px;position:relative}
+.uni-slider-wrap::before,.uni-slider-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.uni-slider-wrap::before{left:0;background:linear-gradient(to right,#dceefa,transparent)}
+.uni-slider-wrap::after{right:0;background:linear-gradient(to left,#b8e0f5,transparent)}
+.uni-slider-track{display:flex;gap:16px;width:max-content;animation:uni-scroll 35s linear infinite}
+.uni-slider-track:hover{animation-play-state:paused}
+.uni-slider-img{height:200px;width:auto;border-radius:16px;object-fit:cover;box-shadow:0 6px 18px rgba(20,27,49,.12);flex-shrink:0}
+.uni-slider-caption{text-align:center;font-size:13px;color:var(--text-soft);margin-bottom:40px;letter-spacing:.02em}
+@keyframes uni-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .deans-header{text-align:center}
 .deans-num{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:clamp(48px,6vw,72px);letter-spacing:-.04em;color:var(--coral);margin-top:30px;line-height:1}
 .deans-title{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:clamp(36px,4.5vw,52px);letter-spacing:-.03em;color:var(--text-dark);margin-top:20px;line-height:1.25}
@@ -428,7 +438,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 }
 
 /* ============ LANGUAGE TOGGLE ============ */
-.lang-toggle{display:flex;align-items:center;gap:6px;margin-left:16px;background:#f5f6f9;border-radius:20px;padding:4px 6px}
+.lang-toggle{display:flex;align-items:center;gap:6px;margin-left:auto;background:#f5f6f9;border-radius:20px;padding:4px 6px}
 .lang-btn{padding:5px 14px;border-radius:16px;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;cursor:pointer;border:none;background:transparent;color:var(--text-soft);transition:all .2s}
 .lang-btn.active{background:#fff;color:var(--text-dark);box-shadow:0 2px 8px rgba(20,27,49,.1)}
 [lang-mode="en"] .ko-text{display:none}
@@ -935,6 +945,55 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <span class="strategy-pill">🏛️ <span class="ko-text">대학 직접 심사</span><span class="en-text">Direct University Judging</span></span>
       </div>
     </div>
+
+    <!-- 대학 사진 슬라이더 -->
+    <div class="uni-slider-wrap">
+      <div class="uni-slider-track">
+        <img class="uni-slider-img" src="./images/image 3046.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3057.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3079.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3080.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3082.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3084.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3110.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3124.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3125.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_1064.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_1697.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_8884.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_8899.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_8903.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_8912.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_8942.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_9021.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_9325.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_1014 1.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_1019 1.png" alt="대학 수업" loading="lazy"/>
+        <!-- 무한 루프용 복제 -->
+        <img class="uni-slider-img" src="./images/image 3046.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3057.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3079.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3080.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3082.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3084.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3110.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3124.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/image 3125.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_1064.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_1697.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_8884.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_8899.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_8903.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_8912.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_8942.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_9021.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_9325.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_1014 1.png" alt="대학 수업" loading="lazy"/>
+        <img class="uni-slider-img" src="./images/IMG_1019 1.png" alt="대학 수업" loading="lazy"/>
+      </div>
+    </div>
+    <p class="uni-slider-caption"><span class="ko-text">투닝 플러스를 활용하는 대학들입니다.</span><span class="en-text">Universities actively using Tooning Plus.</span></p>
+
     <div class="deans-grid">
       <div class="uni-card reveal"><div class="uni-prof">여현덕 교수님</div><div class="uni-fullname">카이스트 (KAIST)</div></div>
       <div class="uni-card reveal delay-1"><div class="uni-prof">박세혁 교수님</div><div class="uni-fullname">홍익대학교 (Hongik Univ.)</div></div>
