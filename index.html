@@ -1863,12 +1863,18 @@ function setLang(lang) {
   var wrap = document.querySelector('.uni-slider-wrap');
   var track = document.querySelector('.uni-slider-track');
   if (!wrap || !track) return;
-  wrap.addEventListener('mouseenter', function() {
-    track.style.animationDuration = '315s';
-  });
-  wrap.addEventListener('mouseleave', function() {
-    track.style.animationDuration = '105s';
-  });
+
+  function setSpeed(duration) {
+    var matrix = new DOMMatrix(window.getComputedStyle(track).transform);
+    var currentX = matrix.m41; // current translateX in px
+    var totalTravel = track.offsetWidth / 2; // -50% distance
+    var progress = Math.max(0, Math.min(1, Math.abs(currentX) / totalTravel));
+    track.style.animationDuration = duration + 's';
+    track.style.animationDelay = -(progress * duration) + 's';
+  }
+
+  wrap.addEventListener('mouseenter', function() { setSpeed(315); });
+  wrap.addEventListener('mouseleave', function() { setSpeed(105); });
 })();
 
 // ============ UNI SLIDER LIGHTBOX ============
