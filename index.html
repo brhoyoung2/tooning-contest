@@ -34,16 +34,12 @@ nav ul a:hover{color:var(--coral)}
 .nav-cta{margin-left:12px;padding:8px 24px;border:1.5px solid var(--text-dark);border-radius:16px;font-weight:700;font-size:14px;color:var(--text-dark);transition:all .2s}
 .nav-cta:hover{background:var(--text-dark);color:#fff}
 .lang-select{display:none;-webkit-appearance:none;appearance:none;padding:6px 26px 6px 12px;border-radius:14px;border:1.5px solid #e5e8ef;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;background:#f5f6f9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23636e82' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 9px center;color:var(--text-dark);cursor:pointer;margin-left:auto;flex-shrink:0}
-.cta-short{display:none}
-.cta-full{display:inline}
 @media(max-width:1024px){
   nav{left:16px;right:16px;top:16px;padding:0 14px}
   nav ul{display:none}
-  .lang-toggle{display:none}
-  .lang-select{display:block}
-  .cta-full{display:none}
-  .cta-short{display:inline}
-  .nav-cta{margin-left:8px;padding:7px 14px;font-size:13px!important;white-space:nowrap;flex-shrink:0}
+  .lang-toggle{display:none!important}
+  .lang-select{display:block!important;margin-left:auto}
+  .nav-cta{display:none!important}
 }
 section{position:relative;width:100%;overflow:hidden}
 .section-inner{max-width:1440px;margin:0 auto;padding:0 80px;position:relative;z-index:5}
@@ -581,7 +577,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <option value="ko">KO</option>
     <option value="en">EN</option>
   </select>
-  <a href="#" data-open-modal="apply" class="nav-cta"><span class="cta-full"><span class="ko-text">접수하기 →</span><span class="en-text">Apply Now →</span></span><span class="cta-short"><span class="ko-text">접수 ›</span><span class="en-text">Apply ›</span></span></a>
+  <a href="#" data-open-modal="apply" class="nav-cta"><span class="ko-text">접수하기 →</span><span class="en-text">Apply Now →</span></a>
 </nav>
 
 <section class="hero" id="hero">
