@@ -34,6 +34,14 @@ nav ul a:hover{color:var(--coral)}
 .nav-cta{margin-left:12px;padding:8px 24px;border:1.5px solid var(--text-dark);border-radius:16px;font-weight:700;font-size:14px;color:var(--text-dark);transition:all .2s}
 .nav-cta:hover{background:var(--text-dark);color:#fff}
 @media(max-width:1024px){nav{left:20px;right:20px}nav ul{display:none}}
+.lang-select{display:none;-webkit-appearance:none;appearance:none;padding:6px 26px 6px 12px;border-radius:14px;border:1.5px solid #e5e8ef;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;background:#f5f6f9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23636e82' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 9px center;color:var(--text-dark);cursor:pointer;margin-left:auto;flex-shrink:0}
+@media(max-width:700px){
+  nav{left:12px;right:12px;top:16px;padding:0 14px}
+  .lang-toggle{display:none}
+  .lang-select{display:block}
+  .nav-cta{margin-left:8px;padding:8px 16px;font-size:13px!important;white-space:nowrap;flex-shrink:0}
+  .nav-brand{font-size:17px}
+}
 section{position:relative;width:100%;overflow:hidden}
 .section-inner{max-width:1440px;margin:0 auto;padding:0 80px;position:relative;z-index:5}
 @media(max-width:768px){.section-inner{padding:0 24px}}
@@ -566,6 +574,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <button class="lang-btn active" id="btnKo" onclick="setLang('ko')">KO</button>
     <button class="lang-btn" id="btnEn" onclick="setLang('en')">EN</button>
   </div>
+  <select class="lang-select" id="langSelect">
+    <option value="ko">KO</option>
+    <option value="en">EN</option>
+  </select>
   <a href="#" data-open-modal="apply" class="nav-cta"><span class="ko-text">접수하기 →</span><span class="en-text">Apply Now →</span></a>
 </nav>
 
@@ -1803,11 +1815,15 @@ function setLang(lang) {
   document.body.setAttribute('lang-mode', lang);
   document.getElementById('btnKo').classList.toggle('active', lang === 'ko');
   document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+  var sel = document.getElementById('langSelect');
+  if (sel) sel.value = lang;
   localStorage.setItem('tooning-lang', lang);
 }
 (function() {
   var saved = localStorage.getItem('tooning-lang') || 'ko';
   setLang(saved);
+  var sel = document.getElementById('langSelect');
+  if (sel) sel.addEventListener('change', function() { setLang(this.value); });
 })();
 
 // ============ LIGHTBOX ============
