@@ -518,6 +518,16 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 @media(max-width:768px){.fcs-gallery{grid-template-columns:repeat(2,1fr)}.fcs-stats{grid-template-columns:repeat(2,1fr);gap:12px}}
 @media(max-width:480px){.fcs-stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.fcs-gallery{grid-template-columns:1fr}}
+.fcs-winners{margin-top:48px;max-width:1100px;margin-left:auto;margin-right:auto;text-align:left}
+.fcs-winners-title{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:20px;color:var(--text-dark);margin-bottom:18px;letter-spacing:-.02em;text-align:center}
+.fcs-winner-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.fcs-winner-card{background:#fff;border-radius:20px;padding:26px 28px;box-shadow:0 8px 20px rgba(20,27,49,.1);text-decoration:none;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;gap:5px}
+.fcs-winner-card:hover{transform:translateY(-5px);box-shadow:0 16px 32px rgba(20,27,49,.16)}
+.fcs-winner-type{font-family:'Archivo',sans-serif;font-weight:700;font-size:11px;letter-spacing:.18em;color:var(--coral);text-transform:uppercase}
+.fcs-winner-school{font-size:13px;color:var(--text-soft);margin-top:6px}
+.fcs-winner-name{font-weight:800;font-size:20px;color:var(--text-dark);letter-spacing:-.02em}
+.fcs-winner-cta{margin-top:14px;font-weight:700;font-size:13px;color:var(--coral);display:inline-flex;align-items:center;gap:4px}
+@media(max-width:600px){.fcs-winner-cards{grid-template-columns:1fr}}
 
 /* ============ LIGHTBOX ============ */
 .lightbox-overlay{position:fixed;inset:0;z-index:3000;background:rgba(8,12,24,.94);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px)}
@@ -1095,6 +1105,25 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <div class="fcs-gallery-item" data-lb-src="./images/contest1-04.jpg"><img src="./images/contest1-04.jpg" alt="제1회 공모전 현장 4" loading="lazy"/><div class="fcs-zoom-icon">🔍</div></div>
       <div class="fcs-gallery-item" data-lb-src="./images/contest1-05.jpg"><img src="./images/contest1-05.jpg" alt="제1회 공모전 현장 5" loading="lazy"/><div class="fcs-zoom-icon">🔍</div></div>
       <div class="fcs-gallery-item" data-lb-src="./images/contest1-06.jpg"><img src="./images/contest1-06.jpg" alt="제1회 공모전 현장 6" loading="lazy"/><div class="fcs-zoom-icon">🔍</div></div>
+    </div>
+
+    <!-- 수상작 하이라이트 -->
+    <div class="fcs-winners reveal delay-3">
+      <h3 class="fcs-winners-title"><span class="ko-text">🏆 수상작 하이라이트</span><span class="en-text">🏆 Award-winning Works</span></h3>
+      <div class="fcs-winner-cards">
+        <a href="https://an-api.tooning.io/canvas-share/6447636" target="_blank" rel="noopener" class="fcs-winner-card">
+          <div class="fcs-winner-type">🎨 <span class="ko-text">웹툰</span><span class="en-text">Webtoon</span></div>
+          <div class="fcs-winner-school"><span class="ko-text">서산고등학교</span><span class="en-text">Seosan High School</span></div>
+          <div class="fcs-winner-name">이O연</div>
+          <div class="fcs-winner-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div>
+        </a>
+        <a href="https://tooning.io/board/tlvdpvccmp/8960124203" target="_blank" rel="noopener" class="fcs-winner-card">
+          <div class="fcs-winner-type">📖 <span class="ko-text">웹소설</span><span class="en-text">Web Novel</span></div>
+          <div class="fcs-winner-school"><span class="ko-text">천안용암초등학교</span><span class="en-text">Cheonan Yongam Elementary</span></div>
+          <div class="fcs-winner-name">임O나</div>
+          <div class="fcs-winner-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -2054,29 +2083,46 @@ function setLang(lang) {
 <script>
 // ============ CHATBOT ============
 (function() {
-  var toggle = document.getElementById('chatToggle');
-  var win    = document.getElementById('chatWindow');
-  var closeBtn = document.getElementById('chatClose');
-  var msgs   = document.getElementById('chatMsgs');
-  var input  = document.getElementById('chatInput');
+  var toggle  = document.getElementById('chatToggle');
+  var win     = document.getElementById('chatWindow');
+  var closeBtn= document.getElementById('chatClose');
+  var msgs    = document.getElementById('chatMsgs');
+  var input   = document.getElementById('chatInput');
   var sendBtn = document.getElementById('chatSendBtn');
-  var isOpen = false;
+  var isOpen  = false;
+  var state   = null; // null | 'resubmit_name' | 'verify_name' | 'verify_contact'
+  var savedName = '';
+
+  var blocklist = ['씨발','시발','개새','병신','섹스','야동','성인','fuck','sex','porn','자살','뒤져','죽어'];
 
   var rules = [
-    { keys:['접수','신청','등록','기간','언제'], ans:'접수 기간은 2026년 8월 — 10월입니다. 📅\n상단 [접수하기] 버튼을 눌러 신청해 주세요!' },
-    { keys:['자격','참가','대상','초등','중학','고등','학생','누구'], ans:'국내·해외 초등학생, 중학생, 고등학생이라면\n누구나 참가할 수 있어요! 🌍' },
-    { keys:['시상','상금','상품','수상','최우수','우수','장려','prize','상장'], ans:'🥇 대상 — 1명 | iPad Wi-Fi 256GB\n🥈 최우수상 — 4명 | 갤럭시 버즈\n🥉 우수상 — 64명 | 문화상품권 1만원\n🎖️ 특별상·장려상 등 총 100명 이상 시상!' },
-    { keys:['주제','테마','내용','공모'], ans:'공모 주제는 2026년 8월 공개 예정입니다. 🗓️\n조금만 기다려 주세요!' },
-    { keys:['투닝','플러스','사용','앱','어플','tooning'], ans:'투닝은 AI 기반 웹툰 제작 도구예요! 🎨\ntooning.io에서 무료로 체험할 수 있습니다.' },
-    { keys:['대학','교수','심사','협력','몇'], ans:'16개 협력 대학 교수님들이 직접 심사해요. 🎓\n교수님 명의의 공식 상장이 발급됩니다!' },
-    { keys:['시상식','발표','결과','11월'], ans:'시상식은 2026년 11월 개최 예정입니다. 🎉' },
-    { keys:['안녕','하이','hello','hi','반가','도움'], ans:'안녕하세요! 👋 투닝 공모전 도우미입니다.\n무엇이 궁금하신가요?' },
+    // 챗봇 자기소개
+    { keys:['너 뭐야','챗봇','봇이야','ai야','인공지능','누구야','뭐하는'], ans:'저는 투닝 공모전 FAQ 도우미예요! 🤖\n공모전 관련 질문에 답변해 드립니다.' },
+    // 무료 여부
+    { keys:['무료','비용','참가비','유료','공짜','돈'], ans:'참가비는 무료입니다! 🎉\n별도의 비용 없이 접수하실 수 있어요.' },
+    // 오류/버그
+    { keys:['오류','버그','에러','error','안열려','멈춰','안돼요','안됩니다'], ans:'투닝 이용 중 오류가 발생했다면\n📧 support@tooning.io\n📞 050-7458-2020\n투닝 고객센터로 문의해 주세요!' },
+    // 잘못 제출 flow 트리거
+    { keys:['잘못 제출','재제출','다시 제출','작품 수정','바꾸고 싶'], ans:'__RESUBMIT__' },
+    // 신청 확인 flow 트리거
+    { keys:['신청 확인','접수 확인','됐나요','접수됐','신청됐','확인하고 싶'], ans:'__VERIFY__' },
+    // 기존 FAQ
+    { keys:['접수','신청 기간','등록','기간','언제'], ans:'접수 기간은 2026년 8월 — 10월입니다. 📅\n상단 [접수하기] 버튼을 눌러 신청해 주세요!' },
+    { keys:['자격','참가 대상','초등','중학','고등','학생','누구'], ans:'국내·해외 초등학생, 중학생, 고등학생이라면\n누구나 참가할 수 있어요! 🌍' },
+    { keys:['시상','상금','상품','수상','최우수','장려','prize','상장'], ans:'🥇 대상 — 1명 | iPad Wi-Fi 256GB\n🥈 최우수상 — 4명 | 갤럭시 버즈\n🥉 우수상 — 64명 | 문화상품권 1만원\n🎖️ 특별상·장려상 등 총 100명 이상 시상!' },
+    { keys:['주제','테마','공모 내용'], ans:'공모 주제는 2026년 8월 공개 예정입니다. 🗓️\n조금만 기다려 주세요!' },
+    { keys:['투닝','플러스','앱','어플','tooning'], ans:'투닝은 AI 기반 웹툰 제작 도구예요! 🎨\ntooning.io에서 무료로 체험할 수 있습니다.' },
+    { keys:['대학','교수','심사','협력'], ans:'16개 협력 대학 교수님들이 직접 심사해요. 🎓\n교수님 명의의 공식 상장이 발급됩니다!' },
+    { keys:['시상식','결과 발표','11월'], ans:'시상식은 2026년 11월 개최 예정입니다. 🎉' },
+    { keys:['1회','지난','이전','수상작'], ans:'1회 공모전 수상작은 페이지 하단\n[1회 공모전] 섹션에서 확인하실 수 있어요!' },
+    { keys:['특별상','원수연','허영만','작가상'], ans:'특별상은 원수연 작가상·허영만 작가상 각 4명씩입니다. ✍️\n작가님들이 직접 선정하고 시상합니다!' },
+    { keys:['웹툰산업','협회'], ans:'웹툰산업협회상은 4명을 선정합니다. 🏅\n한국웹툰산업협회 명의 공식 상장이 발급돼요.' },
+    { keys:['안녕','하이','hello','hi','반가'], ans:'안녕하세요! 👋 투닝 공모전 도우미입니다.\n무엇이 궁금하신가요?' },
     { keys:['감사','고마','thank'], ans:'도움이 되었으면 좋겠습니다! 😊\n또 궁금한 점이 있으시면 언제든지 물어보세요.' },
-    { keys:['1회','지난','이전'], ans:'1회 공모전 수상작은 페이지 하단\n[1회 공모전] 섹션에서 확인하실 수 있어요!' },
-    { keys:['특별상','작가','원수연','허영만'], ans:'특별상은 원수연 작가상과 허영만 작가상이 각 4명씩 있습니다. ✍️\n작가님들이 직접 선정하고 시상합니다!' },
-    { keys:['웹툰','산업','협회'], ans:'웹툰산업협회상은 4명을 선정합니다. 🏅\n한국웹툰산업협회 명의 공식 상장이 발급돼요.' },
   ];
-  var fallback = '죄송해요, 잘 이해하지 못했어요. 😅\n아래 버튼을 눌러 궁금한 내용을 선택하거나,\n직접 입력해 보세요!';
+
+  var FALLBACK   = '공모전 관련 질문에만 답변할 수 있어요. 😊\n아래 버튼을 눌러 주제를 선택해 주세요!';
+  var OFFTOPIC   = '해당 질문에는 답변하기 어렵습니다. 🙏\n투닝 공모전 관련 질문을 해주세요!';
 
   function addMsg(text, type) {
     var wrap = document.createElement('div');
@@ -2093,49 +2139,91 @@ function setLang(lang) {
     wrap.appendChild(bbl);
     msgs.appendChild(wrap);
     msgs.scrollTop = msgs.scrollHeight;
-    return wrap;
   }
 
   function showTyping() {
-    var wrap = document.createElement('div');
-    wrap.className = 'chat-msg bot';
-    wrap.id = 'chatTyping';
+    var w = document.createElement('div');
+    w.className = 'chat-msg bot'; w.id = 'chatTyping';
     var av = document.createElement('img');
-    av.className = 'chat-msg-av';
-    av.src = './images/character_pop.png';
-    wrap.appendChild(av);
+    av.className = 'chat-msg-av'; av.src = './images/character_pop.png';
+    w.appendChild(av);
     var t = document.createElement('div');
     t.className = 'chat-bbl chat-typing';
     t.innerHTML = '<span></span><span></span><span></span>';
-    wrap.appendChild(t);
-    msgs.appendChild(wrap);
+    w.appendChild(t);
+    msgs.appendChild(w);
     msgs.scrollTop = msgs.scrollHeight;
   }
 
-  function removeTyping() {
-    var el = document.getElementById('chatTyping');
-    if (el) el.remove();
+  function removeTyping() { var el = document.getElementById('chatTyping'); if (el) el.remove(); }
+
+  function isBlocked(q) {
+    var l = q.toLowerCase();
+    for (var i = 0; i < blocklist.length; i++) { if (l.indexOf(blocklist[i]) !== -1) return true; }
+    return false;
   }
 
   function getAnswer(q) {
-    var lower = q.toLowerCase();
-    for (var i = 0; i < rules.length; i++) {
-      for (var j = 0; j < rules[i].keys.length; j++) {
-        if (lower.indexOf(rules[i].keys[j]) !== -1) return rules[i].ans;
-      }
+    var l = q.toLowerCase();
+    for (var i = 0; i < rules.length; i++)
+      for (var j = 0; j < rules[i].keys.length; j++)
+        if (l.indexOf(rules[i].keys[j]) !== -1) return rules[i].ans;
+    return FALLBACK;
+  }
+
+  function openMailto(subject, body) {
+    window.open('mailto:support@tooning.io?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body));
+  }
+
+  function handleStateMsg(q) {
+    if (state === 'resubmit_name') {
+      state = null;
+      openMailto('[공모전] 최종 제출 변경 - ' + q, '성함: ' + q + '\n\n올바른 작품으로 최종 제출하였습니다. 확인 부탁드립니다.');
+      return '감사합니다, ' + q + '님! 📧\n이메일 앱이 열리면 전송해 주세요.\n(support@tooning.io)';
     }
-    return fallback;
+    if (state === 'verify_name') {
+      savedName = q;
+      state = 'verify_contact';
+      return '감사합니다! 📋\n연락처(전화번호 또는 이메일)를 입력해 주세요.';
+    }
+    if (state === 'verify_contact') {
+      var name = savedName; savedName = ''; state = null;
+      openMailto('[공모전] 접수 확인 요청 - ' + name, '성함: ' + name + '\n연락처: ' + q + '\n\n접수 확인을 요청드립니다.');
+      return '✅ 성함: ' + name + '\n연락처: ' + q + '\n\n이메일 앱이 열리면 전송해 주세요!\n빠른 시일 내에 확인 후 연락드리겠습니다. 😊';
+    }
+    return null;
   }
 
   function sendMsg(q) {
-    q = q.trim();
-    if (!q) return;
-    addMsg(q, 'user');
-    input.value = '';
+    q = q.trim(); if (!q) return;
+    addMsg(q, 'user'); input.value = '';
     showTyping();
+
     setTimeout(function() {
       removeTyping();
-      addMsg(getAnswer(q), 'bot');
+
+      // 상태 머신 우선 처리
+      if (state !== null) { addMsg(handleStateMsg(q), 'bot'); return; }
+
+      // "최종입니다" 키워드 감지
+      if (q.indexOf('최종') !== -1) {
+        state = 'resubmit_name';
+        addMsg('재제출하셨군요! ✅\n처리를 위해 성함을 알려주세요.', 'bot'); return;
+      }
+
+      // 부적절한 질문
+      if (isBlocked(q)) { addMsg(OFFTOPIC, 'bot'); return; }
+
+      // 룰 매칭
+      var ans = getAnswer(q);
+      if (ans === '__RESUBMIT__') {
+        addMsg('올바른 작품으로 다시 제출하신 뒤\n채팅에 \'최종입니다\'라고 입력해 주세요! 📝\n성함 확인 후 처리해 드리겠습니다.', 'bot');
+      } else if (ans === '__VERIFY__') {
+        state = 'verify_name';
+        addMsg('성함을 알려주세요! 접수 내역을 확인해 드릴게요. 📋', 'bot');
+      } else {
+        addMsg(ans, 'bot');
+      }
     }, 600);
   }
 
