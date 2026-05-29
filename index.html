@@ -554,6 +554,17 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .tier-top-3-grid .award-square.hero{box-shadow:0 18px 40px rgba(20,27,49,.25)}
 @media(max-width:900px){.tier-top-3-grid{grid-template-columns:1fr}}
 
+/* ============ VIDEO MODAL ============ */
+.video-modal-overlay{position:fixed;inset:0;background:rgba(10,14,30,.8);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.video-modal-overlay.open{opacity:1;pointer-events:all}
+.video-modal-box{width:100%;max-width:900px;background:#000;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);transform:scale(.95);transition:transform .25s;position:relative}
+.video-modal-overlay.open .video-modal-box{transform:scale(1)}
+.video-modal-box iframe{display:block;width:100%;aspect-ratio:16/9;border:none}
+.video-modal-close{position:absolute;top:-40px;right:0;background:rgba(255,255,255,.15);border:none;color:#fff;width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.video-modal-close:hover{background:rgba(255,255,255,.35)}
+.lifetime-video{display:inline-flex;align-items:center;gap:8px;padding:16px 20px;background:transparent;color:#333;border:2px solid #d0d3de;border-radius:16px;font-weight:700;font-size:14px;letter-spacing:.03em;transition:all .2s;text-decoration:none;cursor:pointer}
+.lifetime-video:hover{background:#333;color:#fff;border-color:#333}
+
 /* ============ CHATBOT WIDGET ============ */
 .chat-widget{position:fixed;bottom:28px;right:max(28px,calc((100vw - 1300px) / 2));z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
 .chat-toggle-btn{width:64px;height:64px;border-radius:50%;background:#fff;box-shadow:0 4px 20px rgba(20,27,49,.2);cursor:pointer;border:none;padding:0;overflow:hidden;transition:transform .2s,box-shadow .2s;flex-shrink:0}
@@ -1001,6 +1012,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <div class="lifetime-btn-row">
               <a class="lifetime-goto" href="https://plus.tooning.io" target="_blank" rel="noopener"><span class="ko-text">plus.tooning.io 바로가기 →</span><span class="en-text">Visit plus.tooning.io →</span></a>
               <a class="lifetime-download" href="./tooningplus-info.pdf" download="tooningplus-info.pdf" target="_blank" rel="noopener">📄 <span class="ko-text">서비스 소개서</span><span class="en-text">Brochure</span></a>
+              <button class="lifetime-video" id="openVideoBtn">▶ <span class="ko-text">소개 영상</span><span class="en-text">Intro Video</span></button>
             </div>
           </div>
         </div>
@@ -1158,6 +1170,14 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <a href="#" data-open-modal="apply" class="cta-button reveal delay-3">접수 시작하기 <span>→</span></a>
   </div>
 </section>
+
+<!-- ============ VIDEO MODAL ============ -->
+<div class="video-modal-overlay" id="videoModal">
+  <div class="video-modal-box">
+    <button class="video-modal-close" id="videoModalClose">✕</button>
+    <iframe id="videoModalIframe" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+  </div>
+</div>
 
 <!-- ============ UNI SLIDER LIGHTBOX ============ -->
 <div class="lightbox-overlay" id="uni-lightbox">
@@ -1968,6 +1988,33 @@ function setLang(lang) {
     if (e.key === 'Escape') closeLb();
     if (e.key === 'ArrowLeft') navigate(-1);
     if (e.key === 'ArrowRight') navigate(1);
+  });
+})();
+
+// ============ VIDEO MODAL ============
+(function() {
+  var overlay  = document.getElementById('videoModal');
+  var iframe   = document.getElementById('videoModalIframe');
+  var closeBtn = document.getElementById('videoModalClose');
+  var openBtn  = document.getElementById('openVideoBtn');
+  var YT_SRC   = 'https://www.youtube.com/embed/ab_DtqjwB0E?autoplay=1&rel=0';
+
+  function openModal() {
+    iframe.src = YT_SRC;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(function() { iframe.src = ''; }, 300);
+  }
+
+  if (openBtn) openBtn.addEventListener('click', openModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
   });
 })();
 
