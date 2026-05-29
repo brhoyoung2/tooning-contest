@@ -539,6 +539,43 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .tier-top-3-grid .award-square.hero{box-shadow:0 18px 40px rgba(20,27,49,.25)}
 @media(max-width:900px){.tier-top-3-grid{grid-template-columns:1fr}}
 
+/* ============ CHATBOT WIDGET ============ */
+.chat-widget{position:fixed;bottom:28px;right:28px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.chat-toggle-btn{width:64px;height:64px;border-radius:50%;background:#fff;box-shadow:0 4px 20px rgba(20,27,49,.2);cursor:pointer;border:none;padding:0;overflow:hidden;transition:transform .2s,box-shadow .2s;flex-shrink:0}
+.chat-toggle-btn:hover{transform:scale(1.08);box-shadow:0 8px 28px rgba(20,27,49,.28)}
+.chat-toggle-btn img{width:100%;height:100%;object-fit:cover;display:block}
+.chat-window{width:340px;background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(20,27,49,.16);overflow:hidden;display:flex;flex-direction:column;max-height:500px;transform-origin:bottom right;transition:opacity .22s,transform .22s}
+.chat-window.chat-hidden{opacity:0;transform:scale(.92) translateY(10px);pointer-events:none}
+.chat-head{background:var(--coral);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.chat-head-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;background:rgba(255,255,255,.25);flex-shrink:0}
+.chat-head-info{flex:1;min-width:0}
+.chat-head-name{font-weight:800;font-size:14px;color:#fff;letter-spacing:-.01em}
+.chat-head-sub{font-size:11px;color:rgba(255,255,255,.8);margin-top:1px}
+.chat-head-close{background:none;border:none;color:#fff;font-size:17px;cursor:pointer;line-height:1;opacity:.8;padding:2px}
+.chat-head-close:hover{opacity:1}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.chat-msg{display:flex;gap:8px;align-items:flex-end;max-width:88%}
+.chat-msg.bot{align-self:flex-start}
+.chat-msg.user{align-self:flex-end;flex-direction:row-reverse}
+.chat-msg-av{width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.chat-bbl{padding:10px 13px;border-radius:16px;font-size:13px;line-height:1.65;white-space:pre-line;word-break:keep-all}
+.chat-msg.bot .chat-bbl{background:#f5f6f9;color:var(--text-dark);border-bottom-left-radius:4px}
+.chat-msg.user .chat-bbl{background:var(--coral);color:#fff;border-bottom-right-radius:4px}
+.chat-chips{padding:8px 12px 10px;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid rgba(99,110,130,.1);flex-shrink:0}
+.chat-chip{padding:6px 11px;background:#f5f6f9;border:1.5px solid rgba(99,110,130,.15);border-radius:20px;font-size:12px;font-weight:600;color:var(--text-dark);cursor:pointer;transition:all .15s;white-space:nowrap}
+.chat-chip:hover{background:var(--coral);color:#fff;border-color:var(--coral)}
+.chat-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(99,110,130,.1);flex-shrink:0}
+.chat-input{flex:1;padding:9px 13px;border:1.5px solid rgba(99,110,130,.2);border-radius:14px;font-size:13px;outline:none;font-family:inherit;transition:border-color .2s;min-width:0}
+.chat-input:focus{border-color:var(--coral)}
+.chat-send-btn{padding:9px 14px;background:var(--coral);color:#fff;border:none;border-radius:12px;font-weight:700;font-size:13px;cursor:pointer;transition:background .2s;flex-shrink:0}
+.chat-send-btn:hover{background:#e55050}
+.chat-typing{display:flex;gap:4px;align-items:center;padding:10px 13px}
+.chat-typing span{width:6px;height:6px;background:#c0c4cf;border-radius:50%;animation:typing-dot .9s infinite}
+.chat-typing span:nth-child(2){animation-delay:.2s}
+.chat-typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing-dot{0%,80%,100%{transform:scale(1);opacity:.5}40%{transform:scale(1.3);opacity:1}}
+@media(max-width:600px){.chat-window{width:calc(100vw - 40px)}.chat-widget{bottom:20px;right:16px}}
+
 /* ============ TEXT SIZE INCREASE (+3-4pt) ============ */
 .info-label{font-size:15px!important}
 .section-label{font-size:17px!important}
@@ -1981,6 +2018,145 @@ function setLang(lang) {
     if (e.key === 'Escape') closeLb();
     if (e.key === 'ArrowLeft') navigate(-1);
     if (e.key === 'ArrowRight') navigate(1);
+  });
+})();
+</script>
+
+<!-- ============ CHATBOT WIDGET ============ -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-window chat-hidden" id="chatWindow">
+    <div class="chat-head">
+      <img class="chat-head-avatar" src="./images/character_pop.png" alt="도우미" />
+      <div class="chat-head-info">
+        <div class="chat-head-name">투닝 공모전 도우미</div>
+        <div class="chat-head-sub">FAQ · 빠른 답변</div>
+      </div>
+      <button class="chat-head-close" id="chatClose">✕</button>
+    </div>
+    <div class="chat-msgs" id="chatMsgs"></div>
+    <div class="chat-chips">
+      <button class="chat-chip" data-q="접수 기간이 언제예요?">📅 접수 기간</button>
+      <button class="chat-chip" data-q="참가 자격이 어떻게 되나요?">🎓 참가 자격</button>
+      <button class="chat-chip" data-q="시상 내역이 궁금해요">🏆 시상 내역</button>
+      <button class="chat-chip" data-q="공모 주제가 뭐예요?">📝 공모 주제</button>
+      <button class="chat-chip" data-q="협력 대학이 몇 개예요?">🏛️ 협력 대학</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInput" type="text" placeholder="궁금한 점을 입력하세요..." autocomplete="off" />
+      <button class="chat-send-btn" id="chatSendBtn">전송</button>
+    </div>
+  </div>
+  <button class="chat-toggle-btn" id="chatToggle" title="공모전 도우미">
+    <img src="./images/character_pop.png" alt="도우미" />
+  </button>
+</div>
+
+<script>
+// ============ CHATBOT ============
+(function() {
+  var toggle = document.getElementById('chatToggle');
+  var win    = document.getElementById('chatWindow');
+  var closeBtn = document.getElementById('chatClose');
+  var msgs   = document.getElementById('chatMsgs');
+  var input  = document.getElementById('chatInput');
+  var sendBtn = document.getElementById('chatSendBtn');
+  var isOpen = false;
+
+  var rules = [
+    { keys:['접수','신청','등록','기간','언제'], ans:'접수 기간은 2026년 8월 — 10월입니다. 📅\n상단 [접수하기] 버튼을 눌러 신청해 주세요!' },
+    { keys:['자격','참가','대상','초등','중학','고등','학생','누구'], ans:'국내·해외 초등학생, 중학생, 고등학생이라면\n누구나 참가할 수 있어요! 🌍' },
+    { keys:['시상','상금','상품','수상','최우수','우수','장려','prize','상장'], ans:'🥇 대상 — 1명 | iPad Wi-Fi 256GB\n🥈 최우수상 — 4명 | 갤럭시 버즈\n🥉 우수상 — 64명 | 문화상품권 1만원\n🎖️ 특별상·장려상 등 총 100명 이상 시상!' },
+    { keys:['주제','테마','내용','공모'], ans:'공모 주제는 2026년 8월 공개 예정입니다. 🗓️\n조금만 기다려 주세요!' },
+    { keys:['투닝','플러스','사용','앱','어플','tooning'], ans:'투닝은 AI 기반 웹툰 제작 도구예요! 🎨\ntooning.io에서 무료로 체험할 수 있습니다.' },
+    { keys:['대학','교수','심사','협력','몇'], ans:'16개 협력 대학 교수님들이 직접 심사해요. 🎓\n교수님 명의의 공식 상장이 발급됩니다!' },
+    { keys:['시상식','발표','결과','11월'], ans:'시상식은 2026년 11월 개최 예정입니다. 🎉' },
+    { keys:['안녕','하이','hello','hi','반가','도움'], ans:'안녕하세요! 👋 투닝 공모전 도우미입니다.\n무엇이 궁금하신가요?' },
+    { keys:['감사','고마','thank'], ans:'도움이 되었으면 좋겠습니다! 😊\n또 궁금한 점이 있으시면 언제든지 물어보세요.' },
+    { keys:['1회','지난','이전'], ans:'1회 공모전 수상작은 페이지 하단\n[1회 공모전] 섹션에서 확인하실 수 있어요!' },
+    { keys:['특별상','작가','원수연','허영만'], ans:'특별상은 원수연 작가상과 허영만 작가상이 각 4명씩 있습니다. ✍️\n작가님들이 직접 선정하고 시상합니다!' },
+    { keys:['웹툰','산업','협회'], ans:'웹툰산업협회상은 4명을 선정합니다. 🏅\n한국웹툰산업협회 명의 공식 상장이 발급돼요.' },
+  ];
+  var fallback = '죄송해요, 잘 이해하지 못했어요. 😅\n아래 버튼을 눌러 궁금한 내용을 선택하거나,\n직접 입력해 보세요!';
+
+  function addMsg(text, type) {
+    var wrap = document.createElement('div');
+    wrap.className = 'chat-msg ' + type;
+    if (type === 'bot') {
+      var av = document.createElement('img');
+      av.className = 'chat-msg-av';
+      av.src = './images/character_pop.png';
+      wrap.appendChild(av);
+    }
+    var bbl = document.createElement('div');
+    bbl.className = 'chat-bbl';
+    bbl.textContent = text;
+    wrap.appendChild(bbl);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+    return wrap;
+  }
+
+  function showTyping() {
+    var wrap = document.createElement('div');
+    wrap.className = 'chat-msg bot';
+    wrap.id = 'chatTyping';
+    var av = document.createElement('img');
+    av.className = 'chat-msg-av';
+    av.src = './images/character_pop.png';
+    wrap.appendChild(av);
+    var t = document.createElement('div');
+    t.className = 'chat-bbl chat-typing';
+    t.innerHTML = '<span></span><span></span><span></span>';
+    wrap.appendChild(t);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping() {
+    var el = document.getElementById('chatTyping');
+    if (el) el.remove();
+  }
+
+  function getAnswer(q) {
+    var lower = q.toLowerCase();
+    for (var i = 0; i < rules.length; i++) {
+      for (var j = 0; j < rules[i].keys.length; j++) {
+        if (lower.indexOf(rules[i].keys[j]) !== -1) return rules[i].ans;
+      }
+    }
+    return fallback;
+  }
+
+  function sendMsg(q) {
+    q = q.trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    showTyping();
+    setTimeout(function() {
+      removeTyping();
+      addMsg(getAnswer(q), 'bot');
+    }, 600);
+  }
+
+  function openChat() {
+    isOpen = true;
+    win.classList.remove('chat-hidden');
+    if (msgs.children.length === 0) {
+      setTimeout(function() {
+        addMsg('안녕하세요! 👋 투닝 공모전 도우미입니다.\n아래 버튼을 선택하거나 직접 입력해 주세요!', 'bot');
+      }, 100);
+    }
+    setTimeout(function() { input.focus(); }, 300);
+  }
+  function closeChat() { isOpen = false; win.classList.add('chat-hidden'); }
+
+  toggle.addEventListener('click', function() { isOpen ? closeChat() : openChat(); });
+  closeBtn.addEventListener('click', closeChat);
+  sendBtn.addEventListener('click', function() { sendMsg(input.value); });
+  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendMsg(input.value); });
+  document.querySelectorAll('.chat-chip').forEach(function(c) {
+    c.addEventListener('click', function() { sendMsg(c.getAttribute('data-q')); });
   });
 })();
 </script>
