@@ -1012,7 +1012,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <div class="lifetime-btn-row">
               <a class="lifetime-goto" href="https://plus.tooning.io" target="_blank" rel="noopener"><span class="ko-text">plus.tooning.io 바로가기 →</span><span class="en-text">Visit plus.tooning.io →</span></a>
               <a class="lifetime-download" href="./tooningplus-info.pdf" download="tooningplus-info.pdf" target="_blank" rel="noopener">📄 <span class="ko-text">서비스 소개서</span><span class="en-text">Brochure</span></a>
-              <button class="lifetime-video" id="openVideoBtn">▶ <span class="ko-text">소개 영상</span><span class="en-text">Intro Video</span></button>
+              <button type="button" class="lifetime-video" id="openVideoBtn" onclick="var o=document.getElementById('videoModal'),f=document.getElementById('videoModalIframe');if(o&&f){f.src='https://www.youtube.com/embed/ab_DtqjwB0E?autoplay=1&rel=0';o.classList.add('open');document.body.style.overflow='hidden';}">▶ <span class="ko-text">소개 영상</span><span class="en-text">Intro Video</span></button>
             </div>
           </div>
         </div>
