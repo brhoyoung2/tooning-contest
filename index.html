@@ -554,16 +554,45 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 @media(max-width:900px){.hof-grid{grid-template-columns:repeat(2,1fr)}.hof-enc-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.hof-grid{grid-template-columns:1fr}}
 /* ============ HOF MODAL ============ */
-.hof-modal-overlay{position:fixed;inset:0;background:rgba(10,14,30,.72);z-index:10001;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;opacity:0;pointer-events:none;transition:opacity .25s;overflow-y:auto}
+.hof-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10001;display:flex;align-items:flex-start;justify-content:center;padding:20px 16px;opacity:0;pointer-events:none;transition:opacity .25s;overflow-y:auto}
 .hof-modal-overlay.open{opacity:1;pointer-events:all}
-.hof-modal-box{width:100%;max-width:1100px;background:#f0f4ff;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.35);transform:scale(.95) translateY(-10px);transition:transform .25s;margin:auto}
+.hof-modal-box{width:100%;max-width:min(1400px,96vw);background:#0f1117;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,.7);transform:scale(.95) translateY(-10px);transition:transform .25s;margin:auto;border:1px solid rgba(255,255,255,.08)}
 .hof-modal-overlay.open .hof-modal-box{transform:scale(1) translateY(0)}
-.hof-modal-hd{background:#fff;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(99,110,130,.12);flex-shrink:0}
-.hof-modal-hd h2{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:19px;color:var(--text-dark);letter-spacing:-.02em}
-.hof-modal-hd p{font-size:12px;color:var(--text-soft);margin-top:2px}
-.hof-modal-close-btn{width:34px;height:34px;border-radius:50%;background:#f5f6f9;border:none;cursor:pointer;font-size:16px;color:var(--text-dark);flex-shrink:0;transition:background .15s}
-.hof-modal-close-btn:hover{background:#ffe0e0;color:var(--coral)}
-.hof-modal-body{padding:24px;overflow-y:auto}
+.hof-modal-hd{background:#0f1117;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.hof-modal-hd-inner{display:flex;flex-direction:column;align-items:center;flex:1;text-align:center}
+.hof-modal-wreath{width:64px;height:64px;object-fit:contain;margin-bottom:8px}
+.hof-modal-hd h2{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:22px;color:#fff;letter-spacing:-.02em}
+.hof-modal-hd p{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px}
+.hof-modal-close-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;font-size:16px;color:rgba(255,255,255,.7);flex-shrink:0;align-self:flex-start;transition:background .15s}
+.hof-modal-close-btn:hover{background:rgba(255,107,107,.3);color:#ff6b6b}
+.hof-modal-body{padding:28px;overflow-y:auto;background:#0f1117}
+/* Dark theme overrides for HOF elements inside modal */
+.hof-modal-box .hof-tab{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+.hof-modal-box .hof-tab.active{background:var(--coral);border-color:var(--coral);color:#fff}
+.hof-modal-box .hof-rank-row{color:rgba(255,255,255,.5);border-left-color:rgba(255,255,255,.1) !important}
+.hof-modal-box .hof-rank-row::after{background:rgba(255,255,255,.08)}
+.hof-modal-box .hof-card{background:#1a1d27;border:1px solid rgba(255,255,255,.06)}
+.hof-modal-box .hof-card.gold{border-left-color:#f0c040;border-top:none}
+.hof-modal-box .hof-card.silver{border-left-color:#aab0c0;border-top:none}
+.hof-modal-box .hof-card.bronze{border-left-color:#c0784a;border-top:none}
+.hof-modal-box .hof-card-rank{color:rgba(255,255,255,.45)}
+.hof-modal-box .hof-card-name{color:#fff}
+.hof-modal-box .hof-card-school{color:rgba(255,255,255,.5)}
+.hof-modal-box .hof-card-title{color:rgba(255,255,255,.8)}
+.hof-modal-box .hof-card-cta{color:var(--coral)}
+.hof-modal-box .hof-card:hover{box-shadow:0 12px 28px rgba(0,0,0,.4);border-color:rgba(255,107,107,.3)}
+.hof-modal-box .hof-enc-card{background:#1a1d27;border:1px solid rgba(255,255,255,.06)}
+.hof-modal-box .hof-enc-name{color:#fff}
+.hof-modal-box .hof-enc-school{color:rgba(255,255,255,.5)}
+.hof-modal-box .hof-enc-title{color:rgba(255,255,255,.75)}
+.hof-modal-box .hof-enc-cta{color:var(--coral)}
+.hof-modal-box .hof-enc-card:hover{border-color:rgba(255,107,107,.3)}
+/* Center card grids */
+.hof-modal-box .hof-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.hof-modal-box .hof-grid .hof-card{width:calc(33.33% - 10px);min-width:240px;max-width:380px}
+.hof-modal-box .hof-enc-grid{justify-content:center}
+@media(max-width:900px){.hof-modal-box .hof-grid .hof-card{width:calc(50% - 8px)}}
+@media(max-width:600px){.hof-modal-box .hof-grid .hof-card{width:100%}}
 .hof-open-btn{display:inline-flex;align-items:center;gap:10px;padding:18px 40px;background:var(--text-dark);color:#fff;border-radius:20px;font-weight:700;font-size:16px;cursor:pointer;border:none;margin-top:20px;transition:background .2s;touch-action:manipulation}
 .hof-open-btn:hover{background:var(--coral)}
 /* ============ WORKS POPUP ============ */
@@ -1196,6 +1225,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 
     <!-- 2025 명예의 전당 버튼 -->
     <div style="text-align:center;margin-top:64px" class="reveal delay-3">
+      <img src="./images/01.png" alt="월계관" style="width:72px;height:72px;object-fit:contain;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto" />
       <p style="font-size:16px;color:var(--text-soft);font-weight:600;margin-bottom:0"><span class="ko-text">2025년 수상한 우리 아이들의 작품을 확인하세요.</span><span class="en-text">View the award-winning works from our 2025 contest.</span></p>
       <button class="hof-open-btn" onclick="document.getElementById('hofModal').classList.add('open');document.body.style.overflow='hidden'" type="button">🏆 2025 명예의 전당 보기</button>
     </div>
@@ -1311,8 +1341,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 <div class="hof-modal-overlay" id="hofModal">
   <div class="hof-modal-box">
     <div class="hof-modal-hd">
-      <div>
-        <h2>🏆 2025 명예의 전당</h2>
+      <div class="hof-modal-hd-inner">
+        <img class="hof-modal-wreath" src="./images/01.png" alt="월계관" />
+        <h2>2025 명예의 전당</h2>
         <p><span class="ko-text">제1회 국제 AI 투닝 공모전 수상작 · 작품을 클릭하면 새 탭으로 볼 수 있어요</span><span class="en-text">1st Contest Winners · Click to view in a new tab</span></p>
       </div>
       <button class="hof-modal-close-btn" onclick="document.getElementById('hofModal').classList.remove('open');document.body.style.overflow=''">✕</button>
