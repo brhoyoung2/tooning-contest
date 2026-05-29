@@ -576,6 +576,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .chat-toggle-btn{width:64px;height:64px;border-radius:50%;background:#fff;box-shadow:0 4px 20px rgba(20,27,49,.2);cursor:pointer;border:none;padding:0;overflow:hidden;transition:transform .2s,box-shadow .2s;flex-shrink:0}
 .chat-toggle-btn:hover{transform:scale(1.08);box-shadow:0 8px 28px rgba(20,27,49,.28)}
 .chat-toggle-btn img{width:100%;height:100%;object-fit:cover;display:block}
+.chat-bubble-speech{position:relative;background:#fff;border-radius:14px;padding:10px 14px;box-shadow:0 4px 16px rgba(20,27,49,.14);font-size:13px;font-weight:700;color:var(--text-dark);white-space:nowrap;line-height:1.4;cursor:pointer;animation:speech-bob 3s ease-in-out infinite}
+.chat-bubble-speech::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:#fff;border-bottom:none}
+.chat-bubble-speech.hide{display:none}
+@keyframes speech-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .chat-window{width:340px;height:560px;background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(20,27,49,.16);overflow:hidden;display:flex;flex-direction:column;transform-origin:bottom right;transition:opacity .22s,transform .22s}
 .chat-window.chat-hidden{opacity:0;transform:scale(.92) translateY(10px);pointer-events:none}
 .chat-head{background:var(--coral);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
@@ -2143,6 +2147,10 @@ function setLang(lang) {
       <button class="chat-send-btn" id="chatSendBtn">전송</button>
     </div>
   </div>
+  <div class="chat-bubble-speech" id="chatSpeech">
+    <span class="ko-text">궁금하신 거 저에게 물어보세요!</span>
+    <span class="en-text">Ask me anything about the contest!</span>
+  </div>
   <button class="chat-toggle-btn" id="chatToggle" title="공모전 도우미">
     <img src="./images/character_pop.png" alt="도우미" />
   </button>
@@ -2297,9 +2305,12 @@ function setLang(lang) {
     }, 600);
   }
 
+  var speech = document.getElementById('chatSpeech');
+
   function openChat() {
     isOpen = true;
     win.classList.remove('chat-hidden');
+    if (speech) speech.classList.add('hide');
     if (msgs.children.length === 0) {
       setTimeout(function() {
         addMsg('안녕하세요! 👋 투닝 공모전 도우미입니다.\n아래 버튼을 선택하거나 직접 입력해 주세요!', 'bot');
@@ -2307,7 +2318,12 @@ function setLang(lang) {
     }
     setTimeout(function() { input.focus(); }, 300);
   }
-  function closeChat() { isOpen = false; win.classList.add('chat-hidden'); }
+  function closeChat() {
+    isOpen = false;
+    win.classList.add('chat-hidden');
+    if (speech) speech.classList.remove('hide');
+  }
+  if (speech) speech.addEventListener('click', openChat);
 
   var chipSets = {
     main: [
