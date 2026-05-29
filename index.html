@@ -2253,7 +2253,7 @@ function hofTab(id, btn) {
   modal.querySelectorAll('.hof-tab').forEach(function(t){ t.classList.remove('active'); });
   modal.querySelectorAll('.hof-panel').forEach(function(p){ p.classList.remove('active'); });
   btn.classList.add('active');
-  document.getElementById('hof-m-' + id).classList.add('active');
+  modal.querySelector('#hof-m-' + id).classList.add('active');
 }
 (function() {
   var hofOverlay = document.getElementById('hofModal');
