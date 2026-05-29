@@ -2191,6 +2191,9 @@ function setLang(lang) {
 
   var FALLBACK   = '공모전 관련 질문에만 답변할 수 있어요. 😊\n아래 버튼을 눌러 주제를 선택해 주세요!';
   var OFFTOPIC   = '해당 질문에는 답변하기 어렵습니다. 🙏\n투닝 공모전 관련 질문을 해주세요!';
+  var FEEDBACK   = '좋은 의견 감사합니다! 😊\n검토 후 반영하겠습니다.';
+
+  var complainList = ['왜','아니','틀렸','잘못','이상해','이상한','말이 돼','말도 안','문제가','불만','짜증','실망','고쳐','수정해','바꿔','아닌가','아닌데','잘못됐','잘못 됐','맞냐','맞나','맞아','틀린','틀렸','오류'];
 
   function addMsg(text, type) {
     var wrap = document.createElement('div');
@@ -2228,6 +2231,11 @@ function setLang(lang) {
   function isBlocked(q) {
     var l = q.toLowerCase();
     for (var i = 0; i < blocklist.length; i++) { if (l.indexOf(blocklist[i]) !== -1) return true; }
+    return false;
+  }
+
+  function isComplaint(q) {
+    for (var i = 0; i < complainList.length; i++) { if (q.indexOf(complainList[i]) !== -1) return true; }
     return false;
   }
 
@@ -2281,6 +2289,9 @@ function setLang(lang) {
 
       // 부적절한 질문
       if (isBlocked(q)) { addMsg(OFFTOPIC, 'bot'); return; }
+
+      // 지적/불만 감지 → 감사 응대
+      if (isComplaint(q)) { addMsg(FEEDBACK, 'bot'); return; }
 
       // 룰 매칭
       var ans = getAnswer(q);
