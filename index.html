@@ -556,7 +556,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 /* ============ HOF MODAL ============ */
 .hof-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10001;display:flex;align-items:flex-start;justify-content:center;padding:20px 16px;opacity:0;pointer-events:none;transition:opacity .25s;overflow-y:auto}
 .hof-modal-overlay.open{opacity:1;pointer-events:all}
-.hof-modal-box{width:100%;max-width:min(1400px,96vw);background:#0f1117;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,.7);transform:scale(.95) translateY(-10px);transition:transform .25s;margin:auto;border:1px solid rgba(255,255,255,.08)}
+.hof-modal-box{width:100%;max-width:min(1400px,96vw);height:88vh;background:#0f1117;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,.7);transform:scale(.95) translateY(-10px);transition:transform .25s;margin:auto;border:1px solid rgba(255,255,255,.08)}
 .hof-modal-overlay.open .hof-modal-box{transform:scale(1) translateY(0)}
 .hof-modal-hd{background:#0f1117;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
 .hof-modal-hd-inner{display:flex;flex-direction:column;align-items:center;flex:1;text-align:center}
@@ -565,7 +565,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .hof-modal-hd p{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px}
 .hof-modal-close-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;font-size:16px;color:rgba(255,255,255,.7);flex-shrink:0;align-self:flex-start;transition:background .15s}
 .hof-modal-close-btn:hover{background:rgba(255,107,107,.3);color:#ff6b6b}
-.hof-modal-body{padding:28px;overflow-y:auto;background:#0f1117}
+.hof-modal-body{padding:28px;overflow-y:auto;background:#0f1117;flex:1;min-height:0}
 /* Dark theme overrides for HOF elements inside modal */
 .hof-modal-box .hof-tab{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
 .hof-modal-box .hof-tab.active{background:#c8960a;border-color:#c8960a;color:#fff;box-shadow:0 4px 14px rgba(200,150,10,.4)}
