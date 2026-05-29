@@ -557,7 +557,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 /* ============ VIDEO MODAL ============ */
 .video-modal-overlay{position:fixed;inset:0;background:rgba(10,14,30,.8);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
 .video-modal-overlay.open{opacity:1;pointer-events:all}
-.video-modal-box{width:100%;max-width:900px;background:#000;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);transform:scale(.95);transition:transform .25s;position:relative}
+.video-modal-box{width:100%;max-width:min(1400px,92vw);background:#000;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);transform:scale(.95);transition:transform .25s;position:relative}
 .video-modal-overlay.open .video-modal-box{transform:scale(1)}
 .video-modal-box iframe{display:block;width:100%;aspect-ratio:16/9;border:none}
 .video-modal-close{position:absolute;top:-40px;right:0;background:rgba(255,255,255,.15);border:none;color:#fff;width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
