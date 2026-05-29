@@ -2361,8 +2361,9 @@ function setLang(lang) {
           }, 400);
         });
       } else if (item.action === 'main') {
-        btn.style.background = '#eef0f5';
-        btn.style.borderColor = '#d0d3de';
+        btn.style.background = '#2d3142';
+        btn.style.borderColor = '#2d3142';
+        btn.style.color = '#fff';
         btn.addEventListener('click', function() { renderChips('main'); });
       } else {
         btn.addEventListener('click', function() { sendMsg(item.q); });
