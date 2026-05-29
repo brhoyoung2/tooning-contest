@@ -564,7 +564,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .hof-modal-close-btn{width:34px;height:34px;border-radius:50%;background:#f5f6f9;border:none;cursor:pointer;font-size:16px;color:var(--text-dark);flex-shrink:0;transition:background .15s}
 .hof-modal-close-btn:hover{background:#ffe0e0;color:var(--coral)}
 .hof-modal-body{padding:24px;overflow-y:auto}
-.hof-open-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--text-dark);color:#fff;border-radius:16px;font-weight:700;font-size:14px;cursor:pointer;border:none;margin-top:32px;transition:all .2s;touch-action:manipulation}
+.hof-open-btn{display:inline-flex;align-items:center;gap:10px;padding:18px 40px;background:var(--text-dark);color:#fff;border-radius:20px;font-weight:700;font-size:16px;cursor:pointer;border:none;margin-top:20px;transition:background .2s;touch-action:manipulation}
 .hof-open-btn:hover{background:var(--coral)}
 /* ============ WORKS POPUP ============ */
 .works-modal-overlay{position:fixed;inset:0;background:rgba(10,14,30,.8);z-index:10001;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
@@ -1195,7 +1195,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     </div>
 
     <!-- 2025 명예의 전당 버튼 -->
-    <div style="text-align:center" class="reveal delay-3">
+    <div style="text-align:center;margin-top:64px" class="reveal delay-3">
+      <p style="font-size:16px;color:var(--text-soft);font-weight:600;margin-bottom:0"><span class="ko-text">2025년 수상한 우리 아이들의 작품을 확인하세요.</span><span class="en-text">View the award-winning works from our 2025 contest.</span></p>
       <button class="hof-open-btn" onclick="document.getElementById('hofModal').classList.add('open');document.body.style.overflow='hidden'" type="button">🏆 2025 명예의 전당 보기</button>
     </div>
     <div class="hof-wrap reveal delay-3" style="display:none">
