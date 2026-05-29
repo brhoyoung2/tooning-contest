@@ -533,23 +533,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .fcs-winner-name{font-weight:800;font-size:20px;color:var(--text-dark);letter-spacing:-.02em}
 .fcs-winner-cta{margin-top:14px;font-weight:700;font-size:13px;color:var(--coral);display:inline-flex;align-items:center;gap:4px}
 @media(max-width:600px){.fcs-winner-cards{grid-template-columns:1fr}}
-/* ============ WINNER IFRAME MODAL ============ */
-.winner-modal-overlay{position:fixed;inset:0;background:rgba(10,14,30,.7);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
-.winner-modal-overlay.open{opacity:1;pointer-events:all}
-.winner-modal-box{width:100%;max-width:1000px;height:80vh;background:#fff;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.35);transform:scale(.96);transition:transform .25s}
-.winner-modal-overlay.open .winner-modal-box{transform:scale(1)}
-.winner-modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#fff;border-bottom:1px solid rgba(99,110,130,.12);flex-shrink:0}
-.winner-modal-title{font-weight:800;font-size:15px;color:var(--text-dark);letter-spacing:-.01em}
-.winner-modal-actions{display:flex;align-items:center;gap:8px}
-.winner-modal-newtab{font-size:12px;font-weight:600;color:var(--coral);text-decoration:none;padding:5px 10px;border:1.5px solid var(--coral);border-radius:10px;transition:all .15s}
-.winner-modal-newtab:hover{background:var(--coral);color:#fff}
-.winner-modal-close{width:32px;height:32px;border-radius:50%;background:#f5f6f9;border:none;cursor:pointer;font-size:16px;color:var(--text-dark);display:flex;align-items:center;justify-content:center;transition:background .15s}
-.winner-modal-close:hover{background:#ffe0e0;color:var(--coral)}
-.winner-modal-iframe{flex:1;border:none;width:100%}
-.winner-modal-fallback{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:40px;text-align:center}
-.winner-modal-fallback p{font-size:15px;color:var(--text-soft);line-height:1.7}
-.winner-modal-fallback a{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--coral);color:#fff;border-radius:14px;font-weight:700;font-size:14px;text-decoration:none}
-@media(max-width:600px){.winner-modal-box{height:90vh}}
 
 /* ============ LIGHTBOX ============ */
 .lightbox-overlay{position:fixed;inset:0;z-index:3000;background:rgba(8,12,24,.94);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px)}
@@ -1143,18 +1126,18 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="fcs-winners reveal delay-3">
       <h3 class="fcs-winners-title"><span class="ko-text">🏆 수상작 하이라이트</span><span class="en-text">🏆 Award-winning Works</span></h3>
       <div class="fcs-winner-cards">
-        <div class="fcs-winner-card" data-winner-url="https://an-api.tooning.io/canvas-share/6447636" data-winner-title="이O연 · 서산고등학교" style="cursor:pointer">
+        <a href="https://an-api.tooning.io/canvas-share/6447636" target="_blank" rel="noopener" class="fcs-winner-card">
           <div class="fcs-winner-type">🎨 <span class="ko-text">웹툰</span><span class="en-text">Webtoon</span></div>
           <div class="fcs-winner-school"><span class="ko-text">서산고등학교</span><span class="en-text">Seosan High School</span></div>
           <div class="fcs-winner-name">이O연</div>
           <div class="fcs-winner-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div>
-        </div>
-        <div class="fcs-winner-card" data-winner-url="https://tooning.io/board/tlvdpvccmp/8960124203" data-winner-title="임O나 · 천안용암초등학교" style="cursor:pointer">
+        </a>
+        <a href="https://tooning.io/board/tlvdpvccmp/8960124203" target="_blank" rel="noopener" class="fcs-winner-card">
           <div class="fcs-winner-type">📖 <span class="ko-text">웹소설</span><span class="en-text">Web Novel</span></div>
           <div class="fcs-winner-school"><span class="ko-text">천안용암초등학교</span><span class="en-text">Cheonan Yongam Elementary</span></div>
           <div class="fcs-winner-name">임O나</div>
           <div class="fcs-winner-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div>
-        </div>
+        </a>
       </div>
     </div>
   </div>
@@ -1169,20 +1152,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <a href="#" data-open-modal="apply" class="cta-button reveal delay-3">접수 시작하기 <span>→</span></a>
   </div>
 </section>
-
-<!-- ============ WINNER IFRAME MODAL ============ -->
-<div class="winner-modal-overlay" id="winnerModal">
-  <div class="winner-modal-box">
-    <div class="winner-modal-header">
-      <span class="winner-modal-title" id="winnerModalTitle"></span>
-      <div class="winner-modal-actions">
-        <a class="winner-modal-newtab" id="winnerModalLink" href="#" target="_blank" rel="noopener">새 탭으로 열기 ↗</a>
-        <button class="winner-modal-close" id="winnerModalClose">✕</button>
-      </div>
-    </div>
-    <iframe class="winner-modal-iframe" id="winnerModalIframe" src="" allowfullscreen></iframe>
-  </div>
-</div>
 
 <!-- ============ UNI SLIDER LIGHTBOX ============ -->
 <div class="lightbox-overlay" id="uni-lightbox">
@@ -1994,38 +1963,6 @@ function setLang(lang) {
     if (e.key === 'ArrowLeft') navigate(-1);
     if (e.key === 'ArrowRight') navigate(1);
   });
-})();
-
-// ============ WINNER IFRAME MODAL ============
-(function() {
-  var overlay = document.getElementById('winnerModal');
-  var iframe  = document.getElementById('winnerModalIframe');
-  var title   = document.getElementById('winnerModalTitle');
-  var link    = document.getElementById('winnerModalLink');
-  var closeBtn= document.getElementById('winnerModalClose');
-
-  function openModal(url, label) {
-    title.textContent = label;
-    link.href = url;
-    iframe.src = url;
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal() {
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-    setTimeout(function() { iframe.src = ''; }, 300);
-  }
-
-  document.querySelectorAll('[data-winner-url]').forEach(function(card) {
-    card.addEventListener('click', function() {
-      openModal(card.getAttribute('data-winner-url'), card.getAttribute('data-winner-title'));
-    });
-  });
-
-  closeBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
 })();
 
 // ============ UNI SLIDER — rAF-based scroll (hover slowdown) ============
