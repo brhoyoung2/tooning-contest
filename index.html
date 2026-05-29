@@ -2074,13 +2074,7 @@ function setLang(lang) {
       <button class="chat-head-close" id="chatClose">✕</button>
     </div>
     <div class="chat-msgs" id="chatMsgs"></div>
-    <div class="chat-chips">
-      <button class="chat-chip" data-q="접수 기간이 언제예요?">📅 접수 기간</button>
-      <button class="chat-chip" data-q="참가 자격이 어떻게 되나요?">🎓 참가 자격</button>
-      <button class="chat-chip" data-q="시상 내역이 궁금해요">🏆 시상 내역</button>
-      <button class="chat-chip" data-q="공모 주제가 뭐예요?">📝 공모 주제</button>
-      <button class="chat-chip" data-q="협력 대학이 몇 개예요?">🏛️ 협력 대학</button>
-    </div>
+    <div class="chat-chips" id="chatChips"></div>
     <div class="chat-input-row">
       <input class="chat-input" id="chatInput" type="text" placeholder="궁금한 점을 입력하세요..." autocomplete="off" />
       <button class="chat-send-btn" id="chatSendBtn">전송</button>
@@ -2250,13 +2244,57 @@ function setLang(lang) {
   }
   function closeChat() { isOpen = false; win.classList.add('chat-hidden'); }
 
+  var chipSets = {
+    main: [
+      { label:'❓ 자주 묻는 질문', action:'faq' },
+      { label:'📅 접수 기간',      q:'접수 기간이 언제예요?' },
+      { label:'🎓 참가 자격',      q:'참가 자격이 어떻게 되나요?' },
+      { label:'🏆 시상 내역',      q:'시상 내역이 궁금해요' },
+      { label:'📝 공모 주제',      q:'공모 주제가 뭐예요?' },
+      { label:'🏛️ 협력 대학',     q:'협력 대학이 몇 개예요?' },
+    ],
+    faq: [
+      { label:'← 뒤로',              action:'main' },
+      { label:'💰 무료 접수 가능한가요?',  q:'무료로 접수 가능한가요?' },
+      { label:'📝 작품 잘못 제출했어요',   q:'작품을 잘못 제출했어요' },
+      { label:'🛠️ 투닝 오류가 생겼어요',  q:'투닝 이용 중 오류가 생겼어요' },
+      { label:'✅ 신청 확인하고 싶어요',   q:'신청 확인하고 싶어요' },
+    ]
+  };
+
+  function renderChips(setName) {
+    var container = document.getElementById('chatChips');
+    container.innerHTML = '';
+    (chipSets[setName] || chipSets.main).forEach(function(item) {
+      var btn = document.createElement('button');
+      btn.className = 'chat-chip';
+      btn.textContent = item.label;
+      if (item.action === 'faq') {
+        btn.addEventListener('click', function() {
+          renderChips('faq');
+          showTyping();
+          setTimeout(function() {
+            removeTyping();
+            addMsg('자주 묻는 질문 목록입니다! 😊\n궁금한 항목을 선택해 주세요.', 'bot');
+          }, 400);
+        });
+      } else if (item.action === 'main') {
+        btn.style.background = '#eef0f5';
+        btn.style.borderColor = '#d0d3de';
+        btn.addEventListener('click', function() { renderChips('main'); });
+      } else {
+        btn.addEventListener('click', function() { sendMsg(item.q); });
+      }
+      container.appendChild(btn);
+    });
+  }
+
+  renderChips('main');
+
   toggle.addEventListener('click', function() { isOpen ? closeChat() : openChat(); });
   closeBtn.addEventListener('click', closeChat);
   sendBtn.addEventListener('click', function() { sendMsg(input.value); });
   input.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendMsg(input.value); });
-  document.querySelectorAll('.chat-chip').forEach(function(c) {
-    c.addEventListener('click', function() { sendMsg(c.getAttribute('data-q')); });
-  });
 })();
 </script>
 </body>
