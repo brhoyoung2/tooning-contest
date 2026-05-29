@@ -304,6 +304,10 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-manifesto{text-align:center;margin-top:60px;font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.01em;color:var(--text-dark);line-height:1.5}
 .lifetime-goto{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:24px;padding:20px 28px;background:var(--coral);color:#fff;border-radius:16px;font-weight:700;font-size:14px;letter-spacing:.03em;transition:transform .2s,box-shadow .2s;text-decoration:none;align-self:flex-start}
 .lifetime-goto:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,107,.4)}
+.lifetime-download{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;background:transparent;color:var(--coral);border:2px solid var(--coral);border-radius:16px;font-weight:700;font-size:14px;letter-spacing:.03em;transition:all .2s;text-decoration:none;cursor:pointer;margin-top:10px;align-self:flex-start}
+.lifetime-download:hover{background:var(--coral);color:#fff}
+.lifetime-card.dark .lifetime-download{color:#fff;border-color:#fff}
+.lifetime-card.dark .lifetime-download:hover{background:#fff;color:var(--text-dark)}
 .lifetime-card-link{text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%}
 .lifetime-audience-label{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em;color:var(--text-dark);text-align:center;margin-bottom:18px}
 @media(max-width:1024px){.lifetime-bridge{grid-template-columns:1fr}}
@@ -985,6 +989,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
               <li>✓ <span class="ko-text">30개 청강문화예술대·세종대·홍익대 등 웹툰·영화·애니메이션 저작 도구</span><span class="en-text">Used at 30+ universities incl. Chungkang, Sejong, Hongik for webtoon·film·animation</span></li>
             </ul>
             <span class="lifetime-goto" style="margin-top:24px"><span class="ko-text">plus.tooning.io 바로가기 →</span><span class="en-text">Visit plus.tooning.io →</span></span>
+            <a class="lifetime-download" href="./tooningplus-info.pdf" download="tooningplus-info.pdf">📄 <span class="ko-text">서비스 소개서 다운로드</span><span class="en-text">Download Brochure</span></a>
           </div>
         </a>
         </div>
