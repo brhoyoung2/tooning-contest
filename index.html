@@ -302,13 +302,14 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-arrow-circle{width:60px;height:60px;border-radius:50%;background:var(--coral);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;box-shadow:0 6px 16px rgba(255,107,107,.4);margin:0 auto}
 .lifetime-arrow-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);margin-top:14px}
 .lifetime-manifesto{text-align:center;margin-top:60px;font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.01em;color:var(--text-dark);line-height:1.5}
-.lifetime-btn-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:24px}
-.lifetime-goto{display:inline-flex;align-items:center;gap:8px;padding:16px 24px;background:var(--coral);color:#fff;border-radius:16px;font-weight:700;font-size:14px;letter-spacing:.03em;transition:transform .2s,box-shadow .2s;text-decoration:none}
-.lifetime-goto:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,107,107,.4)}
-.lifetime-download{display:inline-flex;align-items:center;gap:8px;padding:16px 20px;background:transparent;color:var(--coral);border:2px solid var(--coral);border-radius:16px;font-weight:700;font-size:14px;letter-spacing:.03em;transition:all .2s;text-decoration:none;cursor:pointer}
-.lifetime-download:hover{background:var(--coral);color:#fff}
-.lifetime-card.dark .lifetime-download{color:#fff;border-color:#fff}
-.lifetime-card.dark .lifetime-download:hover{background:#fff;color:var(--text-dark)}
+.lifetime-btn-row{display:flex;gap:8px;align-items:stretch;margin-top:24px}
+.lifetime-goto,.lifetime-download,.lifetime-video{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 10px;border-radius:12px;font-weight:600;font-size:13px;letter-spacing:0;cursor:pointer;transition:background .18s,color .18s;text-decoration:none;white-space:nowrap;touch-action:manipulation;border:none}
+.lifetime-goto{background:var(--coral);color:#fff}
+.lifetime-goto:hover{background:#e55050}
+.lifetime-download{background:#f5f6f9;color:var(--text-dark)}
+.lifetime-download:hover{background:#ffe8e8;color:var(--coral)}
+.lifetime-card.dark .lifetime-download{background:rgba(255,255,255,.12);color:#fff}
+.lifetime-card.dark .lifetime-download:hover{background:rgba(255,255,255,.25);color:#fff}
 .lifetime-card-link{text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%}
 .lifetime-audience-label{font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em;color:var(--text-dark);text-align:center;margin-bottom:18px}
 @media(max-width:1024px){.lifetime-bridge{grid-template-columns:1fr}}
@@ -608,9 +609,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .video-modal-box iframe{display:block;width:100%;aspect-ratio:16/9;border:none}
 .video-modal-close{position:absolute;top:-40px;right:0;background:rgba(255,255,255,.15);border:none;color:#fff;width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .video-modal-close:hover{background:rgba(255,255,255,.35)}
-.lifetime-video{display:inline-flex;align-items:center;gap:8px;padding:16px 20px;background:transparent;color:#333;border:2px solid #d0d3de;border-radius:16px;font-weight:700;font-size:14px;letter-spacing:.03em;transition:all .2s;text-decoration:none;cursor:pointer;touch-action:manipulation}
-.lifetime-video:hover{background:#333;color:#fff;border-color:#333}
-.lifetime-download{touch-action:manipulation}
+.lifetime-video{background:#f5f6f9;color:var(--text-dark)}
+.lifetime-video:hover{background:#e8e9ec;color:var(--text-dark)}
 
 /* ============ CHATBOT WIDGET ============ */
 .chat-widget{position:fixed;bottom:28px;right:max(28px,calc((100vw - 1300px) / 2));z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
@@ -1036,7 +1036,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             </ul>
             <div class="lifetime-btn-row">
               <a class="lifetime-goto" href="https://tooning.io" target="_blank" rel="noopener"><span class="ko-text">tooning.io 바로가기 →</span><span class="en-text">Visit tooning.io →</span></a>
-              <a class="lifetime-download" href="./tooning-info.pdf" download="tooning-info.pdf" target="_blank" rel="noopener">📄 <span class="ko-text">교육용 소개서</span><span class="en-text">Brochure</span></a>
+              <a class="lifetime-download" href="./tooning-info.pdf" download="tooning-info.pdf" target="_blank" rel="noopener">↓ <span class="ko-text">소개서</span><span class="en-text">Brochure</span></a>
             </div>
           </div>
         </div>
@@ -1058,8 +1058,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             </ul>
             <div class="lifetime-btn-row">
               <a class="lifetime-goto" href="https://plus.tooning.io" target="_blank" rel="noopener"><span class="ko-text">plus.tooning.io 바로가기 →</span><span class="en-text">Visit plus.tooning.io →</span></a>
-              <a class="lifetime-download" href="./tooningplus-info.pdf" download="tooningplus-info.pdf" target="_blank" rel="noopener">📄 <span class="ko-text">서비스 소개서</span><span class="en-text">Brochure</span></a>
-              <button type="button" class="lifetime-video" id="openVideoBtn" onclick="var o=document.getElementById('videoModal'),f=document.getElementById('videoModalIframe');if(o&&f){f.src='https://www.youtube.com/embed/ab_DtqjwB0E?autoplay=1&rel=0';o.classList.add('open');document.body.style.overflow='hidden';}">▶ <span class="ko-text">소개 영상</span><span class="en-text">Intro Video</span></button>
+              <a class="lifetime-download" href="./tooningplus-info.pdf" download="tooningplus-info.pdf" target="_blank" rel="noopener">↓ <span class="ko-text">소개서</span><span class="en-text">Brochure</span></a>
+              <button type="button" class="lifetime-video" id="openVideoBtn" onclick="var o=document.getElementById('videoModal'),f=document.getElementById('videoModalIframe');if(o&&f){f.src='https://www.youtube.com/embed/ab_DtqjwB0E?autoplay=1&rel=0';o.classList.add('open');document.body.style.overflow='hidden';}">▶ <span class="ko-text">소개 영상</span><span class="en-text">Video</span></button>
             </div>
           </div>
         </div>
