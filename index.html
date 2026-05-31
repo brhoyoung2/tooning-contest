@@ -302,6 +302,7 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-arrow-circle{width:60px;height:60px;border-radius:50%;background:var(--coral);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;box-shadow:0 6px 16px rgba(255,107,107,.4);margin:0 auto}
 .lifetime-arrow-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);margin-top:14px}
 .lifetime-manifesto{text-align:center;margin-top:60px;font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.01em;color:var(--text-dark);line-height:1.5}
+.lifetime{overflow:visible}
 .lifetime-btn-row{display:flex;gap:8px;align-items:stretch;margin-top:24px}
 @media(max-width:600px){.lifetime-btn-row{flex-direction:column}.lifetime-goto,.lifetime-download,.lifetime-video{min-height:48px;font-size:15px;padding:14px 16px}}
 .lifetime-goto,.lifetime-download,.lifetime-video{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 10px;border-radius:12px;font-weight:600;font-size:13px;letter-spacing:0;cursor:pointer;transition:background .18s,color .18s;text-decoration:none;white-space:nowrap;touch-action:manipulation;border:none;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;position:relative;z-index:1}
@@ -1064,8 +1065,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
               <li>✓ <span class="ko-text">2,100개 초·중·고 학교 에듀테크 도구</span><span class="en-text">Edtech tool for 2,100+ K–12 schools</span></li>
             </ul>
             <div class="lifetime-btn-row">
-              <a class="lifetime-goto" href="https://tooning.io" target="_blank" rel="noopener"><span class="ko-text">tooning.io 바로가기 →</span><span class="en-text">Visit tooning.io →</span></a>
-              <a class="lifetime-download" href="./tooning-info.pdf" target="_blank" rel="noopener">↓ <span class="ko-text">소개서</span><span class="en-text">Brochure</span></a>
+              <a class="lifetime-goto" href="https://tooning.io" target="_blank" rel="noopener" onclick="window.open('https://tooning.io','_blank');return false;"><span class="ko-text">tooning.io 바로가기 →</span><span class="en-text">Visit tooning.io →</span></a>
+              <a class="lifetime-download" href="./tooning-info.pdf" target="_blank" rel="noopener" onclick="window.open('./tooning-info.pdf','_blank');return false;">↓ <span class="ko-text">소개서</span><span class="en-text">Brochure</span></a>
             </div>
           </div>
         </div>
@@ -1086,8 +1087,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
               <li>✓ <span class="ko-text">30개 청강문화예술대·세종대·홍익대 등 웹툰·영화·애니메이션 저작 도구</span><span class="en-text">Used at 30+ universities incl. Chungkang, Sejong, Hongik for webtoon·film·animation</span></li>
             </ul>
             <div class="lifetime-btn-row">
-              <a class="lifetime-goto" href="https://plus.tooning.io" target="_blank" rel="noopener"><span class="ko-text">plus.tooning.io 바로가기 →</span><span class="en-text">Visit plus.tooning.io →</span></a>
-              <a class="lifetime-download" href="./tooningplus-info.pdf" target="_blank" rel="noopener">↓ <span class="ko-text">소개서</span><span class="en-text">Brochure</span></a>
+              <a class="lifetime-goto" href="https://plus.tooning.io" target="_blank" rel="noopener" onclick="window.open('https://plus.tooning.io','_blank');return false;"><span class="ko-text">plus.tooning.io 바로가기 →</span><span class="en-text">Visit plus.tooning.io →</span></a>
+              <a class="lifetime-download" href="./tooningplus-info.pdf" target="_blank" rel="noopener" onclick="window.open('./tooningplus-info.pdf','_blank');return false;">↓ <span class="ko-text">소개서</span><span class="en-text">Brochure</span></a>
               <button type="button" class="lifetime-video" id="openVideoBtn" onclick="var o=document.getElementById('videoModal'),f=document.getElementById('videoModalIframe');if(o&&f){f.src='https://www.youtube.com/embed/ab_DtqjwB0E?autoplay=1&playsinline=1&rel=0';o.classList.add('open');document.body.style.overflow='hidden';}">▶ <span class="ko-text">소개 영상</span><span class="en-text">Video</span></button>
             </div>
           </div>
