@@ -303,6 +303,7 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-arrow-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);margin-top:14px}
 .lifetime-manifesto{text-align:center;margin-top:60px;font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.01em;color:var(--text-dark);line-height:1.5}
 .lifetime-btn-row{display:flex;gap:8px;align-items:stretch;margin-top:24px}
+@media(max-width:600px){.lifetime-btn-row{flex-direction:column}.lifetime-goto,.lifetime-download,.lifetime-video{min-height:48px;font-size:15px;padding:14px 16px}}
 .lifetime-goto,.lifetime-download,.lifetime-video{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 10px;border-radius:12px;font-weight:600;font-size:13px;letter-spacing:0;cursor:pointer;transition:background .18s,color .18s;text-decoration:none;white-space:nowrap;touch-action:manipulation;border:none}
 .lifetime-goto{background:var(--coral);color:#fff}
 .lifetime-goto:hover{background:#e55050}
@@ -1064,7 +1065,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             </ul>
             <div class="lifetime-btn-row">
               <a class="lifetime-goto" href="https://tooning.io" target="_blank" rel="noopener"><span class="ko-text">tooning.io 바로가기 →</span><span class="en-text">Visit tooning.io →</span></a>
-              <a class="lifetime-download" href="./tooning-info.pdf" download="tooning-info.pdf" target="_blank" rel="noopener">↓ <span class="ko-text">소개서</span><span class="en-text">Brochure</span></a>
+              <a class="lifetime-download" href="./tooning-info.pdf" target="_blank" rel="noopener">↓ <span class="ko-text">소개서</span><span class="en-text">Brochure</span></a>
             </div>
           </div>
         </div>
@@ -1086,8 +1087,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             </ul>
             <div class="lifetime-btn-row">
               <a class="lifetime-goto" href="https://plus.tooning.io" target="_blank" rel="noopener"><span class="ko-text">plus.tooning.io 바로가기 →</span><span class="en-text">Visit plus.tooning.io →</span></a>
-              <a class="lifetime-download" href="./tooningplus-info.pdf" download="tooningplus-info.pdf" target="_blank" rel="noopener">↓ <span class="ko-text">소개서</span><span class="en-text">Brochure</span></a>
-              <button type="button" class="lifetime-video" id="openVideoBtn" onclick="var o=document.getElementById('videoModal'),f=document.getElementById('videoModalIframe');if(o&&f){f.src='https://www.youtube.com/embed/ab_DtqjwB0E?autoplay=1&rel=0';o.classList.add('open');document.body.style.overflow='hidden';}">▶ <span class="ko-text">소개 영상</span><span class="en-text">Video</span></button>
+              <a class="lifetime-download" href="./tooningplus-info.pdf" target="_blank" rel="noopener">↓ <span class="ko-text">소개서</span><span class="en-text">Brochure</span></a>
+              <button type="button" class="lifetime-video" id="openVideoBtn" onclick="var o=document.getElementById('videoModal'),f=document.getElementById('videoModalIframe');if(o&&f){f.src='https://www.youtube.com/embed/ab_DtqjwB0E?autoplay=1&playsinline=1&rel=0';o.classList.add('open');document.body.style.overflow='hidden';}">▶ <span class="ko-text">소개 영상</span><span class="en-text">Video</span></button>
             </div>
           </div>
         </div>
@@ -1171,25 +1172,25 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     </div>
 
     <div class="deans-grid">
-      <div class="uni-card reveal"><div class="uni-prof">Prof. Kang Du-hye</div><div class="uni-fullname">Bucheon Univ.</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-prof">Prof. Kang Min-ji</div><div class="uni-fullname">Jeonghwa Univ.</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-prof">Prof. Kim Byeong-su</div><div class="uni-fullname">Sangmyung Univ.</div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-prof">Prof. Kim Se-jong</div><div class="uni-fullname">Pai Chai Univ.</div></div>
-      <div class="uni-card reveal delay-3"><div class="uni-prof">Prof. Kim Shin</div><div class="uni-fullname">Joongbu Univ.</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-prof">Prof. Kim Jeong-young</div><div class="uni-fullname">Yeonsung Univ.</div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-prof">Prof. Kim Hyo-jeong</div><div class="uni-fullname">Ewha Womans Univ.</div></div>
-      <div class="uni-card reveal delay-3"><div class="uni-prof">Prof. Park Gu-man</div><div class="uni-fullname">Seoul Nat'l Univ. of Science &amp; Tech.</div></div>
-      <div class="uni-card reveal"><div class="uni-prof">Prof. Park Se-hyuk</div><div class="uni-fullname">Hongik Univ.</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-prof">Prof. Wang Deok-won</div><div class="uni-fullname">Sejong Univ.</div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-prof">Prof. Yeo Hyun-deok</div><div class="uni-fullname">KAIST</div></div>
-      <div class="uni-card reveal delay-3"><div class="uni-prof">Prof. Yoo Hyeon-sik</div><div class="uni-fullname">Sungkyul Univ.</div></div>
-      <div class="uni-card reveal"><div class="uni-prof">Prof. Lee Jeong-a</div><div class="uni-fullname">Soongeui Women's Univ.</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-prof">Prof. Lee Jong-ho</div><div class="uni-fullname">Bucheon Univ.</div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-prof">Prof. Lee Ji-eun</div><div class="uni-fullname">Konkuk Univ.</div></div>
-      <div class="uni-card reveal delay-3"><div class="uni-prof">Prof. Lee Hye-ju</div><div class="uni-fullname">Hanyang Women's Univ.</div></div>
-      <div class="uni-card reveal"><div class="uni-prof">Prof. Im Geol</div><div class="uni-fullname">Konkuk Univ.</div></div>
-      <div class="uni-card reveal delay-1"><div class="uni-prof">Prof. Im Jae-hwan</div><div class="uni-fullname">Chungkang College</div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-prof">Prof. Heo Jeong-yun</div><div class="uni-fullname">Kookmin Univ.</div></div>
+      <div class="uni-card reveal"><div class="uni-prof"><span class="ko-text">강두혜 교수님</span><span class="en-text">Prof. Kang Du-hye</span></div><div class="uni-fullname"><span class="ko-text">부천대학교</span><span class="en-text">Bucheon Univ.</span></div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-prof"><span class="ko-text">강민지 교수님</span><span class="en-text">Prof. Kang Min-ji</span></div><div class="uni-fullname"><span class="ko-text">정화예술대학</span><span class="en-text">Jeonghwa Univ.</span></div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-prof"><span class="ko-text">김병수 교수님</span><span class="en-text">Prof. Kim Byeong-su</span></div><div class="uni-fullname"><span class="ko-text">상명대학교</span><span class="en-text">Sangmyung Univ.</span></div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-prof"><span class="ko-text">김세종 교수님</span><span class="en-text">Prof. Kim Se-jong</span></div><div class="uni-fullname"><span class="ko-text">배재대학교</span><span class="en-text">Pai Chai Univ.</span></div></div>
+      <div class="uni-card reveal delay-3"><div class="uni-prof"><span class="ko-text">김신 교수님</span><span class="en-text">Prof. Kim Shin</span></div><div class="uni-fullname"><span class="ko-text">중부대학교</span><span class="en-text">Joongbu Univ.</span></div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-prof"><span class="ko-text">김정영 교수님</span><span class="en-text">Prof. Kim Jeong-young</span></div><div class="uni-fullname"><span class="ko-text">연성대학교</span><span class="en-text">Yeonsung Univ.</span></div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-prof"><span class="ko-text">김효정 교수님</span><span class="en-text">Prof. Kim Hyo-jeong</span></div><div class="uni-fullname"><span class="ko-text">이화여자대학교</span><span class="en-text">Ewha Womans Univ.</span></div></div>
+      <div class="uni-card reveal delay-3"><div class="uni-prof"><span class="ko-text">박구만 교수님</span><span class="en-text">Prof. Park Gu-man</span></div><div class="uni-fullname"><span class="ko-text">서울과학기술대학교</span><span class="en-text">Seoul Nat'l Univ. of Science &amp; Tech.</span></div></div>
+      <div class="uni-card reveal"><div class="uni-prof"><span class="ko-text">박세혁 교수님</span><span class="en-text">Prof. Park Se-hyuk</span></div><div class="uni-fullname"><span class="ko-text">홍익대학교</span><span class="en-text">Hongik Univ.</span></div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-prof"><span class="ko-text">왕덕원 교수님</span><span class="en-text">Prof. Wang Deok-won</span></div><div class="uni-fullname"><span class="ko-text">세종대학교</span><span class="en-text">Sejong Univ.</span></div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-prof"><span class="ko-text">여현덕 교수님</span><span class="en-text">Prof. Yeo Hyun-deok</span></div><div class="uni-fullname"><span class="ko-text">카이스트</span><span class="en-text">KAIST</span></div></div>
+      <div class="uni-card reveal delay-3"><div class="uni-prof"><span class="ko-text">유현식 교수님</span><span class="en-text">Prof. Yoo Hyeon-sik</span></div><div class="uni-fullname"><span class="ko-text">성결대학교</span><span class="en-text">Sungkyul Univ.</span></div></div>
+      <div class="uni-card reveal"><div class="uni-prof"><span class="ko-text">이정아 교수님</span><span class="en-text">Prof. Lee Jeong-a</span></div><div class="uni-fullname"><span class="ko-text">숭의여자대학교</span><span class="en-text">Soongeui Women's Univ.</span></div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-prof"><span class="ko-text">이종호 교수님</span><span class="en-text">Prof. Lee Jong-ho</span></div><div class="uni-fullname"><span class="ko-text">부천대학교</span><span class="en-text">Bucheon Univ.</span></div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-prof"><span class="ko-text">이지은 교수님</span><span class="en-text">Prof. Lee Ji-eun</span></div><div class="uni-fullname"><span class="ko-text">건국대학교</span><span class="en-text">Konkuk Univ.</span></div></div>
+      <div class="uni-card reveal delay-3"><div class="uni-prof"><span class="ko-text">이혜주 교수님</span><span class="en-text">Prof. Lee Hye-ju</span></div><div class="uni-fullname"><span class="ko-text">한양여자대학교</span><span class="en-text">Hanyang Women's Univ.</span></div></div>
+      <div class="uni-card reveal"><div class="uni-prof"><span class="ko-text">임걸 교수님</span><span class="en-text">Prof. Im Geol</span></div><div class="uni-fullname"><span class="ko-text">건국대학교</span><span class="en-text">Konkuk Univ.</span></div></div>
+      <div class="uni-card reveal delay-1"><div class="uni-prof"><span class="ko-text">임재환 교수님</span><span class="en-text">Prof. Im Jae-hwan</span></div><div class="uni-fullname"><span class="ko-text">청강문화산업대</span><span class="en-text">Chungkang College</span></div></div>
+      <div class="uni-card reveal delay-2"><div class="uni-prof"><span class="ko-text">허정윤 교수님</span><span class="en-text">Prof. Heo Jeong-yun</span></div><div class="uni-fullname"><span class="ko-text">국민대학교</span><span class="en-text">Kookmin Univ.</span></div></div>
     </div>
     <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--text-soft)">
       <span class="ko-text">※ 이름순으로 배치했습니다.</span>
@@ -1226,100 +1227,100 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div style="text-align:center;margin-top:64px" class="reveal delay-3">
       <img src="./images/01.png" alt="월계관" style="width:72px;height:72px;object-fit:contain;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto" />
       <p style="font-size:16px;color:var(--text-soft);font-weight:600;margin-bottom:0"><span class="ko-text">2025년 수상한 우리 아이들의 작품을 확인하세요.</span><span class="en-text">View the award-winning works from our 2025 contest.</span></p>
-      <button class="hof-open-btn" onclick="document.getElementById('hofModal').classList.add('open');document.body.style.overflow='hidden'" type="button">🏆 View the 2025 Hall of Fame</button>
+      <button class="hof-open-btn" onclick="document.getElementById('hofModal').classList.add('open');document.body.style.overflow='hidden'" type="button">🏆 <span class="ko-text">2025 명예의 전당 보기</span><span class="en-text">View the 2025 Hall of Fame</span></button>
     </div>
     <div class="hof-wrap reveal delay-3" style="display:none">
       <div class="hof-heading">
-        <h3>🏆 2025 Hall of Fame</h3>
+        <h3>🏆 <span class="ko-text">2025 명예의 전당</span><span class="en-text">2025 Hall of Fame</span></h3>
         <p><span class="ko-text">제1회 국제 AI 투닝 공모전 수상작 · 작품을 클릭하면 볼 수 있어요</span><span class="en-text">1st International AI Tooning Contest Winners · Click a card to view</span></p>
       </div>
       <div class="hof-tabs">
-        <button class="hof-tab active" onclick="hofTab('elem',this)">🎒 Elementary</button>
-        <button class="hof-tab" onclick="hofTab('mid',this)">📚 Middle</button>
-        <button class="hof-tab" onclick="hofTab('high',this)">🎓 High School</button>
-        <button class="hof-tab" onclick="hofTab('enc',this)">🎀 Tooning Star Award</button>
+        <button class="hof-tab active" onclick="hofTab('elem',this)">🎒 <span class="ko-text">초등</span><span class="en-text">Elementary</span></button>
+        <button class="hof-tab" onclick="hofTab('mid',this)">📚 <span class="ko-text">중등</span><span class="en-text">Middle</span></button>
+        <button class="hof-tab" onclick="hofTab('high',this)">🎓 <span class="ko-text">고등</span><span class="en-text">High School</span></button>
+        <button class="hof-tab" onclick="hofTab('enc',this)">🎀 <span class="ko-text">투닝 스타상</span><span class="en-text">Tooning Star Award</span></button>
       </div>
 
       <!-- 초등 -->
       <div class="hof-panel active" id="hof-m-elem">
-        <div class="hof-rank-row">🥇 1st Place</div>
+        <div class="hof-rank-row">🥇 <span class="ko-text">1등</span><span class="en-text">1st Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6580769','이산','남계초등학교','토끼가된 마법 퇴마사')"><div class="hof-card-rank">Elem. 1st</div><div class="hof-card-name">이산</div><div class="hof-card-school">남계초등학교</div><div class="hof-card-title">토끼가된 마법 퇴마사</div><div class="hof-card-cta">View Work →</div></div>
-          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6678408','이연서','용연초등학교','AI와 알아가는 K컬쳐')"><div class="hof-card-rank">Elem. 1st</div><div class="hof-card-name">이연서</div><div class="hof-card-school">용연초등학교</div><div class="hof-card-title">AI와 알아가는 K컬쳐</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6580769','이산','남계초등학교','토끼가된 마법 퇴마사')"><div class="hof-card-rank"><span class="ko-text">초등 1등</span><span class="en-text">Elem. 1st</span></div><div class="hof-card-name">이산</div><div class="hof-card-school">남계초등학교</div><div class="hof-card-title">토끼가된 마법 퇴마사</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
+          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6678408','이연서','용연초등학교','AI와 알아가는 K컬쳐')"><div class="hof-card-rank"><span class="ko-text">초등 1등</span><span class="en-text">Elem. 1st</span></div><div class="hof-card-name">이연서</div><div class="hof-card-school">용연초등학교</div><div class="hof-card-title">AI와 알아가는 K컬쳐</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥈 2nd Place</div>
+        <div class="hof-rank-row">🥈 <span class="ko-text">2등</span><span class="en-text">2nd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6730089','이수연','석정초등학교','외쿡눈의 표류기')"><div class="hof-card-rank">Elem. 2nd</div><div class="hof-card-name">이수연</div><div class="hof-card-school">석정초등학교</div><div class="hof-card-title">외쿡눈의 표류기</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6730089','이수연','석정초등학교','외쿡눈의 표류기')"><div class="hof-card-rank"><span class="ko-text">초등 2등</span><span class="en-text">Elem. 2nd</span></div><div class="hof-card-name">이수연</div><div class="hof-card-school">석정초등학교</div><div class="hof-card-title">외쿡눈의 표류기</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥉 3rd Place</div>
+        <div class="hof-rank-row">🥉 <span class="ko-text">3등</span><span class="en-text">3rd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card bronze" onclick="openWork('https://api.tooning.io/canvas-share/6704050','차재용','프놈펜한국국제학교','천하제일 한식 요리 대회')"><div class="hof-card-rank">Elem. 3rd</div><div class="hof-card-name">차재용</div><div class="hof-card-school">프놈펜한국국제학교</div><div class="hof-card-title">천하제일 한식 요리 대회</div><div class="hof-card-cta">View Work →</div></div>
-          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6539939','홍지안','고촌초등학교','K-food스토리')"><div class="hof-card-rank">Elem. 3rd</div><div class="hof-card-name">홍지안</div><div class="hof-card-school">고촌초등학교</div><div class="hof-card-title">K-food스토리</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://api.tooning.io/canvas-share/6704050','차재용','프놈펜한국국제학교','천하제일 한식 요리 대회')"><div class="hof-card-rank"><span class="ko-text">초등 3등</span><span class="en-text">Elem. 3rd</span></div><div class="hof-card-name">차재용</div><div class="hof-card-school">프놈펜한국국제학교</div><div class="hof-card-title">천하제일 한식 요리 대회</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6539939','홍지안','고촌초등학교','K-food스토리')"><div class="hof-card-rank"><span class="ko-text">초등 3등</span><span class="en-text">Elem. 3rd</span></div><div class="hof-card-name">홍지안</div><div class="hof-card-school">고촌초등학교</div><div class="hof-card-title">K-food스토리</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
       </div>
 
       <!-- 중등 -->
       <div class="hof-panel" id="hof-m-mid">
-        <div class="hof-rank-row">🥇 1st Place</div>
+        <div class="hof-rank-row">🥇 <span class="ko-text">1등</span><span class="en-text">1st Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6736815','오소정','정일중학교','연청전')"><div class="hof-card-rank">Middle 1st</div><div class="hof-card-name">오소정</div><div class="hof-card-school">정일중학교</div><div class="hof-card-title">연청전</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6736815','오소정','정일중학교','연청전')"><div class="hof-card-rank"><span class="ko-text">중등 1등</span><span class="en-text">Middle 1st</span></div><div class="hof-card-name">오소정</div><div class="hof-card-school">정일중학교</div><div class="hof-card-title">연청전</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥈 2nd Place</div>
+        <div class="hof-rank-row">🥈 <span class="ko-text">2등</span><span class="en-text">2nd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6669336','유영재','논산중학교','그날 한국에 반했다')"><div class="hof-card-rank">Middle 2nd</div><div class="hof-card-name">유영재</div><div class="hof-card-school">논산중학교</div><div class="hof-card-title">그날 한국에 반했다</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6669336','유영재','논산중학교','그날 한국에 반했다')"><div class="hof-card-rank"><span class="ko-text">중등 2등</span><span class="en-text">Middle 2nd</span></div><div class="hof-card-name">유영재</div><div class="hof-card-school">논산중학교</div><div class="hof-card-title">그날 한국에 반했다</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥉 3rd Place</div>
+        <div class="hof-rank-row">🥉 <span class="ko-text">3등</span><span class="en-text">3rd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6620038','조성현','논산중학교','마이클')"><div class="hof-card-rank">Middle 3rd</div><div class="hof-card-name">조성현</div><div class="hof-card-school">논산중학교</div><div class="hof-card-title">마이클</div><div class="hof-card-cta">View Work →</div></div>
-          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6696199','김예준','환서중학교','화이트 조직과 경복궁')"><div class="hof-card-rank">Middle 3rd</div><div class="hof-card-name">김예준</div><div class="hof-card-school">환서중학교</div><div class="hof-card-title">화이트 조직과 경복궁</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6620038','조성현','논산중학교','마이클')"><div class="hof-card-rank"><span class="ko-text">중등 3등</span><span class="en-text">Middle 3rd</span></div><div class="hof-card-name">조성현</div><div class="hof-card-school">논산중학교</div><div class="hof-card-title">마이클</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6696199','김예준','환서중학교','화이트 조직과 경복궁')"><div class="hof-card-rank"><span class="ko-text">중등 3등</span><span class="en-text">Middle 3rd</span></div><div class="hof-card-name">김예준</div><div class="hof-card-school">환서중학교</div><div class="hof-card-title">화이트 조직과 경복궁</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
       </div>
 
       <!-- 고등 -->
       <div class="hof-panel" id="hof-m-high">
-        <div class="hof-rank-row">🥇 1st Place</div>
+        <div class="hof-rank-row">🥇 <span class="ko-text">1등</span><span class="en-text">1st Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6603961','전하은','상서고등학교','조선시대SNS 동화 재해석')"><div class="hof-card-rank">High 1st</div><div class="hof-card-name">전하은</div><div class="hof-card-school">상서고등학교</div><div class="hof-card-title">조선시대SNS 동화 재해석</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6603961','전하은','상서고등학교','조선시대SNS 동화 재해석')"><div class="hof-card-rank"><span class="ko-text">고등 1등</span><span class="en-text">High 1st</span></div><div class="hof-card-name">전하은</div><div class="hof-card-school">상서고등학교</div><div class="hof-card-title">조선시대SNS 동화 재해석</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥈 2nd Place</div>
+        <div class="hof-rank-row">🥈 <span class="ko-text">2등</span><span class="en-text">2nd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6542914','백준모','대건고등학교','조선슈퍼스타')"><div class="hof-card-rank">High 2nd</div><div class="hof-card-name">백준모</div><div class="hof-card-school">대건고등학교</div><div class="hof-card-title">조선슈퍼스타</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6542914','백준모','대건고등학교','조선슈퍼스타')"><div class="hof-card-rank"><span class="ko-text">고등 2등</span><span class="en-text">High 2nd</span></div><div class="hof-card-name">백준모</div><div class="hof-card-school">대건고등학교</div><div class="hof-card-title">조선슈퍼스타</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥉 3rd Place</div>
+        <div class="hof-rank-row">🥉 <span class="ko-text">3등</span><span class="en-text">3rd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6660061','양야나','계원예술고등학교','소피아의 생일상')"><div class="hof-card-rank">High 3rd</div><div class="hof-card-name">양야나</div><div class="hof-card-school">계원예술고등학교</div><div class="hof-card-title">소피아의 생일상</div><div class="hof-card-cta">View Work →</div></div>
-          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6589097','장아람','상서고등학교','8282민족')"><div class="hof-card-rank">High 3rd</div><div class="hof-card-name">장아람</div><div class="hof-card-school">상서고등학교</div><div class="hof-card-title">8282민족</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6660061','양야나','계원예술고등학교','소피아의 생일상')"><div class="hof-card-rank"><span class="ko-text">고등 3등</span><span class="en-text">High 3rd</span></div><div class="hof-card-name">양야나</div><div class="hof-card-school">계원예술고등학교</div><div class="hof-card-title">소피아의 생일상</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6589097','장아람','상서고등학교','8282민족')"><div class="hof-card-rank"><span class="ko-text">고등 3등</span><span class="en-text">High 3rd</span></div><div class="hof-card-name">장아람</div><div class="hof-card-school">상서고등학교</div><div class="hof-card-title">8282민족</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
       </div>
 
       <!-- 투닝 스타상 -->
       <div class="hof-panel" id="hof-m-enc">
         <div class="hof-enc-grid">
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6709972','지서은','계동초등학교','(작품)')"><div class="hof-enc-name">지서은</div><div class="hof-enc-school">계동초등학교</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6580750','이상윤','남계초등학교','호랑이 돌아온다')"><div class="hof-enc-name">이상윤</div><div class="hof-enc-school">남계초등학교</div><div class="hof-enc-title">호랑이 돌아온다</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6588510','허지원','대정초등학교','떡복이 먹는날')"><div class="hof-enc-name">허지원</div><div class="hof-enc-school">대정초등학교</div><div class="hof-enc-title">떡복이 먹는날</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6749615','고예지','라온초등학교','K탐정단 음식을 찾아라')"><div class="hof-enc-name">고예지</div><div class="hof-enc-school">라온초등학교</div><div class="hof-enc-title">K탐정단 음식을 찾아라</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6737714','전효담','석정초등학교','마이키의 산낙지 도전기')"><div class="hof-enc-name">전효담</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">마이키의 산낙지 도전기</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6722247','박예은','석정초등학교','어느날 공주님이 떨어졌다')"><div class="hof-enc-name">박예은</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">어느날 공주님이 떨어졌다</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6721552','박가연','석정초등학교','꼬꼬댁치킨, K-컬쳐마법')"><div class="hof-enc-name">박가연</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">꼬꼬댁치킨, K-컬쳐마법</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6723799','표예별','석정초등학교','그 때 그친구')"><div class="hof-enc-name">표예별</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">그 때 그친구</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6543144','서혜인','송포초등학교','그림속 조선시대 여행')"><div class="hof-enc-name">서혜인</div><div class="hof-enc-school">송포초등학교</div><div class="hof-enc-title">그림속 조선시대 여행</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563733','진은서','송포초등학교','조선시대로 떨어진 명탐정')"><div class="hof-enc-name">진은서</div><div class="hof-enc-school">송포초등학교</div><div class="hof-enc-title">조선시대로 떨어진 명탐정</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6528675','김지율','수남초등학교','AI- 아이돌')"><div class="hof-enc-name">김지율</div><div class="hof-enc-school">수남초등학교</div><div class="hof-enc-title">AI- 아이돌</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6622783','이소윤','장암초등학교','자라를 도와준 AI로봇 이야기')"><div class="hof-enc-name">이소윤</div><div class="hof-enc-school">장암초등학교</div><div class="hof-enc-title">자라를 도와준 AI로봇</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6622749','김민서','장암초등학교','호랑이와 곶감')"><div class="hof-enc-name">김민서</div><div class="hof-enc-school">장암초등학교</div><div class="hof-enc-title">호랑이와 곶감</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6554714','백경민','지향초등학교','해치의 문화소개')"><div class="hof-enc-name">백경민</div><div class="hof-enc-school">지향초등학교</div><div class="hof-enc-title">해치의 문화소개</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6737900','김로아','창림초등학교','콩이팡이')"><div class="hof-enc-name">김로아</div><div class="hof-enc-school">창림초등학교</div><div class="hof-enc-title">콩이팡이</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6629750','조이수','추계초등학교','한국의 떡')"><div class="hof-enc-name">조이수</div><div class="hof-enc-school">추계초등학교</div><div class="hof-enc-title">한국의 떡</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6568327','신이현','호명초등학교','한국문화 체험기')"><div class="hof-enc-name">신이현</div><div class="hof-enc-school">호명초등학교</div><div class="hof-enc-title">한국문화 체험기</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563280','이서연','호명초등학교','히스토리캡-유관순')"><div class="hof-enc-name">이서연</div><div class="hof-enc-school">호명초등학교</div><div class="hof-enc-title">히스토리캡-유관순</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6710117','최다솔','황지초등학교','견우와직녀')"><div class="hof-enc-name">최다솔</div><div class="hof-enc-school">황지초등학교</div><div class="hof-enc-title">견우와직녀</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://api.tooning.io/canvas-share/6704051','김나라','프놈펜한국국제학교','조선 남사당패 미래')"><div class="hof-enc-name">김나라</div><div class="hof-enc-school">프놈펜한국국제학교</div><div class="hof-enc-title">조선 남사당패 미래</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6637305','장지우','계원예술고등학교','유리의 진정한 목소리')"><div class="hof-enc-name">장지우</div><div class="hof-enc-school">계원예술고등학교</div><div class="hof-enc-title">유리의 진정한 목소리</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6598526','이연성','대건고등학교','AI 문학을 만나다')"><div class="hof-enc-name">이연성</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">AI 문학을 만나다</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6555726','손하민','대건고등학교','호랑이AI 과거')"><div class="hof-enc-name">손하민</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">호랑이AI 과거</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563583','손희수','대건고등학교','인간 vs AI요리사')"><div class="hof-enc-name">손희수</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">인간 vs AI요리사</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6543422','조성진','대건고등학교','이상한편의점')"><div class="hof-enc-name">조성진</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">이상한편의점</div><div class="hof-enc-cta">View →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6709972','지서은','계동초등학교','(작품)')"><div class="hof-enc-name">지서은</div><div class="hof-enc-school">계동초등학교</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6580750','이상윤','남계초등학교','호랑이 돌아온다')"><div class="hof-enc-name">이상윤</div><div class="hof-enc-school">남계초등학교</div><div class="hof-enc-title">호랑이 돌아온다</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6588510','허지원','대정초등학교','떡복이 먹는날')"><div class="hof-enc-name">허지원</div><div class="hof-enc-school">대정초등학교</div><div class="hof-enc-title">떡복이 먹는날</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6749615','고예지','라온초등학교','K탐정단 음식을 찾아라')"><div class="hof-enc-name">고예지</div><div class="hof-enc-school">라온초등학교</div><div class="hof-enc-title">K탐정단 음식을 찾아라</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6737714','전효담','석정초등학교','마이키의 산낙지 도전기')"><div class="hof-enc-name">전효담</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">마이키의 산낙지 도전기</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6722247','박예은','석정초등학교','어느날 공주님이 떨어졌다')"><div class="hof-enc-name">박예은</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">어느날 공주님이 떨어졌다</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6721552','박가연','석정초등학교','꼬꼬댁치킨, K-컬쳐마법')"><div class="hof-enc-name">박가연</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">꼬꼬댁치킨, K-컬쳐마법</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6723799','표예별','석정초등학교','그 때 그친구')"><div class="hof-enc-name">표예별</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">그 때 그친구</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6543144','서혜인','송포초등학교','그림속 조선시대 여행')"><div class="hof-enc-name">서혜인</div><div class="hof-enc-school">송포초등학교</div><div class="hof-enc-title">그림속 조선시대 여행</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563733','진은서','송포초등학교','조선시대로 떨어진 명탐정')"><div class="hof-enc-name">진은서</div><div class="hof-enc-school">송포초등학교</div><div class="hof-enc-title">조선시대로 떨어진 명탐정</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6528675','김지율','수남초등학교','AI- 아이돌')"><div class="hof-enc-name">김지율</div><div class="hof-enc-school">수남초등학교</div><div class="hof-enc-title">AI- 아이돌</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6622783','이소윤','장암초등학교','자라를 도와준 AI로봇 이야기')"><div class="hof-enc-name">이소윤</div><div class="hof-enc-school">장암초등학교</div><div class="hof-enc-title">자라를 도와준 AI로봇</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6622749','김민서','장암초등학교','호랑이와 곶감')"><div class="hof-enc-name">김민서</div><div class="hof-enc-school">장암초등학교</div><div class="hof-enc-title">호랑이와 곶감</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6554714','백경민','지향초등학교','해치의 문화소개')"><div class="hof-enc-name">백경민</div><div class="hof-enc-school">지향초등학교</div><div class="hof-enc-title">해치의 문화소개</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6737900','김로아','창림초등학교','콩이팡이')"><div class="hof-enc-name">김로아</div><div class="hof-enc-school">창림초등학교</div><div class="hof-enc-title">콩이팡이</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6629750','조이수','추계초등학교','한국의 떡')"><div class="hof-enc-name">조이수</div><div class="hof-enc-school">추계초등학교</div><div class="hof-enc-title">한국의 떡</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6568327','신이현','호명초등학교','한국문화 체험기')"><div class="hof-enc-name">신이현</div><div class="hof-enc-school">호명초등학교</div><div class="hof-enc-title">한국문화 체험기</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563280','이서연','호명초등학교','히스토리캡-유관순')"><div class="hof-enc-name">이서연</div><div class="hof-enc-school">호명초등학교</div><div class="hof-enc-title">히스토리캡-유관순</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6710117','최다솔','황지초등학교','견우와직녀')"><div class="hof-enc-name">최다솔</div><div class="hof-enc-school">황지초등학교</div><div class="hof-enc-title">견우와직녀</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://api.tooning.io/canvas-share/6704051','김나라','프놈펜한국국제학교','조선 남사당패 미래')"><div class="hof-enc-name">김나라</div><div class="hof-enc-school">프놈펜한국국제학교</div><div class="hof-enc-title">조선 남사당패 미래</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6637305','장지우','계원예술고등학교','유리의 진정한 목소리')"><div class="hof-enc-name">장지우</div><div class="hof-enc-school">계원예술고등학교</div><div class="hof-enc-title">유리의 진정한 목소리</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6598526','이연성','대건고등학교','AI 문학을 만나다')"><div class="hof-enc-name">이연성</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">AI 문학을 만나다</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6555726','손하민','대건고등학교','호랑이AI 과거')"><div class="hof-enc-name">손하민</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">호랑이AI 과거</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563583','손희수','대건고등학교','인간 vs AI요리사')"><div class="hof-enc-name">손희수</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">인간 vs AI요리사</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6543422','조성진','대건고등학교','이상한편의점')"><div class="hof-enc-name">조성진</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">이상한편의점</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
         </div>
       </div>
     </div>
@@ -1329,10 +1330,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 <section class="cta-section" id="cta">
   <div class="section-inner">
     <div class="cta-label reveal">✨ NOW IS THE TIME ✨</div>
-    <h2 class="cta-t1 reveal delay-1">Start</h2>
-    <h2 class="cta-t2 reveal delay-1">Your Journey!</h2>
+    <h2 class="cta-t1 reveal delay-1"><span class="ko-text">지금 바로</span><span class="en-text">Start</span></h2>
+    <h2 class="cta-t2 reveal delay-1"><span class="ko-text">참가하기!</span><span class="en-text">Your Journey!</span></h2>
     <p class="cta-sub reveal delay-2"><span class="ko-text">당신의 한 컷이 16개 대학으로 향하는<br/>첫 걸음이 됩니다 🚀</span><span class="en-text">Your single frame is the first step toward 16 universities 🚀</span></p>
-    <a href="javascript:void(0)" data-open-modal="apply" class="cta-button reveal delay-3">Apply Now <span>→</span></a>
+    <a href="javascript:void(0)" data-open-modal="apply" class="cta-button reveal delay-3"><span class="ko-text">접수 시작하기</span><span class="en-text">Apply Now</span> <span>→</span></a>
   </div>
 </section>
 
@@ -1342,99 +1343,99 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="hof-modal-hd">
       <div class="hof-modal-hd-inner">
         <img class="hof-modal-wreath" src="./images/01.png" alt="월계관" />
-        <h2>2025 Hall of Fame</h2>
+        <h2><span class="ko-text">2025 명예의 전당</span><span class="en-text">2025 Hall of Fame</span></h2>
         <p><span class="ko-text">제1회 국제 AI 투닝 공모전 수상작 · 작품을 클릭하면 새 탭으로 볼 수 있어요</span><span class="en-text">1st Contest Winners · Click to view in a new tab</span></p>
       </div>
       <button class="hof-modal-close-btn" onclick="document.getElementById('hofModal').classList.remove('open');document.body.style.overflow=''">✕</button>
     </div>
     <div class="hof-modal-body">
       <div class="hof-tabs">
-        <button class="hof-tab active" onclick="hofTab('elem',this)">🎒 Elementary</button>
-        <button class="hof-tab" onclick="hofTab('mid',this)">📚 Middle</button>
-        <button class="hof-tab" onclick="hofTab('high',this)">🎓 High School</button>
-        <button class="hof-tab" onclick="hofTab('enc',this)">🎀 Tooning Star Award</button>
+        <button class="hof-tab active" onclick="hofTab('elem',this)">🎒 <span class="ko-text">초등</span><span class="en-text">Elementary</span></button>
+        <button class="hof-tab" onclick="hofTab('mid',this)">📚 <span class="ko-text">중등</span><span class="en-text">Middle</span></button>
+        <button class="hof-tab" onclick="hofTab('high',this)">🎓 <span class="ko-text">고등</span><span class="en-text">High School</span></button>
+        <button class="hof-tab" onclick="hofTab('enc',this)">🎀 <span class="ko-text">투닝 스타상</span><span class="en-text">Tooning Star Award</span></button>
       </div>
 
       <!-- 초등 -->
       <div class="hof-panel active" id="hof-m-elem">
-        <div class="hof-rank-row">🥇 1st Place</div>
+        <div class="hof-rank-row">🥇 <span class="ko-text">1등</span><span class="en-text">1st Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6580769')"><div class="hof-card-rank">Elem. 1st</div><div class="hof-card-name">이*</div><div class="hof-card-school">남계초등학교</div><div class="hof-card-title">토끼가된 마법 퇴마사</div><div class="hof-card-cta">View Work →</div></div>
-          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6678408')"><div class="hof-card-rank">Elem. 1st</div><div class="hof-card-name">이*서</div><div class="hof-card-school">용연초등학교</div><div class="hof-card-title">AI와 알아가는 K컬쳐</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6580769')"><div class="hof-card-rank"><span class="ko-text">초등 1등</span><span class="en-text">Elem. 1st</span></div><div class="hof-card-name">이*</div><div class="hof-card-school">남계초등학교</div><div class="hof-card-title">토끼가된 마법 퇴마사</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
+          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6678408')"><div class="hof-card-rank"><span class="ko-text">초등 1등</span><span class="en-text">Elem. 1st</span></div><div class="hof-card-name">이*서</div><div class="hof-card-school">용연초등학교</div><div class="hof-card-title">AI와 알아가는 K컬쳐</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥈 2nd Place</div>
+        <div class="hof-rank-row">🥈 <span class="ko-text">2등</span><span class="en-text">2nd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6730089')"><div class="hof-card-rank">Elem. 2nd</div><div class="hof-card-name">이*연</div><div class="hof-card-school">석정초등학교</div><div class="hof-card-title">외쿡눈의 표류기</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6730089')"><div class="hof-card-rank"><span class="ko-text">초등 2등</span><span class="en-text">Elem. 2nd</span></div><div class="hof-card-name">이*연</div><div class="hof-card-school">석정초등학교</div><div class="hof-card-title">외쿡눈의 표류기</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥉 3rd Place</div>
+        <div class="hof-rank-row">🥉 <span class="ko-text">3등</span><span class="en-text">3rd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card bronze" onclick="openWork('https://api.tooning.io/canvas-share/6704050')"><div class="hof-card-rank">Elem. 3rd</div><div class="hof-card-name">차*용</div><div class="hof-card-school">프놈펜한국국제학교</div><div class="hof-card-title">천하제일 한식 요리 대회</div><div class="hof-card-cta">View Work →</div></div>
-          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6539939')"><div class="hof-card-rank">Elem. 3rd</div><div class="hof-card-name">홍*안</div><div class="hof-card-school">고촌초등학교</div><div class="hof-card-title">K-food스토리</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://api.tooning.io/canvas-share/6704050')"><div class="hof-card-rank"><span class="ko-text">초등 3등</span><span class="en-text">Elem. 3rd</span></div><div class="hof-card-name">차*용</div><div class="hof-card-school">프놈펜한국국제학교</div><div class="hof-card-title">천하제일 한식 요리 대회</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6539939')"><div class="hof-card-rank"><span class="ko-text">초등 3등</span><span class="en-text">Elem. 3rd</span></div><div class="hof-card-name">홍*안</div><div class="hof-card-school">고촌초등학교</div><div class="hof-card-title">K-food스토리</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
       </div>
 
       <!-- 중등 -->
       <div class="hof-panel" id="hof-m-mid">
-        <div class="hof-rank-row">🥇 1st Place</div>
+        <div class="hof-rank-row">🥇 <span class="ko-text">1등</span><span class="en-text">1st Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6736815')"><div class="hof-card-rank">Middle 1st</div><div class="hof-card-name">오*정</div><div class="hof-card-school">정일중학교</div><div class="hof-card-title">연청전</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6736815')"><div class="hof-card-rank"><span class="ko-text">중등 1등</span><span class="en-text">Middle 1st</span></div><div class="hof-card-name">오*정</div><div class="hof-card-school">정일중학교</div><div class="hof-card-title">연청전</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥈 2nd Place</div>
+        <div class="hof-rank-row">🥈 <span class="ko-text">2등</span><span class="en-text">2nd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6669336')"><div class="hof-card-rank">Middle 2nd</div><div class="hof-card-name">유*재</div><div class="hof-card-school">논산중학교</div><div class="hof-card-title">그날 한국에 반했다</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6669336')"><div class="hof-card-rank"><span class="ko-text">중등 2등</span><span class="en-text">Middle 2nd</span></div><div class="hof-card-name">유*재</div><div class="hof-card-school">논산중학교</div><div class="hof-card-title">그날 한국에 반했다</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥉 3rd Place</div>
+        <div class="hof-rank-row">🥉 <span class="ko-text">3등</span><span class="en-text">3rd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6620038')"><div class="hof-card-rank">Middle 3rd</div><div class="hof-card-name">조*현</div><div class="hof-card-school">논산중학교</div><div class="hof-card-title">마이클</div><div class="hof-card-cta">View Work →</div></div>
-          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6696199')"><div class="hof-card-rank">Middle 3rd</div><div class="hof-card-name">김*준</div><div class="hof-card-school">환서중학교</div><div class="hof-card-title">화이트 조직과 경복궁</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6620038')"><div class="hof-card-rank"><span class="ko-text">중등 3등</span><span class="en-text">Middle 3rd</span></div><div class="hof-card-name">조*현</div><div class="hof-card-school">논산중학교</div><div class="hof-card-title">마이클</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6696199')"><div class="hof-card-rank"><span class="ko-text">중등 3등</span><span class="en-text">Middle 3rd</span></div><div class="hof-card-name">김*준</div><div class="hof-card-school">환서중학교</div><div class="hof-card-title">화이트 조직과 경복궁</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
       </div>
 
       <!-- 고등 -->
       <div class="hof-panel" id="hof-m-high">
-        <div class="hof-rank-row">🥇 1st Place</div>
+        <div class="hof-rank-row">🥇 <span class="ko-text">1등</span><span class="en-text">1st Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6603961')"><div class="hof-card-rank">High 1st</div><div class="hof-card-name">전*은</div><div class="hof-card-school">상서고등학교</div><div class="hof-card-title">조선시대SNS 동화 재해석</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card gold" onclick="openWork('https://an-api.tooning.io/canvas-share/6603961')"><div class="hof-card-rank"><span class="ko-text">고등 1등</span><span class="en-text">High 1st</span></div><div class="hof-card-name">전*은</div><div class="hof-card-school">상서고등학교</div><div class="hof-card-title">조선시대SNS 동화 재해석</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥈 2nd Place</div>
+        <div class="hof-rank-row">🥈 <span class="ko-text">2등</span><span class="en-text">2nd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6542914')"><div class="hof-card-rank">High 2nd</div><div class="hof-card-name">백*모</div><div class="hof-card-school">대건고등학교</div><div class="hof-card-title">조선슈퍼스타</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card silver" onclick="openWork('https://an-api.tooning.io/canvas-share/6542914')"><div class="hof-card-rank"><span class="ko-text">고등 2등</span><span class="en-text">High 2nd</span></div><div class="hof-card-name">백*모</div><div class="hof-card-school">대건고등학교</div><div class="hof-card-title">조선슈퍼스타</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
-        <div class="hof-rank-row">🥉 3rd Place</div>
+        <div class="hof-rank-row">🥉 <span class="ko-text">3등</span><span class="en-text">3rd Place</span></div>
         <div class="hof-grid">
-          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6660061')"><div class="hof-card-rank">High 3rd</div><div class="hof-card-name">양*나</div><div class="hof-card-school">계원예술고등학교</div><div class="hof-card-title">소피아의 생일상</div><div class="hof-card-cta">View Work →</div></div>
-          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6589097')"><div class="hof-card-rank">High 3rd</div><div class="hof-card-name">장*람</div><div class="hof-card-school">상서고등학교</div><div class="hof-card-title">8282민족</div><div class="hof-card-cta">View Work →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6660061')"><div class="hof-card-rank"><span class="ko-text">고등 3등</span><span class="en-text">High 3rd</span></div><div class="hof-card-name">양*나</div><div class="hof-card-school">계원예술고등학교</div><div class="hof-card-title">소피아의 생일상</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
+          <div class="hof-card bronze" onclick="openWork('https://an-api.tooning.io/canvas-share/6589097')"><div class="hof-card-rank"><span class="ko-text">고등 3등</span><span class="en-text">High 3rd</span></div><div class="hof-card-name">장*람</div><div class="hof-card-school">상서고등학교</div><div class="hof-card-title">8282민족</div><div class="hof-card-cta"><span class="ko-text">작품 보기</span><span class="en-text">View Work</span> →</div></div>
         </div>
       </div>
 
       <!-- 투닝 스타상 -->
       <div class="hof-panel" id="hof-m-enc">
         <div class="hof-enc-grid">
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6709972')"><div class="hof-enc-name">지*은</div><div class="hof-enc-school">계동초등학교</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6580750')"><div class="hof-enc-name">이*윤</div><div class="hof-enc-school">남계초등학교</div><div class="hof-enc-title">호랑이 돌아온다</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6588510')"><div class="hof-enc-name">허*원</div><div class="hof-enc-school">대정초등학교</div><div class="hof-enc-title">떡복이 먹는날</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6749615')"><div class="hof-enc-name">고*지</div><div class="hof-enc-school">라온초등학교</div><div class="hof-enc-title">K탐정단 음식을 찾아라</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6737714')"><div class="hof-enc-name">전*담</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">마이키의 산낙지 도전기</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6722247')"><div class="hof-enc-name">박*은</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">어느날 공주님이 떨어졌다</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6721552')"><div class="hof-enc-name">박*연</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">꼬꼬댁치킨, K-컬쳐마법</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6723799')"><div class="hof-enc-name">표*별</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">그 때 그친구</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6543144')"><div class="hof-enc-name">서*인</div><div class="hof-enc-school">송포초등학교</div><div class="hof-enc-title">그림속 조선시대 여행</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563733')"><div class="hof-enc-name">진*서</div><div class="hof-enc-school">송포초등학교</div><div class="hof-enc-title">조선시대로 떨어진 명탐정</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6528675')"><div class="hof-enc-name">김*율</div><div class="hof-enc-school">수남초등학교</div><div class="hof-enc-title">AI- 아이돌</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6622783')"><div class="hof-enc-name">이*윤</div><div class="hof-enc-school">장암초등학교</div><div class="hof-enc-title">자라를 도와준 AI로봇</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6622749')"><div class="hof-enc-name">김*서</div><div class="hof-enc-school">장암초등학교</div><div class="hof-enc-title">호랑이와 곶감</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6554714')"><div class="hof-enc-name">백*민</div><div class="hof-enc-school">지향초등학교</div><div class="hof-enc-title">해치의 문화소개</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6737900')"><div class="hof-enc-name">김*아</div><div class="hof-enc-school">창림초등학교</div><div class="hof-enc-title">콩이팡이</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6629750')"><div class="hof-enc-name">조*수</div><div class="hof-enc-school">추계초등학교</div><div class="hof-enc-title">한국의 떡</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6568327')"><div class="hof-enc-name">신*현</div><div class="hof-enc-school">호명초등학교</div><div class="hof-enc-title">한국문화 체험기</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563280')"><div class="hof-enc-name">이*연</div><div class="hof-enc-school">호명초등학교</div><div class="hof-enc-title">히스토리캡-유관순</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6710117')"><div class="hof-enc-name">최*솔</div><div class="hof-enc-school">황지초등학교</div><div class="hof-enc-title">견우와직녀</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://api.tooning.io/canvas-share/6704051')"><div class="hof-enc-name">김*라</div><div class="hof-enc-school">프놈펜한국국제학교</div><div class="hof-enc-title">조선 남사당패 미래</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6637305')"><div class="hof-enc-name">장*우</div><div class="hof-enc-school">계원예술고등학교</div><div class="hof-enc-title">유리의 진정한 목소리</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6598526')"><div class="hof-enc-name">이*성</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">AI 문학을 만나다</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6555726')"><div class="hof-enc-name">손*민</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">호랑이AI 과거</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563583')"><div class="hof-enc-name">손*수</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">인간 vs AI요리사</div><div class="hof-enc-cta">View →</div></div>
-          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6543422')"><div class="hof-enc-name">조*진</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">이상한편의점</div><div class="hof-enc-cta">View →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6709972')"><div class="hof-enc-name">지*은</div><div class="hof-enc-school">계동초등학교</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6580750')"><div class="hof-enc-name">이*윤</div><div class="hof-enc-school">남계초등학교</div><div class="hof-enc-title">호랑이 돌아온다</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6588510')"><div class="hof-enc-name">허*원</div><div class="hof-enc-school">대정초등학교</div><div class="hof-enc-title">떡복이 먹는날</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6749615')"><div class="hof-enc-name">고*지</div><div class="hof-enc-school">라온초등학교</div><div class="hof-enc-title">K탐정단 음식을 찾아라</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6737714')"><div class="hof-enc-name">전*담</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">마이키의 산낙지 도전기</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6722247')"><div class="hof-enc-name">박*은</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">어느날 공주님이 떨어졌다</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6721552')"><div class="hof-enc-name">박*연</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">꼬꼬댁치킨, K-컬쳐마법</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6723799')"><div class="hof-enc-name">표*별</div><div class="hof-enc-school">석정초등학교</div><div class="hof-enc-title">그 때 그친구</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6543144')"><div class="hof-enc-name">서*인</div><div class="hof-enc-school">송포초등학교</div><div class="hof-enc-title">그림속 조선시대 여행</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563733')"><div class="hof-enc-name">진*서</div><div class="hof-enc-school">송포초등학교</div><div class="hof-enc-title">조선시대로 떨어진 명탐정</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6528675')"><div class="hof-enc-name">김*율</div><div class="hof-enc-school">수남초등학교</div><div class="hof-enc-title">AI- 아이돌</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6622783')"><div class="hof-enc-name">이*윤</div><div class="hof-enc-school">장암초등학교</div><div class="hof-enc-title">자라를 도와준 AI로봇</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6622749')"><div class="hof-enc-name">김*서</div><div class="hof-enc-school">장암초등학교</div><div class="hof-enc-title">호랑이와 곶감</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6554714')"><div class="hof-enc-name">백*민</div><div class="hof-enc-school">지향초등학교</div><div class="hof-enc-title">해치의 문화소개</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6737900')"><div class="hof-enc-name">김*아</div><div class="hof-enc-school">창림초등학교</div><div class="hof-enc-title">콩이팡이</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6629750')"><div class="hof-enc-name">조*수</div><div class="hof-enc-school">추계초등학교</div><div class="hof-enc-title">한국의 떡</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6568327')"><div class="hof-enc-name">신*현</div><div class="hof-enc-school">호명초등학교</div><div class="hof-enc-title">한국문화 체험기</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563280')"><div class="hof-enc-name">이*연</div><div class="hof-enc-school">호명초등학교</div><div class="hof-enc-title">히스토리캡-유관순</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6710117')"><div class="hof-enc-name">최*솔</div><div class="hof-enc-school">황지초등학교</div><div class="hof-enc-title">견우와직녀</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://api.tooning.io/canvas-share/6704051')"><div class="hof-enc-name">김*라</div><div class="hof-enc-school">프놈펜한국국제학교</div><div class="hof-enc-title">조선 남사당패 미래</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6637305')"><div class="hof-enc-name">장*우</div><div class="hof-enc-school">계원예술고등학교</div><div class="hof-enc-title">유리의 진정한 목소리</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6598526')"><div class="hof-enc-name">이*성</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">AI 문학을 만나다</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6555726')"><div class="hof-enc-name">손*민</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">호랑이AI 과거</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6563583')"><div class="hof-enc-name">손*수</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">인간 vs AI요리사</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
+          <div class="hof-enc-card" onclick="openWork('https://an-api.tooning.io/canvas-share/6543422')"><div class="hof-enc-name">조*진</div><div class="hof-enc-school">대건고등학교</div><div class="hof-enc-title">이상한편의점</div><div class="hof-enc-cta"><span class="ko-text">보기</span><span class="en-text">View</span> →</div></div>
         </div>
       </div>
     </div>
@@ -1462,7 +1463,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 <div class="video-modal-overlay" id="videoModal">
   <div class="video-modal-box">
     <button class="video-modal-close" id="videoModalClose">✕</button>
-    <iframe id="videoModalIframe" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+    <iframe id="videoModalIframe" src="" allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture" playsinline></iframe>
   </div>
 </div>
 
@@ -2328,7 +2329,7 @@ function hofTab(id, btn) {
   var iframe   = document.getElementById('videoModalIframe');
   var closeBtn = document.getElementById('videoModalClose');
   var openBtn  = document.getElementById('openVideoBtn');
-  var YT_SRC   = 'https://www.youtube.com/embed/ab_DtqjwB0E?autoplay=1&rel=0';
+  var YT_SRC   = 'https://www.youtube.com/embed/ab_DtqjwB0E?autoplay=1&playsinline=1&rel=0';
 
   function openModal() {
     iframe.src = YT_SRC;
