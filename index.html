@@ -308,7 +308,7 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime .lifetime-header,.lifetime .lifetime-header *,.lifetime .lifetime-audience-label{pointer-events:none!important}
 /* 버튼은 항상 탭 가능 */
 .lifetime .lifetime-btn-row button,.lifetime .lifetime-btn-row a{pointer-events:auto!important}
-.lifetime-btn-row{display:flex;gap:8px;align-items:stretch;margin-top:24px}
+.lifetime-btn-row{display:flex;gap:8px;align-items:stretch;margin-top:24px;cursor:pointer}
 @media(max-width:600px){.lifetime-btn-row{flex-direction:column}.lifetime-goto,.lifetime-download,.lifetime-video{min-height:48px;font-size:15px;padding:14px 16px}}
 .lifetime-goto,.lifetime-download,.lifetime-video{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 10px;border-radius:12px;font-weight:600;font-size:13px;letter-spacing:0;cursor:pointer;transition:background .18s,color .18s;text-decoration:none;white-space:nowrap;touch-action:manipulation;border:none}
 .lifetime-goto:active,.lifetime-download:active,.lifetime-video:active{opacity:.7}
@@ -661,7 +661,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .chat-bubble-speech.hide{display:none}
 @keyframes speech-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .chat-window{width:340px;height:560px;background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(20,27,49,.16);overflow:hidden;display:flex;flex-direction:column;transform-origin:bottom right;transition:opacity .22s,transform .22s}
-.chat-window.chat-hidden{opacity:0;transform:scale(.92) translateY(10px);pointer-events:none}
+.chat-window.chat-hidden{display:none}
 .chat-head{background:var(--coral);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
 .chat-head-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;background:rgba(255,255,255,.25);flex-shrink:0}
 .chat-head-info{flex:1;min-width:0}
@@ -2403,6 +2403,7 @@ function hofTab(id, btn) {
   wrap.addEventListener('mouseleave', function() { cur = NORMAL; });
 })();
 
+
 // ============ UNI SLIDER LIGHTBOX ============
 (function() {
   var lb = document.getElementById('uni-lightbox');
@@ -2665,7 +2666,8 @@ function hofTab(id, btn) {
 
   function openChat() {
     isOpen = true;
-    win.classList.remove('chat-hidden');
+    win.style.display = 'flex';
+    requestAnimationFrame(function() { win.classList.remove('chat-hidden'); });
     if (speech) speech.classList.add('hide');
     if (msgs.children.length === 0) {
       setTimeout(function() {
@@ -2676,6 +2678,7 @@ function hofTab(id, btn) {
   function closeChat() {
     isOpen = false;
     win.classList.add('chat-hidden');
+    setTimeout(function() { if (!isOpen) win.style.display = 'none'; }, 250);
     if (speech) speech.classList.remove('hide');
   }
   if (speech) speech.addEventListener('click', openChat);
