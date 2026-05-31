@@ -280,7 +280,7 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-sub{font-size:18px;line-height:1.6;color:var(--text-soft);max-width:700px;margin:30px auto 0}
 .lifetime-sub strong{color:var(--coral);font-weight:700}
 .lifetime-bridge{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:stretch;margin-top:80px}
-.lifetime-card{background:#fff;border-radius:32px;padding:30px 30px 0;box-shadow:0 12px 28px rgba(20,27,49,.1);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.lifetime-card{background:#fff;border-radius:32px;padding:30px 30px 0;box-shadow:0 12px 28px rgba(20,27,49,.1);position:relative;display:flex;flex-direction:column}
 .lifetime-card.dark{background:var(--text-dark);color:#fff}
 .lifetime-card-image{width:100%;height:200px;object-fit:cover;object-position:center;display:block;background:#f5f6f9;border-radius:18px;border:1px solid rgba(99,110,130,.08)}
 .lifetime-card.dark .lifetime-card-image{background:#1f2942;border:1px solid rgba(255,255,255,.06)}
@@ -304,7 +304,7 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-manifesto{text-align:center;margin-top:60px;font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.01em;color:var(--text-dark);line-height:1.5}
 .lifetime-btn-row{display:flex;gap:8px;align-items:stretch;margin-top:24px}
 @media(max-width:600px){.lifetime-btn-row{flex-direction:column}.lifetime-goto,.lifetime-download,.lifetime-video{min-height:48px;font-size:15px;padding:14px 16px}}
-.lifetime-goto,.lifetime-download,.lifetime-video{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 10px;border-radius:12px;font-weight:600;font-size:13px;letter-spacing:0;cursor:pointer;transition:background .18s,color .18s;text-decoration:none;white-space:nowrap;touch-action:manipulation;border:none}
+.lifetime-goto,.lifetime-download,.lifetime-video{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 10px;border-radius:12px;font-weight:600;font-size:13px;letter-spacing:0;cursor:pointer;transition:background .18s,color .18s;text-decoration:none;white-space:nowrap;touch-action:manipulation;border:none;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;position:relative;z-index:1}
 .lifetime-goto{background:var(--coral);color:#fff}
 .lifetime-goto:hover{background:#e55050}
 .lifetime-download{background:#f5f6f9;color:var(--text-dark)}
@@ -2030,6 +2030,11 @@ if (document.readyState === "loading") {
       if (en.isIntersecting) {
         en.target.classList.add('is-visible');
         obs.unobserve(en.target);
+        // Remove transform after animation completes so iOS touch events work properly
+        en.target.addEventListener('transitionend', function onEnd() {
+          en.target.style.transform = 'none';
+          en.target.removeEventListener('transitionend', onEnd);
+        }, { once: true });
       }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
