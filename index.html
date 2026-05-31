@@ -1494,7 +1494,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 </div>
 
 <!-- ============ APPLY MODAL ============ -->
-<div class="apply-modal" id="applyModal" aria-hidden="true">
+<div class="apply-modal" id="applyModal" aria-hidden="true" inert>
   <div class="modal-backdrop" data-close-modal></div>
   <div class="modal-panel" role="dialog" aria-labelledby="applyTitle" aria-modal="true">
     <button type="button" class="modal-close" aria-label="Close" data-close-modal>×</button>
@@ -2073,9 +2073,15 @@ if (document.readyState === "loading") {
   document.querySelectorAll('[data-open-modal="apply"]').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
+      modal.removeAttribute('inert');
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      // Focus the close button for keyboard accessibility
+      setTimeout(function() {
+        var closeBtn = modal.querySelector('.modal-close');
+        if (closeBtn) closeBtn.focus();
+      }, 50);
     });
   });
 
@@ -2083,7 +2089,12 @@ if (document.readyState === "loading") {
   function closeModal() {
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('inert', '');
     document.body.style.overflow = '';
+    // Move focus out of modal to prevent aria-hidden + focus conflict (blocks iOS tap events)
+    if (modal.contains(document.activeElement)) {
+      document.activeElement.blur();
+    }
   }
   modal.querySelectorAll('[data-close-modal]').forEach(function(el) {
     el.addEventListener('click', closeModal);
