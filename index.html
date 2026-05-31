@@ -303,9 +303,11 @@ section{position:relative;width:100%;overflow:hidden}
 .lifetime-arrow-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);margin-top:14px}
 .lifetime-manifesto{text-align:center;margin-top:60px;font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.01em;color:var(--text-dark);line-height:1.5}
 .lifetime{overflow:visible}
+.lifetime .section-inner{z-index:auto}
 .lifetime-btn-row{display:flex;gap:8px;align-items:stretch;margin-top:24px}
 @media(max-width:600px){.lifetime-btn-row{flex-direction:column}.lifetime-goto,.lifetime-download,.lifetime-video{min-height:48px;font-size:15px;padding:14px 16px}}
-.lifetime-goto,.lifetime-download,.lifetime-video{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 10px;border-radius:12px;font-weight:600;font-size:13px;letter-spacing:0;cursor:pointer;transition:background .18s,color .18s;text-decoration:none;white-space:nowrap;touch-action:manipulation;border:none;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;position:relative;z-index:1}
+.lifetime-goto,.lifetime-download,.lifetime-video{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 10px;border-radius:12px;font-weight:600;font-size:13px;letter-spacing:0;cursor:pointer;transition:background .18s,color .18s;text-decoration:none;white-space:nowrap;touch-action:manipulation;border:none}
+.lifetime-goto:active,.lifetime-download:active,.lifetime-video:active{opacity:.7}
 .lifetime-goto{background:var(--coral);color:#fff}
 .lifetime-goto:hover{background:#e55050}
 .lifetime-download{background:#f5f6f9;color:var(--text-dark)}
@@ -1052,7 +1054,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="lifetime-bridge">
       <div>
         <p class="lifetime-audience-label"><span class="ko-text">초·중·고등용</span><span class="en-text">For K–12 Students</span></p>
-        <div class="lifetime-card reveal delay-1">
+        <div class="lifetime-card">
           <img class="lifetime-card-image" src="./images/tooning.jpg" alt="Tooning 제품 화면" loading="lazy" onerror="this.style.display='none'" />
           <div class="lifetime-card-body">
             <div class="lifetime-stage"><span class="ko-text">STAGE 01 — 청소년</span><span class="en-text">STAGE 01 — Youth</span></div>
@@ -1074,7 +1076,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       </div>
       <div>
         <p class="lifetime-audience-label"><span class="ko-text">대학·예비·전문 작가용</span><span class="en-text">For College &amp; Professional Creators</span></p>
-        <div class="lifetime-card reveal delay-2">
+        <div class="lifetime-card">
           <img class="lifetime-card-image" src="./images/tooning-plus.jpg" alt="Tooning Plus 제품 화면" loading="lazy" onerror="this.style.display='none'" />
           <div class="lifetime-card-body">
             <div class="lifetime-stage"><span class="ko-text">STAGE 02 — 대학 / 전공자</span><span class="en-text">STAGE 02 — College / Professionals</span></div>
@@ -2032,11 +2034,6 @@ if (document.readyState === "loading") {
       if (en.isIntersecting) {
         en.target.classList.add('is-visible');
         obs.unobserve(en.target);
-        // Remove transform after animation completes so iOS touch events work properly
-        en.target.addEventListener('transitionend', function onEnd() {
-          en.target.style.transform = 'none';
-          en.target.removeEventListener('transitionend', onEnd);
-        }, { once: true });
       }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
