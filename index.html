@@ -1507,202 +1507,198 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <button type="button" class="modal-close" aria-label="Close" data-close-modal>×</button>
 
     <div class="modal-header">
-      <div class="modal-eyebrow">📝 Application</div>
-      <h3 id="applyTitle" class="modal-title">2nd International AI Tooning Contest</h3>
-      <p class="modal-sub">Please fill in the information below accurately. Changes are difficult after submission, so review carefully before submitting.</p>
+      <div class="modal-eyebrow">📝 <span class="ko-text">접수하기</span><span class="en-text">Application</span></div>
+      <h3 id="applyTitle" class="modal-title"><span class="ko-text">제2회 국제 AI 투닝 공모전</span><span class="en-text">2nd International AI Tooning Contest</span></h3>
+      <p class="modal-sub"><span class="ko-text">아래 정보를 정확하게 입력해주세요. 접수 후 수정이 어려우니 신중히 확인 후 제출해주세요.</span><span class="en-text">Please fill in the information below accurately. Changes are difficult after submission, so review carefully before submitting.</span></p>
     </div>
 
     <form id="applyForm" class="modal-form" novalidate>
 
-      <!-- 1. Participant Information -->
+      <!-- 1. 참여자 개인정보 -->
       <div class="form-section">
-        <div class="form-section-title">1. Participant Information</div>
+        <div class="form-section-title"><span class="ko-text">1. 참여자 개인정보</span><span class="en-text">1. Participant Information</span></div>
 
         <div class="form-row">
           <label class="form-field">
-            <span class="form-label">Name <em>*</em></span>
-            <input type="text" name="name" required placeholder="Your full name" autocomplete="name" />
+            <span class="form-label"><span class="ko-text">이름</span><span class="en-text">Name</span> <em>*</em></span>
+            <input type="text" name="name" required placeholder="홍길동" data-ph-ko="홍길동" data-ph-en="Your full name" autocomplete="name" />
           </label>
         </div>
 
         <div class="form-row">
           <label class="form-field">
-            <span class="form-label">School Name <em>*</em></span>
-            <input type="text" name="school" required placeholder="Tooning Elementary School" />
+            <span class="form-label"><span class="ko-text">학교명</span><span class="en-text">School Name</span> <em>*</em></span>
+            <input type="text" name="school" required placeholder="투닝초등학교" data-ph-ko="투닝초등학교" data-ph-en="Tooning Elementary School" />
           </label>
         </div>
 
         <div class="form-row two-col">
           <label class="form-field">
-            <span class="form-label">Grade <em>*</em></span>
-            <select name="grade" required>
-              <option value="">Select</option>
-              <optgroup label="Elementary">
-                <option value="Grade 1">Grade 1</option>
-                <option value="Grade 2">Grade 2</option>
-                <option value="Grade 3">Grade 3</option>
-                <option value="Grade 4">Grade 4</option>
-                <option value="Grade 5">Grade 5</option>
-                <option value="Grade 6">Grade 6</option>
+            <span class="form-label"><span class="ko-text">학년</span><span class="en-text">Grade</span> <em>*</em></span>
+            <select name="grade" id="gradeSelect" required>
+              <option value="" data-ko="선택" data-en="Select">선택</option>
+              <optgroup data-ko="초등학생" data-en="Elementary" label="초등학생">
+                <option value="초등 1학년" data-ko="초등 1학년" data-en="Grade 1">초등 1학년</option>
+                <option value="초등 2학년" data-ko="초등 2학년" data-en="Grade 2">초등 2학년</option>
+                <option value="초등 3학년" data-ko="초등 3학년" data-en="Grade 3">초등 3학년</option>
+                <option value="초등 4학년" data-ko="초등 4학년" data-en="Grade 4">초등 4학년</option>
+                <option value="초등 5학년" data-ko="초등 5학년" data-en="Grade 5">초등 5학년</option>
+                <option value="초등 6학년" data-ko="초등 6학년" data-en="Grade 6">초등 6학년</option>
               </optgroup>
-              <optgroup label="Middle School">
-                <option value="Grade 7">Grade 7</option>
-                <option value="Grade 8">Grade 8</option>
-                <option value="Grade 9">Grade 9</option>
+              <optgroup data-ko="중학생" data-en="Middle School" label="중학생">
+                <option value="중학 1학년" data-ko="중학 1학년" data-en="Grade 7">중학 1학년</option>
+                <option value="중학 2학년" data-ko="중학 2학년" data-en="Grade 8">중학 2학년</option>
+                <option value="중학 3학년" data-ko="중학 3학년" data-en="Grade 9">중학 3학년</option>
               </optgroup>
-              <optgroup label="High School">
-                <option value="Grade 10">Grade 10</option>
-                <option value="Grade 11">Grade 11</option>
-                <option value="Grade 12">Grade 12</option>
+              <optgroup data-ko="고등학생" data-en="High School" label="고등학생">
+                <option value="고등 1학년" data-ko="고등 1학년" data-en="Grade 10">고등 1학년</option>
+                <option value="고등 2학년" data-ko="고등 2학년" data-en="Grade 11">고등 2학년</option>
+                <option value="고등 3학년" data-ko="고등 3학년" data-en="Grade 12">고등 3학년</option>
               </optgroup>
             </select>
           </label>
           <label class="form-field">
-            <span class="form-label">Class <em>*</em></span>
-            <input type="text" name="class" required placeholder="Class 3" />
+            <span class="form-label"><span class="ko-text">반</span><span class="en-text">Class</span> <em>*</em></span>
+            <input type="text" name="class" required placeholder="3반" data-ph-ko="3반" data-ph-en="Class 3" />
           </label>
         </div>
 
         <div class="form-row">
-          <span class="form-label">Contact Type <em>*</em></span>
+          <span class="form-label"><span class="ko-text">연락처 유형</span><span class="en-text">Contact Type</span> <em>*</em></span>
           <div class="radio-group">
             <label class="radio-option">
               <input type="radio" name="contactType" value="teacher" checked />
-              <span>👨‍🏫 I have a supervising teacher</span>
+              <span>👨‍🏫 <span class="ko-text">지도교사 있음</span><span class="en-text">I have a supervising teacher</span></span>
             </label>
             <label class="radio-option">
               <input type="radio" name="contactType" value="parent" />
-              <span>👨‍👩‍👧 No teacher (individual submission)</span>
+              <span>👨‍👩‍👧 <span class="ko-text">교사 없음 (개인 접수)</span><span class="en-text">No teacher (individual submission)</span></span>
             </label>
           </div>
         </div>
 
         <div class="form-row" data-contact-for="teacher">
           <label class="form-field">
-            <span class="form-label">Teacher's Phone Number <em>*</em></span>
-            <input type="tel" name="teacherPhone" placeholder="010-0000-0000" autocomplete="tel" />
-            <span class="form-hint">Contact of the teacher who supervised your work at school or academy</span>
+            <span class="form-label"><span class="ko-text">지도교사 연락처</span><span class="en-text">Teacher's Phone Number</span> <em>*</em></span>
+            <input type="tel" name="teacherPhone" placeholder="010-0000-0000" data-ph-ko="010-0000-0000" data-ph-en="010-0000-0000" autocomplete="tel" />
+            <span class="form-hint"><span class="ko-text">학교·학원에서 지도해주신 선생님의 연락처</span><span class="en-text">Contact of the teacher who supervised your work at school or academy</span></span>
           </label>
         </div>
 
         <div class="form-row" data-contact-for="teacher">
           <label class="form-field">
-            <span class="form-label">Teacher's Name</span>
-            <input type="text" name="teacherName" placeholder="Teacher Kim" />
-            <span class="form-hint">This contact will be used for the Teacher Award notification</span>
+            <span class="form-label"><span class="ko-text">지도교사 이름</span><span class="en-text">Teacher's Name</span></span>
+            <input type="text" name="teacherName" placeholder="김선생님" data-ph-ko="김선생님" data-ph-en="Teacher Kim" />
+            <span class="form-hint"><span class="ko-text">지도교사상 수상 시 연락에 활용됩니다</span><span class="en-text">This contact will be used for the Teacher Award notification</span></span>
           </label>
         </div>
 
         <div class="form-row" data-contact-for="parent" hidden>
           <label class="form-field">
-            <span class="form-label">Guardian's Phone Number <em>*</em></span>
-            <input type="tel" name="parentPhone" placeholder="010-0000-0000" autocomplete="tel" disabled />
-            <span class="form-hint">Only required when no supervising teacher — used for award result notifications</span>
+            <span class="form-label"><span class="ko-text">보호자 연락처</span><span class="en-text">Guardian's Phone Number</span> <em>*</em></span>
+            <input type="tel" name="parentPhone" placeholder="010-0000-0000" data-ph-ko="010-0000-0000" data-ph-en="010-0000-0000" autocomplete="tel" disabled />
+            <span class="form-hint"><span class="ko-text">지도교사가 없을 경우에만 필요 — 수상 결과 안내에 활용됩니다</span><span class="en-text">Only required when no supervising teacher — used for award result notifications</span></span>
           </label>
         </div>
       </div>
 
-      <!-- 2. Submission Division -->
+      <!-- 2. 출품 부문 -->
       <div class="form-section">
-        <div class="form-section-title">2. Submission Division</div>
+        <div class="form-section-title"><span class="ko-text">2. 출품 부문</span><span class="en-text">2. Submission Division</span></div>
         <div class="form-row">
           <label class="form-field">
-            <span class="form-label">Division <em>*</em></span>
+            <span class="form-label"><span class="ko-text">부문</span><span class="en-text">Division</span> <em>*</em></span>
             <select name="section" id="sectionSelect" required>
-              <option value="">Select a division</option>
-              <option value="comic">🎨 Comics / Webtoon</option>
-              <option value="novel">📚 Novel / Story</option>
-              <option value="cardnews">📰 Card News</option>
-              <option value="poster">🖼️ Poster</option>
+              <option value="" data-ko="부문 선택" data-en="Select a division">부문 선택</option>
+              <option value="comic" data-ko="🎨 만화 / 웹툰" data-en="🎨 Comics / Webtoon">🎨 만화 / 웹툰</option>
+              <option value="novel" data-ko="📚 소설 / 이야기" data-en="📚 Novel / Story">📚 소설 / 이야기</option>
+              <option value="cardnews" data-ko="📰 카드뉴스" data-en="📰 Card News">📰 카드뉴스</option>
+              <option value="poster" data-ko="🖼️ 포스터" data-en="🖼️ Poster">🖼️ 포스터</option>
             </select>
           </label>
         </div>
       </div>
 
-      <!-- 3. Work Details & Links (conditional) -->
+      <!-- 3. 작품 정보 & 링크 (conditional) -->
       <div class="form-section conditional-fields" id="conditionalFields" hidden>
-        <div class="form-section-title">3. Work Details &amp; Links</div>
-        <div class="form-section-note">Please enter a <strong>publicly accessible link</strong> rather than uploading a file. (Google Drive, Notion, Tooning editor share link, etc.)</div>
+        <div class="form-section-title"><span class="ko-text">3. 작품 정보 &amp; 링크</span><span class="en-text">3. Work Details &amp; Links</span></div>
+        <div class="form-section-note"><span class="ko-text">파일 업로드 대신 <strong>공개 접근 가능한 링크</strong>를 입력해주세요. (구글 드라이브, Notion, 투닝 에디터 공유 링크 등)</span><span class="en-text">Please enter a <strong>publicly accessible link</strong> rather than uploading a file. (Google Drive, Notion, Tooning editor share link, etc.)</span></div>
 
-        <!-- All divisions — Work theme -->
         <div class="form-row" data-show-for="comic,novel,cardnews,poster">
           <label class="form-field">
-            <span class="form-label">Work Theme / Title <em>*</em></span>
-            <input type="text" name="topic" required placeholder="e.g. A Future School Living with AI" />
-            <span class="form-hint">Enter the core theme or title of your work in one line</span>
+            <span class="form-label"><span class="ko-text">작품 주제 / 제목</span><span class="en-text">Work Theme / Title</span> <em>*</em></span>
+            <input type="text" name="topic" required placeholder="예: AI와 함께하는 미래 학교" data-ph-ko="예: AI와 함께하는 미래 학교" data-ph-en="e.g. A Future School Living with AI" />
+            <span class="form-hint"><span class="ko-text">작품의 핵심 주제 또는 제목을 한 줄로 입력하세요</span><span class="en-text">Enter the core theme or title of your work in one line</span></span>
           </label>
         </div>
 
-        <!-- Novel — Proposal -->
         <div class="form-row" data-show-for="novel">
           <label class="form-field">
-            <span class="form-label">Proposal Link <em>*</em></span>
-            <input type="url" name="link1_proposal" required placeholder="https://docs.google.com/..." />
-            <span class="form-hint">Work proposal (Google Doc, PDF link, etc.)</span>
+            <span class="form-label"><span class="ko-text">기획안 링크</span><span class="en-text">Proposal Link</span> <em>*</em></span>
+            <input type="url" name="link1_proposal" required placeholder="https://docs.google.com/..." data-ph-ko="https://docs.google.com/..." data-ph-en="https://docs.google.com/..." />
+            <span class="form-hint"><span class="ko-text">작품 기획안 (구글 문서, PDF 링크 등)</span><span class="en-text">Work proposal (Google Doc, PDF link, etc.)</span></span>
           </label>
         </div>
 
-        <!-- Comics / Card News — Synopsis -->
         <div class="form-row" data-show-for="comic,cardnews">
           <label class="form-field">
-            <span class="form-label">Synopsis / Description</span>
-            <textarea name="link2_desc" rows="3" placeholder="Briefly describe the story, intent, or concept of your work"></textarea>
+            <span class="form-label"><span class="ko-text">시놉시스 / 설명</span><span class="en-text">Synopsis / Description</span></span>
+            <textarea name="link2_desc" rows="3" placeholder="작품의 스토리, 의도, 콘셉트를 간략히 설명해주세요" data-ph-ko="작품의 스토리, 의도, 콘셉트를 간략히 설명해주세요" data-ph-en="Briefly describe the story, intent, or concept of your work"></textarea>
           </label>
         </div>
-        <!-- Novel — 3 episodes -->
+
         <div class="form-row" data-show-for="novel">
           <label class="form-field">
-            <span class="form-label">Novel Text Link (3 episodes) <em>*</em></span>
-            <input type="url" name="link2_novel" required placeholder="https://docs.google.com/..." />
-            <span class="form-hint">2,000+ characters per episode, 3 episodes total</span>
+            <span class="form-label"><span class="ko-text">소설 본문 링크 (3화)</span><span class="en-text">Novel Text Link (3 episodes)</span> <em>*</em></span>
+            <input type="url" name="link2_novel" required placeholder="https://docs.google.com/..." data-ph-ko="https://docs.google.com/..." data-ph-en="https://docs.google.com/..." />
+            <span class="form-hint"><span class="ko-text">화당 2,000자 이상, 총 3화</span><span class="en-text">2,000+ characters per episode, 3 episodes total</span></span>
           </label>
         </div>
-        <!-- Poster — Proposal -->
+
         <div class="form-row" data-show-for="poster">
           <label class="form-field">
-            <span class="form-label">Poster Proposal Link <em>*</em></span>
-            <input type="url" name="link2_proposal" required placeholder="https://docs.google.com/..." />
-            <span class="form-hint">Proposal covering the poster's intent, message, and design concept</span>
+            <span class="form-label"><span class="ko-text">포스터 기획안 링크</span><span class="en-text">Poster Proposal Link</span> <em>*</em></span>
+            <input type="url" name="link2_proposal" required placeholder="https://docs.google.com/..." data-ph-ko="https://docs.google.com/..." data-ph-en="https://docs.google.com/..." />
+            <span class="form-hint"><span class="ko-text">포스터의 의도·메시지·디자인 콘셉트를 담은 기획안</span><span class="en-text">Proposal covering the poster's intent, message, and design concept</span></span>
           </label>
         </div>
 
-        <!-- Comics / Card News / Poster — Tooning editor link -->
         <div class="form-row" data-show-for="comic,cardnews,poster">
           <label class="form-field">
-            <span class="form-label">Tooning Editor Share Link <em>*</em></span>
-            <input type="url" name="link3_editor" required placeholder="https://tooning.io/..." />
-            <span class="form-hint">Share link of the work created in the Tooning editor — this link is the official submitted entry</span>
+            <span class="form-label"><span class="ko-text">투닝 에디터 공유 링크</span><span class="en-text">Tooning Editor Share Link</span> <em>*</em></span>
+            <input type="url" name="link3_editor" required placeholder="https://tooning.io/..." data-ph-ko="https://tooning.io/..." data-ph-en="https://tooning.io/..." />
+            <span class="form-hint"><span class="ko-text">투닝 에디터에서 제작한 작품의 공유 링크 — 이 링크가 공식 제출 작품입니다</span><span class="en-text">Share link of the work created in the Tooning editor — this link is the official submitted entry</span></span>
           </label>
         </div>
       </div>
 
-      <!-- 4. SNS Bonus Points (Optional) -->
+      <!-- 4. SNS 가산점 (선택) -->
       <div class="form-section">
-        <div class="form-section-title">4. SNS Bonus Points (Optional)</div>
+        <div class="form-section-title"><span class="ko-text">4. SNS 가산점 (선택)</span><span class="en-text">4. SNS Bonus Points (Optional)</span></div>
         <div class="form-row">
           <label class="form-field">
-            <span class="form-label">SNS Promotional Post Link</span>
-            <input type="url" name="snsLink" placeholder="https://www.instagram.com/p/..." />
-            <span class="form-hint">Bonus points awarded when all 4 required hashtags are included — #투닝 #투닝국제공모전 #웹툰 #대학과함께</span>
+            <span class="form-label"><span class="ko-text">SNS 홍보 게시물 링크</span><span class="en-text">SNS Promotional Post Link</span></span>
+            <input type="url" name="snsLink" placeholder="https://www.instagram.com/p/..." data-ph-ko="https://www.instagram.com/p/..." data-ph-en="https://www.instagram.com/p/..." />
+            <span class="form-hint"><span class="ko-text">4개의 필수 해시태그를 포함하면 가산점이 부여됩니다 — #투닝 #투닝국제공모전 #웹툰 #대학과함께</span><span class="en-text">Bonus points awarded when all 4 required hashtags are included — #투닝 #투닝국제공모전 #웹툰 #대학과함께</span></span>
           </label>
         </div>
       </div>
 
-      <!-- Privacy consent -->
+      <!-- 개인정보 동의 -->
       <div class="form-consent">
         <label class="checkbox-field">
           <input type="checkbox" name="consent" required />
-          <span>I am a student under 19 years of age and have obtained <strong>guardian consent</strong>. I agree that the personal information entered in this form will be used solely for contest operations, awards, and communication purposes. <em>*</em></span>
+          <span><span class="ko-text">본인은 만 19세 미만 학생으로 <strong>보호자의 동의</strong>를 받았습니다. 이 양식에 입력된 개인정보는 공모전 운영, 시상 및 연락 목적으로만 사용됨에 동의합니다.</span><span class="en-text">I am a student under 19 years of age and have obtained <strong>guardian consent</strong>. I agree that the personal information entered in this form will be used solely for contest operations, awards, and communication purposes.</span> <em>*</em></span>
         </label>
       </div>
 
-      <!-- Actions -->
+      <!-- 액션 버튼 -->
       <div class="form-actions">
-        <button type="button" class="btn-secondary" data-close-modal>Cancel</button>
-        <button type="submit" class="btn-primary" id="submitBtn">Submit →</button>
+        <button type="button" class="btn-secondary" data-close-modal><span class="ko-text">취소</span><span class="en-text">Cancel</span></button>
+        <button type="submit" class="btn-primary" id="submitBtn"><span class="ko-text">접수하기 →</span><span class="en-text">Submit →</span></button>
       </div>
 
-      <!-- Status messages -->
+      <!-- 상태 메시지 -->
       <div class="form-status" id="formStatus" hidden></div>
     </form>
   </div>
@@ -2245,6 +2241,17 @@ function setLang(lang) {
   var sel = document.getElementById('langSelect');
   if (sel) sel.value = lang;
   localStorage.setItem('tooning-lang', lang);
+  // placeholder 업데이트
+  document.querySelectorAll('[data-ph-ko]').forEach(function(el) {
+    el.placeholder = lang === 'ko' ? el.getAttribute('data-ph-ko') : el.getAttribute('data-ph-en');
+  });
+  // select option / optgroup 텍스트 업데이트
+  document.querySelectorAll('option[data-ko]').forEach(function(el) {
+    el.textContent = lang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+  });
+  document.querySelectorAll('optgroup[data-ko]').forEach(function(el) {
+    el.label = lang === 'ko' ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+  });
 }
 (function() {
   var saved = localStorage.getItem('tooning-lang') || 'en';
