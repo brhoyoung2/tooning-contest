@@ -19,9 +19,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-<script type="importmap">
-{"imports":{"three":"https://esm.sh/three@0.124.0","cannon-es":"https://esm.sh/cannon-es@0.18.0","postprocessing":"https://esm.sh/postprocessing@6.22.2"}}
-</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
@@ -56,11 +53,11 @@ section{position:relative;width:100%;overflow:hidden}
 .section-label{display:none}
 .topic,.eligibility,.specs,.submit,.bonus,.timeline,.awards,.lifetime,.deans,.tour,.first-contest{padding-top:100px}
 @media(max-width:768px){.topic,.eligibility,.specs,.submit,.bonus,.timeline,.awards,.lifetime,.deans,.tour,.first-contest{padding-top:64px;padding-bottom:80px}}
-.hero{min-height:900px;background:var(--white-grad-1);position:relative;overflow:hidden}
-.hero-bg-canvas{position:absolute;inset:0;z-index:1;width:100%;height:100%;overflow:hidden}
-.hero-bg-canvas canvas{display:block;width:100%!important;height:100%!important}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.4) 100%);z-index:2;pointer-events:none}
-.hero-content{position:relative;z-index:5;padding-top:240px;padding-bottom:60px;text-align:center}
+.hero{min-height:100vh;background:#0a0e1a;position:relative;overflow:hidden}
+.hero-bg-video{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.hero-overlay{position:absolute;inset:0;background:rgba(255,255,255,.52);z-index:2;pointer-events:none}
+.hero-content{position:relative;z-index:5;padding-top:220px;padding-bottom:80px;text-align:center}
+@media(max-width:768px){.hero-content{padding-top:160px;padding-bottom:60px}}
 .hero-label{display:none}
 .hero-title{font-family:'Pretendard Variable','Archivo',sans-serif;font-weight:800;font-size:clamp(56px,8vw,108px);letter-spacing:-.04em;line-height:1;color:var(--text-dark)}
 .hero-title .accent{color:var(--coral)}
@@ -743,7 +740,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 </nav>
 
 <section class="hero" id="hero">
-  <div class="hero-bg-canvas bouncy-balloon bg-white-grad-1"></div>
+  <video class="hero-bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="./images/hero-bg.mp4" type="video/mp4" />
+  </video>
   <div class="hero-overlay"></div>
   <div class="section-inner hero-content">
     <div class="hero-label reveal"><span class="ko-text">✨ 제2회 국제 AI 투닝 공모전 · 2026 ✨</span><span class="en-text">✨ 2nd International AI Tooning Contest · 2026 ✨</span></div>
@@ -1736,294 +1735,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   </div>
 </footer>
 
-<script type="module">
-import * as THREE from "three";
-import * as CANNON from "cannon-es";
-import { EffectComposer, RenderPass, NormalPass, SSAOEffect, EffectPass } from "postprocessing";
-
-function getNormalizedMousePos(e) {
-  return { x: (e.clientX / window.innerWidth) * 2 - 1, y: -(e.clientY / window.innerHeight) * 2 + 1 };
-}
-function calcAspect(el) { return el.clientWidth / el.clientHeight; }
-function getViewport(camera) {
-  var position = new THREE.Vector3();
-  var target = new THREE.Vector3();
-  var distance = camera.getWorldPosition(position).distanceTo(target);
-  var fov = (camera.fov * Math.PI) / 180;
-  var h = 2 * Math.tan(fov / 2) * distance;
-  var w = h * (window.innerWidth / window.innerHeight);
-  return { width: w, height: h };
-}
-function randomInRange(min, max) { return min + Math.random() * (max - min); }
-function deg2rad(deg) { return (deg * Math.PI) / 180; }
-
-function MeshPhysicsObject(mesh, body) { this.mesh = mesh; this.body = body; }
-
-function BouncyBalloon(selector) {
-  this.container = document.querySelector(selector);
-  if (!this.container) return;
-  this.mousePos = new THREE.Vector2(0, 0);
-  this.balls = [];
-  this.planes = [];
-  this.meshPhysicsObjs = [];
-  this.params = { ballColor: "#ff6b6b" };
-
-  var self = this;
-  window.addEventListener("mousemove", function(e) {
-    var p = getNormalizedMousePos(e);
-    self.mousePos.x = p.x;
-    self.mousePos.y = p.y;
-  });
-  window.addEventListener("touchmove", function(e) {
-    if (e.touches[0]) {
-      var p = getNormalizedMousePos(e.touches[0]);
-      self.mousePos.x = p.x;
-      self.mousePos.y = p.y;
-    }
-  }, { passive: true });
-
-  this.init();
-}
-
-BouncyBalloon.prototype.init = function() {
-  this.createWorld();
-  this.createScene();
-  this.createCamera();
-  this.viewport = getViewport(this.camera);
-  this.createRenderer();
-  this.createBallMaterial();
-  this.createBalls(64);
-  this.createFourPlanes();
-  this.addBallsDamping();
-  this.createMouseFollowBall();
-  this.hideSomeObjs();
-  this.createLight();
-  this.createPostprocessing();
-  this.addResize();
-  this.setLoop();
-};
-
-BouncyBalloon.prototype.createWorld = function() {
-  var world = new CANNON.World();
-  world.gravity.set(0, 0, 0);
-  this.world = world;
-};
-
-BouncyBalloon.prototype.createScene = function() { this.scene = new THREE.Scene(); };
-
-BouncyBalloon.prototype.createCamera = function() {
-  var aspect = calcAspect(this.container);
-  var camera = new THREE.PerspectiveCamera(35, aspect, 10, 40);
-  camera.position.set(0, 0, 20);
-  camera.lookAt(0, 0, 0);
-  this.camera = camera;
-};
-
-BouncyBalloon.prototype.createRenderer = function() {
-  var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setClearColor(0x000000, 0);
-  renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.toneMapping = THREE.CineonToneMapping;
-  renderer.toneMappingExposure = 1.5;
-  this.container.appendChild(renderer.domElement);
-  this.renderer = renderer;
-};
-
-BouncyBalloon.prototype.createBallMaterial = function() {
-  this.ballMat = new THREE.MeshLambertMaterial({
-    color: new THREE.Color("silver"),
-    emissive: new THREE.Color(this.params.ballColor)
-  });
-};
-
-BouncyBalloon.prototype.createBall = function(scale) {
-  var geo = new THREE.SphereBufferGeometry(1, 32, 32);
-  var mesh = new THREE.Mesh(geo, this.ballMat);
-  mesh.scale.set(scale, scale, scale);
-  this.scene.add(mesh);
-
-  var body = new CANNON.Body({
-    mass: 1,
-    shape: new CANNON.Box(new CANNON.Vec3(scale, scale, scale)),
-    position: new CANNON.Vec3(randomInRange(-3, 3), randomInRange(-3, 3), randomInRange(-3, 3))
-  });
-  this.world.addBody(body);
-
-  var obj = new MeshPhysicsObject(mesh, body);
-  this.meshPhysicsObjs.push(obj);
-  return obj;
-};
-
-BouncyBalloon.prototype.createBalls = function(count) {
-  for (var i = 0; i < count; i++) {
-    var scale = randomInRange(0.5, 1);
-    this.balls.push(this.createBall(scale));
-  }
-};
-
-BouncyBalloon.prototype.createPlane = function(pos, rot) {
-  var geo = new THREE.PlaneGeometry(1, 1);
-  var mat = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
-  var mesh = new THREE.Mesh(geo, mat);
-  mesh.position.copy(pos);
-  mesh.rotation.copy(rot);
-  this.scene.add(mesh);
-
-  var quat = new CANNON.Quaternion();
-  quat.setFromEuler(rot.x, rot.y, rot.z);
-  var body = new CANNON.Body({
-    shape: new CANNON.Plane(),
-    position: new CANNON.Vec3(pos.x, pos.y, pos.z),
-    quaternion: quat
-  });
-  this.world.addBody(body);
-
-  var obj = new MeshPhysicsObject(mesh, body);
-  this.meshPhysicsObjs.push(obj);
-  return obj;
-};
-
-BouncyBalloon.prototype.createFourPlanes = function() {
-  var posList = [
-    new THREE.Vector3(0, 0, 0),
-    new THREE.Vector3(0, 0, 8),
-    new THREE.Vector3(0, -4, 0),
-    new THREE.Vector3(0, 4, 0)
-  ];
-  var rotList = [
-    new THREE.Euler(0, 0, 0),
-    new THREE.Euler(0, deg2rad(-180), 0),
-    new THREE.Euler(deg2rad(-90), 0, 0),
-    new THREE.Euler(deg2rad(90), 0, 0)
-  ];
-  for (var i = 0; i < 4; i++) {
-    this.planes.push(this.createPlane(posList[i], rotList[i]));
-  }
-};
-
-BouncyBalloon.prototype.addBallsDamping = function() {
-  this.balls.forEach(function(b) {
-    b.body.angularDamping = 0.2;
-    b.body.linearDamping = 0.95;
-  });
-};
-
-BouncyBalloon.prototype.createMouseFollowBall = function() {
-  var scale = 2;
-  var geo = new THREE.SphereBufferGeometry(1, 32, 32);
-  var mesh = new THREE.Mesh(geo, this.ballMat);
-  mesh.scale.set(scale, scale, scale);
-  this.scene.add(mesh);
-
-  var body = new CANNON.Body({
-    mass: 1,
-    shape: new CANNON.Sphere(2),
-    type: CANNON.Body.KINEMATIC
-  });
-  this.world.addBody(body);
-
-  this.mouseFollowBall = new MeshPhysicsObject(mesh, body);
-  this.meshPhysicsObjs.push(this.mouseFollowBall);
-};
-
-BouncyBalloon.prototype.hideSomeObjs = function() {
-  this.planes.forEach(function(p) { p.mesh.visible = false; });
-  this.mouseFollowBall.mesh.visible = false;
-};
-
-BouncyBalloon.prototype.createLight = function() {
-  this.scene.add(new THREE.AmbientLight(new THREE.Color("white"), 0.75));
-  var dir = new THREE.DirectionalLight(new THREE.Color("white"), 4);
-  dir.position.set(0, 5, -5);
-  this.scene.add(dir);
-  var spot = new THREE.SpotLight(new THREE.Color(this.params.ballColor));
-  spot.position.set(20, 20, 25);
-  this.scene.add(spot);
-};
-
-BouncyBalloon.prototype.createPostprocessing = function() {
-  try {
-    var composer = new EffectComposer(this.renderer);
-    composer.addPass(new RenderPass(this.scene, this.camera));
-    var normalPass = new NormalPass(this.scene, this.camera);
-    composer.addPass(normalPass);
-    var ssaoConfig = { rangeThreshold: 0.5, rangeFalloff: 0.1, bias: 0.5 };
-    var ssao1 = new SSAOEffect(this.camera, normalPass.renderTarget.texture, Object.assign({}, ssaoConfig, {
-      color: this.params.ballColor, samples: 9, radius: 30, intensity: 30
-    }));
-    var ssao2 = new SSAOEffect(this.camera, normalPass.renderTarget.texture, Object.assign({}, ssaoConfig, {
-      color: this.params.ballColor, samples: 18, radius: 5, intensity: 30
-    }));
-    var effectPass = new EffectPass(this.camera, ssao1, ssao2);
-    effectPass.renderToScreen = true;
-    composer.addPass(effectPass);
-    this.composer = composer;
-  } catch (err) {
-    console.warn("Postprocessing unavailable:", err);
-    this.composer = null;
-  }
-};
-
-BouncyBalloon.prototype.addResize = function() {
-  var self = this;
-  window.addEventListener("resize", function() {
-    var aspect = calcAspect(self.container);
-    self.camera.aspect = aspect;
-    self.camera.updateProjectionMatrix();
-    self.renderer.setSize(self.container.clientWidth, self.container.clientHeight);
-    self.viewport = getViewport(self.camera);
-  });
-};
-
-BouncyBalloon.prototype.update = function() {
-  this.meshPhysicsObjs.forEach(function(o) {
-    o.mesh.position.copy(o.body.position);
-    o.mesh.quaternion.copy(o.body.quaternion);
-  });
-  this.world.step(1 / 60);
-  this.balls.forEach(function(o) {
-    var force = new THREE.Vector3().copy(o.body.position).normalize().multiplyScalar(-36);
-    o.body.applyForce(force);
-  });
-  if (this.mouseFollowBall) {
-    var x = (this.mousePos.x * this.viewport.width) / 2;
-    var y = (this.mousePos.y * this.viewport.height) / 2;
-    this.mouseFollowBall.body.position.set(x, y, 2.5);
-  }
-};
-
-BouncyBalloon.prototype.setLoop = function() {
-  var self = this;
-  this.renderer.setAnimationLoop(function() {
-    self.update();
-    if (self.composer) self.composer.render();
-    else self.renderer.render(self.scene, self.camera);
-  });
-};
-
-function bootBouncyBalloon() {
-  if (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) return;
-  try {
-    var el = document.querySelector(".bouncy-balloon");
-    if (!el) { console.warn("bouncy-balloon container not found"); return; }
-    if (el.clientWidth === 0 || el.clientHeight === 0) {
-      setTimeout(bootBouncyBalloon, 100);
-      return;
-    }
-    new BouncyBalloon(".bouncy-balloon");
-  } catch (e) {
-    console.warn("3D background failed:", e);
-  }
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", bootBouncyBalloon);
-} else {
-  bootBouncyBalloon();
-}
-</script>
 
 <script>
 (function() {
