@@ -1842,11 +1842,12 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 
 /* ============ APPLY MODAL ============ */
 (function() {
-  // Supabase 클라이언트 초기화
-  var _sb = window.supabase.createClient(
+  // Supabase 클라이언트 초기화 (전역 공유)
+  window._sb = window.supabase.createClient(
     'https://mllbsqnrvhvnqvxkpxof.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1sbGJzcW5ydmh2bnF2eGtweG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyOTQ4MDUsImV4cCI6MjA5NTg3MDgwNX0.X4vB-JwtbrQOUg_It5dSuvTrIWOOFfg7ThIiU8FKhjI'
   );
+  var _sb = window._sb;
 
   var modal = document.getElementById('applyModal');
   if (!modal) return;
@@ -2526,14 +2527,21 @@ function hofTab(id, btn) {
       return '감사합니다, ' + q + '님! 📧\n이메일 앱이 열리면 전송해 주세요.\n(support@tooning.io)';
     }
     if (state === 'verify_name') {
-      savedName = q;
-      state = 'verify_contact';
-      return '감사합니다! 📋\n연락처(전화번호 또는 이메일)를 입력해 주세요.';
-    }
-    if (state === 'verify_contact') {
-      var name = savedName; savedName = ''; state = null;
-      openMailto('[공모전] 접수 확인 요청 - ' + name, '성함: ' + name + '\n연락처: ' + q + '\n\n접수 확인을 요청드립니다.');
-      return '✅ 성함: ' + name + '\n연락처: ' + q + '\n\n이메일 앱이 열리면 전송해 주세요!\n빠른 시일 내에 확인 후 연락드리겠습니다. 😊';
+      var lookupName = q.trim();
+      state = null; savedName = '';
+      var sectionMap = {comic:'만화/웹툰', novel:'소설/이야기', cardnews:'카드뉴스', poster:'포스터'};
+      return window._sb
+        .from('투닝콘테스트_접수')
+        .select('id, name, school, grade, section, created_at, status')
+        .ilike('name', lookupName)
+        .then(function(res) {
+          if (res.error) return '😥 조회 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
+          if (!res.data || res.data.length === 0)
+            return '🔍 **' + lookupName + '** 님의 접수 내역을 찾을 수 없습니다.\n이름이 정확한지 확인 후 다시 시도하거나\nsupport@tooning.io 로 문의해주세요.';
+          var d = res.data[0];
+          var dt = new Date(d.created_at).toLocaleDateString('ko-KR');
+          return '✅ 접수가 확인되었습니다!\n\n이름: ' + d.name + '\n학교: ' + d.school + '\n부문: ' + (sectionMap[d.section] || d.section) + '\n접수일: ' + dt + '\n접수번호: ' + d.id.slice(0,8).toUpperCase();
+        });
     }
     return null;
   }
@@ -2547,7 +2555,16 @@ function hofTab(id, btn) {
       removeTyping();
 
       // 상태 머신 우선 처리
-      if (state !== null) { addMsg(handleStateMsg(q), 'bot'); return; }
+      if (state !== null) {
+        var stateResult = handleStateMsg(q);
+        if (stateResult && typeof stateResult.then === 'function') {
+          showTyping();
+          stateResult.then(function(msg) { removeTyping(); addMsg(msg, 'bot'); });
+        } else {
+          addMsg(stateResult, 'bot');
+        }
+        return;
+      }
 
       // "최종입니다" 키워드 감지
       if (q.indexOf('최종') !== -1) {
