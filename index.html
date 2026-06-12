@@ -2498,21 +2498,25 @@ function hofTab(id, btn) {
   function removeTyping() { var el = document.getElementById('chatTyping'); if (el) el.remove(); }
 
   function isBlocked(q) {
-    var l = q.toLowerCase();
+    var l = q.toLowerCase().replace(/\s+/g,'');
     for (var i = 0; i < blocklist.length; i++) { if (l.indexOf(blocklist[i]) !== -1) return true; }
     return false;
   }
 
   function isComplaint(q) {
-    for (var i = 0; i < complainList.length; i++) { if (q.indexOf(complainList[i]) !== -1) return true; }
+    var qc = q.replace(/\s+/g,'');
+    for (var i = 0; i < complainList.length; i++) { if (qc.indexOf(complainList[i]) !== -1) return true; }
     return false;
   }
 
   function getAnswer(q) {
     var l = q.toLowerCase();
+    var lc = l.replace(/\s+/g, ''); // 공백 제거 버전
     for (var i = 0; i < rules.length; i++)
-      for (var j = 0; j < rules[i].keys.length; j++)
-        if (l.indexOf(rules[i].keys[j]) !== -1) return rules[i].ans;
+      for (var j = 0; j < rules[i].keys.length; j++) {
+        var k = rules[i].keys[j].toLowerCase();
+        if (l.indexOf(k) !== -1 || lc.indexOf(k.replace(/\s+/g,'')) !== -1) return rules[i].ans;
+      }
     return FALLBACK;
   }
 
@@ -2567,7 +2571,7 @@ function hofTab(id, btn) {
       }
 
       // "최종입니다" 키워드 감지
-      if (q.indexOf('최종') !== -1) {
+      if (q.replace(/\s+/g,'').indexOf('최종') !== -1) {
         state = 'resubmit_name';
         addMsg('재제출하셨군요! ✅\n처리를 위해 성함을 알려주세요.', 'bot'); return;
       }
