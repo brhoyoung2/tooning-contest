@@ -446,6 +446,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .form-row.two-col{display:grid;grid-template-columns:1.5fr 1fr;gap:12px}
 .form-row[hidden]{display:none}
 .form-field{display:block}
+.phone-wrap{display:flex;gap:8px;align-items:stretch}
+.phone-wrap .country-code{flex:0 0 110px;padding:13px 10px;border:1.5px solid #e5e7eb;border-radius:12px;font-family:inherit;font-size:13px;color:var(--text-dark);background:#fff;transition:border-color .2s;cursor:pointer}
+.phone-wrap .country-code:focus{outline:none;border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,107,107,.12)}
+.phone-wrap input{flex:1}
+.input-error{border-color:#ef4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.12)!important}
+.field-err-msg{display:none;font-size:12px;color:#ef4444;margin-top:5px;font-weight:500}
+.field-err-msg.show{display:block}
 .form-label{display:block;font-weight:700;font-size:14px;color:var(--text-dark);margin-bottom:6px;letter-spacing:-.01em}
 .form-label em{color:var(--coral);font-style:normal;margin-left:2px}
 .form-field input,.form-field select,.form-field textarea{width:100%;padding:13px 16px;border:1.5px solid #e5e7eb;border-radius:12px;font-family:inherit;font-size:14px;color:var(--text-dark);background:#fff;transition:border-color .2s,box-shadow .2s;font-weight:500}
@@ -1597,8 +1604,26 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <div class="form-row" data-contact-for="teacher">
           <label class="form-field">
             <span class="form-label"><span class="ko-text">지도교사 연락처</span><span class="en-text">Teacher's Phone Number</span> <em>*</em></span>
-            <input type="tel" name="teacherPhone" placeholder="010-0000-0000" data-ph-ko="010-0000-0000" data-ph-en="010-0000-0000" autocomplete="tel" />
-            <span class="form-hint"><span class="ko-text">학교·학원에서 지도해주신 선생님의 연락처</span><span class="en-text">Contact of the teacher who supervised your work at school or academy</span></span>
+            <div class="phone-wrap">
+              <select class="country-code" name="teacherCountryCode" id="teacherCountryCode">
+                <option value="+82">🇰🇷 +82</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+81">🇯🇵 +81</option>
+                <option value="+86">🇨🇳 +86</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+65">🇸🇬 +65</option>
+                <option value="+66">🇹🇭 +66</option>
+                <option value="+84">🇻🇳 +84</option>
+                <option value="+62">🇮🇩 +62</option>
+                <option value="+60">🇲🇾 +60</option>
+              </select>
+              <input type="tel" name="teacherPhone" id="teacherPhone" placeholder="010-1234-5678" data-ph-ko="010-1234-5678" data-ph-en="010-1234-5678" autocomplete="tel" inputmode="numeric" />
+            </div>
+            <span class="field-err-msg" id="teacherPhoneErr"><span class="ko-text">숫자, 하이픈(-)만 입력 가능합니다</span><span class="en-text">Only numbers and hyphens (-) allowed</span></span>
+            <span class="form-hint"><span class="ko-text">숫자와 하이픈(-)만 입력 — 예: 010-1234-5678</span><span class="en-text">Numbers and hyphens only — e.g. 010-1234-5678</span></span>
           </label>
         </div>
 
@@ -1613,7 +1638,25 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <div class="form-row" data-contact-for="parent" hidden>
           <label class="form-field">
             <span class="form-label"><span class="ko-text">보호자 연락처</span><span class="en-text">Guardian's Phone Number</span> <em>*</em></span>
-            <input type="tel" name="parentPhone" placeholder="010-0000-0000" data-ph-ko="010-0000-0000" data-ph-en="010-0000-0000" autocomplete="tel" disabled />
+            <div class="phone-wrap">
+              <select class="country-code" name="parentCountryCode" id="parentCountryCode" disabled>
+                <option value="+82">🇰🇷 +82</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+81">🇯🇵 +81</option>
+                <option value="+86">🇨🇳 +86</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+65">🇸🇬 +65</option>
+                <option value="+66">🇹🇭 +66</option>
+                <option value="+84">🇻🇳 +84</option>
+                <option value="+62">🇮🇩 +62</option>
+                <option value="+60">🇲🇾 +60</option>
+              </select>
+              <input type="tel" name="parentPhone" id="parentPhone" placeholder="010-1234-5678" data-ph-ko="010-1234-5678" data-ph-en="010-1234-5678" autocomplete="tel" inputmode="numeric" disabled />
+            </div>
+            <span class="field-err-msg" id="parentPhoneErr"><span class="ko-text">숫자, 하이픈(-)만 입력 가능합니다</span><span class="en-text">Only numbers and hyphens (-) allowed</span></span>
             <span class="form-hint"><span class="ko-text">지도교사가 없을 경우에만 필요 — 수상 결과 안내에 활용됩니다</span><span class="en-text">Only required when no supervising teacher — used for award result notifications</span></span>
           </label>
         </div>
@@ -1653,6 +1696,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           <label class="form-field">
             <span class="form-label"><span class="ko-text">기획안 링크</span><span class="en-text">Proposal Link</span> <em>*</em></span>
             <input type="url" name="link1_proposal" required placeholder="https://docs.google.com/..." data-ph-ko="https://docs.google.com/..." data-ph-en="https://docs.google.com/..." />
+            <span class="field-err-msg" id="link1Err"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
             <span class="form-hint"><span class="ko-text">작품 기획안 (구글 문서, PDF 링크 등)</span><span class="en-text">Work proposal (Google Doc, PDF link, etc.)</span></span>
           </label>
         </div>
@@ -1668,6 +1712,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           <label class="form-field">
             <span class="form-label"><span class="ko-text">소설 본문 링크 (3화)</span><span class="en-text">Novel Text Link (3 episodes)</span> <em>*</em></span>
             <input type="url" name="link2_novel" required placeholder="https://docs.google.com/..." data-ph-ko="https://docs.google.com/..." data-ph-en="https://docs.google.com/..." />
+            <span class="field-err-msg" id="link2NovelErr"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
             <span class="form-hint"><span class="ko-text">화당 2,000자 이상, 총 3화</span><span class="en-text">2,000+ characters per episode, 3 episodes total</span></span>
           </label>
         </div>
@@ -1676,6 +1721,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           <label class="form-field">
             <span class="form-label"><span class="ko-text">포스터 기획안 링크</span><span class="en-text">Poster Proposal Link</span> <em>*</em></span>
             <input type="url" name="link2_proposal" required placeholder="https://docs.google.com/..." data-ph-ko="https://docs.google.com/..." data-ph-en="https://docs.google.com/..." />
+            <span class="field-err-msg" id="link2PropErr"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
             <span class="form-hint"><span class="ko-text">포스터의 의도·메시지·디자인 콘셉트를 담은 기획안</span><span class="en-text">Proposal covering the poster's intent, message, and design concept</span></span>
           </label>
         </div>
@@ -1684,6 +1730,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           <label class="form-field">
             <span class="form-label"><span class="ko-text">투닝 에디터 공유 링크</span><span class="en-text">Tooning Editor Share Link</span> <em>*</em></span>
             <input type="url" name="link3_editor" required placeholder="https://tooning.io/..." data-ph-ko="https://tooning.io/..." data-ph-en="https://tooning.io/..." />
+            <span class="field-err-msg" id="link3Err"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
             <span class="form-hint"><span class="ko-text">투닝 에디터에서 제작한 작품의 공유 링크 — 이 링크가 공식 제출 작품입니다</span><span class="en-text">Share link of the work created in the Tooning editor — this link is the official submitted entry</span></span>
           </label>
         </div>
@@ -1696,6 +1743,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           <label class="form-field">
             <span class="form-label"><span class="ko-text">SNS 홍보 게시물 링크</span><span class="en-text">SNS Promotional Post Link</span></span>
             <input type="url" name="snsLink" placeholder="https://www.instagram.com/p/..." data-ph-ko="https://www.instagram.com/p/..." data-ph-en="https://www.instagram.com/p/..." />
+            <span class="field-err-msg" id="snsLinkErr"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
             <span class="form-hint"><span class="ko-text">4개의 필수 해시태그를 포함하면 가산점이 부여됩니다 — #투닝 #투닝국제공모전 #웹툰 #대학과함께</span><span class="en-text">Bonus points awarded when all 4 required hashtags are included — #투닝 #투닝국제공모전 #웹툰 #대학과함께</span></span>
           </label>
         </div>
@@ -1870,19 +1918,70 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     form.querySelectorAll('[data-contact-for]').forEach(function(row) {
       var match = row.dataset.contactFor === contactType;
       row.hidden = !match;
-      row.querySelectorAll('input').forEach(function(el) {
+      row.querySelectorAll('input, select.country-code').forEach(function(el) {
         el.disabled = !match;
         if (match) {
-          // 활성화될 때 필수 처리: 첫 번째 row의 input만 required로
           if (row.dataset.contactFor === 'teacher' && el.name === 'teacherPhone') el.required = true;
           if (row.dataset.contactFor === 'parent' && el.name === 'parentPhone') el.required = true;
         } else {
           el.required = false;
-          el.value = '';
+          el.value = el.tagName === 'SELECT' ? el.options[0].value : '';
         }
       });
     });
   }
+
+  // ── 실시간 입력 검증 ──────────────────────────────
+  var KO_RE = /[가-힣ᄀ-ᇿ㄰-㆏]/;
+
+  // 전화번호: 숫자·하이픈·+·공백만 허용
+  function attachPhoneFilter(inputId, errId) {
+    var el = document.getElementById(inputId);
+    var err = document.getElementById(errId);
+    if (!el || !err) return;
+    el.addEventListener('input', function() {
+      var clean = el.value.replace(/[^\d\-\+\s\(\)]/g, '');
+      if (el.value !== clean) {
+        el.value = clean;
+        el.classList.add('input-error');
+        err.classList.add('show');
+      } else {
+        el.classList.remove('input-error');
+        err.classList.remove('show');
+      }
+    });
+  }
+  attachPhoneFilter('teacherPhone', 'teacherPhoneErr');
+  attachPhoneFilter('parentPhone',  'parentPhoneErr');
+
+  // URL 필드: 한글 차단
+  function attachUrlFilter(name, errId) {
+    var el = form.querySelector('[name="' + name + '"]');
+    var err = document.getElementById(errId);
+    if (!el || !err) return;
+    el.addEventListener('input', function() {
+      if (KO_RE.test(el.value)) {
+        el.classList.add('input-error');
+        err.classList.add('show');
+      } else {
+        el.classList.remove('input-error');
+        err.classList.remove('show');
+      }
+    });
+    el.addEventListener('paste', function(e) {
+      var pasted = (e.clipboardData || window.clipboardData).getData('text');
+      if (KO_RE.test(pasted)) {
+        e.preventDefault();
+        el.classList.add('input-error');
+        err.classList.add('show');
+      }
+    });
+  }
+  attachUrlFilter('link1_proposal', 'link1Err');
+  attachUrlFilter('link2_novel',    'link2NovelErr');
+  attachUrlFilter('link2_proposal', 'link2PropErr');
+  attachUrlFilter('link3_editor',   'link3Err');
+  attachUrlFilter('snsLink',        'snsLinkErr');
   form.querySelectorAll('input[name="contactType"]').forEach(function(r) {
     r.addEventListener('change', updateContactFields);
   });
@@ -1893,7 +1992,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     statusEl.hidden = true;
     statusEl.className = 'form-status';
 
-    // Required check
+    // 1. 필수 항목 확인
     var requiredEls = form.querySelectorAll('[required]:not(:disabled)');
     var firstInvalid = null;
     requiredEls.forEach(function(el) {
@@ -1908,6 +2007,38 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       return;
     }
 
+    // 2. 전화번호 숫자 검증
+    var phoneFields = [
+      {id: 'teacherPhone', errId: 'teacherPhoneErr'},
+      {id: 'parentPhone',  errId: 'parentPhoneErr'}
+    ];
+    for (var pi = 0; pi < phoneFields.length; pi++) {
+      var pf = document.getElementById(phoneFields[pi].id);
+      if (!pf || pf.disabled || !pf.value.trim()) continue;
+      if (/[a-zA-Zㄱ-ㅎ가-힣]/.test(pf.value)) {
+        statusEl.hidden = false;
+        statusEl.classList.add('error');
+        statusEl.textContent = '⚠️ 전화번호는 숫자와 하이픈(-)만 입력해주세요.';
+        pf.focus();
+        document.getElementById(phoneFields[pi].errId).classList.add('show');
+        return;
+      }
+    }
+
+    // 3. URL 한글 검증
+    var urlFields = ['link1_proposal','link2_novel','link2_proposal','link3_editor','snsLink'];
+    for (var ui = 0; ui < urlFields.length; ui++) {
+      var uf = form.querySelector('[name="' + urlFields[ui] + '"]');
+      if (!uf || uf.disabled || !uf.value.trim()) continue;
+      if (KO_RE.test(uf.value)) {
+        statusEl.hidden = false;
+        statusEl.classList.add('error');
+        statusEl.textContent = '⚠️ 링크에 한글을 입력할 수 없습니다. https://... 형식으로 입력해주세요.';
+        uf.focus();
+        return;
+      }
+    }
+
     // 폼 데이터 수집
     var fd = new FormData(form);
     var contactType = (form.querySelector('input[name="contactType"]:checked') || {}).value || 'teacher';
@@ -1918,9 +2049,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       grade:               fd.get('grade') || null,
       class:               fd.get('class') || null,
       contact_type:        contactType,
-      teacher_phone:       fd.get('teacherPhone') || null,
+      teacher_phone:       fd.get('teacherPhone') ? (fd.get('teacherCountryCode') + ' ' + fd.get('teacherPhone')) : null,
       teacher_name:        fd.get('teacherName') || null,
-      parent_phone:        fd.get('parentPhone') || null,
+      parent_phone:        fd.get('parentPhone') ? (fd.get('parentCountryCode') + ' ' + fd.get('parentPhone')) : null,
       section:             fd.get('section') || null,
       topic:               fd.get('topic') || null,
       link_proposal:       fd.get('link1_proposal') || null,
