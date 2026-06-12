@@ -728,6 +728,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .bonus-step-title-simple{font-size:17px!important}
 .info-val{font-size:18px!important}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body lang-mode="en">
 <nav>
@@ -1792,8 +1793,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 
 /* ============ APPLY MODAL ============ */
 (function() {
-  // 🔽 GAS Web App URL을 여기에 붙여넣으세요 (배포 후)
-  var GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbx7kXiSuLlGYCSEyQL6Qnvh7SIENZCaRP_gytUuxndSM6HYYVHTqkhpQ8zdDSGAcN5R/exec";
+  // Supabase 클라이언트 초기화
+  var _sb = window.supabase.createClient(
+    'https://mllbsqnrvhvnqvxkpxof.supabase.co',
+    'sb_publishable_jIcIclh6P2smjMHYjBZbfg_MiEX185n'
+  );
 
   var modal = document.getElementById('applyModal');
   if (!modal) return;
@@ -1899,58 +1903,62 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     if (firstInvalid) {
       statusEl.hidden = false;
       statusEl.classList.add('error');
-      statusEl.textContent = '⚠️ Please fill in all required fields.';
+      statusEl.textContent = '⚠️ 필수 항목을 모두 입력해주세요.';
       firstInvalid.focus();
       return;
     }
 
-    // Build FormData (skips disabled fields automatically)
+    // 폼 데이터 수집
     var fd = new FormData(form);
-    fd.append('submittedAt', new Date().toISOString());
-    fd.append('userAgent', navigator.userAgent);
+    var contactType = (form.querySelector('input[name="contactType"]:checked') || {}).value || 'teacher';
+
+    var payload = {
+      name:                fd.get('name') || null,
+      school:              fd.get('school') || null,
+      grade:               fd.get('grade') || null,
+      class:               fd.get('class') || null,
+      contact_type:        contactType,
+      teacher_phone:       fd.get('teacherPhone') || null,
+      teacher_name:        fd.get('teacherName') || null,
+      parent_phone:        fd.get('parentPhone') || null,
+      section:             fd.get('section') || null,
+      topic:               fd.get('topic') || null,
+      link_proposal:       fd.get('link1_proposal') || null,
+      work_description:    fd.get('link2_desc') || null,
+      link_novel:          fd.get('link2_novel') || null,
+      link_novel_proposal: fd.get('link2_proposal') || null,
+      link_editor:         fd.get('link3_editor') || null,
+      sns_link:            fd.get('snsLink') || null,
+      user_agent:          navigator.userAgent
+    };
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting…';
+    submitBtn.textContent = '제출 중…';
 
-    if (GAS_ENDPOINT === "REPLACE_WITH_YOUR_GAS_WEBAPP_URL") {
-      var preview = {};
-      fd.forEach(function(v, k) { preview[k] = v; });
-      console.log('[DEV MODE] Submission data:', preview);
-      setTimeout(function() {
+    _sb.from('submissions').insert([payload]).select()
+      .then(function(result) {
+        if (result.error) throw result.error;
+        var ref = (result.data && result.data[0])
+          ? result.data[0].id.slice(0, 8).toUpperCase()
+          : '-';
         statusEl.hidden = false;
-        statusEl.classList.add('error');
-        statusEl.innerHTML = '⚙️ <strong>Dev Mode</strong> — GAS Web App URL is not configured.<br/>Please contact the administrator. (Submitted data visible in the console)';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit →';
-      }, 600);
-      return;
-    }
-
-    fetch(GAS_ENDPOINT, { method: 'POST', body: fd })
-      .then(function(r) { return r.json(); })
-      .then(function(res) {
-        if (res.ok) {
-          statusEl.hidden = false;
-          statusEl.classList.add('success');
-          statusEl.innerHTML = '🎉 <strong>Submission complete!</strong><br/>Reference #: ' + (res.id || '-') + '<br/>Results will be sent to the guardian\'s contact.';
-          form.reset();
-          updateConditionalFields();
-          setTimeout(function() {
-            closeModal();
-            statusEl.hidden = true;
-          }, 4500);
-        } else {
-          throw new Error(res.error || 'Server error');
-        }
+        statusEl.classList.add('success');
+        statusEl.innerHTML = '🎉 <strong>접수가 완료되었습니다!</strong><br/>접수번호: ' + ref + '<br/>결과는 연락처로 안내드립니다.';
+        form.reset();
+        updateConditionalFields();
+        setTimeout(function() {
+          closeModal();
+          statusEl.hidden = true;
+        }, 4500);
       })
       .catch(function(err) {
         statusEl.hidden = false;
         statusEl.classList.add('error');
-        statusEl.textContent = '❌ An error occurred during submission: ' + err.message + '\nPlease try again shortly.';
+        statusEl.textContent = '❌ 제출 중 오류가 발생했습니다: ' + (err.message || '잠시 후 다시 시도해주세요.');
       })
       .then(function() {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit →';
+        submitBtn.textContent = '접수하기 →';
       });
   });
 
