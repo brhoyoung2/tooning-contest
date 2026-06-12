@@ -1528,7 +1528,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 <div class="apply-modal" id="applyModal" aria-hidden="true" inert>
   <div class="modal-backdrop" data-close-modal></div>
   <div class="modal-panel" role="dialog" aria-labelledby="applyTitle" aria-modal="true">
-    <button type="button" class="modal-close" aria-label="Close" data-close-modal>×</button>
+    <button type="button" class="modal-close" aria-label="Close" data-close-modal style="display:none">×</button>
+    <button type="button" id="testFillBtn" style="position:absolute;top:16px;right:16px;background:#6366f1;color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;z-index:10;opacity:.85">A</button>
 
     <div class="modal-header">
       <div class="modal-eyebrow">📝 <span class="ko-text">접수하기</span><span class="en-text">Application</span></div>
@@ -2096,6 +2097,41 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   // Init
   updateConditionalFields();
   updateContactFields();
+
+  // ── 테스트 자동입력 버튼 (DB 확인용, 임시) ──────────
+  var testBtn = document.getElementById('testFillBtn');
+  if (testBtn) {
+    testBtn.addEventListener('click', function() {
+      // 개인정보
+      form.querySelector('[name="name"]').value = '테스트학생';
+      form.querySelector('[name="school"]').value = '투닝초등학교';
+      form.querySelector('[name="grade"]').value = '초등 3학년';
+      form.querySelector('[name="class"]').value = '2반';
+
+      // 교사 연락처
+      var teacherRadio = form.querySelector('input[name="contactType"][value="teacher"]');
+      if (teacherRadio) { teacherRadio.checked = true; updateContactFields(); }
+      document.getElementById('teacherCountryCode').value = '+82';
+      document.getElementById('teacherPhone').value = '010-1234-5678';
+      form.querySelector('[name="teacherName"]').value = '김선생님';
+
+      // 부문: 만화/웹툰
+      var sectionSel = document.getElementById('sectionSelect');
+      sectionSel.value = 'comic';
+      sectionSel.dispatchEvent(new Event('change'));
+
+      setTimeout(function() {
+        // 작품 정보 (conditional fields가 열린 후)
+        form.querySelector('[name="topic"]').value = '테스트 작품 제목';
+        var descEl = form.querySelector('[name="link2_desc"]');
+        if (descEl && !descEl.disabled) descEl.value = '테스트용 작품 시놉시스입니다.';
+        var editorEl = form.querySelector('[name="link3_editor"]');
+        if (editorEl && !editorEl.disabled) editorEl.value = 'https://tooning.io/test-link-12345';
+        form.querySelector('[name="snsLink"]').value = 'https://www.instagram.com/p/test12345/';
+        form.querySelector('[name="consent"]').checked = true;
+      }, 100);
+    });
+  }
 })();
 </script>
 
