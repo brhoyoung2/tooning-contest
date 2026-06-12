@@ -88,7 +88,9 @@ ALTER TABLE 투닝콘테스트_심사 ENABLE ROW LEVEL SECURITY;
 -- =====================================================
 -- 3. 리뷰 뷰 (접수 + 심사 조인, 관리자 페이지용)
 -- =====================================================
-CREATE OR REPLACE VIEW 투닝콘테스트_리뷰 AS
+CREATE OR REPLACE VIEW 투닝콘테스트_리뷰
+  WITH (security_invoker = on)
+AS
   SELECT
     s.id,
     s.created_at,
