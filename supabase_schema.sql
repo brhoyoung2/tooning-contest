@@ -1,10 +1,11 @@
 -- =====================================================
--- 투닝 국제 공모전 DB 스키마
+-- [투닝콘테스트] DB 스키마
+-- 테이블 네이밍 규칙: tc_* (tooning contest)
 -- Supabase SQL Editor에서 실행하세요
 -- =====================================================
 
 -- 1. 접수 테이블
-CREATE TABLE IF NOT EXISTS submissions (
+CREATE TABLE IF NOT EXISTS tc_submissions (
   id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   created_at       TIMESTAMPTZ DEFAULT now(),
 
@@ -39,19 +40,19 @@ CREATE TABLE IF NOT EXISTS submissions (
 );
 
 -- RLS 활성화
-ALTER TABLE submissions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE tc_submissions ENABLE ROW LEVEL SECURITY;
 
 -- 익명 사용자: INSERT만 허용 (개인정보 보호)
-CREATE POLICY "anon_can_insert" ON submissions
+CREATE POLICY "tc_anon_can_insert" ON tc_submissions
   FOR INSERT TO anon WITH CHECK (true);
 
 -- =====================================================
 
 -- 2. 평가 테이블 (AI + 인간 심사)
-CREATE TABLE IF NOT EXISTS evaluations (
+CREATE TABLE IF NOT EXISTS tc_evaluations (
   id                    UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   created_at            TIMESTAMPTZ DEFAULT now(),
-  submission_id         UUID REFERENCES submissions(id) ON DELETE CASCADE,
+  submission_id         UUID REFERENCES tc_submissions(id) ON DELETE CASCADE,
 
   -- AI 1차 심사
   ai_score_creativity   INT CHECK (ai_score_creativity BETWEEN 1 AND 10),
@@ -72,13 +73,13 @@ CREATE TABLE IF NOT EXISTS evaluations (
   final_award           TEXT   -- '대상' | '금상' | '은상' | '동상' | '장려상' | NULL
 );
 
-ALTER TABLE evaluations ENABLE ROW LEVEL SECURITY;
--- evaluations는 service_role(관리자)만 접근
+ALTER TABLE tc_evaluations ENABLE ROW LEVEL SECURITY;
+-- tc_evaluations는 service_role(관리자)만 접근
 
 -- =====================================================
 
 -- 3. 편의 뷰: 접수 + 평가 조인 (관리자 페이지용)
-CREATE OR REPLACE VIEW submission_review AS
+CREATE OR REPLACE VIEW tc_review AS
   SELECT
     s.id,
     s.created_at,
@@ -97,6 +98,6 @@ CREATE OR REPLACE VIEW submission_review AS
     e.ai_feedback,
     e.final_award,
     e.human_score
-  FROM submissions s
-  LEFT JOIN evaluations e ON e.submission_id = s.id
+  FROM tc_submissions s
+  LEFT JOIN tc_evaluations e ON e.submission_id = s.id
   ORDER BY s.created_at DESC;
