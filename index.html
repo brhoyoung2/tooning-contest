@@ -1935,7 +1935,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     submitBtn.disabled = true;
     submitBtn.textContent = '제출 중…';
 
-    _sb.from('tc_submissions').insert([payload]).select()
+    _sb.from('투닝콘테스트_접수').insert([payload]).select()
       .then(function(result) {
         if (result.error) throw result.error;
         var ref = (result.data && result.data[0])
