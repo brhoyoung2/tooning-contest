@@ -735,12 +735,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .bonus-step-title-simple{font-size:17px!important}
 .info-val{font-size:18px!important}
 
-/* ── [추가기능] 1. 카운트다운 칩 ──────────── */
-.hero-countdown{display:inline-flex;align-items:center;gap:10px;background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.35);border-radius:50px;padding:9px 20px;margin-top:18px;backdrop-filter:blur(8px)}
-.hero-countdown .cd-label{font-size:13px;color:rgba(255,255,255,.8);font-weight:500;letter-spacing:.01em}
-.hero-countdown .cd-num{font-family:'Archivo',sans-serif;font-weight:900;font-size:20px;color:#ff6b6b;letter-spacing:-.02em;min-width:36px;text-align:center}
-.hero-countdown .cd-unit{font-size:12px;color:rgba(255,255,255,.65);font-weight:500}
-@media(max-width:768px){.hero-countdown{padding:8px 16px}.hero-countdown .cd-num{font-size:18px}}
+/* ── [추가기능] 1. D-day 배지 ──────────── */
+.dday-badge{display:inline-block;background:rgba(255,107,107,.18);border:1px solid rgba(255,107,107,.45);color:#ff6b6b;font-family:'Archivo',sans-serif;font-weight:800;font-size:11.5px;border-radius:20px;padding:2px 9px;margin-left:7px;vertical-align:middle;letter-spacing:.01em;white-space:nowrap}
+.hero .dday-badge{color:#ff8080;border-color:rgba(255,128,128,.5);background:rgba(255,107,107,.12)}
 
 /* ── [추가기능] 3. 접수 진행 스텝 ─────────── */
 .modal-steps{display:flex;align-items:center;margin-bottom:24px;background:#f8f9fc;border-radius:14px;padding:14px 18px}
@@ -817,20 +814,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <h1 class="hero-title reveal delay-1"><span class="ko-text">제 2회 투닝 <span class="accent">국제 공모전</span></span><span class="en-text">2nd Tooning <span class="accent">Int'l Contest</span></span></h1>
     <p class="hero-desc reveal delay-2"><span class="ko-text">투닝과 투닝플러스가 그리는 AI 창작의 미래<br/>제 2회 투닝 국제 공모전에서 그 가능성을 만나보세요.</span><span class="en-text">The future of AI creation with Tooning and Tooning Plus.<br/>Discover the possibilities at the 2nd Tooning International Contest.</span></p>
     <div class="hero-info-bar reveal delay-3">
-      <div class="info-item"><span class="info-emoji">📅</span><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Period</span></span><span class="info-val"><span class="ko-text">8월 — 10월</span><span class="en-text">Aug — Oct</span></span></div></div>
+      <div class="info-item"><span class="info-emoji">📅</span><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Period</span></span><span class="info-val"><span class="ko-text">8월 — 10월</span><span class="en-text">Aug — Oct</span><span class="dday-badge" id="cdNum">…</span></span></div></div>
       <div class="info-item"><span class="info-emoji">🎓</span><div class="info-text"><span class="info-label"><span class="ko-text">협력 대학</span><span class="en-text">Partners</span></span><span class="info-val"><span class="ko-text">18개 대학</span><span class="en-text">18 Univ.</span></span></div></div>
       <div class="info-item"><span class="info-emoji">🏆</span><div class="info-text"><span class="info-label"><span class="ko-text">총 시상</span><span class="en-text">Awards</span></span><span class="info-val"><span class="ko-text">100명</span><span class="en-text">100</span></span></div></div>
       <div class="info-item"><span class="info-emoji">📍</span><div class="info-text"><span class="info-label"><span class="ko-text">자격</span><span class="en-text">Eligible</span></span><span class="info-val"><span class="ko-text">국내·해외 초중고 학생</span><span class="en-text">K–12</span></span></div></div>
       <div class="info-item"><span class="info-emoji">🎉</span><div class="info-text"><span class="info-label"><span class="ko-text">시상식</span><span class="en-text">Ceremony</span></span><span class="info-val"><span class="ko-text">11월</span><span class="en-text">Nov</span></span></div></div>
     </div>
     <a href="javascript:void(0)" data-open-modal="apply" class="hero-cta reveal delay-3"><span class="ko-text">지금 참가하기 <span class="arrow">→</span></span><span class="en-text">Apply Now <span class="arrow">→</span></span></a>
-    <div class="hero-countdown reveal delay-3" id="heroCountdown">
-      <span class="cd-label ko-text">접수 마감까지</span>
-      <span class="cd-label en-text">Deadline in</span>
-      <span class="cd-num" id="cdNum">…</span>
-      <span class="cd-unit ko-text">일</span>
-      <span class="cd-unit en-text">days</span>
-    </div>
   </div>
 </section>
 
@@ -2792,32 +2782,19 @@ function hofTab(id, btn) {
 </script>
 <script>
 /* ══════════════════════════════════════════════════
-   [추가기능] 1. 히어로 카운트다운
+   [추가기능] 1. 접수기간 D-day 배지
    ══════════════════════════════════════════════════ */
 (function() {
   var START    = new Date('2026-08-01T00:00:00+09:00');
   var DEADLINE = new Date('2026-10-31T23:59:59+09:00');
   var el = document.getElementById('cdNum');
-  var wrap = document.getElementById('heroCountdown');
-  if (!el || !wrap) return;
+  if (!el) return;
   function tick() {
     var now = new Date();
+    if (now > DEADLINE) { el.style.display = 'none'; return; }
     var target = now < START ? START : DEADLINE;
-    var label = wrap.querySelectorAll('.cd-label');
-    if (now < START) {
-      label[0].textContent = '접수 시작까지';
-      label[1].textContent = 'Opens in';
-    } else {
-      label[0].textContent = '접수 마감까지';
-      label[1].textContent = 'Deadline in';
-    }
     var diff = Math.ceil((target - now) / 864e5);
-    if (diff <= 0) {
-      if (now > DEADLINE) { wrap.style.display = 'none'; return; }
-      el.textContent = 'D-DAY';
-    } else {
-      el.textContent = 'D-' + diff;
-    }
+    el.textContent = diff > 0 ? 'D-' + diff : 'D-DAY';
   }
   tick();
   setInterval(tick, 60000);
