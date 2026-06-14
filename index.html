@@ -2170,17 +2170,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           : '-';
         statusEl.hidden = false;
         statusEl.classList.add('success');
-        var shareUrl = window.location.origin + window.location.pathname;
-        var shareText = '저 제2회 국제 AI 투닝 공모전에 참가했어요! 대상 iPad 🏆 AI 창작 공모전, 같이 참가해요!';
-        statusEl.innerHTML = '🎉 <strong>접수가 완료되었습니다!</strong><br/>접수번호: ' + ref + '<br/>결과는 연락처로 안내드립니다.'
-          + '<div class="share-wrap">'
-          + '<div class="share-label">📣 친구에게도 알려주세요!</div>'
-          + '<div class="share-row">'
-          + '<button class="share-btn s-copy" onclick="(function(){'
-          +   'navigator.clipboard.writeText(\'' + shareUrl + '\').then(function(){'
-          +   'this.textContent=\'✓ 복사됨!\';}.bind(this),function(){})}).call(this)">📋 링크 복사</button>'
-          + (navigator.share ? '<button class="share-btn s-share" onclick="navigator.share({title:\'제2회 투닝 국제 공모전\',text:\'' + shareText + '\',url:\'' + shareUrl + '\'})">📱 공유하기</button>' : '')
-          + '</div></div>';
+        statusEl.innerHTML = '🎉 <strong>접수가 완료되었습니다!</strong><br/>접수번호: ' + ref + '<br/>결과는 연락처로 안내드립니다.';
         form.reset();
         updateConditionalFields();
         // draft 삭제
@@ -2188,7 +2178,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         setTimeout(function() {
           closeModal();
           statusEl.hidden = true;
-        }, 8000);
+        }, 4500);
       })
       .catch(function(err) {
         statusEl.hidden = false;
