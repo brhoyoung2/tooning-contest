@@ -734,6 +734,50 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .bonus-step-desc-simple{font-size:16px!important}
 .bonus-step-title-simple{font-size:17px!important}
 .info-val{font-size:18px!important}
+
+/* ── [추가기능] 1. 카운트다운 칩 ──────────── */
+.hero-countdown{display:inline-flex;align-items:center;gap:10px;background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.35);border-radius:50px;padding:9px 20px;margin-top:18px;backdrop-filter:blur(8px)}
+.hero-countdown .cd-label{font-size:13px;color:rgba(255,255,255,.8);font-weight:500;letter-spacing:.01em}
+.hero-countdown .cd-num{font-family:'Archivo',sans-serif;font-weight:900;font-size:20px;color:#ff6b6b;letter-spacing:-.02em;min-width:36px;text-align:center}
+.hero-countdown .cd-unit{font-size:12px;color:rgba(255,255,255,.65);font-weight:500}
+@media(max-width:768px){.hero-countdown{padding:8px 16px}.hero-countdown .cd-num{font-size:18px}}
+
+/* ── [추가기능] 3. 접수 진행 스텝 ─────────── */
+.modal-steps{display:flex;align-items:center;margin-bottom:24px;background:#f8f9fc;border-radius:14px;padding:14px 18px}
+.modal-step{display:flex;align-items:center;gap:7px;flex:1}
+.modal-step:not(:last-child)::after{content:'';flex:1;height:2px;background:#e5e7eb;margin:0 8px;border-radius:2px;transition:background .4s}
+.modal-step.done:not(:last-child)::after{background:#10b981}
+.step-dot{width:26px;height:26px;border-radius:50%;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#9ca3af;flex-shrink:0;transition:all .3s}
+.step-lbl{font-size:11.5px;font-weight:600;color:#9ca3af;white-space:nowrap;transition:color .3s}
+.modal-step.active .step-dot{background:var(--coral);color:#fff;box-shadow:0 3px 8px rgba(255,107,107,.35)}
+.modal-step.active .step-lbl{color:var(--text-dark)}
+.modal-step.done .step-dot{background:#10b981;color:#fff}
+.modal-step.done .step-lbl{color:#10b981}
+@media(max-width:500px){.step-lbl{display:none}.modal-step:not(:last-child)::after{margin:0 5px}}
+
+/* ── [추가기능] 4. 플로팅 CTA 버튼 ──────── */
+.float-cta-btn{position:fixed;bottom:28px;right:24px;background:var(--coral);color:#fff;border:none;border-radius:50px;padding:13px 22px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(255,107,107,.45);transition:opacity .35s,transform .35s;z-index:800;display:flex;align-items:center;gap:8px;letter-spacing:-.02em;opacity:0;transform:translateY(20px);pointer-events:none;font-family:'Pretendard Variable',sans-serif}
+.float-cta-btn.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.float-cta-btn:hover{transform:translateY(-3px)!important;box-shadow:0 12px 30px rgba(255,107,107,.55)}
+.float-cta-btn .f-arrow{transition:transform .2s}
+.float-cta-btn:hover .f-arrow{transform:translateX(3px)}
+@media(max-width:480px){.float-cta-btn{bottom:18px;right:16px;padding:11px 18px;font-size:14px}}
+
+/* ── [추가기능] 15. 에디터 링크 검증 ─────── */
+.link-check{display:none;margin-top:6px;font-size:12px;font-weight:600;align-items:center;gap:5px;padding:6px 10px;border-radius:8px;line-height:1.4}
+.link-check.ok{display:flex;background:#e8f7f0;color:#1a7649}
+.link-check.warn{display:flex;background:#fff7e0;color:#92400e}
+.link-check.err{display:flex;background:#ffe8e8;color:#b8302d}
+
+/* ── [추가기능] 17. 공유 버튼 ──────────── */
+.share-wrap{margin-top:14px;text-align:center}
+.share-label{font-size:12px;color:rgba(26,118,73,.7);font-weight:600;margin-bottom:8px}
+.share-row{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+.share-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 15px;border-radius:10px;border:none;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Pretendard Variable',sans-serif}
+.share-btn.s-copy{background:#f3f4f6;color:#374151}
+.share-btn.s-copy:hover{background:#e5e7eb}
+.share-btn.s-share{background:#ffeeee;color:#b91c1c}
+.share-btn.s-share:hover{background:#fecaca}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
@@ -780,6 +824,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <div class="info-item"><span class="info-emoji">🎉</span><div class="info-text"><span class="info-label"><span class="ko-text">시상식</span><span class="en-text">Ceremony</span></span><span class="info-val"><span class="ko-text">11월</span><span class="en-text">Nov</span></span></div></div>
     </div>
     <a href="javascript:void(0)" data-open-modal="apply" class="hero-cta reveal delay-3"><span class="ko-text">지금 참가하기 <span class="arrow">→</span></span><span class="en-text">Apply Now <span class="arrow">→</span></span></a>
+    <div class="hero-countdown reveal delay-3" id="heroCountdown">
+      <span class="cd-label ko-text">접수 마감까지</span>
+      <span class="cd-label en-text">Deadline in</span>
+      <span class="cd-num" id="cdNum">…</span>
+      <span class="cd-unit ko-text">일</span>
+      <span class="cd-unit en-text">days</span>
+    </div>
   </div>
 </section>
 
@@ -1537,6 +1588,24 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <p class="modal-sub"><span class="ko-text">아래 정보를 정확하게 입력해주세요. 접수 후 수정이 어려우니 신중히 확인 후 제출해주세요.</span><span class="en-text">Please fill in the information below accurately. Changes are difficult after submission, so review carefully before submitting.</span></p>
     </div>
 
+    <div class="modal-steps" id="modalSteps">
+      <div class="modal-step active" id="mstep1">
+        <div class="step-dot">1</div>
+        <span class="step-lbl ko-text">기본정보</span>
+        <span class="step-lbl en-text">Info</span>
+      </div>
+      <div class="modal-step" id="mstep2">
+        <div class="step-dot">2</div>
+        <span class="step-lbl ko-text">부문 & 연락처</span>
+        <span class="step-lbl en-text">Division</span>
+      </div>
+      <div class="modal-step" id="mstep3">
+        <div class="step-dot">3</div>
+        <span class="step-lbl ko-text">작품 & 제출</span>
+        <span class="step-lbl en-text">Submit</span>
+      </div>
+    </div>
+
     <form id="applyForm" class="modal-form" novalidate>
 
       <!-- 1. 참여자 개인정보 -->
@@ -1732,6 +1801,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <span class="form-label"><span class="ko-text">투닝 에디터 공유 링크</span><span class="en-text">Tooning Editor Share Link</span> <em>*</em></span>
             <input type="url" name="link3_editor" required placeholder="https://tooning.io/..." data-ph-ko="https://tooning.io/..." data-ph-en="https://tooning.io/..." />
             <span class="field-err-msg" id="link3Err"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
+            <div class="link-check" id="editorLinkCheck"></div>
             <span class="form-hint"><span class="ko-text">투닝 에디터에서 제작한 작품의 공유 링크 — 이 링크가 공식 제출 작품입니다</span><span class="en-text">Share link of the work created in the Tooning editor — this link is the official submitted entry</span></span>
           </label>
         </div>
@@ -2076,13 +2146,25 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           : '-';
         statusEl.hidden = false;
         statusEl.classList.add('success');
-        statusEl.innerHTML = '🎉 <strong>접수가 완료되었습니다!</strong><br/>접수번호: ' + ref + '<br/>결과는 연락처로 안내드립니다.';
+        var shareUrl = window.location.origin + window.location.pathname;
+        var shareText = '저 제2회 국제 AI 투닝 공모전에 참가했어요! 대상 iPad 🏆 AI 창작 공모전, 같이 참가해요!';
+        statusEl.innerHTML = '🎉 <strong>접수가 완료되었습니다!</strong><br/>접수번호: ' + ref + '<br/>결과는 연락처로 안내드립니다.'
+          + '<div class="share-wrap">'
+          + '<div class="share-label">📣 친구에게도 알려주세요!</div>'
+          + '<div class="share-row">'
+          + '<button class="share-btn s-copy" onclick="(function(){'
+          +   'navigator.clipboard.writeText(\'' + shareUrl + '\').then(function(){'
+          +   'this.textContent=\'✓ 복사됨!\';}.bind(this),function(){})}).call(this)">📋 링크 복사</button>'
+          + (navigator.share ? '<button class="share-btn s-share" onclick="navigator.share({title:\'제2회 투닝 국제 공모전\',text:\'' + shareText + '\',url:\'' + shareUrl + '\'})">📱 공유하기</button>' : '')
+          + '</div></div>';
         form.reset();
         updateConditionalFields();
+        // draft 삭제
+        try { localStorage.removeItem('_tc_draft'); } catch(e) {}
         setTimeout(function() {
           closeModal();
           statusEl.hidden = true;
-        }, 4500);
+        }, 8000);
       })
       .catch(function(err) {
         statusEl.hidden = false;
@@ -2708,5 +2790,138 @@ function hofTab(id, btn) {
   input.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendMsg(input.value); });
 })();
 </script>
+<script>
+/* ══════════════════════════════════════════════════
+   [추가기능] 1. 히어로 카운트다운
+   ══════════════════════════════════════════════════ */
+(function() {
+  var START    = new Date('2026-08-01T00:00:00+09:00');
+  var DEADLINE = new Date('2026-10-31T23:59:59+09:00');
+  var el = document.getElementById('cdNum');
+  var wrap = document.getElementById('heroCountdown');
+  if (!el || !wrap) return;
+  function tick() {
+    var now = new Date();
+    var target = now < START ? START : DEADLINE;
+    var label = wrap.querySelectorAll('.cd-label');
+    if (now < START) {
+      label[0].textContent = '접수 시작까지';
+      label[1].textContent = 'Opens in';
+    } else {
+      label[0].textContent = '접수 마감까지';
+      label[1].textContent = 'Deadline in';
+    }
+    var diff = Math.ceil((target - now) / 864e5);
+    if (diff <= 0) {
+      if (now > DEADLINE) { wrap.style.display = 'none'; return; }
+      el.textContent = 'D-DAY';
+    } else {
+      el.textContent = 'D-' + diff;
+    }
+  }
+  tick();
+  setInterval(tick, 60000);
+})();
+
+/* ══════════════════════════════════════════════════
+   [추가기능] 3. 폼 진행 스텝 인디케이터
+   ══════════════════════════════════════════════════ */
+(function() {
+  var panel = document.querySelector('.modal-panel');
+  var steps = [
+    document.getElementById('mstep1'),
+    document.getElementById('mstep2'),
+    document.getElementById('mstep3')
+  ];
+  if (!panel || !steps[0]) return;
+
+  function setStep(n) {          // n = 1,2,3
+    steps.forEach(function(s, i) {
+      if (!s) return;
+      s.classList.remove('active', 'done');
+      if      (i + 1 < n)  s.classList.add('done');
+      else if (i + 1 === n) s.classList.add('active');
+    });
+  }
+
+  function onPanelScroll() {
+    var scrolled = panel.scrollTop;
+    var max = panel.scrollHeight - panel.clientHeight;
+    var p = max > 0 ? scrolled / max : 0;
+    if (p >= 0.72) setStep(3);
+    else if (p >= 0.30) setStep(2);
+    else setStep(1);
+  }
+
+  panel.addEventListener('scroll', onPanelScroll, { passive: true });
+
+  // 부문 선택 변경 시 재계산 (conditional fields 높이 변경됨)
+  var sectionSel = document.getElementById('sectionSelect');
+  if (sectionSel) sectionSel.addEventListener('change', function() {
+    setTimeout(onPanelScroll, 150);
+  });
+})();
+
+/* ══════════════════════════════════════════════════
+   [추가기능] 4. 플로팅 CTA 버튼 — 히어로 지나면 등장
+   ══════════════════════════════════════════════════ */
+(function() {
+  var btn  = document.getElementById('floatCtaBtn');
+  var hero = document.getElementById('hero');
+  if (!btn || !hero) return;
+
+  function onScroll() {
+    var threshold = hero.offsetTop + hero.offsetHeight - 80;
+    btn.classList.toggle('visible', window.scrollY > threshold);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  btn.addEventListener('click', function() {
+    var trigger = document.querySelector('a[data-open-modal="apply"]');
+    if (trigger) trigger.click();
+  });
+})();
+
+/* ══════════════════════════════════════════════════
+   [추가기능] 15. 투닝 에디터 링크 실시간 검증
+   ══════════════════════════════════════════════════ */
+(function() {
+  var input   = document.querySelector('[name="link3_editor"]');
+  var checkEl = document.getElementById('editorLinkCheck');
+  if (!input || !checkEl) return;
+
+  var TOONING = [
+    'https://tooning.io',
+    'https://www.tooning.io',
+    'https://plus.tooning.io',
+    'https://editor.tooning.io'
+  ];
+
+  input.addEventListener('input', function() {
+    var val = input.value.trim();
+    checkEl.className = 'link-check';
+    if (!val) return;
+    if (TOONING.some(function(p){ return val.indexOf(p) === 0; })) {
+      checkEl.className = 'link-check ok';
+      checkEl.innerHTML = '✓ 투닝 에디터 링크가 확인되었습니다';
+    } else if (val.indexOf('https://') === 0) {
+      checkEl.className = 'link-check warn';
+      checkEl.innerHTML = '⚠ tooning.io 링크를 입력해주세요 (예: https://tooning.io/...)';
+    } else {
+      checkEl.className = 'link-check err';
+      checkEl.innerHTML = '✕ https://tooning.io/... 형식으로 입력해주세요';
+    }
+  });
+})();
+</script>
+
+<!-- ── [추가기능] 4. 플로팅 CTA 버튼 ── -->
+<button class="float-cta-btn" id="floatCtaBtn" type="button" aria-label="접수하기">
+  <span class="ko-text">접수하기</span>
+  <span class="en-text">Apply</span>
+  <span class="f-arrow">→</span>
+</button>
+
 </body>
 </html>
