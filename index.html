@@ -794,7 +794,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
-<body lang-mode="en">
+<body lang-mode="ko">
 <nav>
   <div class="nav-brand-wrap">
     <div class="nav-heart">♡</div>
@@ -2254,7 +2254,7 @@ function setLang(lang) {
   });
 }
 (function() {
-  var saved = localStorage.getItem('tooning-lang') || 'en';
+  var saved = localStorage.getItem('tooning-lang') || 'ko';
   setLang(saved);
   var sel = document.getElementById('langSelect');
   if (sel) sel.addEventListener('change', function() { setLang(this.value); });
