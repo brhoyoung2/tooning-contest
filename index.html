@@ -60,12 +60,12 @@ section{position:relative;width:100%;overflow:hidden}
 .hero-content{position:relative;z-index:5;padding-top:80px;padding-bottom:80px;text-align:center;width:100%}
 @media(max-width:768px){.hero-content{padding-top:110px;padding-bottom:60px}}
 @media(max-width:768px){
-  .hero .hero-info-bar{display:grid;grid-template-columns:1fr 1fr;padding:8px;flex-direction:unset;align-items:unset;border-radius:24px}
-  .hero .info-item{flex-direction:column;align-items:flex-start;padding:16px 18px;border-right:none;border-bottom:1px solid rgba(255,255,255,.12);width:auto;justify-content:flex-start}
+  .hero .hero-info-bar{grid-template-columns:1fr 1fr;padding:6px;border-radius:24px}
+  .hero .info-item{padding:14px 10px;border-right:none;border-bottom:1px solid rgba(255,255,255,.12)}
   .hero .info-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.12)}
-  .hero .info-item:last-child{grid-column:1/-1;align-items:center;border-bottom:none;border-right:none}
-  .hero .info-text{align-items:flex-start;text-align:left}
-  .hero .info-label{text-align:left}
+  .hero .info-item:nth-child(4){border-bottom:none}
+  .hero .info-item:last-child{grid-column:1/-1;border-bottom:none;border-right:none}
+  .hero .info-text{align-items:center;text-align:center}
 }
 .hero .hero-title{color:#fff}
 .hero .hero-kor-title{color:rgba(255,255,255,.9)}
@@ -79,20 +79,19 @@ section{position:relative;width:100%;overflow:hidden}
 .hero-title .accent{color:var(--coral)}
 .hero-kor-title{font-weight:700;font-size:clamp(20px,2.4vw,30px);letter-spacing:-.02em;color:var(--text-dark);margin-top:0;margin-bottom:20px}
 .hero-desc{font-size:17px;line-height:1.75;color:var(--text-soft);margin-top:30px;max-width:640px;margin-left:auto;margin-right:auto}
-.hero-info-bar{display:flex;align-items:center;justify-content:center;background:#fff;border-radius:40px;padding:18px 32px;box-shadow:0 8px 24px rgba(0,0,0,.08);max-width:960px;margin:50px auto 0;flex-wrap:wrap}
-.info-item{display:flex;align-items:center;gap:12px;padding:0 24px;border-right:1px solid rgba(99,110,130,.2)}
+.hero-info-bar{display:grid;grid-template-columns:repeat(5,auto);justify-content:center;align-items:stretch;background:#fff;border-radius:32px;padding:22px 18px;box-shadow:0 8px 24px rgba(0,0,0,.08);max-width:1040px;margin:50px auto 0}
+.info-item{display:flex;align-items:center;justify-content:center;padding:2px 26px;border-right:1px solid rgba(99,110,130,.2)}
 .info-item:last-child{border-right:none}
-.info-emoji{font-size:24px}
-.info-text{display:flex;flex-direction:column}
-.info-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:11px;letter-spacing:.15em;color:var(--text-soft);text-transform:uppercase}
-.info-val{font-weight:700;font-size:16px;color:var(--text-dark);margin-top:3px}
-[lang-mode="en"] .info-emoji{display:none}
-[lang-mode="en"] .info-item{padding:0 18px}
+.info-text{display:flex;flex-direction:column;align-items:center;text-align:center}
+.info-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;color:var(--text-soft);text-transform:uppercase;white-space:nowrap}
+.info-val{font-weight:700;font-size:16px;color:var(--text-dark);margin-top:6px;white-space:nowrap}
+[lang-mode="en"] .info-item{padding:2px 22px}
 .hero-cta{display:inline-flex;align-items:center;gap:12px;background:var(--coral);color:#fff;padding:20px 48px;border-radius:32px;font-weight:700;font-size:15px;letter-spacing:.05em;margin-top:50px;box-shadow:0 8px 24px rgba(255,107,107,.4);transition:transform .3s,box-shadow .3s}
 .hero-cta:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(255,107,107,.5)}
 .hero-cta .arrow{transition:transform .3s}
 .hero-cta:hover .arrow{transform:translateX(6px)}
-@media(max-width:768px){.hero-info-bar{padding:16px;flex-direction:column;align-items:stretch}.info-item{border-right:none;padding:12px 0;border-bottom:1px solid rgba(99,110,130,.15);width:100%;justify-content:flex-start;align-items:center}.info-item:last-child{border-bottom:none}.info-text{align-items:flex-start;text-align:left}.info-label{text-align:left;width:100%}}
+@media(max-width:1000px){.info-item{padding:2px 14px}.info-label{font-size:12px!important;letter-spacing:.08em}.info-val{font-size:15px!important}}
+@media(max-width:768px){.hero-info-bar{grid-template-columns:1fr 1fr;justify-content:stretch;padding:6px;border-radius:24px}.info-item{border-right:none;padding:14px 10px;border-bottom:1px solid rgba(99,110,130,.15)}.info-item:nth-child(odd){border-right:1px solid rgba(99,110,130,.15)}.info-item:nth-child(4){border-bottom:none}.info-item:last-child{grid-column:1/-1;border-bottom:none;border-right:none}.info-text{align-items:center;text-align:center}.info-val{white-space:normal;line-height:1.4}}
 .topic{background:var(--cream-soft);padding-bottom:120px}
 .topic-header{text-align:center}
 .topic-title-1,.topic-title-2{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(48px,6vw,80px);letter-spacing:-.04em;line-height:1}
@@ -808,6 +807,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <li><a href="#awards"><span class="ko-text">시상</span><span class="en-text">Awards</span></a></li>
     <li><a href="#deans"><span class="ko-text">대학상</span><span class="en-text">University</span></a></li>
     <li><a href="#first-contest"><span class="ko-text">1회 공모전</span><span class="en-text">1st Contest</span></a></li>
+    <!-- ▼ 글감 자료실 (Vercel 배포본) -->
+    <li><a id="navGeulgam" href="https://geulgam-jaryosil.vercel.app" target="_blank" rel="noopener"><span class="ko-text">글감 자료실</span><span class="en-text">Writing Library</span></a></li>
   </ul>
   <div class="lang-toggle">
     <button class="lang-btn active" id="btnKo" onclick="setLang('ko')">KO</button>
@@ -830,11 +831,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <h1 class="hero-title reveal delay-1"><span class="ko-text">제 2회 투닝 <span class="accent">국제 공모전</span></span><span class="en-text">2nd Tooning <span class="accent">Int'l Contest</span></span></h1>
     <p class="hero-desc reveal delay-2"><span class="ko-text">투닝과 투닝플러스가 그리는 AI 창작의 미래<br/>제 2회 투닝 국제 공모전에서 그 가능성을 만나보세요.</span><span class="en-text">The future of AI creation with Tooning and Tooning Plus.<br/>Discover the possibilities at the 2nd Tooning International Contest.</span></p>
     <div class="hero-info-bar reveal delay-3">
-      <div class="info-item"><span class="info-emoji">📅</span><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Period</span></span><span class="info-val"><span class="ko-text">8월 — 10월</span><span class="en-text">Aug — Oct</span><span class="dday-badge" id="cdNum">…</span></span></div></div>
-      <div class="info-item"><span class="info-emoji">🎓</span><div class="info-text"><span class="info-label"><span class="ko-text">협력 대학</span><span class="en-text">Partners</span></span><span class="info-val"><span class="ko-text">18개 대학</span><span class="en-text">18 Univ.</span></span></div></div>
-      <div class="info-item"><span class="info-emoji">🏆</span><div class="info-text"><span class="info-label"><span class="ko-text">총 시상</span><span class="en-text">Awards</span></span><span class="info-val"><span class="ko-text">100명</span><span class="en-text">100</span></span></div></div>
-      <div class="info-item"><span class="info-emoji">📍</span><div class="info-text"><span class="info-label"><span class="ko-text">자격</span><span class="en-text">Eligible</span></span><span class="info-val"><span class="ko-text">국내·해외 초중고 학생</span><span class="en-text">K–12</span></span></div></div>
-      <div class="info-item"><span class="info-emoji">🎉</span><div class="info-text"><span class="info-label"><span class="ko-text">시상식</span><span class="en-text">Ceremony</span></span><span class="info-val"><span class="ko-text">11월</span><span class="en-text">Nov</span></span></div></div>
+      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Period</span></span><span class="info-val"><span class="ko-text">8월 — 10월</span><span class="en-text">Aug — Oct</span><span class="dday-badge" id="cdNum">…</span></span></div></div>
+      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">협력 대학</span><span class="en-text">Partners</span></span><span class="info-val"><span class="ko-text">18개 대학</span><span class="en-text">18 Univ.</span></span></div></div>
+      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">총 시상</span><span class="en-text">Awards</span></span><span class="info-val"><span class="ko-text">100명</span><span class="en-text">100</span></span></div></div>
+      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">자격</span><span class="en-text">Eligible</span></span><span class="info-val"><span class="ko-text">국내·해외 초중고 학생</span><span class="en-text">K–12</span></span></div></div>
+      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">시상식</span><span class="en-text">Ceremony</span></span><span class="info-val"><span class="ko-text">11월</span><span class="en-text">Nov</span></span></div></div>
     </div>
     <a href="javascript:void(0)" data-open-modal="apply" class="hero-cta reveal delay-3"><span class="ko-text">지금 참가하기 <span class="arrow">→</span></span><span class="en-text">Apply Now <span class="arrow">→</span></span></a>
   </div>
