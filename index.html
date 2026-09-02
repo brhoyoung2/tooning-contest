@@ -414,7 +414,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .footer-col h6{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;letter-spacing:.2em;color:#fff;text-transform:uppercase;margin-bottom:16px}
 .footer-col a{font-size:14px;line-height:1.85;display:block;transition:color .2s}
 .footer-col a:hover{color:#fff}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(255,255,255,.5)}
+.footer-meta{font-size:13px;line-height:1.8;margin-top:16px;color:rgba(255,255,255,.5)}
+.footer-meta strong{color:rgba(255,255,255,.75);font-weight:700}
+.footer-legal{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:22px;font-size:13px;line-height:1.8;color:rgba(255,255,255,.5)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:22px;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(255,255,255,.5)}
 @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);pointer-events:none}
 .reveal.is-visible{opacity:1;transform:translateY(0)}
@@ -1929,25 +1932,34 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="footer-grid">
       <div>
         <div class="footer-brand">tooning</div>
-        <p class="footer-addr">Toonsquare Inc. · CEO Ho Young Lee<br/>407, Heekyung Bldg. D&amp;E, 39 Maeheon-ro 8-gil<br/>Seocho-gu, Seoul, Korea</p>
+        <p class="footer-addr"><span class="ko-text">주식회사 툰스퀘어 · 대표 이호영<br/>서울특별시 서초구 매헌로8길 39<br/>희경빌딩 D&amp;E 407호</span><span class="en-text">Toonsquare Inc. · CEO Ho Young Lee<br/>407, Heekyung Bldg. D&amp;E, 39 Maeheon-ro 8-gil<br/>Seocho-gu, Seoul, Korea</span></p>
+        <p class="footer-meta"><span class="ko-text"><strong>제2회 투닝 국제 공모전</strong><br/>작품 접수 2026. 9. 30 — 10. 30 (온라인)<br/>심사 11월 초 · 발표 11월 중순 · 시상식 11월 말</span><span class="en-text"><strong>2nd Tooning International Contest</strong><br/>Entries Sep 30 — Oct 30, 2026 (online)<br/>Judging early Nov · Results mid-Nov · Ceremony late Nov</span></p>
       </div>
       <div class="footer-col">
         <h6>CONTEST</h6>
-        <a href="#topic"><span class="ko-text">주제</span><span class="en-text">Theme</span></a>
-        <a href="#submit"><span class="ko-text">접수</span><span class="en-text">Submit</span></a>
+        <a href="#topic"><span class="ko-text">공모 주제</span><span class="en-text">Theme</span></a>
+        <a href="#eligibility"><span class="ko-text">지원 자격</span><span class="en-text">Eligibility</span></a>
+        <a href="#specs"><span class="ko-text">출품 규격</span><span class="en-text">Specifications</span></a>
+        <a href="#submit"><span class="ko-text">접수 방법</span><span class="en-text">How to Submit</span></a>
         <a href="#timeline"><span class="ko-text">일정</span><span class="en-text">Schedule</span></a>
-        <a href="#awards"><span class="ko-text">시상</span><span class="en-text">Awards</span></a>
+        <a href="#awards"><span class="ko-text">시상 내역</span><span class="en-text">Awards</span></a>
       </div>
       <div class="footer-col">
         <h6>PARTNERS</h6>
         <a href="#deans"><span class="ko-text">18개 협력 대학</span><span class="en-text">18 Partner Univ.</span></a>
         <a href="#lifetime"><span class="ko-text">투닝 플러스</span><span class="en-text">Tooning Plus</span></a>
+        <a href="#first-contest"><span class="ko-text">제1회 공모전 수상작</span><span class="en-text">1st Contest Winners</span></a>
       </div>
       <div class="footer-col">
         <h6>CONTACT</h6>
         <a href="mailto:support@tooning.io">support@tooning.io</a>
-        <a href="https://tooning.io" target="_blank">tooning.io</a>
+        <a href="https://tooning.io" target="_blank" rel="noopener">tooning.io</a>
+        <a href="javascript:void(0)" data-open-modal="apply"><span class="ko-text">접수하기</span><span class="en-text">Apply</span></a>
+        <p class="footer-meta"><span class="ko-text">공모전 관련 문의는 이메일 또는<br/>우측 하단 채팅으로 남겨주세요.</span><span class="en-text">For contest inquiries, email us or<br/>use the chat at the bottom right.</span></p>
       </div>
+    </div>
+    <div class="footer-legal">
+      <span class="ko-text">접수 시 수집하는 개인정보(이름·학교·학년·연락처·보호자 정보)는 공모전 운영, 심사, 시상 및 결과 안내 목적으로만 이용하며, 공모전 종료 후 관련 법령에 따라 파기합니다. 만 19세 미만 참가자는 보호자 동의 후 접수해 주세요.</span><span class="en-text">Personal data collected at entry (name, school, grade, contact details and guardian information) is used solely for contest operation, judging, awarding and result notification, and is destroyed after the contest in accordance with applicable law. Participants under 19 must obtain guardian consent before entering.</span>
     </div>
     <div class="footer-bottom">
       <span>© 2026 TOONINGPLUS. All rights reserved.</span>
