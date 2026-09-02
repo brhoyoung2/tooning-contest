@@ -790,6 +790,35 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .draft-save-status{font-size:11.5px;color:#10b981;font-weight:600;display:flex;align-items:center;gap:4px;opacity:0;transition:opacity .4s;margin-right:auto;min-height:20px}
 .draft-save-status.show{opacity:1}
 .draft-save-status.warn{color:#f59e0b}
+/* ── [공모주제] 주제 공개 카드 ──────────────────────── */
+.theme-card{position:relative;text-align:center;margin:16px auto 0;max-width:720px;padding:48px 32px;background:linear-gradient(180deg,#fff 0%,#fff9f4 100%);border:1px solid rgba(255,107,107,.18);border-radius:28px;box-shadow:0 12px 36px rgba(20,27,49,.10)}
+.theme-card-badge{display:inline-block;font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);background:rgba(255,107,107,.10);border:1px solid rgba(255,107,107,.28);border-radius:999px;padding:7px 16px}
+.theme-card-title{font-weight:800;font-size:clamp(30px,4.4vw,46px);letter-spacing:-.03em;line-height:1.2;color:var(--text-dark);margin-top:20px}
+.theme-card-sub{font-size:17px;line-height:1.7;color:var(--text-soft);margin-top:14px}
+.theme-card-tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+.theme-tag{font-weight:700;font-size:14px;color:var(--coral);background:rgba(255,107,107,.09);border-radius:999px;padding:8px 16px}
+@media(max-width:768px){.theme-card{padding:36px 22px;border-radius:24px}.theme-card-sub{font-size:15px}}
+
+/* ── [공모주제] 안내 팝업 ───────────────────────────── */
+.notice-pop{position:fixed;inset:0;z-index:10050;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(10,14,30,.72);opacity:0;transition:opacity .25s}
+.notice-pop[hidden]{display:none!important}
+.notice-pop.open{opacity:1}
+.notice-pop-backdrop{position:absolute;inset:0;cursor:pointer}
+.notice-pop-box{position:relative;z-index:1;width:100%;max-width:460px;max-height:88vh;overflow-y:auto;background:#fff;border-radius:28px;padding:44px 32px 30px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);transform:scale(.94) translateY(10px);transition:transform .25s}
+.notice-pop.open .notice-pop-box{transform:none}
+.notice-pop-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border:none;border-radius:50%;background:rgba(20,27,49,.06);color:var(--text-soft);font-size:22px;line-height:1;cursor:pointer;transition:background .2s,color .2s}
+.notice-pop-close:hover{background:rgba(255,107,107,.12);color:var(--coral)}
+.np-eyebrow{font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
+.np-title{font-weight:800;font-size:clamp(24px,4vw,32px);letter-spacing:-.03em;line-height:1.25;color:var(--text-dark);margin-top:14px}
+.np-sub{font-size:15px;line-height:1.7;color:var(--text-soft);margin-top:12px}
+.np-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
+.np-tag{font-weight:700;font-size:13px;color:var(--coral);background:rgba(255,107,107,.09);border-radius:999px;padding:7px 14px}
+.np-divider{height:1px;background:rgba(99,110,130,.15);margin:24px 0 18px}
+.np-note{font-size:14px;line-height:1.7;color:var(--text-soft)}
+.np-note strong{color:var(--text-dark);font-weight:700}
+.np-btn{display:block;width:100%;margin-top:22px;padding:15px 20px;background:var(--coral);color:#fff;border:none;border-radius:16px;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.np-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(255,107,107,.35)}
+@media(max-width:768px){.notice-pop-box{padding:40px 22px 24px;border-radius:24px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
@@ -831,7 +860,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <h1 class="hero-title reveal delay-1"><span class="ko-text">제 2회 투닝 <span class="accent">국제 공모전</span></span><span class="en-text">2nd Tooning <span class="accent">Int'l Contest</span></span></h1>
     <p class="hero-desc reveal delay-2"><span class="ko-text">투닝과 투닝플러스가 그리는 AI 창작의 미래<br/>제 2회 투닝 국제 공모전에서 그 가능성을 만나보세요.</span><span class="en-text">The future of AI creation with Tooning and Tooning Plus.<br/>Discover the possibilities at the 2nd Tooning International Contest.</span></p>
     <div class="hero-info-bar reveal delay-3">
-      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Period</span></span><span class="info-val"><span class="ko-text">9월 — 10월</span><span class="en-text">Sep — Oct</span><span class="dday-badge" id="cdNum">…</span></span></div></div>
+      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Period</span></span><span class="info-val"><span class="ko-text">9.30 — 10.30</span><span class="en-text">Sep 30 — Oct 30</span><span class="dday-badge" id="cdNum">…</span></span></div></div>
       <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">협력 대학</span><span class="en-text">Partners</span></span><span class="info-val"><span class="ko-text">18개 대학</span><span class="en-text">18 Univ.</span></span></div></div>
       <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">총 시상</span><span class="en-text">Awards</span></span><span class="info-val"><span class="ko-text">100명</span><span class="en-text">100</span></span></div></div>
       <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">자격</span><span class="en-text">Eligible</span></span><span class="info-val"><span class="ko-text">국내·해외 초중고 학생</span><span class="en-text">K–12</span></span></div></div>
@@ -848,12 +877,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <div class="section-label reveal">✨ MAIN THEME ✨</div>
       <h2 class="topic-title-1 reveal delay-1"><span class="ko-text">아이들의 수업결과물은</span><span class="en-text">Students' classroom work</span></h2>
       <h2 class="topic-title-2 reveal delay-1"><span class="ko-text">'작품'이 됩니다</span><span class="en-text">becomes 'Art'</span></h2>
-      <p class="topic-sub reveal delay-2"><span class="ko-text">두 가지 주제 중에서 자유롭게 선택해 작품을 만들어보세요.</span><span class="en-text">Choose freely from two themes to create your work.</span></p>
-      <p class="reveal delay-3" style="font-size:14px;color:var(--text-soft);margin-top:-30px;margin-bottom:20px;opacity:.75"><span class="ko-text">※ 최종 주제는 변경 예정입니다. (현재는 임시)</span><span class="en-text">※ Final themes are subject to change. (Placeholder)</span></p>
+      <p class="topic-sub reveal delay-2"><span class="ko-text">2026년 공모 주제가 공개되었습니다. 아래 주제로 자유롭게 작품을 만들어보세요.</span><span class="en-text">The 2026 contest theme has been revealed. Create your work freely with the theme below.</span></p>
     </div>
-    <div class="reveal delay-2" style="text-align:center;margin-top:16px;padding:40px 32px;background:#fff;border-radius:24px;box-shadow:0 8px 24px rgba(20,27,49,.08);max-width:640px;margin-left:auto;margin-right:auto">
-      <p style="font-weight:800;font-size:22px;color:var(--text-dark);letter-spacing:-.02em"><span class="ko-text">공모 주제 8월 공개예정</span><span class="en-text">Themes to be announced in August</span></p>
-      <p style="font-size:15px;color:var(--text-soft);margin-top:10px;line-height:1.7"><span class="ko-text">최종 주제는 8월에 공식 발표됩니다. 조금만 기다려주세요!</span><span class="en-text">Final themes will be officially announced in August. Stay tuned!</span></p>
+    <div class="theme-card reveal delay-2">
+      <div class="theme-card-badge"><span class="ko-text">공모 주제 공개</span><span class="en-text">Theme Revealed</span></div>
+      <h3 class="theme-card-title"><span class="ko-text">2036년, 나의 하루</span><span class="en-text">My Day in 2036</span></h3>
+      <p class="theme-card-sub"><span class="ko-text">10년 뒤 오늘, 나는 어디서 무엇을 하고 있나요?</span><span class="en-text">Ten years from today — where will I be, and what will I be doing?</span></p>
+      <div class="theme-card-tags"><span class="theme-tag">#2036년나의하루</span><span class="theme-tag">#MyDay2036</span></div>
     </div>
   </div>
 </section>
@@ -973,12 +1003,12 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     </div>
     <div class="tl-card-grid reveal delay-2">
       <div class="tl-card">
-        <div class="tl-card-month" style="color:#ff6b6b"><span class="ko-text">8월</span><span class="en-text">August</span></div>
-        <div class="tl-card-label"><span class="ko-text">공모 주제 공지</span><span class="en-text">Theme Announced</span></div>
+        <div class="tl-card-month" style="color:#ff6b6b"><span class="ko-text">9월</span><span class="en-text">September</span></div>
+        <div class="tl-card-label"><span class="ko-text">공모 주제 공개</span><span class="en-text">Theme Revealed</span></div>
       </div>
       <div class="tl-card">
-        <div class="tl-card-month" style="color:#ff6b6b"><span class="ko-text">9 — 10월</span><span class="en-text">Sep — Oct</span></div>
-        <div class="tl-card-label"><span class="ko-text">작품 접수</span><span class="en-text">Entry Period</span></div>
+        <div class="tl-card-month" style="color:#ff6b6b"><span class="ko-text">9.30 — 10.30</span><span class="en-text">Sep 30 — Oct 30</span></div>
+        <div class="tl-card-label"><span class="ko-text">작품 접수 (온라인)</span><span class="en-text">Online Entry</span></div>
       </div>
       <div class="tl-card">
         <div class="tl-card-month" style="color:#d9a633"><span class="ko-text">10월 초</span><span class="en-text">Early Oct</span></div>
@@ -1580,6 +1610,35 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   <button class="lightbox-nav lightbox-prev" id="lbPrev">‹</button>
   <button class="lightbox-nav lightbox-next" id="lbNext">›</button>
   <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+<!-- ============ 안내 팝업 (주제 공개 / 접수 안내) ============ -->
+<div class="notice-pop" id="themePop" aria-hidden="true" hidden>
+  <div class="notice-pop-backdrop" data-notice-close></div>
+  <div class="notice-pop-box" role="dialog" aria-modal="true" aria-labelledby="themePopTitle">
+    <button type="button" class="notice-pop-close" aria-label="Close" data-notice-close>&times;</button>
+    <div class="np-eyebrow">🎉 <span class="ko-text">공모 주제 공개</span><span class="en-text">Theme Revealed</span></div>
+    <h3 class="np-title" id="themePopTitle"><span class="ko-text">2036년, 나의 하루</span><span class="en-text">My Day in 2036</span></h3>
+    <p class="np-sub"><span class="ko-text">10년 뒤 오늘, 나는 어디서 무엇을 하고 있나요?</span><span class="en-text">Ten years from today — where will I be, and what will I be doing?</span></p>
+    <div class="np-tags"><span class="np-tag">#2036년나의하루</span><span class="np-tag">#MyDay2036</span></div>
+    <div class="np-divider"></div>
+    <p class="np-note"><span class="ko-text">작품 접수 <strong>9월 30일 — 10월 30일</strong><br/>온라인으로 접수합니다.</span><span class="en-text">Entries open <strong>Sep 30 — Oct 30</strong><br/>Submissions are accepted online.</span></p>
+    <button type="button" class="np-btn" data-notice-close><span class="ko-text">확인했어요</span><span class="en-text">Got it</span></button>
+  </div>
+</div>
+
+<div class="notice-pop" id="applyPop" aria-hidden="true" hidden>
+  <div class="notice-pop-backdrop" data-notice-close></div>
+  <div class="notice-pop-box" role="dialog" aria-modal="true" aria-labelledby="applyPopTitle">
+    <button type="button" class="notice-pop-close" aria-label="Close" data-notice-close>&times;</button>
+    <div class="np-eyebrow">📝 <span class="ko-text">접수 안내</span><span class="en-text">Application Notice</span></div>
+    <h3 class="np-title" id="applyPopTitle"><span class="ko-text">작품 접수는<br/>9월 30일부터 시작됩니다</span><span class="en-text">Entries open<br/>on September 30</span></h3>
+    <p class="np-sub"><span class="ko-text">접수 기간 <strong>2026년 9월 30일 — 10월 30일</strong><br/>온라인으로만 접수합니다.</span><span class="en-text">Entry period <strong>Sep 30 — Oct 30, 2026</strong><br/>Online submissions only.</span></p>
+    <div class="np-divider"></div>
+    <p class="np-note"><span class="ko-text">공모 주제는 <strong>‘2036년, 나의 하루’</strong>입니다.<br/>지금부터 작품을 준비해 보세요!</span><span class="en-text">This year&rsquo;s theme is <strong>&lsquo;My Day in 2036&rsquo;</strong>.<br/>Start preparing your work today!</span></p>
+    <div class="np-tags"><span class="np-tag">#2036년나의하루</span><span class="np-tag">#MyDay2036</span></div>
+    <button type="button" class="np-btn" data-notice-close><span class="ko-text">확인했어요</span><span class="en-text">Got it</span></button>
+  </div>
 </div>
 
 <!-- ============ APPLY MODAL ============ -->
@@ -2547,7 +2606,7 @@ function hofTab(id, btn) {
     { keys:['신청확인','신청 확인','접수확인','접수 확인','됐나요','접수됐','신청됐','확인하고싶','확인하고 싶','접수됐어','신청됐어','접수가됐','신청이됐','접수완료','신청완료','접수되었','신청되었','접수했나','신청했나','제출확인','냈나요','냈어요','넣었나'], ans:'__VERIFY__' },
 
     // ── 접수 기간 ────────────────────────────────────────
-    { keys:['접수기간','접수 기간','신청기간','신청 기간','언제까지','언제부터','등록기간','기간이','언제접수','언제신청','마감','마감일','마감이','접수일정','신청일정','접수날짜','신청날짜','몇월','몇일'], ans:'접수 기간은 2026년 9월 — 10월입니다. 📅\n상단 [접수하기] 버튼을 눌러 신청해 주세요!' },
+    { keys:['접수기간','접수 기간','신청기간','신청 기간','언제까지','언제부터','등록기간','기간이','언제접수','언제신청','마감','마감일','마감이','접수일정','신청일정','접수날짜','신청날짜','몇월','몇일'], ans:'접수 기간은 2026년 9월 30일 — 10월 30일입니다. 📅\n온라인으로 접수하며, 상단 [접수하기] 버튼을 눌러 신청해 주세요!' },
 
     // ── 참가 자격 ────────────────────────────────────────
     { keys:['자격','참가대상','참가 대상','대상이','참가할수','참가가능','대상자','학생이면','초등','중학','고등','청소년','나이','외국','해외학생','누구나','누구든','초중고','참여가능','참여할수','참여대상'], ans:'국내·해외 초등학생, 중학생, 고등학생이라면\n누구나 참가할 수 있어요! 🌍' },
@@ -2556,7 +2615,7 @@ function hofTab(id, btn) {
     { keys:['시상','상금','상품','수상','최우수','장려','prize','상장','1등','대상','금상','은상','동상','상받으면','받으면뭐','보상','아이패드','갤럭시','문화상품권','몇명','몇명수상','수상인원','얼마나','상혜택'], ans:'🥇 대상 — 각 1명 (총 2명) | iPad Wi-Fi 256GB\n🥈 최우수상 — 4명 | 갤럭시 버즈\n🥉 우수상 — 64명 | 문화상품권 1만원\n🎖️ 특별상·투닝 스타상 등 총 100명 이상 시상!' },
 
     // ── 공모 주제 ────────────────────────────────────────
-    { keys:['주제','테마','공모내용','공모 내용','무엇을만들','뭘만들','어떤내용','어떤작품','작품주제','출품주제','공모주제','내용이뭐','테마가뭐'], ans:'공모 주제는 2026년 8월 공개 예정입니다. 🗓️\n조금만 기다려 주세요!' },
+    { keys:['주제','테마','공모내용','공모 내용','무엇을만들','뭘만들','어떤내용','어떤작품','작품주제','출품주제','공모주제','내용이뭐','테마가뭐','해시태그','해쉬태그','태그'], ans:'공모 주제가 공개되었어요! 🎉\n\n📌 2036년, 나의 하루 (My Day in 2036)\n부제: 10년 뒤 오늘, 나는 어디서 무엇을 하고 있나요?\n\n해시태그: #2036년나의하루 #MyDay2036' },
 
     // ── 투닝 앱 ──────────────────────────────────────────
     { keys:['투닝이뭐','투닝이란','투닝플러스','tooning','앱이뭐','어플이뭐','어떤앱','무슨앱','ai툴','ai도구','웹툰툴','웹툰앱','만화앱','만화툴','무료앱','어디서다운'], ans:'투닝은 AI 기반 웹툰 제작 도구예요! 🎨\ntooning.io에서 무료로 체험할 수 있습니다.' },
@@ -2589,7 +2648,7 @@ function hofTab(id, btn) {
     { keys:['ai배워','ai익혀','ai써봐','ai써볼','ai공부','인공지능배','ai익히','ai경험','ai스킬','ai능력','ai역량','투닝배워','투닝써봐','처음써봐도','초보도돼','초보가능','처음이라도'], ans:'🤖 AI를 처음 써봐도 괜찮아요!\n\n투닝은 누구나 쉽게 배울 수 있어요.\n공모전 준비하면서 자연스럽게\nAI 창작 스킬을 익힐 수 있어요.\n\nAI 시대의 핵심 역량을\n공모전으로 공식 인정받으세요! 🌱\n\n👉 tooning.io에서 무료 체험 가능' },
 
     // ── 어렵지 않아요 / 시작 방법 ───────────────────────
-    { keys:['어렵나','어려워','쉬운가','쉬워요','할수있나','해볼만해','만들수있나','처음해도','어떻게시작','어떻게만들','뭐부터','어디서시작','시작방법','시작어떻게'], ans:'😊 생각보다 쉬워요!\n\n① tooning.io 무료 가입\n② AI로 캐릭터·배경 자동 생성\n③ 내 이야기를 웹툰으로 완성\n④ 공유 링크 복사해서 제출!\n\n복잡한 그림 실력 없어도 돼요.\nAI가 도와주니까요! 🎨\n\n접수는 2026년 9월부터 시작됩니다.' },
+    { keys:['어렵나','어려워','쉬운가','쉬워요','할수있나','해볼만해','만들수있나','처음해도','어떻게시작','어떻게만들','뭐부터','어디서시작','시작방법','시작어떻게'], ans:'😊 생각보다 쉬워요!\n\n① tooning.io 무료 가입\n② AI로 캐릭터·배경 자동 생성\n③ 내 이야기를 웹툰으로 완성\n④ 공유 링크 복사해서 제출!\n\n복잡한 그림 실력 없어도 돼요.\nAI가 도와주니까요! 🎨\n\n접수는 2026년 9월 30일부터 시작됩니다.' },
 
     // ── 인사 ─────────────────────────────────────────────
     { keys:['안녕','하이','hello','hi','반가','처음','시작','헬로'], ans:'안녕하세요! 👋 투닝 공모전 도우미입니다.\n무엇이 궁금하신가요?' },
@@ -2810,8 +2869,8 @@ function hofTab(id, btn) {
    [추가기능] 1. 접수기간 D-day 배지
    ══════════════════════════════════════════════════ */
 (function() {
-  var START    = new Date('2026-09-01T00:00:00+09:00');
-  var DEADLINE = new Date('2026-10-31T23:59:59+09:00');
+  var START    = new Date('2026-09-30T00:00:00+09:00');
+  var DEADLINE = new Date('2026-10-30T23:59:59+09:00');
   var el = document.getElementById('cdNum');
   if (!el) return;
   function tick() {
@@ -3094,6 +3153,83 @@ function hofTab(id, btn) {
   <span class="en-text">Apply</span>
   <span class="f-arrow">→</span>
 </button>
+
+<script>
+/* ══════════════════════════════════════════════════
+   [안내 팝업] 주제 공개 팝업 + 접수 시작 전 안내 팝업
+   닫기: 우측 상단 ×, 빈 영역(배경) 클릭, ESC, 확인 버튼
+   ══════════════════════════════════════════════════ */
+(function() {
+  var OPEN_AT   = new Date('2026-09-30T00:00:00+09:00');   // 접수 시작
+  var CLOSE_AT  = new Date('2026-10-30T23:59:59+09:00');   // 접수 마감
+  var SEEN_KEY  = '_tc_themepop';                          // 주제 팝업 1일 1회
+
+  var themePop = document.getElementById('themePop');
+  var applyPop = document.getElementById('applyPop');
+
+  function open(pop) {
+    if (!pop) return;
+    pop.hidden = false;
+    pop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function() { pop.classList.add('open'); });
+    setTimeout(function() {
+      var btn = pop.querySelector('.notice-pop-close');
+      if (btn) btn.focus();
+    }, 60);
+  }
+
+  function close(pop) {
+    if (!pop || pop.hidden) return;
+    pop.classList.remove('open');
+    pop.setAttribute('aria-hidden', 'true');
+    if (pop.contains(document.activeElement)) document.activeElement.blur();
+    document.body.style.overflow = '';
+    setTimeout(function() {
+      if (!pop.classList.contains('open')) pop.hidden = true;   // 투명 오버레이가 화면을 덮지 않도록 완전히 제거
+    }, 280);
+  }
+
+  [themePop, applyPop].forEach(function(pop) {
+    if (!pop) return;
+    pop.querySelectorAll('[data-notice-close]').forEach(function(el) {
+      el.addEventListener('click', function() { close(pop); });
+    });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape') return;
+    [themePop, applyPop].forEach(function(pop) {
+      if (pop && !pop.hidden) close(pop);
+    });
+  });
+
+  /* 접수 시작 전에는 [접수하기] 클릭 시 폼 대신 안내 팝업 */
+  document.addEventListener('click', function(e) {
+    var t = e.target && e.target.closest ? e.target.closest('[data-open-modal="apply"]') : null;
+    if (!t) return;
+    var now = new Date();
+    if (now >= OPEN_AT && now <= CLOSE_AT) return;   // 접수 기간에는 정상적으로 접수 폼 열기
+    e.preventDefault();
+    e.stopPropagation();
+    open(applyPop);
+  }, true);
+
+  /* 주제 공개 팝업: 첫 진입 시 자동 노출 (하루 1회) */
+  function todayKey() {
+    var d = new Date();
+    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+  }
+  var seen = null;
+  try { seen = localStorage.getItem(SEEN_KEY); } catch (err) { seen = null; }
+  if (seen !== todayKey()) {
+    setTimeout(function() {
+      open(themePop);
+      try { localStorage.setItem(SEEN_KEY, todayKey()); } catch (err) {}
+    }, 900);
+  }
+})();
+</script>
 
 </body>
 </html>
