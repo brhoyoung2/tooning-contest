@@ -59,39 +59,19 @@ section{position:relative;width:100%;overflow:hidden}
 .hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:2;pointer-events:none}
 .hero-content{position:relative;z-index:5;padding-top:80px;padding-bottom:80px;text-align:center;width:100%}
 @media(max-width:768px){.hero-content{padding-top:110px;padding-bottom:60px}}
-@media(max-width:768px){
-  .hero .hero-info-bar{grid-template-columns:1fr 1fr;padding:6px;border-radius:24px}
-  .hero .info-item{padding:14px 10px;border-right:none;border-bottom:1px solid rgba(255,255,255,.12)}
-  .hero .info-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.12)}
-  .hero .info-item:nth-child(4){border-bottom:none}
-  .hero .info-item:last-child{grid-column:1/-1;border-bottom:none;border-right:none}
-  .hero .info-text{align-items:center;text-align:center}
-}
 .hero .hero-title{color:#fff}
 .hero .hero-kor-title{color:rgba(255,255,255,.9)}
 .hero .hero-desc{color:rgba(255,255,255,.75)}
-.hero .hero-info-bar{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.hero .info-item{border-right-color:rgba(255,255,255,.18)}
-.hero .info-label{color:rgba(255,255,255,.65)}
-.hero .info-val{color:#fff}
 .hero-label{display:none}
 .hero-title{font-family:'Pretendard Variable','Archivo',sans-serif;font-weight:800;font-size:clamp(56px,8vw,108px);letter-spacing:-.04em;line-height:1;color:var(--text-dark)}
 .hero-title .accent{color:var(--coral)}
 .hero-kor-title{font-weight:700;font-size:clamp(20px,2.4vw,30px);letter-spacing:-.02em;color:var(--text-dark);margin-top:0;margin-bottom:20px}
 .hero-desc{font-size:17px;line-height:1.75;color:var(--text-soft);margin-top:30px;max-width:640px;margin-left:auto;margin-right:auto}
-.hero-info-bar{display:grid;grid-template-columns:repeat(5,auto);justify-content:center;align-items:stretch;background:#fff;border-radius:32px;padding:22px 18px;box-shadow:0 8px 24px rgba(0,0,0,.08);max-width:1040px;margin:50px auto 0}
-.info-item{display:flex;align-items:center;justify-content:center;padding:2px 26px;border-right:1px solid rgba(99,110,130,.2)}
-.info-item:last-child{border-right:none}
-.info-text{display:flex;flex-direction:column;align-items:center;text-align:center}
-.info-label{font-family:'Archivo',sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;color:var(--text-soft);text-transform:uppercase;white-space:nowrap}
-.info-val{font-weight:700;font-size:16px;color:var(--text-dark);margin-top:6px;white-space:nowrap}
-[lang-mode="en"] .info-item{padding:2px 22px}
+.tl-card-month .dday-badge{margin-left:8px;vertical-align:2px}
 .hero-cta{display:inline-flex;align-items:center;gap:12px;background:var(--coral);color:#fff;padding:20px 48px;border-radius:32px;font-weight:700;font-size:15px;letter-spacing:.05em;margin-top:50px;box-shadow:0 8px 24px rgba(255,107,107,.4);transition:transform .3s,box-shadow .3s}
 .hero-cta:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(255,107,107,.5)}
 .hero-cta .arrow{transition:transform .3s}
 .hero-cta:hover .arrow{transform:translateX(6px)}
-@media(max-width:1000px){.info-item{padding:2px 14px}.info-label{font-size:12px!important;letter-spacing:.08em}.info-val{font-size:15px!important}}
-@media(max-width:768px){.hero-info-bar{grid-template-columns:1fr 1fr;justify-content:stretch;padding:6px;border-radius:24px}.info-item{border-right:none;padding:14px 10px;border-bottom:1px solid rgba(99,110,130,.15)}.info-item:nth-child(odd){border-right:1px solid rgba(99,110,130,.15)}.info-item:nth-child(4){border-bottom:none}.info-item:last-child{grid-column:1/-1;border-bottom:none;border-right:none}.info-text{align-items:center;text-align:center}.info-val{white-space:normal;line-height:1.4}}
 .topic{background:var(--cream-soft);padding-bottom:120px}
 .topic-header{text-align:center}
 .topic-title-1,.topic-title-2{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(48px,6vw,80px);letter-spacing:-.04em;line-height:1}
@@ -210,6 +190,8 @@ section{position:relative;width:100%;overflow:hidden}
 .awards-title-2{color:var(--coral);margin-top:16px}
 .awards-desc-large{font-size:16px;line-height:1.85;color:var(--text-soft);max-width:760px;margin:30px auto 0}
 .awards-desc-large strong{color:var(--coral);font-weight:700}
+.awards-total{display:inline-block;margin:22px auto 0;padding:10px 22px;border-radius:999px;background:rgba(255,107,107,.09);border:1px solid rgba(255,107,107,.25);font-size:16px;font-weight:700;color:var(--text-dark)}
+.awards-total strong{color:var(--coral)}
 .awards-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:0;align-items:stretch}
 .award-card{background:#fff;border-radius:28px;padding:30px 16px;box-shadow:0 12px 28px rgba(20,27,49,.1);text-align:center;transition:transform .3s}
 .award-card:hover{transform:translateY(-6px)}
@@ -716,7 +698,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 @media(max-width:600px){.chat-window{width:calc(100vw - 40px);height:480px}.chat-widget{bottom:20px;right:16px!important}}
 
 /* ============ TEXT SIZE INCREASE (+3-4pt) ============ */
-.info-label{font-size:15px!important}
 .nav ul a{font-size:17px!important}
 .nav-cta{font-size:17px!important}
 .topic-card-num{font-size:17px!important}
@@ -735,11 +716,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .footer-col a{font-size:15px!important}
 .bonus-step-desc-simple{font-size:16px!important}
 .bonus-step-title-simple{font-size:17px!important}
-.info-val{font-size:18px!important}
 
 /* ── [추가기능] 1. D-day 배지 ──────────── */
 .dday-badge{display:inline-block;background:rgba(255,107,107,.18);border:1px solid rgba(255,107,107,.45);color:#ff6b6b;font-family:'Archivo',sans-serif;font-weight:800;font-size:11.5px;border-radius:20px;padding:2px 9px;margin-left:7px;vertical-align:middle;letter-spacing:.01em;white-space:nowrap}
-.hero .dday-badge{color:#ff8080;border-color:rgba(255,128,128,.5);background:rgba(255,107,107,.12)}
 
 /* ── [추가기능] 3. 접수 진행 스텝 ─────────── */
 .modal-steps{display:flex;align-items:center;margin-bottom:24px;background:#f8f9fc;border-radius:14px;padding:14px 18px}
@@ -862,13 +841,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <h2 class="hero-kor-title reveal"><span class="ko-text">대학과 함께하는 투닝 공모전</span><span class="en-text">Tooning Contest with Universities</span></h2>
     <h1 class="hero-title reveal delay-1"><span class="ko-text">제 2회 투닝 <span class="accent">국제 공모전</span></span><span class="en-text">2nd Tooning <span class="accent">Int'l Contest</span></span></h1>
     <p class="hero-desc reveal delay-2"><span class="ko-text">투닝과 투닝플러스가 그리는 AI 창작의 미래<br/>제 2회 투닝 국제 공모전에서 그 가능성을 만나보세요.</span><span class="en-text">The future of AI creation with Tooning and Tooning Plus.<br/>Discover the possibilities at the 2nd Tooning International Contest.</span></p>
-    <div class="hero-info-bar reveal delay-3">
-      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">접수 기간</span><span class="en-text">Period</span></span><span class="info-val"><span class="ko-text">9.30 — 10.30</span><span class="en-text">Sep 30 — Oct 30</span><span class="dday-badge" id="cdNum">…</span></span></div></div>
-      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">협력 대학</span><span class="en-text">Partners</span></span><span class="info-val"><span class="ko-text">18개 대학</span><span class="en-text">18 Univ.</span></span></div></div>
-      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">총 시상</span><span class="en-text">Awards</span></span><span class="info-val"><span class="ko-text">100명</span><span class="en-text">100</span></span></div></div>
-      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">자격</span><span class="en-text">Eligible</span></span><span class="info-val"><span class="ko-text">국내·해외 초중고 학생</span><span class="en-text">K–12</span></span></div></div>
-      <div class="info-item"><div class="info-text"><span class="info-label"><span class="ko-text">시상식</span><span class="en-text">Ceremony</span></span><span class="info-val"><span class="ko-text">11월 말</span><span class="en-text">Late Nov</span></span></div></div>
-    </div>
     <a href="javascript:void(0)" data-open-modal="apply" class="hero-cta reveal delay-3"><span class="ko-text">지금 참가하기 <span class="arrow">→</span></span><span class="en-text">Apply Now <span class="arrow">→</span></span></a>
   </div>
 </section>
@@ -1010,7 +982,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <div class="tl-card-label"><span class="ko-text">공모 주제 공개</span><span class="en-text">Theme Revealed</span></div>
       </div>
       <div class="tl-card">
-        <div class="tl-card-month" style="color:#ff6b6b"><span class="ko-text">9.30 — 10.30</span><span class="en-text">Sep 30 — Oct 30</span></div>
+        <div class="tl-card-month" style="color:#ff6b6b"><span class="ko-text">9.30 — 10.30</span><span class="en-text">Sep 30 — Oct 30</span><span class="dday-badge" id="cdNum">…</span></div>
         <div class="tl-card-label"><span class="ko-text">작품 접수 (온라인)</span><span class="en-text">Online Entry</span></div>
       </div>
       <div class="tl-card">
@@ -1042,6 +1014,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <span class="en-text">Official digital certificates are awarded to <strong>every winner</strong>.<br/>
         All certificates are issued in tamper-proof digital format.</span>
       </p>
+      <p class="awards-total reveal delay-2"><span class="ko-text">6개 시상 부문에서 <strong>총 100명</strong>을 시상합니다</span><span class="en-text"><strong>100 winners</strong> across six award categories</span></p>
     </div>
 
     <div class="awards-pyramid">
