@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>접수 관리 · 제2회 투닝 국제 공모전</title>
+<link rel="icon" href="./favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<style>
+:root{
+  --coral:#ff6b6b; --dark:#141b31; --soft:#636e82;
+  --line:#e5e7eb; --bg:#f6f7fb; --card:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard Variable',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  background:var(--bg);color:var(--dark);-webkit-font-smoothing:antialiased}
+button,input,select{font-family:inherit}
+
+/* ── 로그인 ── */
+.gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.gate-box{width:100%;max-width:380px;background:var(--card);border-radius:24px;padding:40px 32px;
+  box-shadow:0 12px 40px rgba(20,27,49,.12);text-align:center}
+.gate-title{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.gate-sub{font-size:14px;color:var(--soft);margin-top:8px;line-height:1.6}
+.gate-box input{width:100%;margin-top:24px;padding:14px 16px;border:1.5px solid var(--line);
+  border-radius:12px;font-size:16px;text-align:center;letter-spacing:.3em;outline:none}
+.gate-box input:focus{border-color:var(--coral)}
+.gate-box button{width:100%;margin-top:12px;padding:14px;border:none;border-radius:12px;
+  background:var(--coral);color:#fff;font-size:15px;font-weight:700;cursor:pointer}
+.gate-err{margin-top:12px;font-size:13px;color:#dc2626;font-weight:600;min-height:18px}
+
+/* ── 레이아웃 ── */
+.wrap{display:none;max-width:1400px;margin:0 auto;padding:28px 24px 64px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.top h1{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.top h1 span{color:var(--coral)}
+.top-actions{display:flex;gap:8px}
+.btn{padding:9px 16px;border:1.5px solid var(--line);border-radius:10px;background:#fff;
+  font-size:13px;font-weight:700;color:var(--dark);cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--coral);color:var(--coral)}
+.btn.primary{background:var(--coral);border-color:var(--coral);color:#fff}
+.btn.primary:hover{opacity:.9;color:#fff}
+
+/* ── 통계 ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:20px}
+.stat{background:var(--card);border-radius:16px;padding:16px 18px;box-shadow:0 2px 10px rgba(20,27,49,.06)}
+.stat-label{font-size:12px;font-weight:700;color:var(--soft);letter-spacing:.04em}
+.stat-val{font-size:26px;font-weight:800;margin-top:4px;letter-spacing:-.02em}
+.stat-val small{font-size:14px;font-weight:600;color:var(--soft);margin-left:2px}
+
+/* ── 필터 ── */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.filters input,.filters select{padding:10px 14px;border:1.5px solid var(--line);border-radius:10px;
+  font-size:14px;background:#fff;outline:none}
+.filters input{flex:1;min-width:220px}
+.filters input:focus,.filters select:focus{border-color:var(--coral)}
+
+/* ── 테이블 ── */
+.table-wrap{margin-top:16px;background:var(--card);border-radius:16px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(20,27,49,.06)}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px;white-space:nowrap}
+th{background:#fafbfd;text-align:left;padding:13px 14px;font-weight:700;color:var(--soft);
+  font-size:12px;letter-spacing:.04em;border-bottom:1px solid var(--line);position:sticky;top:0}
+td{padding:13px 14px;border-bottom:1px solid #f1f3f7}
+tbody tr{cursor:pointer;transition:background .12s}
+tbody tr:hover{background:#fff7f5}
+.tag{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11.5px;font-weight:700}
+.tag.comic{background:#ffe9e4;color:#e14b4b}
+.tag.novel{background:#e4f3ff;color:#2b7fc4}
+.tag.cardnews{background:#e6f8f2;color:#199e75}
+.tag.poster{background:#fff4d9;color:#b8860b}
+.muted{color:var(--soft)}
+.empty{padding:56px 20px;text-align:center;color:var(--soft);font-size:14px;line-height:1.7}
+
+/* ── 상세 ── */
+.detail{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
+  padding:32px 20px;background:rgba(10,14,30,.6);overflow-y:auto}
+.detail.open{display:flex}
+.detail-box{width:100%;max-width:780px;background:#fff;border-radius:22px;padding:32px;position:relative}
+.detail-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border:none;border-radius:50%;
+  background:#f1f3f7;font-size:19px;cursor:pointer;color:var(--soft)}
+.detail h2{font-size:20px;font-weight:800;letter-spacing:-.02em;padding-right:40px}
+.detail-meta{font-size:13px;color:var(--soft);margin-top:6px}
+.d-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:22px}
+.d-item{background:#fafbfd;border-radius:12px;padding:12px 14px}
+.d-key{font-size:11.5px;font-weight:700;color:var(--soft);letter-spacing:.04em}
+.d-val{font-size:14px;font-weight:600;margin-top:3px;word-break:break-all}
+.d-sec{margin-top:24px}
+.d-sec h3{font-size:13px;font-weight:800;color:var(--soft);letter-spacing:.06em;margin-bottom:8px}
+.d-text{background:#fafbfd;border-radius:12px;padding:16px;font-size:14px;line-height:1.8;
+  white-space:pre-wrap;max-height:320px;overflow-y:auto}
+.ep{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.ep summary{padding:12px 14px;font-size:13.5px;font-weight:700;cursor:pointer;background:#fafbfd}
+.ep .d-text{border-radius:0;max-height:400px}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.links a{padding:9px 16px;border-radius:10px;background:var(--coral);color:#fff;font-size:13px;
+  font-weight:700;text-decoration:none}
+.links a.ghost{background:#f1f3f7;color:var(--dark)}
+.note{margin-top:22px;font-size:12.5px;color:var(--soft);line-height:1.7;background:#fff8f6;
+  border-radius:12px;padding:12px 14px;border:1px solid #ffe1da}
+@media(max-width:640px){.wrap{padding:20px 14px 48px}.detail-box{padding:24px 18px}}
+</style>
+</head>
+<body>
+
+<!-- ── 비밀번호 ── -->
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="gate-title">접수 관리</div>
+    <div class="gate-sub">제2회 투닝 국제 공모전<br/>관리자 비밀번호를 입력하세요</div>
+    <input type="password" id="pw" inputmode="numeric" autocomplete="off" placeholder="••••" />
+    <button type="button" id="loginBtn">확인</button>
+    <div class="gate-err" id="gateErr"></div>
+  </div>
+</div>
+
+<!-- ── 본문 ── -->
+<div class="wrap" id="wrap">
+  <div class="top">
+    <h1>접수 관리 <span>·</span> 제2회 투닝 국제 공모전</h1>
+    <div class="top-actions">
+      <button class="btn" id="reloadBtn">새로고침</button>
+      <button class="btn" id="csvBtn">CSV 내보내기</button>
+      <button class="btn primary" id="logoutBtn">잠금</button>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="filters">
+    <input type="search" id="q" placeholder="이름 · 학교 · 작품 제목 · 접수키 검색" />
+    <select id="fSection">
+      <option value="">전체 부문</option>
+      <option value="comic">만화 / 웹툰</option>
+      <option value="novel">소설 / 이야기</option>
+      <option value="cardnews">카드뉴스</option>
+      <option value="poster">포스터</option>
+    </select>
+    <select id="fLevel">
+      <option value="">전체 학교급</option>
+      <option value="초등">초등</option>
+      <option value="중학">중학</option>
+      <option value="고등">고등</option>
+    </select>
+  </div>
+
+  <div class="table-wrap">
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>접수일</th><th>이름</th><th>학교</th><th>학년</th><th>부문</th>
+            <th>작품 제목</th><th>회차</th><th>PDF</th><th>접수키</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="empty"></div>
+  </div>
+</div>
+
+<!-- ── 상세 ── -->
+<div class="detail" id="detail">
+  <div class="detail-box">
+    <button class="detail-close" id="detailClose">&times;</button>
+    <div id="detailBody"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function () {
+  var SB_URL = 'https://mllbsqnrvhvnqvxkpxof.supabase.co';
+  var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1sbGJzcW5ydmh2bnF2eGtweG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyOTQ4MDUsImV4cCI6MjA5NTg3MDgwNX0.X4vB-JwtbrQOUg_It5dSuvTrIWOOFfg7ThIiU8FKhjI';
+  var sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+  var SECTION = { comic: '만화/웹툰', novel: '소설/이야기', cardnews: '카드뉴스', poster: '포스터' };
+  var PW_KEY = '_tc_admin_pw';
+  var rows = [], pw = '';
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ── 로그인 ── */
+  function login(v) {
+    $('gateErr').textContent = '불러오는 중…';
+    return sb.rpc('투닝콘테스트_관리자목록', { p_pw: v }).then(function (res) {
+      if (res.error) {
+        var m = res.error.message || '';
+        $('gateErr').textContent = m.indexOf('unauthorized') !== -1
+          ? '비밀번호가 올바르지 않습니다.'
+          : (m.indexOf('찾을 수 없') !== -1 || m.indexOf('PGRST202') !== -1
+              ? '관리자 함수가 아직 설치되지 않았습니다. (v9 SQL 실행 필요)'
+              : '조회 중 오류: ' + m);
+        return false;
+      }
+      pw = v;
+      try { sessionStorage.setItem(PW_KEY, v); } catch (e) {}
+      rows = res.data || [];
+      $('gate').style.display = 'none';
+      $('wrap').style.display = 'block';
+      render();
+      return true;
+    });
+  }
+
+  $('loginBtn').addEventListener('click', function () { login($('pw').value.trim()); });
+  $('pw').addEventListener('keydown', function (e) { if (e.key === 'Enter') login($('pw').value.trim()); });
+
+  $('logoutBtn').addEventListener('click', function () {
+    try { sessionStorage.removeItem(PW_KEY); } catch (e) {}
+    location.reload();
+  });
+
+  $('reloadBtn').addEventListener('click', function () {
+    sb.rpc('투닝콘테스트_관리자목록', { p_pw: pw }).then(function (res) {
+      if (!res.error) { rows = res.data || []; render(); }
+    });
+  });
+
+  /* ── 렌더 ── */
+  function esc(t) {
+    return String(t == null ? '' : t)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function fmtDate(s) {
+    if (!s) return '-';
+    var d = new Date(s);
+    return d.getFullYear() + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + ('0' + d.getDate()).slice(-2)
+         + ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
+  }
+
+  function filtered() {
+    var q = $('q').value.trim().toLowerCase();
+    var sec = $('fSection').value, lv = $('fLevel').value;
+    return rows.filter(function (r) {
+      if (sec && r.section !== sec) return false;
+      if (lv && r.school_level !== lv) return false;
+      if (!q) return true;
+      return [r.name, r.school, r.topic, r.submit_key, r.contact_email]
+        .some(function (v) { return String(v || '').toLowerCase().indexOf(q) !== -1; });
+    });
+  }
+
+  function render() {
+    var list = filtered();
+
+    // 통계는 전체 기준
+    var byS = {}, byL = {};
+    rows.forEach(function (r) {
+      byS[r.section] = (byS[r.section] || 0) + 1;
+      byL[r.school_level] = (byL[r.school_level] || 0) + 1;
+    });
+    var pdfN = rows.filter(function (r) { return !!r.pdf_url; }).length;
+    var stats = [['전체 접수', rows.length, '건']];
+    ['comic', 'novel', 'cardnews', 'poster'].forEach(function (k) {
+      stats.push([SECTION[k], byS[k] || 0, '건']);
+    });
+    stats.push(['초 / 중 / 고', (byL['초등'] || 0) + ' / ' + (byL['중학'] || 0) + ' / ' + (byL['고등'] || 0), '']);
+    stats.push(['PDF 첨부', pdfN, '건']);
+    $('stats').innerHTML = stats.map(function (s) {
+      return '<div class="stat"><div class="stat-label">' + esc(s[0]) + '</div>'
+           + '<div class="stat-val">' + esc(s[1]) + (s[2] ? '<small>' + s[2] + '</small>' : '') + '</div></div>';
+    }).join('');
+
+    $('rows').innerHTML = list.map(function (r, i) {
+      return '<tr data-i="' + i + '">'
+        + '<td class="muted">' + fmtDate(r.created_at) + '</td>'
+        + '<td><strong>' + esc(r.name) + '</strong></td>'
+        + '<td>' + esc(r.school) + '</td>'
+        + '<td class="muted">' + esc(r.grade) + '</td>'
+        + '<td><span class="tag ' + esc(r.section) + '">' + esc(SECTION[r.section] || r.section) + '</span></td>'
+        + '<td>' + esc(r.topic) + '</td>'
+        + '<td class="muted">' + (r.episode_count ? r.episode_count + '화' : '-') + '</td>'
+        + '<td>' + (r.pdf_url ? '✓' : '<span class="muted">-</span>') + '</td>'
+        + '<td class="muted">' + esc(r.submit_key || '-') + '</td>'
+        + '</tr>';
+    }).join('');
+
+    $('empty').style.display = list.length ? 'none' : 'block';
+    $('empty').textContent = rows.length
+      ? '조건에 맞는 접수가 없습니다.'
+      : '아직 접수된 작품이 없습니다.\n작품 접수는 2026년 9월 30일부터 시작됩니다.';
+
+    Array.prototype.forEach.call($('rows').querySelectorAll('tr'), function (tr) {
+      tr.addEventListener('click', function () { openDetail(list[+tr.dataset.i]); });
+    });
+  }
+
+  ['q', 'fSection', 'fLevel'].forEach(function (id) {
+    $(id).addEventListener('input', render);
+    $(id).addEventListener('change', render);
+  });
+
+  /* ── 상세 ── */
+  function openDetail(r) {
+    if (!r) return;
+    var contact = r.contact_type === 'teacher'
+      ? [['지도교사', r.teacher_name || '-'], ['교사 연락처', r.teacher_phone || '-']]
+      : [['보호자 연락처', r.parent_phone || '-']];
+
+    var items = [['접수키', r.submit_key || '-'], ['부문', SECTION[r.section] || r.section],
+                 ['학교', r.school], ['학년 / 반', r.grade + ' ' + (r.class || '')],
+                 ['연락 이메일', r.contact_email || '-']].concat(contact)
+                .concat([['접수일', fmtDate(r.created_at)], ['최종 수정', fmtDate(r.updated_at)]]);
+
+    var html = '<h2>' + esc(r.topic || '(제목 없음)') + '</h2>'
+      + '<div class="detail-meta">' + esc(r.name) + ' · ' + esc(r.school) + ' · ' + esc(r.grade) + '</div>'
+      + '<div class="d-grid">' + items.map(function (it) {
+          return '<div class="d-item"><div class="d-key">' + esc(it[0]) + '</div>'
+               + '<div class="d-val">' + esc(it[1]) + '</div></div>';
+        }).join('') + '</div>'
+      + '<div class="links">'
+      + (r.board_link ? '<a href="' + esc(r.board_link) + '" target="_blank" rel="noopener">작품 보드 열기</a>' : '')
+      + (r.pdf_url ? '<a class="ghost" href="' + esc(r.pdf_url) + '" target="_blank" rel="noopener">PDF 열기</a>' : '')
+      + '</div>';
+
+    if (r.work_description)
+      html += '<div class="d-sec"><h3>시놉시스 / 설명</h3><div class="d-text">' + esc(r.work_description) + '</div></div>';
+    if (r.proposal_text)
+      html += '<div class="d-sec"><h3>기획안</h3><div class="d-text">' + esc(r.proposal_text) + '</div></div>';
+
+    if (r.episodes && r.episodes.length) {
+      html += '<div class="d-sec"><h3>본문 ' + r.episodes.length + '화</h3>'
+        + r.episodes.map(function (e) {
+            var n = String(e.body || '').replace(/\s/g, '').length;
+            return '<details class="ep"><summary>' + esc(e.ep) + '화 · '
+                 + n.toLocaleString() + '자' + (n < 2000 ? ' ⚠ 규격 미달' : '') + '</summary>'
+                 + '<div class="d-text">' + esc(e.body) + '</div></details>';
+          }).join('') + '</div>';
+    }
+
+    html += '<div class="note">이 화면에는 미성년 참가자의 개인정보가 포함되어 있습니다. '
+          + '화면 공유·캡처·외부 전송에 유의하시고, 열람 후에는 [잠금]을 눌러주세요.</div>';
+
+    $('detailBody').innerHTML = html;
+    $('detail').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDetail() {
+    $('detail').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  $('detailClose').addEventListener('click', closeDetail);
+  $('detail').addEventListener('click', function (e) { if (e.target === $('detail')) closeDetail(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDetail(); });
+
+  /* ── CSV ── */
+  $('csvBtn').addEventListener('click', function () {
+    var list = filtered();
+    if (!list.length) { alert('내보낼 접수 내역이 없습니다.'); return; }
+    if (!confirm('개인정보가 포함된 파일이 내려받아집니다.\n외부 공유·클라우드 업로드에 주의해 주세요.\n계속할까요?')) return;
+
+    var cols = [['접수일', 'created_at'], ['접수키', 'submit_key'], ['이름', 'name'], ['학교', 'school'],
+                ['학년', 'grade'], ['학교급', 'school_level'], ['반', 'class'], ['부문', 'section'],
+                ['작품 제목', 'topic'], ['연락처 유형', 'contact_type'], ['이메일', 'contact_email'],
+                ['지도교사', 'teacher_name'], ['교사 연락처', 'teacher_phone'], ['보호자 연락처', 'parent_phone'],
+                ['회차수', 'episode_count'], ['보드 링크', 'board_link'], ['PDF', 'pdf_url'], ['상태', 'status']];
+    var esc2 = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
+    var csv = cols.map(function (c) { return esc2(c[0]); }).join(',') + '\n'
+      + list.map(function (r) {
+          return cols.map(function (c) {
+            var v = r[c[1]];
+            if (c[1] === 'created_at') v = fmtDate(v);
+            if (c[1] === 'section') v = SECTION[v] || v;
+            return esc2(v);
+          }).join(',');
+        }).join('\n');
+
+    var blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = '투닝공모전_접수_' + new Date().toISOString().slice(0, 10) + '.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  /* ── 세션 복원 ── */
+  var saved = null;
+  try { saved = sessionStorage.getItem(PW_KEY); } catch (e) {}
+  if (saved) login(saved); else $('pw').focus();
+})();
+</script>
+</body>
+</html>
