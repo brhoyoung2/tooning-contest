@@ -412,7 +412,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .apply-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
 .apply-modal.open{display:flex}
 .apply-modal .modal-backdrop{position:fixed;inset:0;background:rgba(20,27,49,.55);backdrop-filter:blur(6px);cursor:pointer;animation:fadeIn .25s}
-.apply-modal .modal-panel{position:relative;background:#fff;border-radius:32px;max-width:640px;width:100%;padding:48px 44px 36px;box-shadow:0 24px 60px rgba(20,27,49,.3);animation:slideUp .35s cubic-bezier(.22,1,.36,1);margin:auto}
+.apply-modal .modal-panel{position:relative;background:#fff;border-radius:32px;max-width:880px;width:100%;padding:48px 52px 36px;box-shadow:0 24px 60px rgba(20,27,49,.3);animation:slideUp .35s cubic-bezier(.22,1,.36,1);margin:auto}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 .modal-close{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;background:#f5f6f9;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--text-soft);cursor:pointer;transition:all .2s;border:none;line-height:1}
@@ -427,7 +427,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .form-section-note{font-size:13px;color:var(--text-soft);margin-bottom:14px;line-height:1.6;padding:10px 14px;background:#f5f9ff;border-radius:10px;border-left:3px solid var(--sky-deep)}
 .form-section-note strong{color:var(--sky-deep);font-weight:700}
 .form-row{margin-bottom:14px}
-.form-row.two-col{display:grid;grid-template-columns:1.5fr 1fr;gap:12px}
+.form-row.two-col{display:grid;grid-template-columns:1.5fr 1fr;gap:12px 18px}
+.form-row.two-col.even{grid-template-columns:1fr 1fr}
+.form-row.two-col.wide-right{grid-template-columns:1fr 1.4fr}
 .form-row[hidden]{display:none}
 .file-input{display:block;width:100%;padding:12px 14px;border:1.5px dashed #cbd5e1;border-radius:12px;background:#f8fafc;font-size:14px;font-family:inherit;color:var(--text-soft);cursor:pointer}
 .file-input:hover{border-color:var(--coral);background:#fff7f5}
@@ -476,7 +478,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 @media(max-width:600px){
   .apply-modal{padding:0}
   .apply-modal .modal-panel{border-radius:0;min-height:100vh;padding:60px 24px 32px;margin:0;max-width:100%}
-  .form-row.two-col{grid-template-columns:1fr}
+  .form-row.two-col,
+  .form-row.two-col.even,
+  .form-row.two-col.wide-right{grid-template-columns:1fr}
   .form-actions{flex-direction:column-reverse}
   .form-actions button{width:100%}
 }
@@ -1673,14 +1677,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <div class="form-section">
         <div class="form-section-title"><span class="ko-text">1. 참여자 개인정보</span><span class="en-text">1. Participant Information</span></div>
 
-        <div class="form-row">
+        <div class="form-row two-col even">
           <label class="form-field">
             <span class="form-label"><span class="ko-text">이름</span><span class="en-text">Name</span> <em>*</em></span>
             <input type="text" name="name" required placeholder="홍길동" data-ph-ko="홍길동" data-ph-en="Your full name" autocomplete="name" />
           </label>
-        </div>
-
-        <div class="form-row">
           <label class="form-field">
             <span class="form-label"><span class="ko-text">학교명</span><span class="en-text">School Name</span> <em>*</em></span>
             <input type="text" name="school" required placeholder="투닝초등학교" data-ph-ko="투닝초등학교" data-ph-en="Tooning Elementary School" />
@@ -1758,24 +1759,21 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           </label>
         </div>
 
-        <div class="form-row" data-contact-for="teacher">
+        <div class="form-row two-col wide-right" data-contact-for="teacher">
           <label class="form-field">
             <span class="form-label"><span class="ko-text">지도교사 이름</span><span class="en-text">Teacher's Name</span></span>
             <input type="text" name="teacherName" placeholder="김선생님" data-ph-ko="김선생님" data-ph-en="Teacher Kim" />
             <span class="form-hint"><span class="ko-text">지도교사상 수상 시 연락에 활용됩니다</span><span class="en-text">This contact will be used for the Teacher Award notification</span></span>
           </label>
-        </div>
-
-        <div class="form-row" data-contact-for="teacher">
           <label class="form-field">
             <span class="form-label"><span class="ko-text">지도교사 이메일</span><span class="en-text">Teacher's Email</span> <em>*</em></span>
             <input type="email" name="teacherEmail" id="teacherEmail" placeholder="teacher@school.ac.kr" data-ph-ko="teacher@school.ac.kr" data-ph-en="teacher@school.edu" autocomplete="email" />
             <span class="field-err-msg" id="teacherEmailErr"><span class="ko-text">올바른 이메일 형식이 아닙니다</span><span class="en-text">Please enter a valid email address</span></span>
-            <span class="form-hint"><span class="ko-text">접수 확인·심사 결과 안내를 이 주소로 보내드립니다</span><span class="en-text">Entry confirmation and results will be sent to this address</span></span>
+            <span class="form-hint"><span class="ko-text">접수 확인·결과 안내를 이 주소로 보내드립니다</span><span class="en-text">Confirmation and results are sent here</span></span>
           </label>
         </div>
 
-        <div class="form-row" data-contact-for="parent" hidden>
+        <div class="form-row two-col wide-right" data-contact-for="parent" hidden>
           <label class="form-field">
             <span class="form-label"><span class="ko-text">보호자 연락처</span><span class="en-text">Guardian's Phone Number</span> <em>*</em></span>
             <div class="phone-wrap">
@@ -1799,9 +1797,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <span class="field-err-msg" id="parentPhoneErr"><span class="ko-text">숫자, 하이픈(-)만 입력 가능합니다</span><span class="en-text">Only numbers and hyphens (-) allowed</span></span>
             <span class="form-hint" data-guardian-phone-hint><span class="ko-text">지도교사가 없을 경우에만 필요 — 수상 결과 안내에 활용됩니다</span><span class="en-text">Only required when no supervising teacher — used for award result notifications</span></span>
           </label>
-        </div>
-
-        <div class="form-row" data-contact-for="parent" hidden>
           <label class="form-field">
             <span class="form-label"><span class="ko-text">보호자 이메일</span><span class="en-text">Guardian's Email</span> <em>*</em></span>
             <input type="email" name="parentEmail" id="parentEmail" placeholder="parent@example.com" data-ph-ko="parent@example.com" data-ph-en="parent@example.com" autocomplete="email" disabled />
@@ -1875,7 +1870,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           </label>
         </div>
 
-        <div class="form-row" data-show-for="comic,novel,cardnews,poster">
+        <div class="form-row two-col" data-show-for="comic,novel,cardnews,poster">
           <label class="form-field">
             <span class="form-label"><span class="ko-text">작품 보드 링크</span><span class="en-text">Work Board Link</span> <em>*</em></span>
             <input type="url" name="link3_board" required placeholder="https://an-api.tooning.io/canvas-share/..." data-ph-ko="https://an-api.tooning.io/canvas-share/..." data-ph-en="https://an-api.tooning.io/canvas-share/..." />
@@ -1883,9 +1878,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <div class="link-check" id="editorLinkCheck"></div>
             <span class="form-hint"><span class="ko-text">투닝에서 작품을 공유하면 만들어지는 보드 링크 — 이 링크가 공식 제출 작품입니다. (예: https://an-api.tooning.io/canvas-share/000000)</span><span class="en-text">The board link created when you share your work on Tooning — this link is your official entry. (e.g. https://an-api.tooning.io/canvas-share/000000)</span></span>
           </label>
-        </div>
-
-        <div class="form-row" data-show-for="comic,novel,cardnews,poster">
           <label class="form-field">
             <span class="form-label"><span class="ko-text">작품 PDF 업로드</span><span class="en-text">Work PDF Upload</span></span>
             <input type="file" name="workPdf" id="workPdf" accept="application/pdf,.pdf" class="file-input" />
