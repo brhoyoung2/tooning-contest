@@ -70,6 +70,20 @@ SELECT policyname, cmd, roles::text AS roles,
 
 
 -- =====================================================
+-- ✅ 적용 확인 완료 (2026-09-03, anon 키 실측)
+--    1) /object/list submissions        → []        목록 열거 차단
+--    2) /object/list prefix=webtoon     → []        충남 파일도 열거 불가
+--    3) POST submissions/root2.pdf      → 403 RLS   루트 업로드 차단
+--    4) POST submissions/webtoon/x.pdf  → 403 RLS   충남 경로 업로드 차단
+--    5) POST submissions/entries/....pdf→ 409 중복  접수 경로는 정책 통과(정상)
+--    6) GET  /object/public/submissions/entries/....pdf → 200  다운로드 유지
+--
+--    ※ 2번 블록(충남 업로드 허용)은 실행하지 않은 상태입니다.
+--      충남이 다시 접수를 받아야 한다면 그때 실행하세요.
+-- =====================================================
+
+
+-- =====================================================
 -- 롤백 (문제가 생겼을 때 원래대로)
 -- =====================================================
 -- CREATE POLICY "submissions_anon_insert" ON storage.objects
