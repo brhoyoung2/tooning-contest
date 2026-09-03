@@ -2258,8 +2258,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       st.className = 'upload-status show' + (cls ? ' ' + cls : '');
     }
     show('작품 PDF 업로드 중…');
-    var safe = (file.name || 'work.pdf').replace(/[^a-zA-Z0-9._-]/g, '_').slice(-60);
-    var path = 'entries/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '-' + safe;
+    // 파일명에 참가자 이름이 들어갈 수 있어 원본 이름은 쓰지 않고 무작위 토큰만 사용
+    var rnd = Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 10);
+    var path = 'entries/' + Date.now() + '-' + rnd + '.pdf';
     return _sb.storage.from('submissions')
       .upload(path, file, { contentType: 'application/pdf', upsert: false })
       .then(function(r) {
