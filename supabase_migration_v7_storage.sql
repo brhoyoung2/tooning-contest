@@ -9,7 +9,7 @@
 --   · v6 에서 만든 'entries/ 경로만 업로드' 정책이 무력화되어 있습니다.
 --     (버킷 루트에도 업로드가 성공 — 다른 허용 정책이 함께 존재)
 --
---   → 1번(진단)과 2번(테스트 파일 삭제)은 안전합니다. 먼저 실행하세요.
+--   → 1번(진단)만 SQL 로 실행하면 됩니다. 2번은 대시보드에서 파일을 지우세요.
 --   → 3번(하드닝)은 충남 관리자 페이지·심사 스크립트가 목록 API를 쓰는지
 --      확인한 뒤 실행하세요. 잘못 적용하면 충남 쪽이 멈출 수 있습니다.
 -- =====================================================
@@ -29,12 +29,27 @@ SELECT id, public, file_size_limit, allowed_mime_types
 
 
 -- =====================================================
--- 2. 점검용 테스트 파일 삭제 (안전 — 아래 2개만 지웁니다)
---    v6 적용 확인 과정에서 업로드된 파일입니다.
+-- 2. 점검용 테스트 파일 삭제
+--    v6 적용 확인 과정에서 업로드된 파일 2개입니다.
+--
+--    ⚠️ SQL 로는 지울 수 없습니다.
+--       Supabase 가 storage.protect_delete() 트리거로 직접 삭제를 막습니다
+--       (ERROR 42501: Direct deletion from storage tables is not allowed)
+--
+--    방법 A) 대시보드 (가장 간단)
+--       Storage → submissions 버킷 →
+--         · root.pdf                          (버킷 최상위)
+--         · entries/_healthcheck-delete-me.pdf
+--       두 파일 선택 후 Delete
+--
+--    방법 B) service_role 키로 Storage API 호출
+--       curl -X DELETE -H "Authorization: Bearer <SERVICE_ROLE_KEY>" \
+--         "https://mllbsqnrvhvnqvxkpxof.supabase.co/storage/v1/object/submissions/root.pdf"
+--       curl -X DELETE -H "Authorization: Bearer <SERVICE_ROLE_KEY>" \
+--         "https://mllbsqnrvhvnqvxkpxof.supabase.co/storage/v1/object/submissions/entries/_healthcheck-delete-me.pdf"
+--
+--       (service_role 키는 절대 프런트엔드·git 에 넣지 마세요)
 -- =====================================================
-DELETE FROM storage.objects
- WHERE bucket_id = 'submissions'
-   AND name IN ('root.pdf', 'entries/_healthcheck-delete-me.pdf');
 
 
 -- =====================================================
