@@ -6,12 +6,80 @@
 --      충남 웹소설 extra.episodes 구조와 동일
 --   ③ 제출 RPC 에 소설 부문 전용 서버 검증 추가
 --
--- 전제: supabase_schema.sql → v2 → v3 → v4 → v5 실행 완료
--- 성격: 비파괴 (기존 데이터 유지)
+-- 전제: supabase_schema.sql + v2 실행 완료
+--       v3·v4·v5 는 아래 0번 블록이 자동으로 보정하므로 순서를 신경쓰지 않아도 됩니다.
+-- 성격: 비파괴 (기존 데이터 유지) · 여러 번 실행해도 안전
 -- 실행: Supabase 대시보드 → SQL Editor → 전체 붙여넣기 → Run
 -- =====================================================
 
 BEGIN;
+
+-- =====================================================
+-- 0. 선행 마이그레이션 보정 (이미 되어 있으면 건너뜀)
+--    v3 접수이력 · v4 pdf_url · v5 board_link
+-- =====================================================
+
+-- v5) link_editor → board_link 컬럼명 변경
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns
+              WHERE table_schema='public' AND table_name='투닝콘테스트_접수' AND column_name='link_editor')
+     AND NOT EXISTS (SELECT 1 FROM information_schema.columns
+              WHERE table_schema='public' AND table_name='투닝콘테스트_접수' AND column_name='board_link')
+  THEN
+    EXECUTE 'ALTER TABLE public."투닝콘테스트_접수" RENAME COLUMN link_editor TO board_link';
+  END IF;
+END $$;
+
+-- 그래도 없으면(둘 다 없는 경우) 새로 만든다
+ALTER TABLE 투닝콘테스트_접수
+  ADD COLUMN IF NOT EXISTS board_link TEXT;
+
+-- v4) 작품 PDF URL
+ALTER TABLE 투닝콘테스트_접수
+  ADD COLUMN IF NOT EXISTS pdf_url TEXT;
+
+-- v3) 접수 이력 테이블
+CREATE TABLE IF NOT EXISTS 투닝콘테스트_접수이력 (
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  submission_id   UUID NOT NULL REFERENCES 투닝콘테스트_접수(id) ON DELETE CASCADE,
+  version         INT  NOT NULL,
+  snapshot        JSONB NOT NULL,
+  archived_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  archived_reason TEXT NOT NULL DEFAULT 'resubmit'
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS 투닝콘테스트_접수이력_버전_uk
+  ON 투닝콘테스트_접수이력 (submission_id, version);
+CREATE INDEX IF NOT EXISTS 투닝콘테스트_접수이력_접수_idx
+  ON 투닝콘테스트_접수이력 (submission_id, archived_at DESC);
+
+ALTER TABLE 투닝콘테스트_접수이력 ENABLE ROW LEVEL SECURITY;
+REVOKE ALL ON TABLE 투닝콘테스트_접수이력 FROM anon, authenticated;
+
+-- v3) 이력 적재 트리거 함수
+CREATE OR REPLACE FUNCTION public.투닝콘테스트_이력적재()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+  v_next int;
+BEGIN
+  SELECT coalesce(max(version), 0) + 1 INTO v_next
+    FROM 투닝콘테스트_접수이력
+   WHERE submission_id = OLD.id;
+
+  INSERT INTO 투닝콘테스트_접수이력 (submission_id, version, snapshot, archived_reason)
+  VALUES (OLD.id, v_next, to_jsonb(OLD),
+          coalesce(current_setting('tc.archive_reason', true), 'resubmit'));
+
+  RETURN NEW;
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.투닝콘테스트_이력적재() FROM public, anon, authenticated;
 
 -- =====================================================
 -- 1. 컬럼 추가
@@ -229,6 +297,40 @@ WHEN (
 EXECUTE FUNCTION public.투닝콘테스트_이력적재();
 
 -- =====================================================
+-- 3-1. 이력 조회 RPC (v3 를 건너뛴 경우를 대비해 함께 생성)
+-- =====================================================
+DROP FUNCTION IF EXISTS public.투닝콘테스트_이력(text);
+
+CREATE FUNCTION public.투닝콘테스트_이력(p_key text)
+RETURNS TABLE (
+  version     int,
+  archived_at timestamptz,
+  reason      text,
+  section     text,
+  topic       text,
+  board_link  text
+)
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT h.version,
+         h.archived_at,
+         h.archived_reason,
+         h.snapshot->>'section',
+         h.snapshot->>'topic',
+         coalesce(h.snapshot->>'board_link', h.snapshot->>'link_editor')
+    FROM 투닝콘테스트_접수이력 h
+    JOIN 투닝콘테스트_접수 s ON s.id = h.submission_id
+   WHERE s.submit_key = upper(btrim(p_key))
+   ORDER BY h.version DESC
+   LIMIT 20;
+$$;
+
+REVOKE ALL ON FUNCTION public.투닝콘테스트_이력(text) FROM public;
+GRANT EXECUTE ON FUNCTION public.투닝콘테스트_이력(text) TO anon, authenticated;
+
+-- =====================================================
 -- 4. 복구 RPC — 기획안·회차 함께 되돌리기
 -- =====================================================
 CREATE OR REPLACE FUNCTION public.투닝콘테스트_복구(p_key text, p_version int)
@@ -290,7 +392,10 @@ GRANT EXECUTE ON FUNCTION public.투닝콘테스트_복구(text, int) TO anon, a
 -- =====================================================
 -- 5. 리뷰 뷰 — 심사용으로 회차 수·기획안 노출
 -- =====================================================
-CREATE OR REPLACE VIEW 투닝콘테스트_리뷰
+-- 컬럼 구성이 바뀌므로 CREATE OR REPLACE 로는 교체할 수 없어 먼저 삭제
+DROP VIEW IF EXISTS 투닝콘테스트_리뷰;
+
+CREATE VIEW 투닝콘테스트_리뷰
   WITH (security_invoker = on)
 AS
   SELECT
@@ -310,6 +415,28 @@ AS
   ORDER BY s.created_at DESC;
 
 REVOKE ALL ON TABLE 투닝콘테스트_리뷰 FROM anon, authenticated;
+
+-- =====================================================
+-- 6. Storage 버킷 (v4 를 건너뛴 경우 대비) — 트랜잭션 밖
+--    작품 PDF 업로드용. 공개 읽기 / PDF 만 / 20MB 제한
+-- =====================================================
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES ('submissions', 'submissions', true, 20971520, ARRAY['application/pdf'])
+ON CONFLICT (id) DO UPDATE
+  SET public             = EXCLUDED.public,
+      file_size_limit    = EXCLUDED.file_size_limit,
+      allowed_mime_types = EXCLUDED.allowed_mime_types;
+
+DROP POLICY IF EXISTS "투닝콘테스트_제출물_업로드" ON storage.objects;
+DROP POLICY IF EXISTS "투닝콘테스트_제출물_공개읽기" ON storage.objects;
+
+CREATE POLICY "투닝콘테스트_제출물_업로드" ON storage.objects
+  FOR INSERT TO anon, authenticated
+  WITH CHECK (bucket_id = 'submissions' AND name LIKE 'entries/%');
+
+CREATE POLICY "투닝콘테스트_제출물_공개읽기" ON storage.objects
+  FOR SELECT TO anon, authenticated
+  USING (bucket_id = 'submissions');
 
 -- =====================================================
 -- 적용 후 확인 (선택)
