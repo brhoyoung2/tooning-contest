@@ -781,6 +781,18 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .theme-tag{font-weight:700;font-size:14px;color:var(--coral);background:rgba(255,107,107,.09);border-radius:999px;padding:8px 16px}
 @media(max-width:768px){.theme-card{padding:36px 22px;border-radius:24px}.theme-card-sub{font-size:15px}}
 
+/* ── [접수] 폼 상단 접수 기간 안내 배너 ──────────────── */
+.apply-notice{margin:0 0 22px;border-radius:18px;padding:18px 20px;background:linear-gradient(180deg,#fff6f2 0%,#fff 100%);border:1px solid rgba(255,107,107,.28)}
+.apply-notice .an-row{display:none;gap:14px;align-items:flex-start}
+.apply-notice[data-state="before"] .an-before{display:flex}
+.apply-notice[data-state="open"]   .an-open{display:flex}
+.apply-notice[data-state="closed"] .an-closed{display:flex}
+.an-badge{flex-shrink:0;display:inline-block;padding:6px 12px;border-radius:999px;background:var(--coral);color:#fff;font-size:12px;font-weight:800;letter-spacing:.02em;white-space:nowrap}
+.apply-notice[data-state="closed"] .an-badge{background:#8a90a0}
+.an-text{font-size:14px;line-height:1.7;color:var(--text-soft)}
+.an-text strong{color:var(--text-dark);font-weight:700}
+@media(max-width:600px){.apply-notice .an-row{flex-direction:column;gap:10px}}
+
 /* ── [공모주제] 안내 팝업 ───────────────────────────── */
 .notice-pop{position:fixed;inset:0;z-index:10050;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(10,14,30,.72);opacity:0;transition:opacity .25s}
 .notice-pop[hidden]{display:none!important}
@@ -1611,7 +1623,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <h3 class="np-title" id="applyPopTitle"><span class="ko-text">작품 접수는<br/>9월 30일부터 시작됩니다</span><span class="en-text">Entries open<br/>on September 30</span></h3>
     <p class="np-sub"><span class="ko-text">접수 기간 <strong>2026년 9월 30일 — 10월 30일</strong><br/>온라인으로만 접수합니다.</span><span class="en-text">Entry period <strong>Sep 30 — Oct 30, 2026</strong><br/>Online submissions only.</span></p>
     <div class="np-divider"></div>
-    <p class="np-note"><span class="ko-text">공모 주제는 <strong>‘2036년, 나의 하루’</strong>입니다.<br/>지금부터 작품을 준비해 보세요!</span><span class="en-text">This year&rsquo;s theme is <strong>&lsquo;My Day in 2036&rsquo;</strong>.<br/>Start preparing your work today!</span></p>
+    <p class="np-note"><span class="ko-text">입력하신 내용은 <strong>자동 임시저장</strong>되니<br/>접수 기간에 다시 열어 제출해 주세요.<br/>공모 주제는 <strong>‘2036년, 나의 하루’</strong>입니다.</span><span class="en-text">Your input is <strong>saved as a draft</strong> — reopen the form during the entry period to submit.<br/>This year&rsquo;s theme is <strong>&lsquo;My Day in 2036&rsquo;</strong>.</span></p>
     <div class="np-tags"><span class="np-tag">#2036년나의하루</span><span class="np-tag">#MyDay2036</span></div>
     <button type="button" class="np-btn" data-notice-close><span class="ko-text">확인했어요</span><span class="en-text">Got it</span></button>
   </div>
@@ -1626,6 +1638,22 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <div class="modal-eyebrow">📝 <span class="ko-text">접수하기</span><span class="en-text">Application</span></div>
       <h3 id="applyTitle" class="modal-title"><span class="ko-text">제2회 국제 AI 투닝 공모전</span><span class="en-text">2nd International AI Tooning Contest</span></h3>
       <p class="modal-sub"><span class="ko-text">아래 정보를 정확하게 입력해주세요. 접수 후 수정이 어려우니 신중히 확인 후 제출해주세요.</span><span class="en-text">Please fill in the information below accurately. Changes are difficult after submission, so review carefully before submitting.</span></p>
+    </div>
+
+    <!-- ── 접수 기간 안내 (상태에 따라 자동 전환) ── -->
+    <div class="apply-notice" id="applyNotice" data-state="before">
+      <div class="an-row an-before">
+        <span class="an-badge"><span class="ko-text">접수 시작 전</span><span class="en-text">Opens soon</span></span>
+        <p class="an-text"><span class="ko-text"><strong>작품 접수는 2026년 9월 30일부터 시작됩니다.</strong><br/>지금은 미리 준비하는 기간이에요. 아래에서 부문별로 어떤 자료(기획안·본문·에디터 공유 링크 등)를 내야 하는지 확인하고 준비해 주세요. 입력하신 내용은 자동 임시저장되니, 접수 기간(9.30 — 10.30)에 다시 열어 제출하시면 됩니다.</span><span class="en-text"><strong>Entries open on September 30, 2026.</strong><br/>This is the preparation period. Check below which materials each division requires (proposal, text, editor share link) and get them ready. Your input is auto-saved as a draft — come back during the entry period (Sep 30 — Oct 30) to submit.</span></p>
+      </div>
+      <div class="an-row an-open">
+        <span class="an-badge"><span class="ko-text">접수 진행 중</span><span class="en-text">Now open</span></span>
+        <p class="an-text"><span class="ko-text"><strong>접수 마감은 2026년 10월 30일입니다.</strong><br/>아래 정보를 정확히 입력한 뒤 제출해 주세요. 제출 후에도 같은 이메일·부문으로 다시 제출하면 수정되며, 이전 내용은 자동 보관됩니다.</span><span class="en-text"><strong>Entries close on October 30, 2026.</strong><br/>Fill in the details below and submit. You may resubmit with the same email and division to update your entry — previous versions are kept automatically.</span></p>
+      </div>
+      <div class="an-row an-closed">
+        <span class="an-badge"><span class="ko-text">접수 마감</span><span class="en-text">Closed</span></span>
+        <p class="an-text"><span class="ko-text"><strong>접수가 마감되었습니다.</strong><br/>심사는 11월 초, 결과 발표는 11월 중순 예정입니다. 문의는 support@tooning.io 로 보내주세요.</span><span class="en-text"><strong>Entries are now closed.</strong><br/>Judging takes place in early November and results are announced mid-November. For inquiries, email support@tooning.io.</span></p>
+      </div>
     </div>
 
     <!-- ── 16. 임시저장 배너 ── -->
@@ -2144,10 +2172,38 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   });
 
   // Form submit
+  // 접수 기간 (KST) — DB RPC 의 게이트와 동일하게 유지
+  var APPLY_OPEN  = new Date('2026-09-30T00:00:00+09:00');
+  var APPLY_CLOSE = new Date('2026-10-30T23:59:59+09:00');
+
+  // 폼 상단 안내 배너 상태 전환
+  (function() {
+    var notice = document.getElementById('applyNotice');
+    if (!notice) return;
+    var now = new Date();
+    notice.setAttribute('data-state', now < APPLY_OPEN ? 'before' : (now > APPLY_CLOSE ? 'closed' : 'open'));
+  })();
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     statusEl.hidden = true;
     statusEl.className = 'form-status';
+
+    // 0. 접수 기간이 아니면 제출 대신 안내
+    var nowTs = new Date();
+    if (nowTs < APPLY_OPEN) {
+      if (typeof window._tcShowApplyNotice === 'function') window._tcShowApplyNotice();
+      statusEl.hidden = false;
+      statusEl.classList.add('error');
+      statusEl.innerHTML = '📅 <strong>아직 접수 기간이 아닙니다.</strong><br/>작품 접수는 <strong>9월 30일 — 10월 30일</strong>에 진행됩니다.<br/>입력하신 내용은 임시저장되니 접수 기간에 다시 열어 제출해 주세요.';
+      return;
+    }
+    if (nowTs > APPLY_CLOSE) {
+      statusEl.hidden = false;
+      statusEl.classList.add('error');
+      statusEl.innerHTML = '📪 <strong>접수가 마감되었습니다.</strong><br/>마감일 2026년 10월 30일이 지나 더 이상 제출할 수 없습니다.<br/>문의: support@tooning.io';
+      return;
+    }
 
     // 1. 필수 항목 확인
     var requiredEls = form.querySelectorAll('[required]:not(:disabled)');
@@ -3211,8 +3267,7 @@ function hofTab(id, btn) {
    닫기: 우측 상단 ×, 빈 영역(배경) 클릭, ESC, 확인 버튼
    ══════════════════════════════════════════════════ */
 (function() {
-  var OPEN_AT   = new Date('2026-09-30T00:00:00+09:00');   // 접수 시작
-  var CLOSE_AT  = new Date('2026-10-30T23:59:59+09:00');   // 접수 마감
+  // 접수 기간 상수는 접수 모달 스크립트(APPLY_OPEN/APPLY_CLOSE)와 DB RPC 에 있습니다.
   var SEEN_KEY  = '_tc_themepop';                          // 주제 팝업 1일 1회
 
   var themePop = document.getElementById('themePop');
@@ -3255,16 +3310,9 @@ function hofTab(id, btn) {
     });
   });
 
-  /* 접수 시작 전에는 [접수하기] 클릭 시 폼 대신 안내 팝업 */
-  document.addEventListener('click', function(e) {
-    var t = e.target && e.target.closest ? e.target.closest('[data-open-modal="apply"]') : null;
-    if (!t) return;
-    var now = new Date();
-    if (now >= OPEN_AT && now <= CLOSE_AT) return;   // 접수 기간에는 정상적으로 접수 폼 열기
-    e.preventDefault();
-    e.stopPropagation();
-    open(applyPop);
-  }, true);
+  /* [접수하기] 는 항상 접수 폼을 연다.
+     접수 기간 안내는 폼 상단 배너와 제출 시점 안내 팝업이 담당한다. */
+  window._tcShowApplyNotice = function() { open(applyPop); };
 
   /* 주제 공개 팝업: 첫 진입 시 자동 노출 (하루 1회) */
   function todayKey() {
