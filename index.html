@@ -429,6 +429,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .form-row{margin-bottom:14px}
 .form-row.two-col{display:grid;grid-template-columns:1.5fr 1fr;gap:12px}
 .form-row[hidden]{display:none}
+.file-input{display:block;width:100%;padding:12px 14px;border:1.5px dashed #cbd5e1;border-radius:12px;background:#f8fafc;font-size:14px;font-family:inherit;color:var(--text-soft);cursor:pointer}
+.file-input:hover{border-color:var(--coral);background:#fff7f5}
+.file-input::file-selector-button{margin-right:12px;padding:8px 14px;border:none;border-radius:8px;background:var(--coral);color:#fff;font-weight:700;font-size:13px;font-family:inherit;cursor:pointer}
+.upload-status{display:none;margin-top:8px;font-size:12.5px;font-weight:600;color:var(--text-soft)}
+.upload-status.show{display:block}
+.upload-status.ok{color:#10b981}
+.upload-status.err{color:#dc2626}
 .form-field{display:block}
 .phone-wrap{display:flex;gap:8px;align-items:stretch}
 .phone-wrap .country-code{flex:0 0 110px;padding:13px 10px;border:1.5px solid #e5e7eb;border-radius:12px;font-family:inherit;font-size:13px;color:var(--text-dark);background:#fff;transition:border-color .2s;cursor:pointer}
@@ -757,21 +764,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .share-btn.s-share{background:#ffeeee;color:#b91c1c}
 .share-btn.s-share:hover{background:#fecaca}
 
-/* ── [추가기능] 16. 임시저장 ─────────── */
-.draft-banner{display:flex;align-items:center;gap:12px;background:#fffbeb;border:1.5px solid #fcd34d;border-radius:14px;padding:13px 16px;margin-bottom:16px;flex-wrap:wrap}
-.db-icon{font-size:22px;flex-shrink:0}
-.db-text{flex:1;min-width:140px}
-.db-text strong{font-size:13.5px;font-weight:700;color:#92400e;display:block;margin-bottom:2px}
-.db-text span{font-size:12px;color:#b45309;line-height:1.45}
-.db-btns{display:flex;gap:7px;flex-shrink:0}
-.db-btn-yes{background:#f59e0b;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Pretendard Variable',sans-serif;transition:background .15s}
-.db-btn-yes:hover{background:#d97706}
-.db-btn-no{background:#f3f4f6;color:#6b7280;border:none;border-radius:8px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Pretendard Variable',sans-serif;transition:background .15s}
-.db-btn-no:hover{background:#e5e7eb}
-.draft-nols{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#92400e;background:#fffbeb;border:1px solid #fcd34d;border-radius:10px;padding:10px 13px;margin-bottom:14px;line-height:1.55}
-.draft-save-status{font-size:11.5px;color:#10b981;font-weight:600;display:flex;align-items:center;gap:4px;opacity:0;transition:opacity .4s;margin-right:auto;min-height:20px}
-.draft-save-status.show{opacity:1}
-.draft-save-status.warn{color:#f59e0b}
 /* ── [공모주제] 주제 공개 카드 ──────────────────────── */
 .theme-card{position:relative;text-align:center;margin:16px auto 0;max-width:720px;padding:48px 32px;background:linear-gradient(180deg,#fff 0%,#fff9f4 100%);border:1px solid rgba(255,107,107,.18);border-radius:28px;box-shadow:0 12px 36px rgba(20,27,49,.10)}
 .theme-card-badge{display:inline-block;font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);background:rgba(255,107,107,.10);border:1px solid rgba(255,107,107,.28);border-radius:999px;padding:7px 16px}
@@ -1623,7 +1615,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <h3 class="np-title" id="applyPopTitle"><span class="ko-text">작품 접수는<br/>9월 30일부터 시작됩니다</span><span class="en-text">Entries open<br/>on September 30</span></h3>
     <p class="np-sub"><span class="ko-text">접수 기간 <strong>2026년 9월 30일 — 10월 30일</strong><br/>온라인으로만 접수합니다.</span><span class="en-text">Entry period <strong>Sep 30 — Oct 30, 2026</strong><br/>Online submissions only.</span></p>
     <div class="np-divider"></div>
-    <p class="np-note"><span class="ko-text">입력하신 내용은 <strong>자동 임시저장</strong>되니<br/>접수 기간에 다시 열어 제출해 주세요.<br/>공모 주제는 <strong>‘2036년, 나의 하루’</strong>입니다.</span><span class="en-text">Your input is <strong>saved as a draft</strong> — reopen the form during the entry period to submit.<br/>This year&rsquo;s theme is <strong>&lsquo;My Day in 2036&rsquo;</strong>.</span></p>
+    <p class="np-note"><span class="ko-text">접수 기간에 이 화면에서 제출해 주세요.<br/>공모 주제는 <strong>‘2036년, 나의 하루’</strong>입니다.<br/>지금부터 작품을 준비해 보세요!</span><span class="en-text">Submit from this form during the entry period.<br/>This year&rsquo;s theme is <strong>&lsquo;My Day in 2036&rsquo;</strong>.<br/>Start preparing your work today!</span></p>
     <div class="np-tags"><span class="np-tag">#2036년나의하루</span><span class="np-tag">#MyDay2036</span></div>
     <button type="button" class="np-btn" data-notice-close><span class="ko-text">확인했어요</span><span class="en-text">Got it</span></button>
   </div>
@@ -1644,7 +1636,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     <div class="apply-notice" id="applyNotice" data-state="before">
       <div class="an-row an-before">
         <span class="an-badge"><span class="ko-text">접수 시작 전</span><span class="en-text">Opens soon</span></span>
-        <p class="an-text"><span class="ko-text"><strong>작품 접수는 2026년 9월 30일부터 시작됩니다.</strong><br/>지금은 미리 준비하는 기간이에요. 아래에서 부문별로 어떤 자료(기획안·본문·에디터 공유 링크 등)를 내야 하는지 확인하고 준비해 주세요. 입력하신 내용은 자동 임시저장되니, 접수 기간(9.30 — 10.30)에 다시 열어 제출하시면 됩니다.</span><span class="en-text"><strong>Entries open on September 30, 2026.</strong><br/>This is the preparation period. Check below which materials each division requires (proposal, text, editor share link) and get them ready. Your input is auto-saved as a draft — come back during the entry period (Sep 30 — Oct 30) to submit.</span></p>
+        <p class="an-text"><span class="ko-text"><strong>작품 접수는 2026년 9월 30일부터 시작됩니다.</strong><br/>지금은 미리 준비하는 기간이에요. 아래에서 부문별로 어떤 자료(기획안·본문·에디터 공유 링크 등)를 내야 하는지 확인하고 준비해 주세요. 접수 기간(9.30 — 10.30)에 이 화면에서 제출해 주세요.</span><span class="en-text"><strong>Entries open on September 30, 2026.</strong><br/>This is the preparation period. Check below which materials each division requires (proposal, text, editor share link) and get them ready. Come back during the entry period (Sep 30 — Oct 30) to submit from this form.</span></p>
       </div>
       <div class="an-row an-open">
         <span class="an-badge"><span class="ko-text">접수 진행 중</span><span class="en-text">Now open</span></span>
@@ -1656,22 +1648,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       </div>
     </div>
 
-    <!-- ── 16. 임시저장 배너 ── -->
-    <div class="draft-banner" id="draftBanner" hidden>
-      <span class="db-icon">💾</span>
-      <div class="db-text">
-        <strong><span class="ko-text">이어서 작성할 수 있어요!</span><span class="en-text">Resume your draft!</span></strong>
-        <span id="draftAge"></span>
-      </div>
-      <div class="db-btns">
-        <button type="button" id="draftRestore" class="db-btn-yes"><span class="ko-text">이어서 작성</span><span class="en-text">Resume</span></button>
-        <button type="button" id="draftClear"   class="db-btn-no"><span class="ko-text">새로 시작</span><span class="en-text">Start fresh</span></button>
-      </div>
-    </div>
-    <div class="draft-nols" id="draftNoLsMsg" hidden>
-      <span>⚠️</span>
-      <span><span class="ko-text">이 브라우저에서는 임시저장이 지원되지 않아요. <strong>시크릿 모드</strong>나 보안 설정 때문일 수 있어요. 폼을 한 번에 완성해 주세요!</span><span class="en-text">Auto-save is unavailable (private mode or security settings). Please complete the form in one go.</span></span>
-    </div>
 
     <div class="modal-steps" id="modalSteps">
       <div class="modal-step active" id="mstep1">
@@ -1855,7 +1831,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <!-- 3. 작품 정보 & 링크 (conditional) -->
       <div class="form-section conditional-fields" id="conditionalFields" hidden>
         <div class="form-section-title"><span class="ko-text">3. 작품 정보 &amp; 링크</span><span class="en-text">3. Work Details &amp; Links</span></div>
-        <div class="form-section-note"><span class="ko-text">파일 업로드 대신 <strong>공개 접근 가능한 링크</strong>를 입력해주세요. (구글 드라이브, Notion, 투닝 에디터 공유 링크 등)</span><span class="en-text">Please enter a <strong>publicly accessible link</strong> rather than uploading a file. (Google Drive, Notion, Tooning editor share link, etc.)</span></div>
+        <div class="form-section-note"><span class="ko-text">링크는 <strong>공개 접근 가능한 주소</strong>로 입력해주세요. (구글 드라이브, Notion, 투닝 에디터 공유 링크 등)</span><span class="en-text">Links must be <strong>publicly accessible</strong>. (Google Drive, Notion, Tooning editor share link, etc.)</span></div>
 
         <div class="form-row" data-show-for="comic,novel,cardnews,poster">
           <label class="form-field">
@@ -1908,17 +1884,14 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <span class="form-hint"><span class="ko-text">투닝 에디터에서 제작한 작품의 공유 링크 — 이 링크가 공식 제출 작품입니다</span><span class="en-text">Share link of the work created in the Tooning editor — this link is the official submitted entry</span></span>
           </label>
         </div>
-      </div>
 
-      <!-- 4. SNS 가산점 (선택) -->
-      <div class="form-section">
-        <div class="form-section-title"><span class="ko-text">4. SNS 가산점 (선택)</span><span class="en-text">4. SNS Bonus Points (Optional)</span></div>
-        <div class="form-row">
+        <div class="form-row" data-show-for="comic,novel,cardnews,poster">
           <label class="form-field">
-            <span class="form-label"><span class="ko-text">SNS 홍보 게시물 링크</span><span class="en-text">SNS Promotional Post Link</span></span>
-            <input type="url" name="snsLink" placeholder="https://www.instagram.com/p/..." data-ph-ko="https://www.instagram.com/p/..." data-ph-en="https://www.instagram.com/p/..." />
-            <span class="field-err-msg" id="snsLinkErr"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
-            <span class="form-hint"><span class="ko-text">4개의 필수 해시태그를 포함하면 가산점이 부여됩니다 — #투닝 #투닝국제공모전 #웹툰 #대학과함께</span><span class="en-text">Bonus points awarded when all 4 required hashtags are included — #투닝 #투닝국제공모전 #웹툰 #대학과함께</span></span>
+            <span class="form-label"><span class="ko-text">작품 PDF 업로드</span><span class="en-text">Work PDF Upload</span></span>
+            <input type="file" name="workPdf" id="workPdf" accept="application/pdf,.pdf" class="file-input" />
+            <span class="field-err-msg" id="workPdfErr"><span class="ko-text">PDF 파일만, 20MB 이하로 업로드해주세요</span><span class="en-text">PDF only, up to 20MB</span></span>
+            <span class="upload-status" id="workPdfStatus"></span>
+            <span class="form-hint"><span class="ko-text">심사 시 링크 접근이 막히는 경우를 대비해 작품 원본을 PDF로 함께 올려주세요. (선택, 최대 20MB)</span><span class="en-text">Optionally upload your work as a PDF (max 20MB) in case the link is inaccessible during judging.</span></span>
           </label>
         </div>
       </div>
@@ -1933,7 +1906,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 
       <!-- 액션 버튼 -->
       <div class="form-actions">
-        <span class="draft-save-status" id="draftSaveStatus"></span>
         <button type="button" class="btn-secondary" data-close-modal><span class="ko-text">취소</span><span class="en-text">Cancel</span></button>
         <button type="submit" class="btn-primary" id="submitBtn"><span class="ko-text">접수하기 →</span><span class="en-text">Submit →</span></button>
       </div>
@@ -2166,7 +2138,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   attachUrlFilter('link2_novel',    'link2NovelErr');
   attachUrlFilter('link2_proposal', 'link2PropErr');
   attachUrlFilter('link3_editor',   'link3Err');
-  attachUrlFilter('snsLink',        'snsLinkErr');
   form.querySelectorAll('input[name="contactType"]').forEach(function(r) {
     r.addEventListener('change', updateContactFields);
   });
@@ -2184,6 +2155,31 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     notice.setAttribute('data-state', now < APPLY_OPEN ? 'before' : (now > APPLY_CLOSE ? 'closed' : 'open'));
   })();
 
+  // 작품 PDF 업로드 → 공개 URL 반환
+  function uploadWorkPdf(file) {
+    var st = document.getElementById('workPdfStatus');
+    function show(msg, cls) {
+      if (!st) return;
+      st.textContent = msg;
+      st.className = 'upload-status show' + (cls ? ' ' + cls : '');
+    }
+    show('작품 PDF 업로드 중…');
+    var safe = (file.name || 'work.pdf').replace(/[^a-zA-Z0-9._-]/g, '_').slice(-60);
+    var path = 'entries/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '-' + safe;
+    return _sb.storage.from('submissions')
+      .upload(path, file, { contentType: 'application/pdf', upsert: false })
+      .then(function(r) {
+        if (r.error) throw new Error('upload_failed');
+        var pub = _sb.storage.from('submissions').getPublicUrl(path);
+        show('작품 PDF 업로드 완료', 'ok');
+        return (pub && pub.data) ? pub.data.publicUrl : null;
+      })
+      .catch(function() {
+        show('작품 PDF 업로드에 실패했습니다', 'err');
+        throw new Error('upload_failed');
+      });
+  }
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     statusEl.hidden = true;
@@ -2195,7 +2191,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       if (typeof window._tcShowApplyNotice === 'function') window._tcShowApplyNotice();
       statusEl.hidden = false;
       statusEl.classList.add('error');
-      statusEl.innerHTML = '📅 <strong>아직 접수 기간이 아닙니다.</strong><br/>작품 접수는 <strong>9월 30일 — 10월 30일</strong>에 진행됩니다.<br/>입력하신 내용은 임시저장되니 접수 기간에 다시 열어 제출해 주세요.';
+      statusEl.innerHTML = '📅 <strong>아직 접수 기간이 아닙니다.</strong><br/>작품 접수는 <strong>9월 30일 — 10월 30일</strong>에 진행됩니다.<br/>접수 기간에 다시 방문해 제출해 주세요.';
       return;
     }
     if (nowTs > APPLY_CLOSE) {
@@ -2239,7 +2235,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     }
 
     // 3. URL 한글 검증
-    var urlFields = ['link1_proposal','link2_novel','link2_proposal','link3_editor','snsLink'];
+    var urlFields = ['link1_proposal','link2_novel','link2_proposal','link3_editor'];
     for (var ui = 0; ui < urlFields.length; ui++) {
       var uf = form.querySelector('[name="' + urlFields[ui] + '"]');
       if (!uf || uf.disabled || !uf.value.trim()) continue;
@@ -2267,6 +2263,20 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       return;
     }
 
+    // 5. 작품 PDF (선택) — 형식·용량 확인
+    var pdfEl   = form.querySelector('[name="workPdf"]');
+    var pdfFile = (pdfEl && !pdfEl.disabled && pdfEl.files && pdfEl.files[0]) ? pdfEl.files[0] : null;
+    if (pdfFile) {
+      var isPdf = /\.pdf$/i.test(pdfFile.name) || pdfFile.type === 'application/pdf';
+      if (!isPdf || pdfFile.size > 20 * 1024 * 1024) {
+        statusEl.hidden = false;
+        statusEl.classList.add('error');
+        statusEl.textContent = '⚠️ 작품 PDF는 PDF 형식으로 20MB 이하만 업로드할 수 있습니다.';
+        pdfEl.focus();
+        return;
+      }
+    }
+
     var payload = {
       name:                fd.get('name') || null,
       school:              fd.get('school') || null,
@@ -2285,15 +2295,19 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       link_novel:          fd.get('link2_novel') || null,
       link_novel_proposal: fd.get('link2_proposal') || null,
       link_editor:         fd.get('link3_editor') || null,
-      sns_link:            fd.get('snsLink') || null,
       user_agent:          navigator.userAgent
     };
 
     submitBtn.disabled = true;
     submitBtn.textContent = '제출 중…';
 
-    // 접수는 SECURITY DEFINER RPC 로만 (테이블 직접 접근은 차단되어 있음)
-    _sb.rpc('투닝콘테스트_제출', { p_payload: payload })
+    // 작품 PDF 가 있으면 Storage 에 먼저 올리고 그 URL 을 payload 에 담는다
+    (pdfFile ? uploadWorkPdf(pdfFile) : Promise.resolve(null))
+      .then(function(url) {
+        if (url) payload.pdf_url = url;
+        // 접수는 SECURITY DEFINER RPC 로만 (테이블 직접 접근은 차단되어 있음)
+        return _sb.rpc('투닝콘테스트_제출', { p_payload: payload });
+      })
       .then(function(result) {
         if (result.error) throw result.error;
         var data = result.data || {};
@@ -2309,8 +2323,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           + '<br/><span style="opacity:.8">같은 이메일·부문으로 다시 제출하면 내용이 수정되며, 이전 제출 내용은 자동 보관되어 접수키로 복구할 수 있습니다.</span>';
         form.reset();
         updateConditionalFields();
-        // draft 삭제
-        try { localStorage.removeItem('_tc_draft'); } catch(e) {}
         setTimeout(function() {
           closeModal();
           statusEl.hidden = true;
@@ -2327,7 +2339,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           invalid_section:      '출품 부문을 다시 선택해주세요.',
           invalid_contact_type: '연락처 유형을 다시 선택해주세요.',
           invalid_link:         '공식 제출작은 투닝 에디터(tooning.io) 공유 링크만 등록할 수 있습니다.',
-          submit_failed:        '접수 처리에 실패했습니다. 잠시 후 다시 시도해주세요.'
+          submit_failed:        '접수 처리에 실패했습니다. 잠시 후 다시 시도해주세요.',
+          upload_failed:        '작품 PDF 업로드에 실패했습니다. 파일 크기(20MB 이하)와 형식을 확인한 뒤 다시 시도해주세요.'
         };
         var hit = null;
         for (var mk in MSG) { if (code.indexOf(mk) !== -1) { hit = MSG[mk]; break; } }
@@ -2989,176 +3002,6 @@ function hofTab(id, btn) {
   }
   tick();
   setInterval(tick, 60000);
-})();
-
-/* ══════════════════════════════════════════════════
-   [추가기능] 16. 임시저장 (localStorage 기반)
-   예외상황: 시크릿모드·저장공간부족·오래된초안·미지원브라우저
-   ══════════════════════════════════════════════════ */
-(function() {
-  var KEY      = '_tc_draft';
-  var MAX_MS   = 14 * 864e5;   // 14일 초과 시 자동 삭제
-  var WARN_MS  =  7 * 864e5;   // 7일 이상이면 경고 표시
-
-  var form         = document.getElementById('applyForm');
-  var modal        = document.getElementById('applyModal');
-  var draftBanner  = document.getElementById('draftBanner');
-  var draftAgeEl   = document.getElementById('draftAge');
-  var draftNoLsEl  = document.getElementById('draftNoLsMsg');
-  var restoreBtn   = document.getElementById('draftRestore');
-  var clearBtn     = document.getElementById('draftClear');
-  var saveStatus   = document.getElementById('draftSaveStatus');
-  if (!form || !modal) return;
-
-  /* ── localStorage 가용성 체크 ── */
-  var lsOk = false;
-  try { localStorage.setItem('_tc_ls_test','1'); localStorage.removeItem('_tc_ls_test'); lsOk = true; }
-  catch(e) { lsOk = false; }
-
-  /* ── 저장 대상 필드 ── */
-  var TEXT_FIELDS = ['name','school','grade','class','section','topic',
-    'link1_proposal','link2_desc','link2_novel','link2_proposal','link3_editor','snsLink',
-    'teacherCountryCode','teacherPhone','teacherName','teacherEmail','parentCountryCode','parentPhone','parentEmail'];
-
-  function collect() {
-    var d = {};
-    TEXT_FIELDS.forEach(function(n) {
-      var el = form.querySelector('[name="'+n+'"]');
-      if (el) d[n] = el.value;
-    });
-    var radio = form.querySelector('[name="contactType"]:checked');
-    if (radio) d.contactType = radio.value;
-    return d;
-  }
-
-  function hasContent(fields) {
-    return Object.keys(fields).some(function(k) {
-      var v = fields[k];
-      return v && v.trim() && v !== '' && v !== '선택' && v !== 'Select';
-    });
-  }
-
-  /* ── 저장 ── */
-  function save() {
-    if (!lsOk) return;
-    try {
-      localStorage.setItem(KEY, JSON.stringify({ savedAt: Date.now(), fields: collect() }));
-      flash('✓ 임시저장됨', false);
-    } catch(e) {
-      // QuotaExceededError 또는 기타
-      flash('⚠ 저장 공간 부족으로 임시저장 실패', true);
-    }
-  }
-
-  function clear() {
-    if (!lsOk) return;
-    try { localStorage.removeItem(KEY); } catch(e) {}
-    if (draftBanner) draftBanner.hidden = true;
-  }
-  window._clearDraft = clear;  // 외부 접근용 (제출 성공 시 호출)
-
-  function load() {
-    if (!lsOk) return null;
-    try { return JSON.parse(localStorage.getItem(KEY)); } catch(e) { return null; }
-  }
-
-  /* ── 복원 ── */
-  function restore(fields) {
-    TEXT_FIELDS.forEach(function(n) {
-      if (!fields[n] && fields[n] !== 0) return;
-      var el = form.querySelector('[name="'+n+'"]');
-      if (el) el.value = fields[n];
-    });
-    if (fields.contactType) {
-      var r = form.querySelector('[name="contactType"][value="'+fields.contactType+'"]');
-      if (r) r.checked = true;
-    }
-    // conditional 업데이트 트리거
-    ['sectionSelect','teacherPhone'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.dispatchEvent(new Event('change', { bubbles: true }));
-    });
-    var editor = form.querySelector('[name="link3_editor"]');
-    if (editor) editor.dispatchEvent(new Event('input', { bubbles: true }));
-  }
-
-  /* ── 경과시간 텍스트 ── */
-  function ageText(ms) {
-    var m = Math.floor(ms / 60000);
-    if (m < 1)  return '방금 전';
-    if (m < 60) return m + '분 전';
-    var h = Math.floor(m / 60);
-    if (h < 24) return h + '시간 전';
-    return Math.floor(h / 24) + '일 전';
-  }
-
-  /* ── 저장 상태 표시 ── */
-  function flash(msg, isWarn) {
-    if (!saveStatus) return;
-    saveStatus.textContent = msg;
-    saveStatus.className = 'draft-save-status show' + (isWarn ? ' warn' : '');
-    clearTimeout(saveStatus._t);
-    saveStatus._t = setTimeout(function() {
-      saveStatus.classList.remove('show','warn');
-    }, isWarn ? 4000 : 2200);
-  }
-
-  /* ── 모달 오픈 감지 (MutationObserver) ── */
-  var _wasOpen = false;
-  new MutationObserver(function() {
-    var isOpen = modal.classList.contains('open');
-    if (isOpen && !_wasOpen) onModalOpen();
-    if (!isOpen) _wasOpen = false;
-    _wasOpen = isOpen;
-  }).observe(modal, { attributes: true, attributeFilter: ['class'] });
-
-  function onModalOpen() {
-    // localStorage 미지원 안내
-    if (!lsOk) {
-      if (draftNoLsEl) draftNoLsEl.hidden = false;
-      return;
-    }
-
-    var draft = load();
-    if (!draft || !draft.savedAt || !draft.fields) return;
-
-    var age = Date.now() - draft.savedAt;
-
-    // 14일 초과 → 자동 삭제 후 종료
-    if (age > MAX_MS) { clear(); return; }
-
-    // 의미 있는 내용이 없으면 배너 미표시
-    if (!hasContent(draft.fields)) return;
-
-    // 7일 이상 경고 포함
-    if (draftAgeEl) {
-      var warn = age > WARN_MS
-        ? ' <strong style="color:#dc2626">(7일 이상 된 저장본 — 내용 확인 필요)</strong>'
-        : '';
-      draftAgeEl.innerHTML = ageText(age) + '에 작성하던 내용이 있어요.' + warn;
-    }
-    if (draftBanner) draftBanner.hidden = false;
-  }
-
-  /* ── 버튼 이벤트 ── */
-  if (restoreBtn) restoreBtn.addEventListener('click', function() {
-    var draft = load();
-    if (draft && draft.fields) restore(draft.fields);
-    if (draftBanner) draftBanner.hidden = true;
-  });
-
-  if (clearBtn) clearBtn.addEventListener('click', function() {
-    clear();
-    form.reset();
-    var ss = document.getElementById('sectionSelect');
-    if (ss) ss.dispatchEvent(new Event('change', { bubbles: true }));
-  });
-
-  /* ── 자동저장 (디바운스 1.5초) ── */
-  var _t = null;
-  function scheduleSave() { clearTimeout(_t); _t = setTimeout(save, 1500); }
-  form.addEventListener('input',  scheduleSave);
-  form.addEventListener('change', scheduleSave);
 })();
 
 /* ══════════════════════════════════════════════════
