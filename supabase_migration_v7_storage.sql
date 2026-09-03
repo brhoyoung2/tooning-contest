@@ -61,56 +61,7 @@ SELECT policyname,
 
 
 -- =====================================================
--- 3. 하드닝 (충남 의존성 확인 후 실행)
---    ① 업로드는 entries/ 경로로만
---    ② 목록 조회 차단 — 공개 URL 직접 접근은 그대로 동작합니다
---       (public 버킷의 /object/public/... 경로는 정책과 무관)
+-- 3. 하드닝 → supabase_migration_v8_storage_hardening.sql 로 이동
+--    진단 결과로 정책 이름이 확정되어, 지울 대상을 정확히 지정한
+--    v8 파일을 새로 만들었습니다. 그쪽을 사용하세요.
 -- =====================================================
--- 아래 블록의 주석을 해제하고 실행하세요.
---
--- -- submissions 버킷을 대상으로 하는 기존 정책을 모두 제거
--- DO $$
--- DECLARE r record;
--- BEGIN
---   FOR r IN
---     SELECT policyname FROM pg_policies
---      WHERE schemaname = 'storage' AND tablename = 'objects'
---        AND (coalesce(qual, '') LIKE '%submissions%'
---          OR coalesce(with_check, '') LIKE '%submissions%')
---   LOOP
---     EXECUTE format('DROP POLICY %I ON storage.objects', r.policyname);
---   END LOOP;
--- END $$;
---
--- -- 업로드: entries/ 경로에만, 새 파일 생성만
--- CREATE POLICY "투닝콘테스트_제출물_업로드" ON storage.objects
---   FOR INSERT TO anon, authenticated
---   WITH CHECK (bucket_id = 'submissions' AND name LIKE 'entries/%');
---
--- -- 충남 경로 업로드가 아직 필요하면 아래도 함께 생성하세요
--- -- CREATE POLICY "충남_제출물_업로드" ON storage.objects
--- --   FOR INSERT TO anon, authenticated
--- --   WITH CHECK (bucket_id = 'submissions'
--- --               AND (name LIKE 'webtoon/%' OR name LIKE 'webtoon-ai/%' OR name LIKE 'novel-ai/%'));
---
--- -- SELECT 정책은 만들지 않습니다 → 목록 열거 차단
--- --   · 공개 URL(/storage/v1/object/public/submissions/...) 은 계속 열립니다
--- --   · 심사·관리자 도구는 service_role 키로 접근하세요
---
--- -- UPDATE/DELETE 정책도 만들지 않습니다 (덮어쓰기·삭제 차단 — 이미 정상 동작 중)
-
-
--- =====================================================
--- 4. 적용 후 확인
--- =====================================================
--- 목록이 차단되었는지 (anon 키로):
---   curl -X POST '<URL>/storage/v1/object/list/submissions' \
---        -H 'apikey: <ANON>' -H 'Authorization: Bearer <ANON>' \
---        -H 'Content-Type: application/json' -d '{"prefix":"","limit":10}'
---   → 빈 배열 [] 이면 차단 성공
---
--- 업로드가 여전히 되는지 (entries/ 경로):
---   curl -X POST '<URL>/storage/v1/object/submissions/entries/test.pdf' \
---        -H 'apikey: <ANON>' -H 'Authorization: Bearer <ANON>' \
---        -H 'Content-Type: application/pdf' --data-binary @test.pdf
---   → 200 이면 정상
