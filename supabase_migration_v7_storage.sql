@@ -16,16 +16,24 @@
 
 
 -- =====================================================
--- 1. 진단 — 현재 storage 정책 확인 (읽기 전용, 안전)
+-- 1. 진단 — 읽기 전용, 안전
+--    ⚠️ Supabase SQL Editor 는 "마지막 쿼리" 결과만 보여줍니다.
+--       그래서 정책 목록을 맨 아래에 두었습니다.
 -- =====================================================
-SELECT policyname, cmd, roles, qual, with_check
+
+-- 버킷 설정 (참고)
+SELECT id, public, file_size_limit, allowed_mime_types
+  FROM storage.buckets WHERE id = 'submissions';
+
+-- ★ 이 결과를 알려주세요 — storage.objects 에 걸린 정책 전체
+SELECT policyname,
+       cmd,
+       roles::text            AS roles,
+       coalesce(qual, '')       AS using_expr,
+       coalesce(with_check, '') AS check_expr
   FROM pg_policies
  WHERE schemaname = 'storage' AND tablename = 'objects'
  ORDER BY cmd, policyname;
-
--- 버킷 설정
-SELECT id, public, file_size_limit, allowed_mime_types
-  FROM storage.buckets WHERE id = 'submissions';
 
 
 -- =====================================================
