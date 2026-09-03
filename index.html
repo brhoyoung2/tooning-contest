@@ -431,6 +431,19 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .form-row.two-col.even{grid-template-columns:1fr 1fr}
 .form-row.two-col.wide-right{grid-template-columns:1fr 1.4fr}
 .form-row[hidden]{display:none}
+.ep-list{display:flex;flex-direction:column;gap:12px}
+.ep-item{border:1.5px solid #e5e7eb;border-radius:14px;padding:12px 14px;background:#fbfcfe}
+.ep-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ep-title{font-weight:700;font-size:14px;color:var(--text-dark)}
+.ep-del{background:none;border:none;color:#9ca3af;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;padding:2px 6px;border-radius:6px}
+.ep-del:hover{color:#dc2626;background:#fee2e2}
+.ep-item textarea{width:100%;min-height:150px;resize:vertical}
+.char-count{display:block;margin-top:6px;font-size:12px;font-weight:600;color:var(--text-soft);text-align:right}
+.char-count.short{color:#f59e0b}
+.char-count.ok{color:#10b981}
+.ep-add{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:10px 18px;border:1.5px dashed var(--coral);border-radius:12px;background:#fff7f5;color:var(--coral);font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;transition:background .2s}
+.ep-add:hover{background:#ffe9e4}
+.ep-add[disabled]{opacity:.45;cursor:not-allowed;border-style:solid}
 .file-input{display:block;width:100%;padding:12px 14px;border:1.5px dashed #cbd5e1;border-radius:12px;background:#f8fafc;font-size:14px;font-family:inherit;color:var(--text-soft);cursor:pointer}
 .file-input:hover{border-color:var(--coral);background:#fff7f5}
 .file-input::file-selector-button{margin-right:12px;padding:8px 14px;border:none;border-radius:8px;background:var(--coral);color:#fff;font-weight:700;font-size:13px;font-family:inherit;cursor:pointer}
@@ -1826,7 +1839,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <!-- 3. 작품 정보 & 링크 (conditional) -->
       <div class="form-section conditional-fields" id="conditionalFields" hidden>
         <div class="form-section-title"><span class="ko-text">3. 작품 정보 &amp; 링크</span><span class="en-text">3. Work Details &amp; Links</span></div>
-        <div class="form-section-note"><span class="ko-text">링크는 <strong>공개 접근 가능한 주소</strong>로 입력해주세요. (구글 드라이브, Notion, 투닝 보드 공유 링크 등)</span><span class="en-text">Links must be <strong>publicly accessible</strong>. (Google Drive, Notion, Tooning board share link, etc.)</span></div>
+        <div class="form-section-note"><span class="ko-text">기획안·본문은 <strong>이곳에 직접 작성</strong>해주세요. AI 심사에 그대로 활용되므로 외부 링크로는 받지 않습니다. 링크는 <strong>작품 보드 링크</strong> 하나만 입력하시면 됩니다.</span><span class="en-text">Write your proposal and text <strong>directly in this form</strong> — it is used as-is for AI judging, so external links are not accepted. The only link you need is your <strong>work board link</strong>.</span></div>
 
         <div class="form-row" data-show-for="comic,novel,cardnews,poster">
           <label class="form-field">
@@ -1838,10 +1851,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 
         <div class="form-row" data-show-for="novel">
           <label class="form-field">
-            <span class="form-label"><span class="ko-text">기획안 링크</span><span class="en-text">Proposal Link</span> <em>*</em></span>
-            <input type="url" name="link1_proposal" required placeholder="https://docs.google.com/..." data-ph-ko="https://docs.google.com/..." data-ph-en="https://docs.google.com/..." />
-            <span class="field-err-msg" id="link1Err"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
-            <span class="form-hint"><span class="ko-text">작품 기획안 (구글 문서, PDF 링크 등)</span><span class="en-text">Work proposal (Google Doc, PDF link, etc.)</span></span>
+            <span class="form-label"><span class="ko-text">기획안</span><span class="en-text">Proposal</span> <em>*</em></span>
+            <textarea name="novelProposal" id="novelProposal" data-keep rows="6" placeholder="작품의 기획 의도, 줄거리, 등장인물, 세계관을 자유롭게 작성해주세요." data-ph-ko="작품의 기획 의도, 줄거리, 등장인물, 세계관을 자유롭게 작성해주세요." data-ph-en="Describe your intent, plot, characters, and setting."></textarea>
+            <span class="char-count" id="novelProposalCount"></span>
+            <span class="form-hint"><span class="ko-text">링크 대신 이곳에 직접 작성해주세요. 200자 이상 권장</span><span class="en-text">Write directly here instead of sharing a link. 200+ characters recommended</span></span>
           </label>
         </div>
 
@@ -1853,20 +1866,20 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         </div>
 
         <div class="form-row" data-show-for="novel">
-          <label class="form-field">
-            <span class="form-label"><span class="ko-text">소설 본문 링크 (3화)</span><span class="en-text">Novel Text Link (3 episodes)</span> <em>*</em></span>
-            <input type="url" name="link2_novel" required placeholder="https://docs.google.com/..." data-ph-ko="https://docs.google.com/..." data-ph-en="https://docs.google.com/..." />
-            <span class="field-err-msg" id="link2NovelErr"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
-            <span class="form-hint"><span class="ko-text">화당 2,000자 이상, 총 3화</span><span class="en-text">2,000+ characters per episode, 3 episodes total</span></span>
-          </label>
+          <div class="form-field">
+            <span class="form-label"><span class="ko-text">소설 본문 (회차별)</span><span class="en-text">Novel Text (by episode)</span> <em>*</em></span>
+            <div class="ep-list" id="epList"></div>
+            <button type="button" class="ep-add" id="epAdd">+ <span class="ko-text">회차 추가</span><span class="en-text">Add episode</span></button>
+            <span class="form-hint"><span class="ko-text">기본 3화이며, 회차 추가 버튼으로 최대 5화까지 넣을 수 있어요. 화당 2,000자 이상 작성해주세요.</span><span class="en-text">Three episodes by default; add up to five. Each episode should be 2,000+ characters.</span></span>
+          </div>
         </div>
 
         <div class="form-row" data-show-for="poster">
           <label class="form-field">
-            <span class="form-label"><span class="ko-text">포스터 기획안 링크</span><span class="en-text">Poster Proposal Link</span> <em>*</em></span>
-            <input type="url" name="link2_proposal" required placeholder="https://docs.google.com/..." data-ph-ko="https://docs.google.com/..." data-ph-en="https://docs.google.com/..." />
-            <span class="field-err-msg" id="link2PropErr"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
-            <span class="form-hint"><span class="ko-text">포스터의 의도·메시지·디자인 콘셉트를 담은 기획안</span><span class="en-text">Proposal covering the poster's intent, message, and design concept</span></span>
+            <span class="form-label"><span class="ko-text">포스터 기획안</span><span class="en-text">Poster Proposal</span> <em>*</em></span>
+            <textarea name="posterProposal" id="posterProposal" data-keep rows="6" placeholder="포스터의 의도, 전달하려는 메시지, 디자인 콘셉트를 작성해주세요." data-ph-ko="포스터의 의도, 전달하려는 메시지, 디자인 콘셉트를 작성해주세요." data-ph-en="Describe your poster's intent, message, and design concept."></textarea>
+            <span class="char-count" id="posterProposalCount"></span>
+            <span class="form-hint"><span class="ko-text">링크 대신 이곳에 직접 작성해주세요. 심사에 그대로 활용됩니다. 200자 이상 권장</span><span class="en-text">Write directly here instead of sharing a link — this text is used in judging. 200+ characters recommended</span></span>
           </label>
         </div>
 
@@ -2053,7 +2066,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       row.hidden = !visible;
       row.querySelectorAll('input, textarea').forEach(function(el) {
         el.disabled = !visible;
-        if (!visible) el.value = '';
+        // data-keep 이 붙은 긴 글(기획안·회차 본문)은 부문을 잠시 바꿔도 지우지 않음
+        if (!visible && !el.hasAttribute('data-keep')) el.value = '';
       });
     });
   }
@@ -2126,9 +2140,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       }
     });
   }
-  attachUrlFilter('link1_proposal', 'link1Err');
-  attachUrlFilter('link2_novel',    'link2NovelErr');
-  attachUrlFilter('link2_proposal', 'link2PropErr');
   attachUrlFilter('link3_board',    'link3Err');
   form.querySelectorAll('input[name="contactType"]').forEach(function(r) {
     r.addEventListener('change', updateContactFields);
@@ -2146,6 +2157,97 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     var now = new Date();
     notice.setAttribute('data-state', now < APPLY_OPEN ? 'before' : (now > APPLY_CLOSE ? 'closed' : 'open'));
   })();
+
+  /* ── 소설 부문: 회차별 본문 입력 (충남 웹소설 방식) ── */
+  var EP_MIN = 3, EP_MAX = 5, EP_CHARS = 2000;
+  var epList = document.getElementById('epList');
+  var epAdd  = document.getElementById('epAdd');
+
+  function epCount() { return epList ? epList.querySelectorAll('.ep-item').length : 0; }
+
+  function epRenumber() {
+    if (!epList) return;
+    var items = epList.querySelectorAll('.ep-item');
+    items.forEach(function(it, idx) {
+      it.querySelector('.ep-title').textContent = (idx + 1) + '화';
+      var del = it.querySelector('.ep-del');
+      del.hidden = items.length <= EP_MIN;
+    });
+    if (epAdd) epAdd.disabled = items.length >= EP_MAX;
+  }
+
+  function epUpdateCount(ta) {
+    var el = ta.parentNode.querySelector('.char-count');
+    if (!el) return;
+    var n = ta.value.replace(/\s/g, '').length;
+    el.textContent = n.toLocaleString() + '자 / ' + EP_CHARS.toLocaleString() + '자';
+    el.className = 'char-count ' + (n >= EP_CHARS ? 'ok' : 'short');
+  }
+
+  function epAddItem() {
+    if (!epList || epCount() >= EP_MAX) return;
+    var item = document.createElement('div');
+    item.className = 'ep-item';
+
+    var head = document.createElement('div');
+    head.className = 'ep-head';
+    var title = document.createElement('span');
+    title.className = 'ep-title';
+    var del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'ep-del';
+    del.textContent = '삭제';
+    del.addEventListener('click', function() { item.remove(); epRenumber(); });
+    head.appendChild(title);
+    head.appendChild(del);
+
+    var ta = document.createElement('textarea');
+    ta.className = 'ep-body';
+    ta.setAttribute('data-keep', '');
+    ta.rows = 6;
+    ta.placeholder = '이 회차의 본문을 붙여넣거나 작성해주세요.';
+    ta.addEventListener('input', function() { epUpdateCount(ta); });
+
+    var cnt = document.createElement('span');
+    cnt.className = 'char-count short';
+
+    item.appendChild(head);
+    item.appendChild(ta);
+    item.appendChild(cnt);
+    epList.appendChild(item);
+    epUpdateCount(ta);
+    epRenumber();
+  }
+
+  if (epList) { for (var _e = 0; _e < EP_MIN; _e++) epAddItem(); }
+  if (epAdd) epAdd.addEventListener('click', epAddItem);
+
+  // 기획안 글자수 (소설 · 포스터)
+  var npEl  = document.getElementById('novelProposal');
+  var ppEl  = document.getElementById('posterProposal');
+  function bindCount(el, cntEl) {
+    if (!el || !cntEl) return;
+    var upd = function() {
+      var n = el.value.replace(/\s/g, '').length;
+      cntEl.textContent = n.toLocaleString() + '자';
+      cntEl.className = 'char-count ' + (n >= 200 ? 'ok' : 'short');
+    };
+    el.addEventListener('input', upd);
+    upd();
+  }
+  bindCount(npEl, document.getElementById('novelProposalCount'));
+  bindCount(ppEl, document.getElementById('posterProposalCount'));
+
+  // 회차 본문 수집 → [{ep, body}]
+  function collectEpisodes() {
+    if (!epList) return [];
+    var out = [];
+    epList.querySelectorAll('.ep-body').forEach(function(ta, i) {
+      var body = ta.value.trim();
+      if (body) out.push({ ep: i + 1, body: body });
+    });
+    return out;
+  }
 
   // 작품 PDF 업로드 → 공개 URL 반환
   function uploadWorkPdf(file) {
@@ -2227,7 +2329,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     }
 
     // 3. URL 한글 검증
-    var urlFields = ['link1_proposal','link2_novel','link2_proposal','link3_board'];
+    var urlFields = ['link3_board'];
     for (var ui = 0; ui < urlFields.length; ui++) {
       var uf = form.querySelector('[name="' + urlFields[ui] + '"]');
       if (!uf || uf.disabled || !uf.value.trim()) continue;
@@ -2255,7 +2357,48 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       return;
     }
 
-    // 5. 작품 PDF (선택) — 형식·용량 확인
+    // 5. 소설 부문 — 기획안·회차 본문 확인
+    var sectionVal = fd.get('section') || '';
+    var novelProposal = '', episodes = [], posterProposal = '';
+    if (sectionVal === 'poster') {
+      posterProposal = (ppEl && !ppEl.disabled) ? ppEl.value.trim() : '';
+      if (!posterProposal) {
+        statusEl.hidden = false;
+        statusEl.classList.add('error');
+        statusEl.textContent = '⚠️ 포스터 기획안을 작성해주세요. 의도·메시지·디자인 콘셉트를 담아주세요.';
+        if (ppEl) ppEl.focus();
+        return;
+      }
+    }
+    if (sectionVal === 'novel') {
+      novelProposal = (npEl && !npEl.disabled) ? npEl.value.trim() : '';
+      episodes = collectEpisodes();
+      if (!novelProposal) {
+        statusEl.hidden = false;
+        statusEl.classList.add('error');
+        statusEl.textContent = '⚠️ 기획안을 작성해주세요. 작품의 기획 의도와 줄거리를 담아주세요.';
+        if (npEl) npEl.focus();
+        return;
+      }
+      if (episodes.length < EP_MIN) {
+        statusEl.hidden = false;
+        statusEl.classList.add('error');
+        statusEl.textContent = '⚠️ 소설 본문은 ' + EP_MIN + '화 이상 작성해주세요. (현재 ' + episodes.length + '화)';
+        return;
+      }
+      var shortEp = 0;
+      for (var ei = 0; ei < episodes.length; ei++) {
+        if (episodes[ei].body.replace(/\s/g, '').length < EP_CHARS) { shortEp = episodes[ei].ep; break; }
+      }
+      if (shortEp) {
+        statusEl.hidden = false;
+        statusEl.classList.add('error');
+        statusEl.textContent = '⚠️ ' + shortEp + '화 본문이 규격(공백 제외 ' + EP_CHARS.toLocaleString() + '자 이상)에 미달합니다.';
+        return;
+      }
+    }
+
+    // 6. 작품 PDF (선택) — 형식·용량 확인
     var pdfEl   = form.querySelector('[name="workPdf"]');
     var pdfFile = (pdfEl && !pdfEl.disabled && pdfEl.files && pdfEl.files[0]) ? pdfEl.files[0] : null;
     if (pdfFile) {
@@ -2282,11 +2425,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       parent_phone:        fd.get('parentPhone') ? (fd.get('parentCountryCode') + ' ' + fd.get('parentPhone')) : null,
       section:             fd.get('section') || null,
       topic:               fd.get('topic') || null,
-      link_proposal:       fd.get('link1_proposal') || null,
       work_description:    fd.get('link2_desc') || null,
-      link_novel:          fd.get('link2_novel') || null,
-      link_novel_proposal: fd.get('link2_proposal') || null,
       board_link:          fd.get('link3_board') || null,
+      proposal_text:       novelProposal || posterProposal || null,
+      episodes:            episodes.length ? episodes : null,
       user_agent:          navigator.userAgent
     };
 
@@ -2332,7 +2474,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           invalid_contact_type: '연락처 유형을 다시 선택해주세요.',
           invalid_link:         '작품 보드 링크는 투닝(tooning.io) 공유 링크만 등록할 수 있습니다.',
           submit_failed:        '접수 처리에 실패했습니다. 잠시 후 다시 시도해주세요.',
-          upload_failed:        '작품 PDF 업로드에 실패했습니다. 파일 크기(20MB 이하)와 형식을 확인한 뒤 다시 시도해주세요.'
+          upload_failed:        '작품 PDF 업로드에 실패했습니다. 파일 크기(20MB 이하)와 형식을 확인한 뒤 다시 시도해주세요.',
+          proposal_required:    '기획안을 작성해주세요. 소설·포스터 부문은 기획안이 필수입니다.',
+          episodes_required:    '소설 본문을 3화 이상 작성해주세요.',
+          episode_empty:        '비어 있는 회차가 있습니다. 모든 회차의 본문을 채워주세요.'
         };
         var hit = null;
         for (var mk in MSG) { if (code.indexOf(mk) !== -1) { hit = MSG[mk]; break; } }
