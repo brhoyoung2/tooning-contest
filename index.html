@@ -437,8 +437,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .bg-req{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--coral);color:#fff;font-size:11.5px;font-weight:800}
 .bg-desc{font-size:13.5px;line-height:1.9;color:var(--text-soft);margin-top:10px}
 .bg-desc strong{color:var(--coral);font-weight:700}
+.bg-samples{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .bg-sample{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:10px 18px;border-radius:12px;background:#fff;border:1.5px solid rgba(255,107,107,.35);color:var(--coral);font-weight:700;font-size:13.5px;text-decoration:none;transition:.2s}
 .bg-sample:hover{background:var(--coral);color:#fff;border-color:var(--coral)}
+.bg-sample{margin-top:0}
 
 /* ── 라벨 옆 도움말 버튼 ── */
 .label-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -465,6 +467,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .hs-desc{font-size:13.5px;line-height:1.75;color:var(--text-soft);margin-top:8px}
 .hs-tip{margin-top:12px;padding:10px 12px;border-radius:10px;background:#f5f9ff;font-size:12.5px;line-height:1.6;color:var(--text-soft)}
 .hs-tip code{font-family:inherit;font-weight:700;color:var(--sky-deep)}
+.hs-img{margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid rgba(99,110,130,.16);background:#f6f7fb}
+.hs-img img{display:block;width:100%;height:auto}
 @media(max-width:800px){.help-steps.s3,.help-steps.s2{grid-template-columns:1fr}}
 
 .ep-list{display:flex;flex-direction:column;gap:12px}
@@ -1659,18 +1663,21 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <div class="hs-title"><span class="ko-text">작품을 보드에 정리 후 공유 선택</span><span class="en-text">Arrange your work, then open Share</span></div>
         <p class="hs-desc"><span class="ko-text">완성한 작품을 투닝 보드로 옮겨 한 페이지에 정리한 뒤, 보드 좌측 상단의 「공유」 아이콘을 선택합니다.</span><span class="en-text">Move your finished work onto a Tooning board, lay it out on one page, then click the Share icon at the top left.</span></p>
         <div class="hs-tip"><span class="ko-text">보드에는 <code>작품 설명 · 생성형 AI 활용 과정 · 제출 작품</code> 3가지가 모두 담겨 있어야 합니다.</span><span class="en-text">The board must contain all three: <code>description · AI process · the work</code>.</span></div>
+        <div class="hs-img"><img src="./images/help-board-1.jpg" alt="1단계 — 보드에 작품 정리 후 공유 아이콘 선택" loading="lazy" onerror="this.parentNode.remove()" /></div>
       </div>
       <div class="help-step">
         <div class="hs-num">2</div>
         <div class="hs-title"><span class="ko-text">공유 → 링크 복사</span><span class="en-text">Share → Copy link</span></div>
         <p class="hs-desc"><span class="ko-text">「공유」 창에서 공유 링크의 [링크 복사]를 눌러 작품 링크를 복사합니다.</span><span class="en-text">In the Share dialog, click [Copy link] to copy your work's link.</span></p>
         <div class="hs-tip"><span class="ko-text">공유 대상은 <code>링크를 가진 누구나</code>로 설정해 주세요. 비공개면 심사할 수 없습니다.</span><span class="en-text">Set sharing to <code>anyone with the link</code> — private boards cannot be judged.</span></div>
+        <div class="hs-img"><img src="./images/help-board-2.jpg" alt="2단계 — 공유 창에서 링크 복사" loading="lazy" onerror="this.parentNode.remove()" /></div>
       </div>
       <div class="help-step">
         <div class="hs-num">3</div>
         <div class="hs-title"><span class="ko-text">접수 폼에 붙여넣기</span><span class="en-text">Paste it into the form</span></div>
         <p class="hs-desc"><span class="ko-text">복사한 링크를 「작품 보드 링크」 칸에 붙여넣어 제출합니다.</span><span class="en-text">Paste the copied link into the "Work Board Link" field and submit.</span></p>
         <div class="hs-tip"><span class="ko-text">형식 예시 — <code>https://tooning.io/board/...</code></span><span class="en-text">Format — <code>https://tooning.io/board/...</code></span></div>
+        <div class="hs-img"><img src="./images/help-board-3.jpg" alt="3단계 — 접수 폼에 링크 붙여넣기" loading="lazy" onerror="this.parentNode.remove()" /></div>
       </div>
     </div>
   </div>
@@ -1689,12 +1696,14 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <div class="hs-title"><span class="ko-text">작품 열기 → PDF 다운로드</span><span class="en-text">Open your work → Download PDF</span></div>
         <p class="hs-desc"><span class="ko-text">제출할 작품을 투닝에서 연 뒤, 우측 상단의 「다운로드 → PDF 다운로드」를 클릭합니다.</span><span class="en-text">Open your work in Tooning, then click "Download → Download PDF" at the top right.</span></p>
         <div class="hs-tip"><span class="ko-text">이미지 다운로드가 아니라 <code>PDF 다운로드</code>를 선택해 주세요.</span><span class="en-text">Choose <code>Download PDF</code>, not image download.</span></div>
+        <div class="hs-img"><img src="./images/help-pdf-1.jpg" alt="1단계 — 다운로드에서 PDF 다운로드 선택" loading="lazy" onerror="this.parentNode.remove()" /></div>
       </div>
       <div class="help-step">
         <div class="hs-num">2</div>
         <div class="hs-title"><span class="ko-text">PDF 첨부하기</span><span class="en-text">Attach the PDF</span></div>
         <p class="hs-desc"><span class="ko-text">다운로드한 PDF를 접수 폼의 「작품 PDF 업로드 → 파일 선택」에서 첨부합니다.</span><span class="en-text">Attach the downloaded PDF under "Work PDF Upload → Choose file" in this form.</span></p>
         <div class="hs-tip"><span class="ko-text">PDF 형식, <code>최대 20MB</code>. 링크 접근이 막힐 때를 대비한 백업이라 함께 올려두시면 좋습니다.</span><span class="en-text">PDF only, <code>up to 20MB</code>. It is a backup in case your link cannot be opened during judging.</span></div>
+        <div class="hs-img"><img src="./images/help-pdf-2.jpg" alt="2단계 — 접수 폼에서 PDF 첨부" loading="lazy" onerror="this.parentNode.remove()" /></div>
       </div>
     </div>
   </div>
@@ -1977,7 +1986,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <div class="form-row board-guide" data-show-for="comic,novel,cardnews,poster">
           <div class="bg-title">📋 <span class="ko-text">투닝 보드 구성 형식</span><span class="en-text">Board Composition</span> <span class="bg-req"><span class="ko-text">필수</span><span class="en-text">Required</span></span></div>
           <div class="bg-desc"><span class="ko-text">보드에 아래 <strong>3가지</strong>가 반드시 포함되어야 합니다.<br/>① <strong>작품 설명</strong> — 1)작품명 · 2)주제 · 3)장르 · 4)작품 줄거리 · 5)작품을 만들게 된 이유<br/>② <strong>생성형 AI 활용 과정</strong><br/>③ <strong>제출 작품</strong></span><span class="en-text">Your board must include all <strong>three</strong> of the following.<br/>① <strong>Work description</strong> — 1) title · 2) theme · 3) genre · 4) synopsis · 5) why you made it<br/>② <strong>How you used generative AI</strong><br/>③ <strong>The finished work</strong></span></div>
-          <a class="bg-sample" href="https://tooning.io/board/tlvdpvccmp/9218653140" target="_blank" rel="noopener">🎨 <span class="ko-text">제출 양식 샘플 보기</span><span class="en-text">View sample board</span></a>
+          <div class="bg-samples">
+            <a class="bg-sample" href="https://tooning.io/board/tlvdpvccmp/9218653140" target="_blank" rel="noopener">🎨 <span class="ko-text">웹툰 제출 양식 샘플</span><span class="en-text">Webtoon sample board</span></a>
+            <a class="bg-sample" href="https://tooning.io/board/tlvdpvccmp/4471956764" target="_blank" rel="noopener">📖 <span class="ko-text">웹소설 제출 양식 샘플</span><span class="en-text">Web novel sample board</span></a>
+          </div>
         </div>
 
         <div class="form-row two-col" data-show-for="comic,novel,cardnews,poster">
