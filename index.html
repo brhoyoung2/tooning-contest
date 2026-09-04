@@ -431,6 +431,42 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .form-row.two-col.even{grid-template-columns:1fr 1fr}
 .form-row.two-col.wide-right{grid-template-columns:1fr 1.4fr}
 .form-row[hidden]{display:none}
+/* ── 보드 구성 형식 안내 + 샘플 ── */
+.board-guide{border:1.5px dashed rgba(255,107,107,.45);border-radius:16px;padding:18px 20px;margin-bottom:16px;background:#fff8f6}
+.bg-title{font-weight:800;font-size:15px;color:var(--text-dark);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.bg-req{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--coral);color:#fff;font-size:11.5px;font-weight:800}
+.bg-desc{font-size:13.5px;line-height:1.9;color:var(--text-soft);margin-top:10px}
+.bg-desc strong{color:var(--coral);font-weight:700}
+.bg-sample{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:10px 18px;border-radius:12px;background:#fff;border:1.5px solid rgba(255,107,107,.35);color:var(--coral);font-weight:700;font-size:13.5px;text-decoration:none;transition:.2s}
+.bg-sample:hover{background:var(--coral);color:#fff;border-color:var(--coral)}
+
+/* ── 라벨 옆 도움말 버튼 ── */
+.label-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.help-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border:1.5px solid rgba(255,107,107,.35);border-radius:999px;background:#fff;color:var(--coral);font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:.2s}
+.help-btn:hover{background:var(--coral);color:#fff;border-color:var(--coral)}
+
+/* ── 제출 방법 도움말 모달 ── */
+.help-pop{position:fixed;inset:0;z-index:1100;display:flex;align-items:center;justify-content:center;padding:24px 16px;background:rgba(10,14,30,.72);opacity:0;transition:opacity .25s;overflow-y:auto}
+.help-pop[hidden]{display:none!important}
+.help-pop.open{opacity:1}
+.help-backdrop{position:absolute;inset:0;cursor:pointer}
+.help-box{position:relative;z-index:1;width:100%;max-width:940px;max-height:90vh;overflow-y:auto;background:#fff;border-radius:24px;box-shadow:0 24px 60px rgba(0,0,0,.35);transform:scale(.96);transition:transform .25s}
+.help-pop.open .help-box{transform:none}
+.help-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 26px;background:var(--coral);color:#fff;border-radius:24px 24px 0 0}
+.help-head h3{font-size:18px;font-weight:800;letter-spacing:-.02em}
+.help-close{width:34px;height:34px;border:none;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;font-size:20px;line-height:1;cursor:pointer}
+.help-close:hover{background:rgba(255,255,255,.32)}
+.help-steps{display:grid;gap:16px;padding:26px}
+.help-steps.s3{grid-template-columns:repeat(3,1fr)}
+.help-steps.s2{grid-template-columns:repeat(2,1fr)}
+.help-step{border:1px solid rgba(99,110,130,.16);border-radius:16px;padding:20px}
+.hs-num{width:30px;height:30px;border-radius:50%;background:var(--coral);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.hs-title{font-weight:800;font-size:15px;color:var(--text-dark);margin-top:12px;letter-spacing:-.01em}
+.hs-desc{font-size:13.5px;line-height:1.75;color:var(--text-soft);margin-top:8px}
+.hs-tip{margin-top:12px;padding:10px 12px;border-radius:10px;background:#f5f9ff;font-size:12.5px;line-height:1.6;color:var(--text-soft)}
+.hs-tip code{font-family:inherit;font-weight:700;color:var(--sky-deep)}
+@media(max-width:800px){.help-steps.s3,.help-steps.s2{grid-template-columns:1fr}}
+
 .ep-list{display:flex;flex-direction:column;gap:12px}
 .ep-item{border:1.5px solid #e5e7eb;border-radius:14px;padding:12px 14px;background:#fbfcfe}
 .ep-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
@@ -1609,6 +1645,61 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   <div class="lightbox-counter" id="lbCounter"></div>
 </div>
 
+<!-- ============ 제출 방법 도움말 ============ -->
+<div class="help-pop" id="helpBoard" aria-hidden="true" hidden>
+  <div class="help-backdrop" data-help-close></div>
+  <div class="help-box" role="dialog" aria-modal="true" aria-labelledby="helpBoardTitle">
+    <div class="help-head">
+      <h3 id="helpBoardTitle">🧭 <span class="ko-text">투닝 보드 링크 제출 방법</span><span class="en-text">How to submit your board link</span></h3>
+      <button type="button" class="help-close" aria-label="Close" data-help-close>&times;</button>
+    </div>
+    <div class="help-steps s3">
+      <div class="help-step">
+        <div class="hs-num">1</div>
+        <div class="hs-title"><span class="ko-text">작품을 보드에 정리 후 공유 선택</span><span class="en-text">Arrange your work, then open Share</span></div>
+        <p class="hs-desc"><span class="ko-text">완성한 작품을 투닝 보드로 옮겨 한 페이지에 정리한 뒤, 보드 좌측 상단의 「공유」 아이콘을 선택합니다.</span><span class="en-text">Move your finished work onto a Tooning board, lay it out on one page, then click the Share icon at the top left.</span></p>
+        <div class="hs-tip"><span class="ko-text">보드에는 <code>작품 설명 · 생성형 AI 활용 과정 · 제출 작품</code> 3가지가 모두 담겨 있어야 합니다.</span><span class="en-text">The board must contain all three: <code>description · AI process · the work</code>.</span></div>
+      </div>
+      <div class="help-step">
+        <div class="hs-num">2</div>
+        <div class="hs-title"><span class="ko-text">공유 → 링크 복사</span><span class="en-text">Share → Copy link</span></div>
+        <p class="hs-desc"><span class="ko-text">「공유」 창에서 공유 링크의 [링크 복사]를 눌러 작품 링크를 복사합니다.</span><span class="en-text">In the Share dialog, click [Copy link] to copy your work's link.</span></p>
+        <div class="hs-tip"><span class="ko-text">공유 대상은 <code>링크를 가진 누구나</code>로 설정해 주세요. 비공개면 심사할 수 없습니다.</span><span class="en-text">Set sharing to <code>anyone with the link</code> — private boards cannot be judged.</span></div>
+      </div>
+      <div class="help-step">
+        <div class="hs-num">3</div>
+        <div class="hs-title"><span class="ko-text">접수 폼에 붙여넣기</span><span class="en-text">Paste it into the form</span></div>
+        <p class="hs-desc"><span class="ko-text">복사한 링크를 「작품 보드 링크」 칸에 붙여넣어 제출합니다.</span><span class="en-text">Paste the copied link into the "Work Board Link" field and submit.</span></p>
+        <div class="hs-tip"><span class="ko-text">형식 예시 — <code>https://tooning.io/board/...</code></span><span class="en-text">Format — <code>https://tooning.io/board/...</code></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="help-pop" id="helpPdf" aria-hidden="true" hidden>
+  <div class="help-backdrop" data-help-close></div>
+  <div class="help-box" role="dialog" aria-modal="true" aria-labelledby="helpPdfTitle">
+    <div class="help-head">
+      <h3 id="helpPdfTitle">📄 <span class="ko-text">작품 PDF 제출 방법</span><span class="en-text">How to submit your work as PDF</span></h3>
+      <button type="button" class="help-close" aria-label="Close" data-help-close>&times;</button>
+    </div>
+    <div class="help-steps s2">
+      <div class="help-step">
+        <div class="hs-num">1</div>
+        <div class="hs-title"><span class="ko-text">작품 열기 → PDF 다운로드</span><span class="en-text">Open your work → Download PDF</span></div>
+        <p class="hs-desc"><span class="ko-text">제출할 작품을 투닝에서 연 뒤, 우측 상단의 「다운로드 → PDF 다운로드」를 클릭합니다.</span><span class="en-text">Open your work in Tooning, then click "Download → Download PDF" at the top right.</span></p>
+        <div class="hs-tip"><span class="ko-text">이미지 다운로드가 아니라 <code>PDF 다운로드</code>를 선택해 주세요.</span><span class="en-text">Choose <code>Download PDF</code>, not image download.</span></div>
+      </div>
+      <div class="help-step">
+        <div class="hs-num">2</div>
+        <div class="hs-title"><span class="ko-text">PDF 첨부하기</span><span class="en-text">Attach the PDF</span></div>
+        <p class="hs-desc"><span class="ko-text">다운로드한 PDF를 접수 폼의 「작품 PDF 업로드 → 파일 선택」에서 첨부합니다.</span><span class="en-text">Attach the downloaded PDF under "Work PDF Upload → Choose file" in this form.</span></p>
+        <div class="hs-tip"><span class="ko-text">PDF 형식, <code>최대 20MB</code>. 링크 접근이 막힐 때를 대비한 백업이라 함께 올려두시면 좋습니다.</span><span class="en-text">PDF only, <code>up to 20MB</code>. It is a backup in case your link cannot be opened during judging.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ============ 안내 팝업 (주제 공개 / 접수 안내) ============ -->
 <div class="notice-pop" id="themePop" aria-hidden="true" hidden>
   <div class="notice-pop-backdrop" data-notice-close></div>
@@ -1883,16 +1974,22 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           </label>
         </div>
 
+        <div class="form-row board-guide" data-show-for="comic,novel,cardnews,poster">
+          <div class="bg-title">📋 <span class="ko-text">투닝 보드 구성 형식</span><span class="en-text">Board Composition</span> <span class="bg-req"><span class="ko-text">필수</span><span class="en-text">Required</span></span></div>
+          <div class="bg-desc"><span class="ko-text">보드에 아래 <strong>3가지</strong>가 반드시 포함되어야 합니다.<br/>① <strong>작품 설명</strong> — 1)작품명 · 2)주제 · 3)장르 · 4)작품 줄거리 · 5)작품을 만들게 된 이유<br/>② <strong>생성형 AI 활용 과정</strong><br/>③ <strong>제출 작품</strong></span><span class="en-text">Your board must include all <strong>three</strong> of the following.<br/>① <strong>Work description</strong> — 1) title · 2) theme · 3) genre · 4) synopsis · 5) why you made it<br/>② <strong>How you used generative AI</strong><br/>③ <strong>The finished work</strong></span></div>
+          <a class="bg-sample" href="https://tooning.io/board/tlvdpvccmp/9218653140" target="_blank" rel="noopener">🎨 <span class="ko-text">제출 양식 샘플 보기</span><span class="en-text">View sample board</span></a>
+        </div>
+
         <div class="form-row two-col" data-show-for="comic,novel,cardnews,poster">
           <label class="form-field">
-            <span class="form-label"><span class="ko-text">작품 보드 링크</span><span class="en-text">Work Board Link</span> <em>*</em></span>
-            <input type="url" name="link3_board" required placeholder="https://an-api.tooning.io/canvas-share/..." data-ph-ko="https://an-api.tooning.io/canvas-share/..." data-ph-en="https://an-api.tooning.io/canvas-share/..." />
+            <span class="label-row"><span class="form-label"><span class="ko-text">작품 보드 링크</span><span class="en-text">Work Board Link</span> <em>*</em></span><button type="button" class="help-btn" data-help="board">? <span class="ko-text">제출하는 법</span><span class="en-text">How to submit</span></button></span>
+            <input type="url" name="link3_board" required placeholder="https://tooning.io/board/..." data-ph-ko="https://tooning.io/board/..." data-ph-en="https://tooning.io/board/..." />
             <span class="field-err-msg" id="link3Err"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
             <div class="link-check" id="editorLinkCheck"></div>
-            <span class="form-hint"><span class="ko-text">투닝에서 작품을 공유하면 만들어지는 보드 링크 — 이 링크가 공식 제출 작품입니다. (예: https://an-api.tooning.io/canvas-share/000000)</span><span class="en-text">The board link created when you share your work on Tooning — this link is your official entry. (e.g. https://an-api.tooning.io/canvas-share/000000)</span></span>
+            <span class="form-hint"><span class="ko-text">투닝 보드 → 공유 → 링크 복사 후 붙여넣기 — 이 링크가 공식 제출 작품입니다</span><span class="en-text">Tooning board → Share → copy the link and paste it here — this link is your official entry</span></span>
           </label>
           <label class="form-field">
-            <span class="form-label"><span class="ko-text">작품 PDF 업로드</span><span class="en-text">Work PDF Upload</span></span>
+            <span class="label-row"><span class="form-label"><span class="ko-text">작품 PDF 업로드</span><span class="en-text">Work PDF Upload</span></span><button type="button" class="help-btn" data-help="pdf">? <span class="ko-text">제출하는 법</span><span class="en-text">How to submit</span></button></span>
             <input type="file" name="workPdf" id="workPdf" accept="application/pdf,.pdf" class="file-input" />
             <span class="field-err-msg" id="workPdfErr"><span class="ko-text">PDF 파일만, 20MB 이하로 업로드해주세요</span><span class="en-text">PDF only, up to 20MB</span></span>
             <span class="upload-status" id="workPdfStatus"></span>
@@ -3336,6 +3433,53 @@ function hofTab(id, btn) {
 </button>
 
 <script>
+/* ══════════════════════════════════════════════════
+   [도움말] 보드 링크 · PDF 제출 방법 모달
+   ══════════════════════════════════════════════════ */
+(function() {
+  var pops = { board: document.getElementById('helpBoard'), pdf: document.getElementById('helpPdf') };
+
+  function openHelp(pop) {
+    if (!pop) return;
+    pop.hidden = false;
+    pop.setAttribute('aria-hidden', 'false');
+    requestAnimationFrame(function() { pop.classList.add('open'); });
+    setTimeout(function() {
+      var b = pop.querySelector('.help-close');
+      if (b) b.focus();
+    }, 60);
+  }
+
+  function closeHelp(pop) {
+    if (!pop || pop.hidden) return;
+    pop.classList.remove('open');
+    pop.setAttribute('aria-hidden', 'true');
+    if (pop.contains(document.activeElement)) document.activeElement.blur();
+    setTimeout(function() {
+      if (!pop.classList.contains('open')) pop.hidden = true;   // 투명 오버레이가 화면을 덮지 않도록
+    }, 280);
+  }
+
+  function anyOpen() {
+    return (pops.board && !pops.board.hidden) || (pops.pdf && !pops.pdf.hidden);
+  }
+
+  document.addEventListener('click', function(e) {
+    var t = e.target && e.target.closest ? e.target.closest('[data-help]') : null;
+    if (t) { e.preventDefault(); openHelp(pops[t.getAttribute('data-help')]); return; }
+    var c = e.target && e.target.closest ? e.target.closest('[data-help-close]') : null;
+    if (c) { closeHelp(c.closest('.help-pop')); }
+  });
+
+  // 도움말이 열려 있으면 ESC 가 접수 폼까지 닫지 않도록 가로챈다
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape' || !anyOpen()) return;
+    e.stopPropagation();
+    closeHelp(pops.board);
+    closeHelp(pops.pdf);
+  }, true);
+})();
+
 /* ══════════════════════════════════════════════════
    [안내 팝업] 주제 공개 팝업 + 접수 시작 전 안내 팝업
    닫기: 우측 상단 ×, 빈 영역(배경) 클릭, ESC, 확인 버튼
