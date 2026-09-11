@@ -123,21 +123,26 @@ if hist:
     st, body = call('투닝콘테스트_복구', {'p_key': key, 'p_version': 99})
     check('없는 버전 복구 거부', 'version_not_found' in err_of((st, body)), err_of((st, body)))
 
-print('\n[7] 다른 부문은 별건 접수 (같은 이메일)')
+print('\n[7] 1인 1작품·1부문 — 같은 이메일의 다른 부문은 거부')
 novel = base_payload(section='novel', topic='소설 테스트',
                      proposal_text='기획 의도와 줄거리를 담은 기획안입니다.',
                      episodes=[{'ep': i, 'body': '본문 ' + str(i) + '화 ' + ('가' * 50)}
                                for i in (1, 2, 3)])
 st, body = call('투닝콘테스트_제출', {'p_payload': novel})
+check('다른 부문 시도 거부(category_locked)', 'category_locked' in err_of((st, body)), err_of((st, body)))
+check('거부 메시지에 기존 부문 포함', 'comic' in err_of((st, body)), err_of((st, body)))
+
+novel['contact_email'] = 'novel@test.invalid'
+st, body = call('투닝콘테스트_제출', {'p_payload': novel})
 novel_key = body.get('key') if isinstance(body, dict) else None
-check('소설 부문 신규 접수', isinstance(body, dict) and body.get('status') == 'created', str(body))
+check('다른 이메일이면 소설 접수 가능', isinstance(body, dict) and body.get('status') == 'created', str(body))
 check('만화와 다른 접수키 발급', bool(novel_key) and novel_key != key, str(novel_key))
 
 print('\n[8] 관리자 조회')
 st, body = call('투닝콘테스트_관리자목록', {'p_pw': 'wrong'})
 check('틀린 비밀번호 거부', 'unauthorized' in err_of((st, body)), err_of((st, body)))
 st, body = call('투닝콘테스트_관리자목록', {'p_pw': ADMIN_PW})
-mine = [r for r in body if r.get('contact_email') == EMAIL] if isinstance(body, list) else []
+mine = [r for r in body if str(r.get('contact_email') or '').endswith('@test.invalid')] if isinstance(body, list) else []
 check('관리자 목록에 테스트 2건 노출', len(mine) == 2, '조회 %d건' % len(mine))
 if mine:
     nv = [r for r in mine if r['section'] == 'novel']

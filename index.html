@@ -1976,7 +1976,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
                 <span class="sc-spec"><span class="ko-text">포스터 1장 · 기획안 필수</span><span class="en-text">1 poster, proposal required</span></span>
               </button>
             </div>
-            <span class="sec-hint"><span class="ko-text">1인당 1작품, 한 부문에만 출품할 수 있습니다. 부문을 선택하면 필요한 제출 항목이 아래에 나타납니다.</span><span class="en-text">One work in one division per participant. Choosing a division reveals the items you need to submit.</span></span>
+            <span class="sec-hint"><span class="ko-text">1인당 1작품, 한 부문에만 출품할 수 있습니다. <strong>접수 후에는 부문을 변경할 수 없으니</strong> 신중히 선택해 주세요.</span><span class="en-text">One work in one division per participant. <strong>Your division cannot be changed after you submit</strong> — please choose carefully.</span></span>
             <select name="section" id="sectionSelect" required hidden aria-hidden="true" tabindex="-1">
               <option value=""></option>
               <option value="comic">comic</option>
@@ -2112,7 +2112,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 
       <details class="faq-item">
         <summary><span class="faq-q">Q3</span><span class="ko-text">부문별로 다르게 만들면 여러 부문에 낼 수 있나요?</span><span class="en-text">Can I enter several divisions with different works?</span></summary>
-        <div class="faq-a"><span class="ko-text">아니요. <strong>1인당 1작품, 1개 부문에만</strong> 출품할 수 있습니다. 내용이나 형식을 다르게 제작하더라도 카드뉴스와 포스터처럼 <strong>여러 부문에 동시 접수는 불가능</strong>합니다.</span><span class="en-text">No. Each participant may enter <strong>one work in one division only</strong>. Even if the content and format differ, you <strong>cannot enter two divisions</strong> such as Card News and Poster at the same time.</span></div>
+        <div class="faq-a"><span class="ko-text">아니요. <strong>1인당 1작품, 1개 부문에만</strong> 출품할 수 있습니다. 내용이나 형식을 다르게 제작하더라도 카드뉴스와 포스터처럼 <strong>여러 부문에 동시 접수는 불가능</strong>합니다. 접수 후 부문 변경도 되지 않으니 신중히 선택해 주세요.</span><span class="en-text">No. Each participant may enter <strong>one work in one division only</strong>. Even if the content and format differ, you <strong>cannot enter two divisions</strong> such as Card News and Poster at the same time, and your division cannot be changed after submitting.</span></div>
       </details>
 
       <details class="faq-item">
@@ -2719,6 +2719,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           invalid_section:      '출품 부문을 다시 선택해주세요.',
           invalid_contact_type: '연락처 유형을 다시 선택해주세요.',
           invalid_link:         '작품 보드 링크는 투닝(tooning.io) 공유 링크만 등록할 수 있습니다.',
+          category_locked:      '이미 다른 부문으로 접수하셨습니다. 1인당 1작품·1개 부문만 출품할 수 있어 부문은 변경할 수 없습니다. 문의: support@tooning.io',
           submit_failed:        '접수 처리에 실패했습니다. 잠시 후 다시 시도해주세요.',
           upload_failed:        '작품 PDF 업로드에 실패했습니다. 파일 크기(20MB 이하)와 형식을 확인한 뒤 다시 시도해주세요.',
           proposal_required:    '기획안을 작성해주세요. 소설·포스터 부문은 기획안이 필수입니다.',
@@ -3054,7 +3055,7 @@ function hofTab(id, btn) {
     { keys:['오류','버그','에러','error','안열려','멈춰','안돼요','안됩니다','오작동','튕겨','crash','작동안','실행안','접속안','로딩','느려','문제가생','문제있','고장'], ans:'투닝 이용 중 오류가 발생했다면\n📧 support@tooning.io\n📞 050-7458-2020\n투닝 고객센터로 문의해 주세요!' },
 
     // ── 잘못 제출 flow ───────────────────────────────────
-    { keys:['잘못제출','잘못 제출','재제출','다시제출','다시 제출','작품수정','작품 수정','바꾸고싶','바꾸고 싶','수정하고싶','수정하고 싶','다시올리','다시업로드','교체하고','잘못올렸','잘못보냈','취소하고싶','제출취소','다시내고','내용수정','잘못입력','오타','고치고싶','변경하고싶'], ans:'접수 기간 안에는 직접 수정하실 수 있어요! ✏️\n\n처음 접수하실 때와 <같은 이메일>로 다시 제출하시면\n기존 접수 내용이 새 내용으로 수정됩니다.\n\n· 이전 제출 내용은 자동으로 보관돼요\n· 되돌리고 싶으면 접수키로 조회 후 복구할 수 있어요\n\n마감(10월 30일) 이후에는 수정이 불가능합니다.' },
+    { keys:['잘못제출','잘못 제출','재제출','다시제출','다시 제출','작품수정','작품 수정','바꾸고싶','바꾸고 싶','수정하고싶','수정하고 싶','다시올리','다시업로드','교체하고','잘못올렸','잘못보냈','취소하고싶','제출취소','다시내고','내용수정','잘못입력','오타','고치고싶','변경하고싶'], ans:'접수 기간 안에는 직접 수정하실 수 있어요! ✏️\n\n처음 접수하실 때와 <같은 이메일>로 다시 제출하시면\n기존 접수 내용이 새 내용으로 수정됩니다.\n\n· 부문은 바꿀 수 없어요 (1인 1작품·1부문)\n· 이전 제출 내용은 자동으로 보관돼요\n· 되돌리고 싶으면 접수키로 조회 후 복구할 수 있어요\n\n마감(10월 30일) 이후에는 수정이 불가능합니다.' },
 
     // ── 신청 확인 flow ───────────────────────────────────
     { keys:['신청확인','신청 확인','접수확인','접수 확인','됐나요','접수됐','신청됐','확인하고싶','확인하고 싶','접수됐어','신청됐어','접수가됐','신청이됐','접수완료','신청완료','접수되었','신청되었','접수했나','신청했나','제출확인','냈나요','냈어요','넣었나'], ans:'__VERIFY__' },
@@ -3123,7 +3124,7 @@ function hofTab(id, btn) {
     { keys:['지도교사','교사없','선생님없','혼자참가','개인접수','개인으로','학교안통','학원생','홈스쿨'], ans:'지도교사가 없어도 개인으로 참가할 수 있어요! 👨‍👩‍👧\n\n접수 폼에서 [교사 없음 (개인 접수)]를 선택하시고,\n보호자 연락처와 보호자 이메일을 입력해 주세요.\n\n지도교사가 있으면 지도교사상 수상 기회도 있습니다!' },
 
     // ── 부문 / 중복 출품 ─────────────────────────────────
-    { keys:['부문','여러부문','중복출품','중복 출품','두개부문','다른부문','부문변경','부문바꾸','몇개까지','여러개출품','여러작품','두부문','동시접수','둘다','둘 다','둘다낼','두개다','같이출품','같이내','동시에','두작품','각각출품'], ans:'부문은 만화/웹툰 · 소설/이야기 · 카드뉴스 · 포스터 4가지예요. 🎨\n\n중복 출품은 불가능합니다.\n1인당 1작품, 1개 부문에만 출품할 수 있어요.\n\n내용이나 형식을 다르게 만들어도 카드뉴스와 포스터처럼 여러 부문에 동시 접수는 안 됩니다.' },
+    { keys:['부문','여러부문','중복출품','중복 출품','두개부문','다른부문','부문변경','부문바꾸','몇개까지','여러개출품','여러작품','두부문','동시접수','둘다','둘 다','둘다낼','두개다','같이출품','같이내','동시에','두작품','각각출품'], ans:'부문은 만화/웹툰 · 소설/이야기 · 카드뉴스 · 포스터 4가지예요. 🎨\n\n중복 출품은 불가능합니다.\n1인당 1작품, 1개 부문에만 출품할 수 있어요.\n\n내용이나 형식을 다르게 만들어도 카드뉴스와 포스터처럼 여러 부문에 동시 접수는 안 됩니다.\n\n접수를 마친 뒤에는 부문을 바꿀 수도 없으니 신중히 선택해 주세요!' },
 
     // ── 카드뉴스 주제 ────────────────────────────────────
     { keys:['카드뉴스주제','카드뉴스도','시사','교과','이슈','정보전달','카드뉴스는어떤','카드뉴스내용'], ans:'카드뉴스도 공통 주제 「2036년, 나의 하루」를 중심으로 만들어 주세요. 📰\n\n다만 카드뉴스 특성에 맞게\n시사 · 교과 · 이슈 등을 주제와 접목해 표현하시면 됩니다.\n\n주제와 무관한 시사 내용만으로는 출품이 어려워요.' },
