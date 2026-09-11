@@ -48,6 +48,7 @@ def base_payload(**kw):
         'teacher_name': '김선생', 'teacher_phone': '+82 010-0000-0000',
         'section': 'comic', 'topic': '2036년, 나의 하루 — 테스트',
         'work_description': '테스트용 시놉시스입니다.',
+        'ai_process': '투닝 매직으로 배경을 생성하고, 캐릭터는 에디터에서 직접 배치했습니다.',
         'board_link': BOARD, 'consent': True, 'user_agent': 'scenario-test'
     }
     p.update(kw)
@@ -63,6 +64,7 @@ cases = [
     ('연락처 유형 오류',   base_payload(contact_type='hacker'),               'invalid_contact_type'),
     ('보드 링크 외부 URL', base_payload(board_link='https://evil.example/x'), 'invalid_link'),
     ('PDF 외부 URL 주입',  base_payload(pdf_url='https://evil.example/a.pdf'), 'invalid_pdf'),
+    ('AI 활용 과정 없음',  base_payload(ai_process=''),                       'ai_process_required'),
     ('소설: 기획안 없음',  base_payload(section='novel', episodes=[{'ep': 1, 'body': 'a'}] * 3),
      'proposal_required'),
     ('소설: 회차 부족',    base_payload(section='novel', proposal_text='기획안',

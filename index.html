@@ -2002,6 +2002,15 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           </label>
         </div>
 
+        <div class="form-row" data-show-for="comic,novel,cardnews,poster">
+          <label class="form-field">
+            <span class="form-label"><span class="ko-text">생성형 AI 활용 과정</span><span class="en-text">How You Used Generative AI</span> <em>*</em></span>
+            <textarea name="aiProcess" id="aiProcess" data-keep rows="5" placeholder="투닝(에디터·매직 등) AI를 어떻게 활용했는지 적어주세요. 사용한 기능, 입력한 프롬프트, AI 결과물을 어떻게 다듬었는지 등을 적어주시면 좋아요." data-ph-ko="투닝(에디터·매직 등) AI를 어떻게 활용했는지 적어주세요. 사용한 기능, 입력한 프롬프트, AI 결과물을 어떻게 다듬었는지 등을 적어주시면 좋아요." data-ph-en="Describe how you used Tooning's AI (Editor, Magic, etc.) — which features, what prompts you wrote, and how you refined the AI output."></textarea>
+            <span class="char-count" id="aiProcessCount"></span>
+            <span class="form-hint"><span class="ko-text">AI를 어떻게 활용했는지가 심사의 중요한 기준입니다. 보드에도 같은 내용이 담겨 있어야 해요. 100자 이상 권장</span><span class="en-text">How you used AI is a key judging criterion, and the same content must appear on your board. 100+ characters recommended</span></span>
+          </label>
+        </div>
+
         <div class="form-row" data-show-for="novel">
           <div class="form-field">
             <span class="form-label"><span class="ko-text">소설 본문 (회차별)</span><span class="en-text">Novel Text (by episode)</span> <em>*</em></span>
@@ -2400,6 +2409,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   }
   bindCount(npEl, document.getElementById('novelProposalCount'));
   bindCount(ppEl, document.getElementById('posterProposalCount'));
+  var aiEl = document.getElementById('aiProcess');
+  bindCount(aiEl, document.getElementById('aiProcessCount'));
 
   // 회차 본문 수집 → [{ep, body}]
   function collectEpisodes() {
@@ -2529,7 +2540,20 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       return;
     }
 
-    // 5. 소설 부문 — 기획안·회차 본문 확인
+    // 5. 생성형 AI 활용 과정 (전 부문 공통 필수)
+    var aiProcess = (aiEl && !aiEl.disabled) ? aiEl.value.trim() : '';
+    if (!aiProcess) {
+      statusEl.hidden = false;
+      statusEl.classList.add('error');
+      statusEl.textContent = '⚠️ 생성형 AI 활용 과정을 작성해주세요. 심사의 중요한 기준입니다.';
+      if (aiEl) {
+        if (aiEl.scrollIntoView) aiEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        aiEl.focus();
+      }
+      return;
+    }
+
+    // 6. 소설 부문 — 기획안·회차 본문 확인
     var sectionVal = fd.get('section') || '';
     var novelProposal = '', episodes = [], posterProposal = '';
     if (sectionVal === 'poster') {
@@ -2570,7 +2594,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       }
     }
 
-    // 6. 작품 PDF (선택) — 형식·용량 확인
+    // 7. 작품 PDF (선택) — 형식·용량 확인
     var pdfEl   = form.querySelector('[name="workPdf"]');
     var pdfFile = (pdfEl && !pdfEl.disabled && pdfEl.files && pdfEl.files[0]) ? pdfEl.files[0] : null;
     if (pdfFile) {
@@ -2600,6 +2624,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       work_description:    fd.get('link2_desc') || null,
       board_link:          fd.get('link3_board') || null,
       proposal_text:       novelProposal || posterProposal || null,
+      ai_process:          aiProcess || null,
       episodes:            episodes.length ? episodes : null,
       user_agent:          navigator.userAgent
     };
@@ -2648,6 +2673,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           submit_failed:        '접수 처리에 실패했습니다. 잠시 후 다시 시도해주세요.',
           upload_failed:        '작품 PDF 업로드에 실패했습니다. 파일 크기(20MB 이하)와 형식을 확인한 뒤 다시 시도해주세요.',
           proposal_required:    '기획안을 작성해주세요. 소설·포스터 부문은 기획안이 필수입니다.',
+          ai_process_required:  '생성형 AI 활용 과정을 작성해주세요. 심사의 중요한 기준입니다.',
           episodes_required:    '소설 본문을 3화 이상 작성해주세요.',
           episode_empty:        '비어 있는 회차가 있습니다. 모든 회차의 본문을 채워주세요.'
         };

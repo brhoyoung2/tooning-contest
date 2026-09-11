@@ -323,6 +323,8 @@ tbody tr:hover{background:#fff7f5}
       html += '<div class="d-sec"><h3>시놉시스 / 설명</h3><div class="d-text">' + esc(r.work_description) + '</div></div>';
     if (r.proposal_text)
       html += '<div class="d-sec"><h3>기획안</h3><div class="d-text">' + esc(r.proposal_text) + '</div></div>';
+    if (r.ai_process)
+      html += '<div class="d-sec"><h3>생성형 AI 활용 과정</h3><div class="d-text">' + esc(r.ai_process) + '</div></div>';
 
     if (r.episodes && r.episodes.length) {
       html += '<div class="d-sec"><h3>본문 ' + r.episodes.length + '화</h3>'
@@ -360,7 +362,7 @@ tbody tr:hover{background:#fff7f5}
                 ['학년', 'grade'], ['학교급', 'school_level'], ['반', 'class'], ['부문', 'section'],
                 ['작품 제목', 'topic'], ['연락처 유형', 'contact_type'], ['이메일', 'contact_email'],
                 ['지도교사', 'teacher_name'], ['교사 연락처', 'teacher_phone'], ['보호자 연락처', 'parent_phone'],
-                ['회차수', 'episode_count'], ['보드 링크', 'board_link'], ['PDF', 'pdf_url'], ['상태', 'status']];
+                ['회차수', 'episode_count'], ['AI 활용 과정', 'ai_process'], ['보드 링크', 'board_link'], ['PDF', 'pdf_url'], ['상태', 'status']];
     var esc2 = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
     var csv = cols.map(function (c) { return esc2(c[0]); }).join(',') + '\n'
       + list.map(function (r) {
