@@ -76,6 +76,21 @@ tbody tr:hover{background:#fff7f5}
 .muted{color:var(--soft)}
 .empty{padding:56px 20px;text-align:center;color:var(--soft);font-size:14px;line-height:1.7}
 
+/* ── 메일 양식 ── */
+.mail-field{margin-top:18px}
+.mail-field label{display:block;font-size:12px;font-weight:700;color:var(--soft);letter-spacing:.04em;margin-bottom:6px}
+.mail-field input,.mail-field select,.mail-field textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);
+  border-radius:10px;font-size:14px;font-family:inherit;outline:none;background:#fff;color:var(--dark)}
+.mail-field textarea{line-height:1.7;resize:vertical}
+.mail-field input:focus,.mail-field textarea:focus,.mail-field select:focus{border-color:var(--coral)}
+.mail-ro{padding:11px 13px;border-radius:10px;background:#f1f3f7;font-size:13.5px;color:var(--soft)}
+.mail-note{display:block;margin-top:7px;font-size:12px;line-height:1.7;color:var(--soft)}
+.mail-note code{background:#fff3f0;color:var(--coral);border-radius:5px;padding:1px 6px;font-size:11.5px;font-weight:700}
+.mail-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:22px}
+.mail-status{font-size:13px;font-weight:600;color:var(--soft)}
+.mail-status.ok{color:#10b981}
+.mail-status.err{color:#dc2626}
+
 /* ── 상세 ── */
 .detail{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
   padding:32px 20px;background:rgba(10,14,30,.6);overflow-y:auto}
@@ -124,6 +139,7 @@ tbody tr:hover{background:#fff7f5}
     <h1>접수 관리 <span>·</span> 제2회 투닝 국제 공모전</h1>
     <div class="top-actions">
       <button class="btn" id="reloadBtn">새로고침</button>
+      <button class="btn" id="mailBtn">메일 양식</button>
       <button class="btn" id="csvBtn">CSV 내보내기</button>
       <button class="btn primary" id="logoutBtn">잠금</button>
     </div>
@@ -161,6 +177,57 @@ tbody tr:hover{background:#fff7f5}
       </table>
     </div>
     <div class="empty" id="empty"></div>
+  </div>
+</div>
+
+<!-- ── 메일 양식 ── -->
+<div class="detail" id="mailModal">
+  <div class="detail-box">
+    <button class="detail-close" id="mailClose">&times;</button>
+    <h2>접수 완료 안내 메일</h2>
+    <div class="detail-meta">접수·재제출 시 참가자에게 자동 발송됩니다. 저장하면 즉시 반영됩니다.</div>
+
+    <div class="mail-field">
+      <label>발송</label>
+      <select id="mailOn">
+        <option value="on">발송함</option>
+        <option value="off">발송 안 함 (임시 중단)</option>
+      </select>
+      <span class="mail-note" id="mailKeyState"></span>
+    </div>
+
+    <div class="mail-field">
+      <label>받는 사람</label>
+      <div class="mail-ro" id="mailTo">접수 시 입력한 연락 이메일 (지도교사 또는 보호자)</div>
+    </div>
+
+    <div class="mail-field">
+      <label>참조 (CC) — 쉼표로 구분</label>
+      <input type="text" id="mailCc" />
+    </div>
+
+    <div class="mail-field">
+      <label>보내는 사람</label>
+      <div class="mail-ro" id="mailFrom"></div>
+    </div>
+
+    <div class="mail-field">
+      <label>제목</label>
+      <input type="text" id="mailSubject" />
+    </div>
+
+    <div class="mail-field">
+      <label>본문</label>
+      <textarea id="mailBody" rows="18"></textarea>
+      <span class="mail-note">치환 토큰 — <code>{접수키}</code> <code>{이름}</code> <code>{학교}</code>
+        <code>{학년}</code> <code>{부문}</code> <code>{작품제목}</code> <code>{작품링크}</code>
+        <code>{최종접수}</code> <code>{상태}</code></span>
+    </div>
+
+    <div class="mail-actions">
+      <span class="mail-status" id="mailStatus"></span>
+      <button class="btn primary" id="mailSave">저장</button>
+    </div>
   </div>
 </div>
 
@@ -351,6 +418,64 @@ tbody tr:hover{background:#fff7f5}
   $('detailClose').addEventListener('click', closeDetail);
   $('detail').addEventListener('click', function (e) { if (e.target === $('detail')) closeDetail(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDetail(); });
+
+  /* ── 메일 양식 ── */
+  function openMail() {
+    $('mailStatus').textContent = '불러오는 중…';
+    $('mailStatus').className = 'mail-status';
+    $('mailModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    sb.rpc('투닝콘테스트_메일양식', { p_pw: pw }).then(function (res) {
+      if (res.error || !res.data || !res.data.length) {
+        $('mailStatus').textContent = res.error
+          ? ((res.error.message || '').indexOf('PGRST202') !== -1
+              ? '메일 기능이 아직 설치되지 않았습니다. (v13 SQL 실행 필요)'
+              : '불러오기 실패: ' + res.error.message)
+          : '설정을 찾을 수 없습니다.';
+        $('mailStatus').className = 'mail-status err';
+        return;
+      }
+      var d = res.data[0];
+      $('mailOn').value      = d.mail_on === 'off' ? 'off' : 'on';
+      $('mailSubject').value = d.mail_subject || '';
+      $('mailBody').value    = d.mail_body || '';
+      $('mailCc').value      = d.mail_cc || '';
+      $('mailFrom').textContent = d.mail_from || '';
+      $('mailKeyState').innerHTML = d.key_set
+        ? 'Resend API 키: <strong style="color:#10b981">등록됨</strong>'
+        : 'Resend API 키: <strong style="color:#dc2626">미등록</strong> — 등록 전까지 메일이 발송되지 않습니다.';
+      $('mailStatus').textContent = '';
+    });
+  }
+
+  function closeMail() {
+    $('mailModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  $('mailBtn').addEventListener('click', openMail);
+  $('mailClose').addEventListener('click', closeMail);
+  $('mailModal').addEventListener('click', function (e) { if (e.target === $('mailModal')) closeMail(); });
+
+  $('mailSave').addEventListener('click', function () {
+    $('mailStatus').textContent = '저장 중…';
+    $('mailStatus').className = 'mail-status';
+    sb.rpc('투닝콘테스트_메일양식저장', {
+      p_pw: pw,
+      p_on: $('mailOn').value,
+      p_subject: $('mailSubject').value,
+      p_body: $('mailBody').value,
+      p_cc: $('mailCc').value
+    }).then(function (res) {
+      if (res.error) {
+        $('mailStatus').textContent = '저장 실패: ' + (res.error.message || '');
+        $('mailStatus').className = 'mail-status err';
+        return;
+      }
+      $('mailStatus').textContent = '저장되었습니다.';
+      $('mailStatus').className = 'mail-status ok';
+    });
+  });
 
   /* ── CSV ── */
   $('csvBtn').addEventListener('click', function () {
