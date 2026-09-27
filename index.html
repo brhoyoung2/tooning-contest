@@ -2012,14 +2012,16 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <span class="form-label"><span class="ko-text">기획안</span><span class="en-text">Proposal</span> <em>*</em></span>
             <textarea name="novelProposal" id="novelProposal" data-keep rows="6" placeholder="작품의 기획 의도, 줄거리, 등장인물, 세계관을 자유롭게 작성해주세요." data-ph-ko="작품의 기획 의도, 줄거리, 등장인물, 세계관을 자유롭게 작성해주세요." data-ph-en="Describe your intent, plot, characters, and setting."></textarea>
             <span class="char-count" id="novelProposalCount"></span>
-            <span class="form-hint"><span class="ko-text">링크 대신 이곳에 직접 작성해주세요. 200자 이상 권장</span><span class="en-text">Write directly here instead of sharing a link. 200+ characters recommended</span></span>
+            <span class="form-hint"><span class="ko-text">링크 대신 이곳에 직접 작성해주세요. 심사에 그대로 활용됩니다.</span><span class="en-text">Write directly here instead of sharing a link — this text is used as-is for judging.</span></span>
           </label>
         </div>
 
         <div class="form-row" data-show-for="comic,cardnews">
           <label class="form-field">
             <span class="form-label"><span class="ko-text">시놉시스 / 설명</span><span class="en-text">Synopsis / Description</span></span>
-            <textarea name="link2_desc" rows="3" placeholder="작품의 스토리, 의도, 콘셉트를 간략히 설명해주세요" data-ph-ko="작품의 스토리, 의도, 콘셉트를 간략히 설명해주세요" data-ph-en="Briefly describe the story, intent, or concept of your work"></textarea>
+            <textarea name="link2_desc" id="workDesc" data-keep rows="5" placeholder="작품의 스토리, 의도, 콘셉트를 설명해주세요" data-ph-ko="작품의 스토리, 의도, 콘셉트를 설명해주세요" data-ph-en="Describe the story, intent, and concept of your work"></textarea>
+            <span class="char-count" id="workDescCount"></span>
+            <span class="form-hint"><span class="ko-text">심사에 그대로 활용되니 충분히 적어주세요.</span><span class="en-text">This text is used as-is for judging, so please write it out fully.</span></span>
           </label>
         </div>
 
@@ -2028,7 +2030,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <span class="form-label"><span class="ko-text">생성형 AI 활용 과정</span><span class="en-text">How You Used Generative AI</span> <em>*</em></span>
             <textarea name="aiProcess" id="aiProcess" data-keep rows="5" placeholder="투닝(에디터·매직 등) AI를 어떻게 활용했는지 적어주세요. 사용한 기능, 입력한 프롬프트, AI 결과물을 어떻게 다듬었는지 등을 적어주시면 좋아요." data-ph-ko="투닝(에디터·매직 등) AI를 어떻게 활용했는지 적어주세요. 사용한 기능, 입력한 프롬프트, AI 결과물을 어떻게 다듬었는지 등을 적어주시면 좋아요." data-ph-en="Describe how you used Tooning's AI (Editor, Magic, etc.) — which features, what prompts you wrote, and how you refined the AI output."></textarea>
             <span class="char-count" id="aiProcessCount"></span>
-            <span class="form-hint"><span class="ko-text">AI를 어떻게 활용했는지가 심사의 중요한 기준입니다. 보드에도 같은 내용이 담겨 있어야 해요. 100자 이상 권장</span><span class="en-text">How you used AI is a key judging criterion, and the same content must appear on your board. 100+ characters recommended</span></span>
+            <span class="form-hint"><span class="ko-text">AI를 어떻게 활용했는지가 심사의 중요한 기준입니다. 보드에도 같은 내용이 담겨 있어야 해요.</span><span class="en-text">How you used AI is a key judging criterion, and the same content must appear on your board.</span></span>
           </label>
         </div>
 
@@ -2046,7 +2048,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <span class="form-label"><span class="ko-text">포스터 기획안</span><span class="en-text">Poster Proposal</span> <em>*</em></span>
             <textarea name="posterProposal" id="posterProposal" data-keep rows="6" placeholder="포스터의 의도, 전달하려는 메시지, 디자인 콘셉트를 작성해주세요." data-ph-ko="포스터의 의도, 전달하려는 메시지, 디자인 콘셉트를 작성해주세요." data-ph-en="Describe your poster's intent, message, and design concept."></textarea>
             <span class="char-count" id="posterProposalCount"></span>
-            <span class="form-hint"><span class="ko-text">링크 대신 이곳에 직접 작성해주세요. 심사에 그대로 활용됩니다. 200자 이상 권장</span><span class="en-text">Write directly here instead of sharing a link — this text is used in judging. 200+ characters recommended</span></span>
+            <span class="form-hint"><span class="ko-text">링크 대신 이곳에 직접 작성해주세요. 심사에 그대로 활용됩니다.</span><span class="en-text">Write directly here instead of sharing a link — this text is used as-is for judging.</span></span>
           </label>
         </div>
 
@@ -2282,6 +2284,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     });
   }
   sectionSelect.addEventListener('change', updateConditionalFields);
+  sectionSelect.addEventListener('change', function() {
+    if (typeof refreshCounts === 'function') refreshCounts();
+  });
 
   // 부문 카드: 클릭하면 숨겨진 select 값을 바꾸고 기존 로직을 그대로 태운다
   var secCards = document.getElementById('secCards');
@@ -2449,23 +2454,40 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   if (epList) { for (var _e = 0; _e < EP_MIN; _e++) epAddItem(); }
   if (epAdd) epAdd.addEventListener('click', epAddItem);
 
-  // 기획안 글자수 (소설 · 포스터)
-  var npEl  = document.getElementById('novelProposal');
-  var ppEl  = document.getElementById('posterProposal');
-  function bindCount(el, cntEl) {
+  /* ── 글자수 안내 ──
+     부문별 권장 분량: 만화·소설 1,000자 내외 / 카드뉴스·포스터 100자 내외 */
+  var LEN_TARGET = { comic: 1000, novel: 1000, cardnews: 100, poster: 100 };
+  var counters = [];
+
+  function targetFor(fixed) {
+    if (fixed) return fixed;
+    return LEN_TARGET[sectionSelect.value] || 1000;
+  }
+
+  function bindCount(el, cntEl, fixed) {
     if (!el || !cntEl) return;
     var upd = function() {
+      var t = targetFor(fixed);
       var n = el.value.replace(/\s/g, '').length;
-      cntEl.textContent = n.toLocaleString() + '자';
-      cntEl.className = 'char-count ' + (n >= 200 ? 'ok' : 'short');
+      cntEl.textContent = '현재 ' + n.toLocaleString() + '자 · 권장 ' + t.toLocaleString() + '자 내외';
+      cntEl.className = 'char-count ' + (n >= t * 0.7 ? 'ok' : 'short');
     };
     el.addEventListener('input', upd);
+    counters.push(upd);
     upd();
   }
-  bindCount(npEl, document.getElementById('novelProposalCount'));
-  bindCount(ppEl, document.getElementById('posterProposalCount'));
+
+  function refreshCounts() { counters.forEach(function(f) { f(); }); }
+
+  var npEl = document.getElementById('novelProposal');
+  var ppEl = document.getElementById('posterProposal');
   var aiEl = document.getElementById('aiProcess');
-  bindCount(aiEl, document.getElementById('aiProcessCount'));
+  var wdEl = document.getElementById('workDesc');
+
+  bindCount(npEl, document.getElementById('novelProposalCount'), 1000);   // 소설 기획안
+  bindCount(ppEl, document.getElementById('posterProposalCount'), 100);   // 포스터 기획안
+  bindCount(wdEl, document.getElementById('workDescCount'));             // 시놉시스 — 부문별
+  bindCount(aiEl, document.getElementById('aiProcessCount'));            // AI 활용 과정 — 부문별
 
   // 회차 본문 수집 → [{ep, body}]
   function collectEpisodes() {
