@@ -1912,7 +1912,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 
         <div class="form-row two-col wide-right" data-contact-for="teacher">
           <label class="form-field">
-            <span class="form-label"><span class="ko-text">지도교사 이름</span><span class="en-text">Teacher's Name</span></span>
+            <span class="form-label"><span class="ko-text">지도교사 이름</span><span class="en-text">Teacher's Name</span> <em>*</em></span>
             <input type="text" name="teacherName" placeholder="김선생님" data-ph-ko="김선생님" data-ph-en="Teacher Kim" />
             <span class="form-hint"><span class="ko-text">지도교사상 수상 시 연락에 활용됩니다</span><span class="en-text">This contact will be used for the Teacher Award notification</span></span>
           </label>
@@ -2321,7 +2321,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       row.querySelectorAll('input, select.country-code').forEach(function(el) {
         el.disabled = !match;
         if (match) {
-          if (row.dataset.contactFor === 'teacher' && (el.name === 'teacherPhone' || el.name === 'teacherEmail')) el.required = true;
+          if (row.dataset.contactFor === 'teacher' && (el.name === 'teacherPhone' || el.name === 'teacherEmail' || el.name === 'teacherName')) el.required = true;
           if (row.dataset.contactFor === 'parent' && (el.name === 'parentPhone' || el.name === 'parentEmail')) el.required = true;
         } else {
           el.required = false;
@@ -2757,6 +2757,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           upload_failed:        '작품 PDF 업로드에 실패했습니다. 파일 크기(20MB 이하)와 형식을 확인한 뒤 다시 시도해주세요.',
           proposal_required:    '기획안을 작성해주세요. 소설·포스터 부문은 기획안이 필수입니다.',
           description_required: '시놉시스/설명을 작성해주세요. 만화·카드뉴스 부문은 필수입니다.',
+          teacher_name_required: '지도교사 이름을 입력해주세요. 지도교사가 없으면 [교사 없음 (개인 접수)]를 선택해 주세요.',
           ai_process_required:  '생성형 AI 활용 과정을 작성해주세요. 심사의 중요한 기준입니다.',
           episodes_required:    '소설 본문을 3화 이상 작성해주세요.',
           episode_empty:        '비어 있는 회차가 있습니다. 모든 회차의 본문을 채워주세요.'

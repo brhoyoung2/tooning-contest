@@ -1,11 +1,12 @@
 -- =====================================================
--- [투닝콘테스트] v14 — 시놉시스/설명 필수화
+-- [투닝콘테스트] v14 — 시놉시스/설명 · 지도교사 이름 필수화
 --
 --   접수 폼에서 시놉시스/설명에 * (필수) 표기를 달았습니다.
 --   프런트 검증만으로는 우회가 가능하므로 서버에서도 막습니다.
 --
 --   · 만화 / 카드뉴스 → 시놉시스·설명 필수 (description_required)
 --   · 소설 / 포스터   → 기획안 필수 (proposal_required, 기존과 동일)
+--   · 지도교사 선택 시 → 지도교사 이름 필수 (teacher_name_required)
 --
 -- 전제: v12 실행 완료
 -- 성격: 비파괴 · 여러 번 실행해도 안전
@@ -82,6 +83,12 @@ BEGIN
   -- ── 생성형 AI 활용 과정: 전 부문 공통 필수 ──
   IF v_ai IS NULL THEN
     RAISE EXCEPTION 'ai_process_required';
+  END IF;
+
+  -- ── 지도교사 이름: 지도교사 유형일 때 필수 ──
+  IF v_ctype = 'teacher'
+     AND nullif(btrim(coalesce(p_payload->>'teacher_name', '')), '') IS NULL THEN
+    RAISE EXCEPTION 'teacher_name_required';
   END IF;
 
   -- ── 시놉시스/설명: 만화·카드뉴스 부문 필수 ──
@@ -211,3 +218,4 @@ GRANT EXECUTE ON FUNCTION public.투닝콘테스트_제출(jsonb) TO anon, authe
 -- 적용 후 확인
 -- =====================================================
 -- 접수 기간 중, 만화 부문에 시놉시스 없이 제출 → description_required
+-- 지도교사 유형인데 이름 없이 제출 → teacher_name_required
