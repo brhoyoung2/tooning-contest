@@ -1803,7 +1803,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       </div>
       <div class="an-row an-open">
         <span class="an-badge"><span class="ko-text">접수 진행 중</span><span class="en-text">Now open</span></span>
-        <p class="an-text"><span class="ko-text"><strong>접수 마감은 2026년 10월 30일입니다.</strong><br/>아래 정보를 정확히 입력한 뒤 제출해 주세요. 제출 후에도 같은 이메일·부문으로 다시 제출하면 수정되며, 이전 내용은 자동 보관됩니다.</span><span class="en-text"><strong>Entries close on October 30, 2026.</strong><br/>Fill in the details below and submit. You may resubmit with the same email and division to update your entry — previous versions are kept automatically.</span></p>
+        <p class="an-text"><span class="ko-text"><strong>접수 마감은 2026년 10월 30일입니다.</strong><br/>아래 정보를 정확히 입력한 뒤 제출해 주세요. 마감 전까지 몇 번이든 다시 접수할 수 있고, 마지막 접수가 최종으로 인정됩니다.</span><span class="en-text"><strong>Entries close on October 30, 2026.</strong><br/>Fill in the details below and submit. You may submit again any number of times before the deadline — only your latest entry is judged.</span></p>
       </div>
       <div class="an-row an-closed">
         <span class="an-badge"><span class="ko-text">접수 마감</span><span class="en-text">Closed</span></span>
@@ -1989,7 +1989,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
                 <span class="sc-body"><span class="sc-name"><span class="ko-text">포스터</span><span class="en-text">Poster</span></span><span class="sc-spec"><span class="ko-text">포스터 1장 · 기획안 필수</span><span class="en-text">1 poster, proposal required</span></span></span>
               </button>
             </div>
-            <span class="sec-hint"><span class="ko-text">1인당 1작품, 한 부문에만 출품할 수 있습니다. <strong>접수 후에는 부문을 변경할 수 없으니</strong> 신중히 선택해 주세요.</span><span class="en-text">One work in one division per participant. <strong>Your division cannot be changed after you submit</strong> — please choose carefully.</span></span>
+            <span class="sec-hint"><span class="ko-text">1인당 1작품, 한 부문에만 출품할 수 있습니다. 다시 접수하시면 <strong>마지막 접수 1건만 심사</strong>됩니다.</span><span class="en-text">One work in one division per participant. If you submit again, <strong>only your latest entry is judged</strong>.</span></span>
             <select name="section" id="sectionSelect" required hidden aria-hidden="true" tabindex="-1">
               <option value=""></option>
               <option value="comic">comic</option>
@@ -2129,7 +2129,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 
       <details class="faq-item">
         <summary><span class="faq-q">Q3</span><span class="ko-text">부문별로 다르게 만들면 여러 부문에 낼 수 있나요?</span><span class="en-text">Can I enter several divisions with different works?</span></summary>
-        <div class="faq-a"><span class="ko-text">아니요. <strong>1인당 1작품, 1개 부문에만</strong> 출품할 수 있습니다. 내용이나 형식을 다르게 제작하더라도 카드뉴스와 포스터처럼 <strong>여러 부문에 동시 접수는 불가능</strong>합니다. 접수 후 부문 변경도 되지 않으니 신중히 선택해 주세요.</span><span class="en-text">No. Each participant may enter <strong>one work in one division only</strong>. Even if the content and format differ, you <strong>cannot enter two divisions</strong> such as Card News and Poster at the same time, and your division cannot be changed after submitting.</span></div>
+        <div class="faq-a"><span class="ko-text">아니요. <strong>1인당 1작품, 1개 부문에만</strong> 출품할 수 있습니다. 내용이나 형식을 다르게 제작하더라도 카드뉴스와 포스터처럼 <strong>여러 부문에 동시 접수는 불가능</strong>합니다. 다시 접수하신 경우에는 마지막 접수 1건만 심사합니다.</span><span class="en-text">No. Each participant may enter <strong>one work in one division only</strong>. Even if the content and format differ, you <strong>cannot enter two divisions</strong> such as Card News and Poster at the same time. If you submit more than once, only your latest entry is judged.</span></div>
       </details>
 
       <details class="faq-item">
@@ -2821,13 +2821,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         var key  = data.key || '-';
         statusEl.hidden = false;
         statusEl.classList.add('success');
-        statusEl.innerHTML = (data.status === 'updated'
-            ? '🔄 <strong>접수 내용이 수정되었습니다!</strong>'
+        statusEl.innerHTML = (data.status === 'resubmitted'
+            ? '🔄 <strong>다시 접수되었습니다!</strong> 이번 접수가 <strong>최신</strong>으로 인정됩니다.'
             : '🎉 <strong>접수가 완료되었습니다!</strong>')
           + '<br/>접수키: <strong>' + key + '</strong>'
           + '<br/>이 접수키로 접수 내역을 조회할 수 있으니 꼭 저장해 주세요.'
           + '<br/>접수 확인 메일을 <strong>' + emailVal + '</strong> 으로 보내드렸습니다.'
-          + '<br/><span style="opacity:.8">같은 이메일·부문으로 다시 제출하면 내용이 수정되며, 이전 제출 내용은 자동 보관되어 접수키로 복구할 수 있습니다.</span>';
+          + '<br/><span style="opacity:.8">접수 기간에는 몇 번이든 다시 접수할 수 있고, 마지막 접수가 최종으로 인정됩니다. 접수할 때마다 새 접수번호가 발급되니 가장 최근 번호를 보관해 주세요.</span>';
         form.reset();
         updateConditionalFields();
         setTimeout(function() {
@@ -2846,7 +2846,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           invalid_section:      '출품 부문을 다시 선택해주세요.',
           invalid_contact_type: '연락처 유형을 다시 선택해주세요.',
           invalid_link:         '작품 보드 링크는 투닝(tooning.io) 공유 링크만 등록할 수 있습니다.',
-          category_locked:      '이미 다른 부문으로 접수하셨습니다. 1인당 1작품·1개 부문만 출품할 수 있어 부문은 변경할 수 없습니다. 문의: support@tooning.io',
           submit_failed:        '접수 처리에 실패했습니다. 잠시 후 다시 시도해주세요.',
           upload_failed:        '작품 PDF 업로드에 실패했습니다. 파일 크기(20MB 이하)와 형식을 확인한 뒤 다시 시도해주세요.',
           proposal_required:    '기획안을 작성해주세요. 소설·포스터 부문은 기획안이 필수입니다.',
@@ -3184,7 +3183,7 @@ function hofTab(id, btn) {
     { keys:['오류','버그','에러','error','안열려','멈춰','안돼요','안됩니다','오작동','튕겨','crash','작동안','실행안','접속안','로딩','느려','문제가생','문제있','고장'], ans:'투닝 이용 중 오류가 발생했다면\n📧 support@tooning.io\n📞 050-7458-2020\n투닝 고객센터로 문의해 주세요!' },
 
     // ── 잘못 제출 flow ───────────────────────────────────
-    { keys:['잘못제출','잘못 제출','재제출','다시제출','다시 제출','작품수정','작품 수정','바꾸고싶','바꾸고 싶','수정하고싶','수정하고 싶','다시올리','다시업로드','교체하고','잘못올렸','잘못보냈','취소하고싶','제출취소','다시내고','내용수정','잘못입력','오타','고치고싶','변경하고싶'], ans:'접수 기간 안에는 직접 수정하실 수 있어요! ✏️\n\n처음 접수하실 때와 <같은 이메일>로 다시 제출하시면\n기존 접수 내용이 새 내용으로 수정됩니다.\n\n· 부문은 바꿀 수 없어요 (1인 1작품·1부문)\n· 이전 제출 내용은 자동으로 보관돼요\n· 되돌리고 싶으면 접수키로 조회 후 복구할 수 있어요\n\n마감(10월 30일) 이후에는 수정이 불가능합니다.' },
+    { keys:['잘못제출','잘못 제출','재제출','다시제출','다시 제출','작품수정','작품 수정','바꾸고싶','바꾸고 싶','수정하고싶','수정하고 싶','다시올리','다시업로드','교체하고','잘못올렸','잘못보냈','취소하고싶','제출취소','다시내고','내용수정','잘못입력','오타','고치고싶','변경하고싶'], ans:'접수 기간 안에는 몇 번이든 다시 접수하실 수 있어요! ✏️\n\n고칠 내용이 있으면 처음부터 다시 접수해 주세요.\n\n· 접수할 때마다 새 접수번호가 발급됩니다\n· 마지막 접수가 <최신>으로 최종 인정돼요\n· 이전 접수 기록도 그대로 남습니다\n\n마감(10월 30일) 이후에는 접수·수정이 모두 불가능합니다.' },
 
     // ── 신청 확인 flow ───────────────────────────────────
     { keys:['신청확인','신청 확인','접수확인','접수 확인','됐나요','접수됐','신청됐','확인하고싶','확인하고 싶','접수됐어','신청됐어','접수가됐','신청이됐','접수완료','신청완료','접수되었','신청되었','접수했나','신청했나','제출확인','냈나요','냈어요','넣었나'], ans:'__VERIFY__' },
@@ -3253,7 +3252,7 @@ function hofTab(id, btn) {
     { keys:['지도교사','교사없','선생님없','혼자참가','개인접수','개인으로','학교안통','학원생','홈스쿨'], ans:'지도교사가 없어도 개인으로 참가할 수 있어요! 👨‍👩‍👧\n\n접수 폼에서 [교사 없음 (개인 접수)]를 선택하시고,\n보호자 연락처와 보호자 이메일을 입력해 주세요.\n\n지도교사가 있으면 지도교사상 수상 기회도 있습니다!' },
 
     // ── 부문 / 중복 출품 ─────────────────────────────────
-    { keys:['부문','여러부문','중복출품','중복 출품','두개부문','다른부문','부문변경','부문바꾸','몇개까지','여러개출품','여러작품','두부문','동시접수','둘다','둘 다','둘다낼','두개다','같이출품','같이내','동시에','두작품','각각출품'], ans:'부문은 만화/웹툰 · 소설/이야기 · 카드뉴스 · 포스터 4가지예요. 🎨\n\n중복 출품은 불가능합니다.\n1인당 1작품, 1개 부문에만 출품할 수 있어요.\n\n내용이나 형식을 다르게 만들어도 카드뉴스와 포스터처럼 여러 부문에 동시 접수는 안 됩니다.\n\n접수를 마친 뒤에는 부문을 바꿀 수도 없으니 신중히 선택해 주세요!' },
+    { keys:['부문','여러부문','중복출품','중복 출품','두개부문','다른부문','부문변경','부문바꾸','몇개까지','여러개출품','여러작품','두부문','동시접수','둘다','둘 다','둘다낼','두개다','같이출품','같이내','동시에','두작품','각각출품'], ans:'부문은 만화/웹툰 · 소설/이야기 · 카드뉴스 · 포스터 4가지예요. 🎨\n\n중복 출품은 불가능합니다.\n1인당 1작품, 1개 부문에만 출품할 수 있어요.\n\n내용이나 형식을 다르게 만들어도 카드뉴스와 포스터처럼 여러 부문에 동시 접수는 안 됩니다.\n\n다시 접수하시면 마지막 1건만 심사하니, 부문을 바꾸고 싶다면 원하는 부문으로 다시 접수해 주세요!' },
 
     // ── 카드뉴스 주제 ────────────────────────────────────
     { keys:['카드뉴스주제','카드뉴스도','시사','교과','이슈','정보전달','카드뉴스는어떤','카드뉴스내용'], ans:'카드뉴스도 공통 주제 「2036년, 나의 하루」를 중심으로 만들어 주세요. 📰\n\n다만 카드뉴스 특성에 맞게\n시사 · 교과 · 이슈 등을 주제와 접목해 표현하시면 됩니다.\n\n주제와 무관한 시사 내용만으로는 출품이 어려워요.' },
@@ -3289,7 +3288,7 @@ function hofTab(id, btn) {
     { keys:['확인메일','메일이안','메일안와','메일안옴','안내메일못','메일못받','메일오나','접수메일','메일언제','스팸','접수확인메일','확인메일이안','메일이안왔','메일안왔','메일이오지'], ans:'접수를 마치면 입력하신 연락 이메일로 접수 확인 메일이 바로 발송됩니다. 📧\n\n· 받는 사람: 지도교사(또는 보호자) 이메일\n· 제목에 접수번호가 함께 표시돼요\n\n메일이 안 보이면 스팸함을 먼저 확인해 주세요.\n그래도 없으면 챗봇에 접수키를 입력해 접수 여부를 확인하실 수 있고, support@tooning.io 로 문의해 주셔도 됩니다.' },
 
     // ── 이메일 오타 / 변경 ───────────────────────────────
-    { keys:['이메일잘못','메일잘못','이메일오타','메일오타','이메일틀리','메일틀리','이메일바꾸','메일바꾸','이메일변경','메일변경','주소잘못','이메일을잘못','메일을잘못','이메일주소바꾸','메일주소바꾸','이메일수정','메일주소를바꾸','메일주소를바꾸고','이메일을바꾸고','메일을바꾸고','이메일바꾸고싶','메일바꾸고싶','메일주소변경'], ans:'⚠️ 이메일은 접수를 구분하는 기준이라 주의가 필요해요.\n\n다른 이메일로 다시 제출하면 수정이 아니라\n<새로운 접수>가 하나 더 만들어집니다.\n1인 1작품 규정에 어긋날 수 있어요.\n\n이메일을 잘못 입력하셨다면 직접 다시 제출하지 마시고\nsupport@tooning.io 로 접수키와 함께 알려주세요. 정정해 드립니다.' },
+    { keys:['이메일잘못','메일잘못','이메일오타','메일오타','이메일틀리','메일틀리','이메일바꾸','메일바꾸','이메일변경','메일변경','주소잘못','이메일을잘못','메일을잘못','이메일주소바꾸','메일주소바꾸','이메일수정','메일주소를바꾸','메일주소를바꾸고','이메일을바꾸고','메일을바꾸고','이메일바꾸고싶','메일바꾸고싶','메일주소변경'], ans:'이메일을 잘못 입력하셨다면 올바른 주소로 다시 접수해 주세요. 📧\n\n접수 기간에는 재접수가 자유롭고\n마지막 접수가 최종으로 인정됩니다.\n\n다만 접수 확인 메일은 그때 입력한 주소로 가니\n주소를 꼭 확인해 주세요.\n헷갈리시면 support@tooning.io 로 접수키와 함께 문의해 주세요.' },
 
     // ── 제출이 안 될 때 ──────────────────────────────────
     { keys:['제출이안돼','제출안됨','버튼눌러도','제출눌러도','작성했는데안','접수가안돼','에러나','빨간색','빨간','빨갛게','경고떠','버튼을눌러도','제출버튼을','안넘어가','넘어가지않','제출이안됩'], ans:'제출 버튼을 눌렀는데 넘어가지 않는다면 <빈 필수 항목>이 있는 경우예요. 🔍\n\n· 입력이 빠진 칸은 빨간 테두리로 표시됩니다\n· 칸 아래에 \'필수 입력 항목입니다\' 문구가 나와요\n· 화면 아래 안내에 빠진 항목 이름이 함께 표시됩니다\n\n빨갛게 표시된 칸을 모두 채우시면 제출됩니다!' },
@@ -3307,7 +3306,7 @@ function hofTab(id, btn) {
     { keys:['몇시까지','마감시간','당일23','자정','밤12','23시59','마감몇시','시간까지'], ans:'접수 마감은 2026년 10월 30일 <밤 11시 59분(한국 시간)>까지입니다. ⏰\n\n마감 직전에는 접속이 몰릴 수 있으니\n여유 있게 제출해 주세요.\n마감 이후에는 접수와 수정이 모두 불가능합니다.' },
 
     // ── 여러 학생 지도 / 단체 접수 ───────────────────────
-    { keys:['여러학생','학생여러','반전체','단체접수','학교에서','우리반','학생들','한꺼번에','여러명','단체로','단체로접수','여러명접수','학생여러명'], ans:'학생 한 명당 한 번씩 각각 접수하시면 됩니다. 👩‍🏫\n\n지도교사 정보(이름·연락처·이메일)는 같아도 괜찮습니다.\n\n다만 연락 이메일이 접수를 구분하는 기준이라,\n<학생마다 서로 다른 이메일>을 넣어주셔야 안전합니다.\n\n단체 접수 방식이 필요하시면 support@tooning.io 로 문의해 주세요.' },
+    { keys:['여러학생','학생여러','반전체','단체접수','학교에서','우리반','학생들','한꺼번에','여러명','단체로','단체로접수','여러명접수','학생여러명'], ans:'학생 한 명당 한 번씩 각각 접수하시면 됩니다. 👩‍🏫\n\n지도교사 정보(이름·연락처·이메일)는 모두 같아도 괜찮아요.\n같은 이메일로 여러 학생을 접수해도 각각 따로 저장됩니다.\n\n접수할 때마다 학생별로 접수번호가 따로 발급되니\n학생에게 각자의 번호를 알려주세요.' },
 
     // ── 보드 공개 설정 ───────────────────────────────────
     { keys:['공개설정','비공개','권한','접근안','링크열리','안열려','볼수없','공유설정','링크가안'], ans:'보드 공유 설정을 <링크를 가진 누구나>로 바꿔주세요. 🔓\n\n비공개 상태면 심사위원이 작품을 열 수 없어\n심사에서 불이익을 받을 수 있습니다.\n\n투닝 보드 → 공유 → 공유 대상 확인\n접수 폼의 [? 제출하는 법] 버튼에서 화면으로도 안내해 드려요.' },

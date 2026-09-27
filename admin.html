@@ -74,6 +74,12 @@ tbody tr:hover{background:#fff7f5}
 .tag.cardnews{background:#e6f8f2;color:#199e75}
 .tag.poster{background:#fff4d9;color:#b8860b}
 .muted{color:var(--soft)}
+.latest{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#dcfce7;
+  color:#15803d;font-size:10.5px;font-weight:800;vertical-align:1px}
+.older{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f1f3f7;
+  color:#8a90a0;font-size:10.5px;font-weight:700;vertical-align:1px}
+tbody tr.old-row{opacity:.55}
+tbody tr.old-row:hover{opacity:1}
 .dup{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:999px;background:#fee2e2;
   color:#dc2626;font-size:10.5px;font-weight:800;vertical-align:1px}
 tbody tr.dup-row td:nth-child(2){background:#fff7f7}
@@ -158,6 +164,11 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
       <option value="novel">소설 / 이야기</option>
       <option value="cardnews">카드뉴스</option>
       <option value="poster">포스터</option>
+    </select>
+    <select id="fLatest">
+      <option value="">전체 접수</option>
+      <option value="1">최신만 보기</option>
+      <option value="0">이전 접수만</option>
     </select>
     <select id="fLevel">
       <option value="">전체 학교급</option>
@@ -306,10 +317,12 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
 
   function filtered() {
     var q = $('q').value.trim().toLowerCase();
-    var sec = $('fSection').value, lv = $('fLevel').value;
+    var sec = $('fSection').value, lv = $('fLevel').value, lt = $('fLatest').value;
     return rows.filter(function (r) {
       if (sec && r.section !== sec) return false;
       if (lv && r.school_level !== lv) return false;
+      if (lt === '1' && !r.is_latest) return false;
+      if (lt === '0' && r.is_latest) return false;
       if (!q) return true;
       return [r.name, r.school, r.topic, r.submit_key, r.contact_email, r.teacher_name, r.class, r.grade]
         .some(function (v) { return String(v || '').toLowerCase().indexOf(q) !== -1; });
@@ -337,7 +350,8 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
       byL[r.school_level] = (byL[r.school_level] || 0) + 1;
     });
     var pdfN = rows.filter(function (r) { return !!r.pdf_url; }).length;
-    var stats = [['전체 접수', rows.length, '건']];
+    var latestN = rows.filter(function (r) { return r.is_latest !== false; }).length;
+    var stats = [['심사 대상(최신)', latestN, '건'], ['전체 접수', rows.length, '건']];
     ['comic', 'novel', 'cardnews', 'poster'].forEach(function (k) {
       stats.push([SECTION[k], byS[k] || 0, '건']);
     });
@@ -352,12 +366,17 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
 
     $('rows').innerHTML = list.map(function (r, i) {
       var dupN = dupMap[dupKey(r)] || 0;
+      var seqBadge = (r.total_seq > 1)
+        ? (r.is_latest
+            ? ' <span class="latest">최신</span>'
+            : ' <span class="older">이전 ' + r.seq + '/' + r.total_seq + '</span>')
+        : '';
       var dupBadge = dupN > 1
         ? ' <span class="dup" title="같은 학교에 같은 이름이 ' + dupN + '건 있습니다 — 동명이인이거나 중복 접수일 수 있습니다">이름 중복 ' + dupN + '</span>'
         : '';
-      return '<tr data-i="' + i + '"' + (dupN > 1 ? ' class="dup-row"' : '') + '>'
+      return '<tr data-i="' + i + '"' + (r.total_seq > 1 && !r.is_latest ? ' class="old-row"' : '') + '>'
         + '<td class="muted">' + fmtDate(r.created_at) + '</td>'
-        + '<td><strong>' + esc(r.name) + '</strong>' + dupBadge + '</td>'
+        + '<td><strong>' + esc(r.name) + '</strong>' + seqBadge + dupBadge + '</td>'
         + '<td>' + esc(r.school) + '</td>'
         + '<td class="muted">' + esc(r.grade) + ' ' + esc(r.class || '') + '</td>'
         + '<td class="muted">' + esc(r.teacher_name || (r.contact_type === 'parent' ? '(개인 접수)' : '-')) + '</td>'
@@ -380,7 +399,7 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
     });
   }
 
-  ['q', 'fSection', 'fLevel'].forEach(function (id) {
+  ['q', 'fSection', 'fLevel', 'fLatest'].forEach(function (id) {
     $(id).addEventListener('input', render);
     $(id).addEventListener('change', render);
   });
@@ -509,7 +528,7 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
                 ['학년', 'grade'], ['학교급', 'school_level'], ['반', 'class'], ['부문', 'section'],
                 ['작품 제목', 'topic'], ['연락처 유형', 'contact_type'], ['이메일', 'contact_email'],
                 ['지도교사', 'teacher_name'], ['교사 연락처', 'teacher_phone'], ['보호자 연락처', 'parent_phone'],
-                ['회차수', 'episode_count'], ['AI 활용 과정', 'ai_process'], ['보드 링크', 'board_link'], ['PDF', 'pdf_url'], ['상태', 'status']];
+                ['회차수', 'episode_count'], ['AI 활용 과정', 'ai_process'], ['최신여부', 'is_latest'], ['접수회차', 'seq'], ['보드 링크', 'board_link'], ['PDF', 'pdf_url'], ['상태', 'status']];
     var esc2 = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
     var csv = cols.map(function (c) { return esc2(c[0]); }).join(',') + '\n'
       + list.map(function (r) {
