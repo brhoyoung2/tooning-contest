@@ -540,6 +540,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .sec-cards.invalid-cards{outline:2px solid #ef4444;outline-offset:6px;border-radius:16px}
 .field-err-msg.show{display:block}
 .form-label{display:block;font-weight:700;font-size:14px;color:var(--text-dark);margin-bottom:6px;letter-spacing:-.01em}
+.opt{display:inline-block;margin-left:4px;padding:2px 8px;border-radius:999px;background:#eef1f6;color:var(--text-soft);font-size:11px;font-weight:700;vertical-align:1px}
 .form-label em{color:var(--coral);font-style:normal;margin-left:2px}
 .form-field input,.form-field select,.form-field textarea{width:100%;padding:13px 16px;border:1.5px solid #e5e7eb;border-radius:12px;font-family:inherit;font-size:14px;color:var(--text-dark);background:#fff;transition:border-color .2s,box-shadow .2s;font-weight:500}
 .form-field input:focus,.form-field select:focus,.form-field textarea:focus{outline:none;border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,107,107,.12)}
@@ -1879,6 +1880,15 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         </div>
 
         <div class="form-row">
+          <label class="form-field">
+            <span class="form-label"><span class="ko-text">참가자 본인 이메일</span><span class="en-text">Participant's Email</span> <span class="opt"><span class="ko-text">선택</span><span class="en-text">optional</span></span></span>
+            <input type="email" name="studentEmail" id="studentEmail" placeholder="student@example.com" data-ph-ko="student@example.com" data-ph-en="student@example.com" autocomplete="email" />
+            <span class="field-err-msg" id="studentEmailErr"><span class="ko-text">올바른 이메일 형식이 아닙니다</span><span class="en-text">Please enter a valid email address</span></span>
+            <span class="form-hint"><span class="ko-text">입력하시면 접수 확인 메일을 <strong>함께</strong> 받습니다.<br/>이메일이 없으면 비워두세요 — 지도교사·보호자 주소로 발송됩니다.</span><span class="en-text">If you enter it, the confirmation email is sent to you <strong>as well</strong>.<br/>Leave it blank if you don't have one — it will go to your teacher or guardian.</span></span>
+          </label>
+        </div>
+
+        <div class="form-row">
           <span class="form-label"><span class="ko-text">연락처 유형</span><span class="en-text">Contact Type</span> <em>*</em></span>
           <div class="radio-group">
             <label class="radio-option">
@@ -2784,6 +2794,18 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       }
     }
 
+    // 참가자 본인 이메일 — 선택이지만 적었다면 형식은 확인
+    var stuEl = form.querySelector('[name="studentEmail"]');
+    var stuVal = stuEl ? stuEl.value.trim() : '';
+    if (stuVal && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(stuVal)) {
+      markInvalid(stuEl, '이메일 형식을 확인해주세요');
+      statusEl.hidden = false;
+      statusEl.classList.add('error');
+      statusEl.textContent = '⚠️ 참가자 본인 이메일 형식이 올바르지 않습니다. 비워두셔도 접수됩니다.';
+      focusInvalid(stuEl);
+      return;
+    }
+
     var payload = {
       name:                fd.get('name') || null,
       school:              fd.get('school') || null,
@@ -2791,6 +2813,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       class:               fd.get('class') || null,
       contact_type:        contactType,
       contact_email:       emailVal,
+      student_email:       stuVal || null,
       consent:             !!(form.querySelector('[name="consent"]') || {}).checked,
       teacher_phone:       fd.get('teacherPhone') ? (fd.get('teacherCountryCode') + ' ' + fd.get('teacherPhone')) : null,
       teacher_name:        fd.get('teacherName') || null,
@@ -2826,7 +2849,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             : '🎉 <strong>접수가 완료되었습니다!</strong>')
           + '<br/>접수키: <strong>' + key + '</strong>'
           + '<br/>이 접수키로 접수 내역을 조회할 수 있으니 꼭 저장해 주세요.'
-          + '<br/>접수 확인 메일을 <strong>' + emailVal + '</strong> 으로 보내드렸습니다.'
+          + '<br/>접수 확인 메일을 <strong>' + emailVal + '</strong>'
+          + (stuVal ? ' 과 <strong>' + stuVal + '</strong>' : '') + ' 으로 보내드렸습니다.'
           + '<br/><span style="opacity:.8">접수 기간에는 몇 번이든 다시 접수할 수 있고, 마지막 접수가 최종으로 인정됩니다. 접수할 때마다 새 접수번호가 발급되니 가장 최근 번호를 보관해 주세요.</span>';
         form.reset();
         updateConditionalFields();
@@ -2843,6 +2867,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           consent_required:     '개인정보 수집·이용 동의가 필요합니다.',
           missing_required:     '필수 항목이 비어 있습니다. 이름·학교·학년·반·작품 제목을 확인해주세요.',
           invalid_email:        '올바른 이메일 주소를 입력해주세요.',
+          invalid_student_email: '참가자 본인 이메일 형식을 확인해주세요. 비워두셔도 접수됩니다.',
           invalid_section:      '출품 부문을 다시 선택해주세요.',
           invalid_contact_type: '연락처 유형을 다시 선택해주세요.',
           invalid_link:         '작품 보드 링크는 투닝(tooning.io) 공유 링크만 등록할 수 있습니다.',
@@ -3246,7 +3271,7 @@ function hofTab(id, btn) {
     { keys:['접수키','tc-','키를잃','키분실','키를잊','접수키가','키가뭐','번호를잃','확인방법'], ans:'접수키는 접수를 마치면 화면에 안내되는 TC-XXXX-XXXX 형식의 코드예요. 🔑\n\n· 접수 내역 조회에 사용합니다\n· 이전 제출 내용 복구에도 필요해요\n· 꼭 저장해 두세요!\n\n잃어버리셨다면 support@tooning.io 로 이름·학교·이메일과 함께 문의해 주세요.' },
 
     // ── 이메일 ───────────────────────────────────────────
-    { keys:['메일','왜메일','메일필수','메일이필요','누구메일','메일주소를','메일받','안내메일','누구걸로','누구이메일','메일은누구'], ans:'접수 확인과 심사 결과를 이메일로 안내드리기 때문에 꼭 필요해요. 📧\n\n· 지도교사가 있으면 → 지도교사 이메일\n· 지도교사가 없으면 → 보호자 이메일\n\n미성년 참가자가 많아 성인 보호자·교사 주소를 받고 있어요. 정확히 입력해 주세요!' },
+    { keys:['메일','왜메일','메일필수','메일이필요','누구메일','메일주소를','메일받','안내메일','누구걸로','누구이메일','메일은누구'], ans:'접수 확인과 심사 결과를 이메일로 안내드리기 때문에 꼭 필요해요. 📧\n\n· 지도교사가 있으면 → 지도교사 이메일\n· 지도교사가 없으면 → 보호자 이메일\n\n미성년 참가자가 많아 성인 보호자·교사 주소를 받고 있어요.\n\n참가자 <본인 이메일>은 선택 입력이에요.\n적어두시면 접수 확인 메일을 학생도 함께 받습니다.\n이메일이 없으면 비워두셔도 접수돼요!' },
 
     // ── 지도교사 없이 참가 ───────────────────────────────
     { keys:['지도교사','교사없','선생님없','혼자참가','개인접수','개인으로','학교안통','학원생','홈스쿨'], ans:'지도교사가 없어도 개인으로 참가할 수 있어요! 👨‍👩‍👧\n\n접수 폼에서 [교사 없음 (개인 접수)]를 선택하시고,\n보호자 연락처와 보호자 이메일을 입력해 주세요.\n\n지도교사가 있으면 지도교사상 수상 기회도 있습니다!' },
