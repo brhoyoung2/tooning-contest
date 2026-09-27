@@ -448,16 +448,18 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .form-row[hidden]{display:none}
 /* ── 출품 부문 선택 카드 ── */
 .sec-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.sec-card{display:flex;flex-direction:column;align-items:center;gap:5px;padding:16px 12px;border:1.8px solid #e5e7eb;border-radius:16px;background:#fff;font-family:inherit;cursor:pointer;text-align:center;transition:border-color .18s,background .18s,transform .18s}
+.sec-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 10px;border:1.8px solid #e5e7eb;border-radius:16px;background:#fff;font-family:inherit;cursor:pointer;text-align:center;transition:border-color .18s,background .18s,transform .18s}
 .sec-card:hover{border-color:rgba(255,107,107,.5);background:#fff8f6}
 .sec-card.on{border-color:var(--coral);background:#fff3f0;box-shadow:0 4px 14px rgba(255,107,107,.16)}
-.sc-emoji{font-size:26px;line-height:1}
+.sc-img{width:72px;height:48px;object-fit:cover;border-radius:9px;display:block;
+  background:#f1f3f7;box-shadow:0 2px 6px rgba(20,27,49,.12)}
+.sec-card.on .sc-img{box-shadow:0 3px 10px rgba(255,107,107,.3)}
 .sc-name{font-weight:700;font-size:14.5px;color:var(--text-dark);letter-spacing:-.01em}
 .sec-card.on .sc-name{color:var(--coral)}
 .sc-spec{font-size:11.5px;line-height:1.5;color:var(--text-soft)}
 .sec-hint{display:block;font-size:12px;color:var(--text-soft);margin-top:10px;line-height:1.5}
 @media(max-width:760px){.sec-cards{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:400px){.sec-cards{grid-template-columns:1fr}.sec-card{flex-direction:row;justify-content:flex-start;text-align:left;gap:12px;padding:14px}.sc-emoji{font-size:22px}}
+@media(max-width:400px){.sec-cards{grid-template-columns:1fr}.sec-card{flex-direction:row;justify-content:flex-start;text-align:left;gap:12px;padding:10px 12px}.sc-img{width:60px;height:40px;flex-shrink:0}}
 
 /* ── 보드 구성 형식 안내 + 샘플 ── */
 .board-guide{border:1.5px dashed rgba(255,107,107,.45);border-radius:16px;padding:18px 20px;margin-bottom:16px;background:#fff8f6}
@@ -1965,22 +1967,22 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
             <span class="form-label"><span class="ko-text">부문</span><span class="en-text">Division</span> <em>*</em> <span style="font-weight:600;color:var(--text-soft)"><span class="ko-text">— 하나만 선택해주세요</span><span class="en-text">— choose one</span></span></span>
             <div class="sec-cards" id="secCards" role="radiogroup" aria-label="출품 부문">
               <button type="button" class="sec-card" data-section="comic" role="radio" aria-checked="false">
-                <span class="sc-emoji">🎨</span>
+                <img class="sc-img" src="./images/sec-comic.jpg" alt="만화 / 웹툰" loading="lazy" />
                 <span class="sc-name"><span class="ko-text">만화 / 웹툰</span><span class="en-text">Comics / Webtoon</span></span>
                 <span class="sc-spec"><span class="ko-text">10컷 이상 · 표지 포함</span><span class="en-text">10+ panels, incl. cover</span></span>
               </button>
               <button type="button" class="sec-card" data-section="novel" role="radio" aria-checked="false">
-                <span class="sc-emoji">📚</span>
+                <img class="sc-img" src="./images/sec-novel.jpg" alt="소설 / 이야기" loading="lazy" />
                 <span class="sc-name"><span class="ko-text">소설 / 이야기</span><span class="en-text">Novel / Story</span></span>
                 <span class="sc-spec"><span class="ko-text">3화 · 화당 2,000자 이상</span><span class="en-text">3 episodes, 2,000+ chars each</span></span>
               </button>
               <button type="button" class="sec-card" data-section="cardnews" role="radio" aria-checked="false">
-                <span class="sc-emoji">📰</span>
+                <img class="sc-img" src="./images/sec-cardnews.jpg" alt="카드뉴스" loading="lazy" />
                 <span class="sc-name"><span class="ko-text">카드뉴스</span><span class="en-text">Card News</span></span>
                 <span class="sc-spec"><span class="ko-text">10컷 이상 · 정보 전달형</span><span class="en-text">10+ panels, informational</span></span>
               </button>
               <button type="button" class="sec-card" data-section="poster" role="radio" aria-checked="false">
-                <span class="sc-emoji">🖼️</span>
+                <img class="sc-img" src="./images/sec-poster.jpg" alt="포스터" loading="lazy" />
                 <span class="sc-name"><span class="ko-text">포스터</span><span class="en-text">Poster</span></span>
                 <span class="sc-spec"><span class="ko-text">포스터 1장 · 기획안 필수</span><span class="en-text">1 poster, proposal required</span></span>
               </button>
