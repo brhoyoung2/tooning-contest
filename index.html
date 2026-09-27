@@ -533,6 +533,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .phone-wrap input{flex:1}
 .input-error{border-color:#ef4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.12)!important}
 .field-err-msg{display:none;font-size:12px;color:#ef4444;margin-top:5px;font-weight:500}
+/* 미입력 필수 항목 강조 */
+.form-field .invalid,.form-field .invalid:focus{border-color:#ef4444!important;background:#fff6f6}
+.req-msg{display:block;margin-top:6px;font-size:12.5px;font-weight:700;color:#ef4444}
+.req-msg::before{content:'⚠ '}
+.sec-cards.invalid-cards{outline:2px solid #ef4444;outline-offset:6px;border-radius:16px}
 .field-err-msg.show{display:block}
 .form-label{display:block;font-weight:700;font-size:14px;color:var(--text-dark);margin-bottom:6px;letter-spacing:-.01em}
 .form-label em{color:var(--coral);font-style:normal;margin-left:2px}
@@ -2530,6 +2535,91 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       });
   }
 
+  /* ── 미입력 항목 표시 도우미 ── */
+  function fieldWrap(el) {
+    return el.closest ? (el.closest('.form-field') || el.closest('.form-consent') || el.parentNode) : el.parentNode;
+  }
+
+  function fieldLabel(el) {
+    if (el.id === 'sectionSelect') return '출품 부문';
+    if (el.type === 'checkbox') return '개인정보 동의';
+    var w = fieldWrap(el);
+    var lab = w && w.querySelector ? w.querySelector('.form-label .ko-text') : null;
+    return lab ? lab.textContent.trim() : '';
+  }
+
+  function markInvalid(el, msg) {
+    // 부문은 숨겨진 select 라 카드 묶음을 표시한다
+    if (el.id === 'sectionSelect') {
+      var cards = document.getElementById('secCards');
+      if (cards) {
+        cards.classList.add('invalid-cards');
+        var holder = cards.parentNode;
+        if (holder && !holder.querySelector('.req-msg')) {
+          var m0 = document.createElement('span');
+          m0.className = 'req-msg';
+          m0.textContent = '출품 부문을 선택해주세요';
+          cards.insertAdjacentElement('afterend', m0);
+        }
+      }
+      return;
+    }
+    el.classList.add('invalid');
+    var w = fieldWrap(el);
+    if (!w || w.querySelector('.req-msg')) return;
+    var m = document.createElement('span');
+    m.className = 'req-msg';
+    m.textContent = msg || '필수 입력 항목입니다';
+    if (el.type === 'checkbox') w.appendChild(m);
+    else el.insertAdjacentElement('afterend', m);
+  }
+
+  function clearInvalid() {
+    form.querySelectorAll('.invalid').forEach(function(el) { el.classList.remove('invalid'); });
+    document.querySelectorAll('#applyModal .req-msg').forEach(function(el) { el.remove(); });
+    var cards = document.getElementById('secCards');
+    if (cards) cards.classList.remove('invalid-cards');
+  }
+
+  function focusInvalid(el) {
+    var t = (el && el.id === 'sectionSelect') ? document.getElementById('secCards') : el;
+    if (!t) return;
+    if (t.scrollIntoView) t.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    if (t.focus && t !== document.getElementById('secCards')) setTimeout(function() { t.focus(); }, 320);
+  }
+
+  // 입력을 시작하면 그 항목의 표시를 바로 해제
+  form.addEventListener('input', function(e) {
+    var el = e.target;
+    if (el && el.classList && el.classList.contains('invalid')) {
+      el.classList.remove('invalid');
+      var w = fieldWrap(el);
+      var m = w && w.querySelector ? w.querySelector('.req-msg') : null;
+      if (m) m.remove();
+    }
+  }, true);
+
+  form.addEventListener('change', function(e) {
+    var el = e.target;
+    if (el && el.type === 'checkbox' && el.checked) {
+      el.classList.remove('invalid');
+      var w = fieldWrap(el);
+      var m = w && w.querySelector ? w.querySelector('.req-msg') : null;
+      if (m) m.remove();
+    }
+  }, true);
+
+  // 부문 카드를 고르면 표시 해제
+  (function() {
+    var cards = document.getElementById('secCards');
+    if (!cards) return;
+    cards.addEventListener('click', function() {
+      cards.classList.remove('invalid-cards');
+      var m = cards.parentNode ? cards.parentNode.querySelector('.req-msg') : null;
+      if (m) m.remove();
+    });
+  })();
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     statusEl.hidden = true;
@@ -2551,26 +2641,28 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       return;
     }
 
-    // 1. 필수 항목 확인
+    // 1. 필수 항목 확인 — 비어 있는 항목을 모두 빨갛게 표시
+    clearInvalid();
     var requiredEls = form.querySelectorAll('[required]:not(:disabled)');
-    var firstInvalid = null;
+    var missing = [];
     requiredEls.forEach(function(el) {
       var ok = el.type === 'checkbox' ? el.checked : el.value.trim() !== '';
-      if (!ok && !firstInvalid) firstInvalid = el;
+      if (!ok) missing.push(el);
     });
-    if (firstInvalid) {
+
+    if (missing.length) {
+      missing.forEach(function(el) {
+        markInvalid(el, el.type === 'checkbox' ? '동의가 필요합니다' : '필수 입력 항목입니다');
+      });
+      var first = missing[0];
+      var names = missing.map(fieldLabel).filter(Boolean);
       statusEl.hidden = false;
       statusEl.classList.add('error');
-      // 부문은 숨겨진 select 라 카드 쪽으로 안내
-      var isSection = firstInvalid.id === 'sectionSelect';
-      statusEl.textContent = isSection
-        ? '⚠️ 출품 부문을 선택해주세요.'
-        : '⚠️ 필수 항목을 모두 입력해주세요.';
-      var target = isSection ? document.getElementById('secCards') : firstInvalid;
-      if (target) {
-        if (target.scrollIntoView) target.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        if (!isSection) target.focus();
-      }
+      statusEl.innerHTML = '⚠️ <strong>' + missing.length + '개 항목</strong>이 입력되지 않았습니다.'
+        + '<br/>' + names.slice(0, 4).join(' · ')
+        + (names.length > 4 ? ' 외 ' + (names.length - 4) + '개' : '')
+        + '<br/><span style="opacity:.85">빨갛게 표시된 칸을 채워주세요.</span>';
+      focusInvalid(first);
       return;
     }
 
@@ -2627,6 +2719,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       statusEl.hidden = false;
       statusEl.classList.add('error');
       statusEl.textContent = '⚠️ 생성형 AI 활용 과정을 작성해주세요. 심사의 중요한 기준입니다.';
+      if (aiEl) markInvalid(aiEl, 'AI 활용 과정을 작성해주세요');
       if (aiEl) {
         if (aiEl.scrollIntoView) aiEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
         aiEl.focus();
@@ -2643,6 +2736,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         statusEl.hidden = false;
         statusEl.classList.add('error');
         statusEl.textContent = '⚠️ 포스터 기획안을 작성해주세요. 의도·메시지·디자인 콘셉트를 담아주세요.';
+        markInvalid(ppEl, '기획안을 작성해주세요');
         if (ppEl) ppEl.focus();
         return;
       }
@@ -2654,6 +2748,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         statusEl.hidden = false;
         statusEl.classList.add('error');
         statusEl.textContent = '⚠️ 기획안을 작성해주세요. 작품의 기획 의도와 줄거리를 담아주세요.';
+        markInvalid(npEl, '기획안을 작성해주세요');
         if (npEl) npEl.focus();
         return;
       }
