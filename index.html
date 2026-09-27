@@ -500,6 +500,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .hs-img img{display:block;width:100%;height:auto}
 @media(max-width:800px){.help-steps.s3,.help-steps.s2{grid-template-columns:1fr}}
 
+/* 작품 정보 항목 번호 — 숨겨진 부문 항목은 건너뛰고 자동으로 매겨진다 */
+#conditionalFields{counter-reset:fieldnum}
+#conditionalFields .form-row .form-label::before{counter-increment:fieldnum;content:counter(fieldnum) ") ";color:var(--coral);font-weight:800}
 .ep-list{display:flex;flex-direction:column;gap:12px}
 .ep-item{border:1.5px solid #e5e7eb;border-radius:14px;padding:12px 14px;background:#fbfcfe}
 .ep-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
@@ -1998,12 +2001,20 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <div class="form-section conditional-fields" id="conditionalFields" hidden>
         <div class="form-section-title"><span class="ko-text">3. 작품 정보 &amp; 링크</span><span class="en-text">3. Work Details &amp; Links</span></div>
         <div class="form-section-note"><span class="ko-text">기획안·본문은 <strong>이곳에 직접 작성</strong>해주세요. AI 심사에 그대로 활용되므로 외부 링크로는 받지 않습니다. 링크는 <strong>작품 보드 링크</strong> 하나만 입력하시면 됩니다.</span><span class="en-text">Write your proposal and text <strong>directly in this form</strong> — it is used as-is for AI judging, so external links are not accepted. The only link you need is your <strong>work board link</strong>.</span></div>
-
         <div class="form-row" data-show-for="comic,novel,cardnews,poster">
           <label class="form-field">
             <span class="form-label"><span class="ko-text">작품 주제 / 제목</span><span class="en-text">Work Theme / Title</span> <em>*</em></span>
             <input type="text" name="topic" required placeholder="예: AI와 함께하는 미래 학교" data-ph-ko="예: AI와 함께하는 미래 학교" data-ph-en="e.g. A Future School Living with AI" />
             <span class="form-hint"><span class="ko-text">작품의 핵심 주제 또는 제목을 한 줄로 입력하세요</span><span class="en-text">Enter the core theme or title of your work in one line</span></span>
+          </label>
+        </div>
+
+        <div class="form-row" data-show-for="comic,cardnews">
+          <label class="form-field">
+            <span class="form-label"><span class="ko-text">시놉시스 / 설명</span><span class="en-text">Synopsis / Description</span> <em>*</em></span>
+            <textarea name="link2_desc" id="workDesc" data-keep required rows="5" placeholder="작품의 스토리, 의도, 콘셉트를 설명해주세요" data-ph-ko="작품의 스토리, 의도, 콘셉트를 설명해주세요" data-ph-en="Describe the story, intent, and concept of your work"></textarea>
+            <span class="char-count" id="workDescCount"></span>
+            <span class="form-hint"><span class="ko-text">심사에 그대로 활용되니 충분히 적어주세요.</span><span class="en-text">This text is used as-is for judging, so please write it out fully.</span></span>
           </label>
         </div>
 
@@ -2016,21 +2027,12 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           </label>
         </div>
 
-        <div class="form-row" data-show-for="comic,cardnews">
+        <div class="form-row" data-show-for="poster">
           <label class="form-field">
-            <span class="form-label"><span class="ko-text">시놉시스 / 설명</span><span class="en-text">Synopsis / Description</span></span>
-            <textarea name="link2_desc" id="workDesc" data-keep rows="5" placeholder="작품의 스토리, 의도, 콘셉트를 설명해주세요" data-ph-ko="작품의 스토리, 의도, 콘셉트를 설명해주세요" data-ph-en="Describe the story, intent, and concept of your work"></textarea>
-            <span class="char-count" id="workDescCount"></span>
-            <span class="form-hint"><span class="ko-text">심사에 그대로 활용되니 충분히 적어주세요.</span><span class="en-text">This text is used as-is for judging, so please write it out fully.</span></span>
-          </label>
-        </div>
-
-        <div class="form-row" data-show-for="comic,novel,cardnews,poster">
-          <label class="form-field">
-            <span class="form-label"><span class="ko-text">생성형 AI 활용 과정</span><span class="en-text">How You Used Generative AI</span> <em>*</em></span>
-            <textarea name="aiProcess" id="aiProcess" data-keep rows="5" placeholder="투닝(에디터·매직 등) AI를 어떻게 활용했는지 적어주세요. 사용한 기능, 입력한 프롬프트, AI 결과물을 어떻게 다듬었는지 등을 적어주시면 좋아요." data-ph-ko="투닝(에디터·매직 등) AI를 어떻게 활용했는지 적어주세요. 사용한 기능, 입력한 프롬프트, AI 결과물을 어떻게 다듬었는지 등을 적어주시면 좋아요." data-ph-en="Describe how you used Tooning's AI (Editor, Magic, etc.) — which features, what prompts you wrote, and how you refined the AI output."></textarea>
-            <span class="char-count" id="aiProcessCount"></span>
-            <span class="form-hint"><span class="ko-text">AI를 어떻게 활용했는지가 심사의 중요한 기준입니다. 보드에도 같은 내용이 담겨 있어야 해요.</span><span class="en-text">How you used AI is a key judging criterion, and the same content must appear on your board.</span></span>
+            <span class="form-label"><span class="ko-text">포스터 기획안</span><span class="en-text">Poster Proposal</span> <em>*</em></span>
+            <textarea name="posterProposal" id="posterProposal" data-keep rows="6" placeholder="포스터의 의도, 전달하려는 메시지, 디자인 콘셉트를 작성해주세요." data-ph-ko="포스터의 의도, 전달하려는 메시지, 디자인 콘셉트를 작성해주세요." data-ph-en="Describe your poster's intent, message, and design concept."></textarea>
+            <span class="char-count" id="posterProposalCount"></span>
+            <span class="form-hint"><span class="ko-text">링크 대신 이곳에 직접 작성해주세요. 심사에 그대로 활용됩니다.</span><span class="en-text">Write directly here instead of sharing a link — this text is used as-is for judging.</span></span>
           </label>
         </div>
 
@@ -2043,12 +2045,22 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           </div>
         </div>
 
-        <div class="form-row" data-show-for="poster">
+        <div class="form-row" data-show-for="comic,novel,cardnews,poster">
           <label class="form-field">
-            <span class="form-label"><span class="ko-text">포스터 기획안</span><span class="en-text">Poster Proposal</span> <em>*</em></span>
-            <textarea name="posterProposal" id="posterProposal" data-keep rows="6" placeholder="포스터의 의도, 전달하려는 메시지, 디자인 콘셉트를 작성해주세요." data-ph-ko="포스터의 의도, 전달하려는 메시지, 디자인 콘셉트를 작성해주세요." data-ph-en="Describe your poster's intent, message, and design concept."></textarea>
-            <span class="char-count" id="posterProposalCount"></span>
-            <span class="form-hint"><span class="ko-text">링크 대신 이곳에 직접 작성해주세요. 심사에 그대로 활용됩니다.</span><span class="en-text">Write directly here instead of sharing a link — this text is used as-is for judging.</span></span>
+            <span class="form-label"><span class="ko-text">생성형 AI 활용 과정</span><span class="en-text">How You Used Generative AI</span> <em>*</em></span>
+            <textarea name="aiProcess" id="aiProcess" data-keep rows="5" placeholder="투닝(에디터·매직 등) AI를 어떻게 활용했는지 적어주세요. 사용한 기능, 입력한 프롬프트, AI 결과물을 어떻게 다듬었는지 등을 적어주시면 좋아요." data-ph-ko="투닝(에디터·매직 등) AI를 어떻게 활용했는지 적어주세요. 사용한 기능, 입력한 프롬프트, AI 결과물을 어떻게 다듬었는지 등을 적어주시면 좋아요." data-ph-en="Describe how you used Tooning's AI (Editor, Magic, etc.) — which features, what prompts you wrote, and how you refined the AI output."></textarea>
+            <span class="char-count" id="aiProcessCount"></span>
+            <span class="form-hint"><span class="ko-text">AI를 어떻게 활용했는지가 심사의 중요한 기준입니다. 보드에도 같은 내용이 담겨 있어야 해요.</span><span class="en-text">How you used AI is a key judging criterion, and the same content must appear on your board.</span></span>
+          </label>
+        </div>
+
+        <div class="form-row" data-show-for="comic,novel,cardnews,poster">
+          <label class="form-field">
+            <span class="label-row"><span class="form-label"><span class="ko-text">작품 PDF 업로드</span><span class="en-text">Work PDF Upload</span></span><button type="button" class="help-btn" data-help="pdf">? <span class="ko-text">제출하는 법</span><span class="en-text">How to submit</span></button></span>
+            <input type="file" name="workPdf" id="workPdf" accept="application/pdf,.pdf" class="file-input" />
+            <span class="field-err-msg" id="workPdfErr"><span class="ko-text">PDF 파일만, 20MB 이하로 업로드해주세요</span><span class="en-text">PDF only, up to 20MB</span></span>
+            <span class="upload-status" id="workPdfStatus"></span>
+            <span class="form-hint"><span class="ko-text">심사 시 링크 접근이 막히는 경우를 대비해 작품 원본을 PDF로 함께 올려주세요. (선택, 최대 20MB)</span><span class="en-text">Optionally upload your work as a PDF (max 20MB) in case the link is inaccessible during judging.</span></span>
           </label>
         </div>
 
@@ -2061,20 +2073,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           </div>
         </div>
 
-        <div class="form-row two-col" data-show-for="comic,novel,cardnews,poster">
+        <div class="form-row" data-show-for="comic,novel,cardnews,poster">
           <label class="form-field">
             <span class="label-row"><span class="form-label"><span class="ko-text">작품 보드 링크</span><span class="en-text">Work Board Link</span> <em>*</em></span><button type="button" class="help-btn" data-help="board">? <span class="ko-text">제출하는 법</span><span class="en-text">How to submit</span></button></span>
             <input type="url" name="link3_board" required placeholder="https://tooning.io/board/..." data-ph-ko="https://tooning.io/board/..." data-ph-en="https://tooning.io/board/..." />
             <span class="field-err-msg" id="link3Err"><span class="ko-text">링크는 영문(https://...)으로만 입력해주세요</span><span class="en-text">Link must start with https:// (no Korean allowed)</span></span>
             <div class="link-check" id="editorLinkCheck"></div>
             <span class="form-hint"><span class="ko-text">투닝 보드 → 공유 → 링크 복사 후 붙여넣기 — 이 링크가 공식 제출 작품입니다</span><span class="en-text">Tooning board → Share → copy the link and paste it here — this link is your official entry</span></span>
-          </label>
-          <label class="form-field">
-            <span class="label-row"><span class="form-label"><span class="ko-text">작품 PDF 업로드</span><span class="en-text">Work PDF Upload</span></span><button type="button" class="help-btn" data-help="pdf">? <span class="ko-text">제출하는 법</span><span class="en-text">How to submit</span></button></span>
-            <input type="file" name="workPdf" id="workPdf" accept="application/pdf,.pdf" class="file-input" />
-            <span class="field-err-msg" id="workPdfErr"><span class="ko-text">PDF 파일만, 20MB 이하로 업로드해주세요</span><span class="en-text">PDF only, up to 20MB</span></span>
-            <span class="upload-status" id="workPdfStatus"></span>
-            <span class="form-hint"><span class="ko-text">심사 시 링크 접근이 막히는 경우를 대비해 작품 원본을 PDF로 함께 올려주세요. (선택, 최대 20MB)</span><span class="en-text">Optionally upload your work as a PDF (max 20MB) in case the link is inaccessible during judging.</span></span>
           </label>
         </div>
       </div>
@@ -2751,6 +2756,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
           submit_failed:        '접수 처리에 실패했습니다. 잠시 후 다시 시도해주세요.',
           upload_failed:        '작품 PDF 업로드에 실패했습니다. 파일 크기(20MB 이하)와 형식을 확인한 뒤 다시 시도해주세요.',
           proposal_required:    '기획안을 작성해주세요. 소설·포스터 부문은 기획안이 필수입니다.',
+          description_required: '시놉시스/설명을 작성해주세요. 만화·카드뉴스 부문은 필수입니다.',
           ai_process_required:  '생성형 AI 활용 과정을 작성해주세요. 심사의 중요한 기준입니다.',
           episodes_required:    '소설 본문을 3화 이상 작성해주세요.',
           episode_empty:        '비어 있는 회차가 있습니다. 모든 회차의 본문을 채워주세요.'
