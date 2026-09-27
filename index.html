@@ -2455,8 +2455,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   if (epAdd) epAdd.addEventListener('click', epAddItem);
 
   /* ── 글자수 안내 ──
-     부문별 권장 분량: 만화·소설 1,000자 내외 / 카드뉴스·포스터 100자 내외 */
-  var LEN_TARGET = { comic: 1000, novel: 1000, cardnews: 100, poster: 100 };
+     권장 분량: 전 부문 1,000자 내외 */
+  var LEN_TARGET = { comic: 1000, novel: 1000, cardnews: 1000, poster: 1000 };
   var counters = [];
 
   function targetFor(fixed) {
@@ -2485,7 +2485,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   var wdEl = document.getElementById('workDesc');
 
   bindCount(npEl, document.getElementById('novelProposalCount'), 1000);   // 소설 기획안
-  bindCount(ppEl, document.getElementById('posterProposalCount'), 100);   // 포스터 기획안
+  bindCount(ppEl, document.getElementById('posterProposalCount'), 1000);  // 포스터 기획안
   bindCount(wdEl, document.getElementById('workDescCount'));             // 시놉시스 — 부문별
   bindCount(aiEl, document.getElementById('aiProcessCount'));            // AI 활용 과정 — 부문별
 
