@@ -74,6 +74,9 @@ tbody tr:hover{background:#fff7f5}
 .tag.cardnews{background:#e6f8f2;color:#199e75}
 .tag.poster{background:#fff4d9;color:#b8860b}
 .muted{color:var(--soft)}
+.dup{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:999px;background:#fee2e2;
+  color:#dc2626;font-size:10.5px;font-weight:800;vertical-align:1px}
+tbody tr.dup-row td:nth-child(2){background:#fff7f7}
 .empty{padding:56px 20px;text-align:center;color:var(--soft);font-size:14px;line-height:1.7}
 
 /* ── 메일 양식 ── */
@@ -169,8 +172,8 @@ tbody tr:hover{background:#fff7f5}
       <table>
         <thead>
           <tr>
-            <th>접수일</th><th>이름</th><th>학교</th><th>학년</th><th>부문</th>
-            <th>작품 제목</th><th>회차</th><th>PDF</th><th>접수키</th>
+            <th>접수일</th><th>이름</th><th>학교</th><th>학년 · 반</th><th>지도교사</th>
+            <th>연락 이메일</th><th>부문</th><th>작품 제목</th><th>회차</th><th>PDF</th><th>접수키</th>
           </tr>
         </thead>
         <tbody id="rows"></tbody>
@@ -308,12 +311,23 @@ tbody tr:hover{background:#fff7f5}
       if (sec && r.section !== sec) return false;
       if (lv && r.school_level !== lv) return false;
       if (!q) return true;
-      return [r.name, r.school, r.topic, r.submit_key, r.contact_email]
+      return [r.name, r.school, r.topic, r.submit_key, r.contact_email, r.teacher_name, r.class, r.grade]
         .some(function (v) { return String(v || '').toLowerCase().indexOf(q) !== -1; });
     });
   }
 
+  /* 같은 학교 · 같은 이름을 동명이인으로 본다 (학년·반·지도교사로 구분) */
+  function dupKey(r) {
+    return (String(r.name || '').trim() + '@' + String(r.school || '').trim()).toLowerCase();
+  }
+  var dupMap = {};
+
   function render() {
+    dupMap = {};
+    rows.forEach(function (r) {
+      var k = dupKey(r);
+      dupMap[k] = (dupMap[k] || 0) + 1;
+    });
     var list = filtered();
 
     // 통계는 전체 기준
@@ -329,17 +343,25 @@ tbody tr:hover{background:#fff7f5}
     });
     stats.push(['초 / 중 / 고', (byL['초등'] || 0) + ' / ' + (byL['중학'] || 0) + ' / ' + (byL['고등'] || 0), '']);
     stats.push(['PDF 첨부', pdfN, '건']);
+    var dupCount = rows.filter(function (r) { return (dupMap[dupKey(r)] || 0) > 1; }).length;
+    if (dupCount) stats.push(['이름 중복 확인', dupCount, '건']);
     $('stats').innerHTML = stats.map(function (s) {
       return '<div class="stat"><div class="stat-label">' + esc(s[0]) + '</div>'
            + '<div class="stat-val">' + esc(s[1]) + (s[2] ? '<small>' + s[2] + '</small>' : '') + '</div></div>';
     }).join('');
 
     $('rows').innerHTML = list.map(function (r, i) {
-      return '<tr data-i="' + i + '">'
+      var dupN = dupMap[dupKey(r)] || 0;
+      var dupBadge = dupN > 1
+        ? ' <span class="dup" title="같은 학교에 같은 이름이 ' + dupN + '건 있습니다 — 동명이인이거나 중복 접수일 수 있습니다">이름 중복 ' + dupN + '</span>'
+        : '';
+      return '<tr data-i="' + i + '"' + (dupN > 1 ? ' class="dup-row"' : '') + '>'
         + '<td class="muted">' + fmtDate(r.created_at) + '</td>'
-        + '<td><strong>' + esc(r.name) + '</strong></td>'
+        + '<td><strong>' + esc(r.name) + '</strong>' + dupBadge + '</td>'
         + '<td>' + esc(r.school) + '</td>'
-        + '<td class="muted">' + esc(r.grade) + '</td>'
+        + '<td class="muted">' + esc(r.grade) + ' ' + esc(r.class || '') + '</td>'
+        + '<td class="muted">' + esc(r.teacher_name || (r.contact_type === 'parent' ? '(개인 접수)' : '-')) + '</td>'
+        + '<td class="muted">' + esc(r.contact_email || '-') + '</td>'
         + '<td><span class="tag ' + esc(r.section) + '">' + esc(SECTION[r.section] || r.section) + '</span></td>'
         + '<td>' + esc(r.topic) + '</td>'
         + '<td class="muted">' + (r.episode_count ? r.episode_count + '화' : '-') + '</td>'
