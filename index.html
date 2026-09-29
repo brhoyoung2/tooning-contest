@@ -895,26 +895,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .an-text strong{color:var(--text-dark);font-weight:700}
 @media(max-width:600px){.apply-notice .an-row{flex-direction:column;gap:10px}}
 
-/* ── [공모주제] 안내 팝업 ───────────────────────────── */
-.notice-pop{position:fixed;inset:0;z-index:10050;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(10,14,30,.72);opacity:0;transition:opacity .25s}
-.notice-pop[hidden]{display:none!important}
-.notice-pop.open{opacity:1}
-.notice-pop-backdrop{position:absolute;inset:0;cursor:pointer}
-.notice-pop-box{position:relative;z-index:1;width:100%;max-width:460px;max-height:88vh;overflow-y:auto;background:#fff;border-radius:28px;padding:44px 32px 30px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);transform:scale(.94) translateY(10px);transition:transform .25s}
-.notice-pop.open .notice-pop-box{transform:none}
-.notice-pop-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border:none;border-radius:50%;background:rgba(20,27,49,.06);color:var(--text-soft);font-size:22px;line-height:1;cursor:pointer;transition:background .2s,color .2s}
-.notice-pop-close:hover{background:rgba(255,107,107,.12);color:var(--coral)}
-.np-eyebrow{font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
-.np-title{font-weight:800;font-size:clamp(24px,4vw,32px);letter-spacing:-.03em;line-height:1.25;color:var(--text-dark);margin-top:14px}
-.np-sub{font-size:15px;line-height:1.7;color:var(--text-soft);margin-top:12px}
-.np-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
-.np-tag{font-weight:700;font-size:13px;color:var(--coral);background:rgba(255,107,107,.09);border-radius:999px;padding:7px 14px}
-.np-divider{height:1px;background:rgba(99,110,130,.15);margin:24px 0 18px}
-.np-note{font-size:14px;line-height:1.7;color:var(--text-soft)}
-.np-note strong{color:var(--text-dark);font-weight:700}
-.np-btn{display:block;width:100%;margin-top:22px;padding:15px 20px;background:var(--coral);color:#fff;border:none;border-radius:16px;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:transform .2s,box-shadow .2s}
-.np-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(255,107,107,.35)}
-@media(max-width:768px){.notice-pop-box{padding:40px 22px 24px;border-radius:24px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
@@ -1398,7 +1378,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       <div class="uni-card reveal"><div class="uni-prof"><span class="ko-text">박세혁 교수님</span><span class="en-text">Prof. Park Se-hyuk</span></div><div class="uni-fullname"><span class="ko-text">홍익대학교</span><span class="en-text">Hongik Univ.</span></div></div>
       <div class="uni-card reveal delay-1"><div class="uni-prof"><span class="ko-text">박연조 교수님</span><span class="en-text">Prof. Park Yeon-jo</span></div><div class="uni-fullname"><span class="ko-text">광운대학교</span><span class="en-text">Kwangwoon Univ.</span></div></div>
       <div class="uni-card reveal delay-1"><div class="uni-prof"><span class="ko-text">왕덕원 교수님</span><span class="en-text">Prof. Wang Deok-won</span></div><div class="uni-fullname"><span class="ko-text">세종대학교</span><span class="en-text">Sejong Univ.</span></div></div>
-      <div class="uni-card reveal delay-2"><div class="uni-prof"><span class="ko-text">여현덕 교수님</span><span class="en-text">Prof. Yeo Hyun-deok</span></div><div class="uni-fullname"><span class="ko-text">카이스트</span><span class="en-text">KAIST</span></div></div>
       <div class="uni-card reveal delay-3"><div class="uni-prof"><span class="ko-text">유현식 교수님</span><span class="en-text">Prof. Yoo Hyeon-sik</span></div><div class="uni-fullname"><span class="ko-text">성결대학교</span><span class="en-text">Sungkyul Univ.</span></div></div>
       <div class="uni-card reveal"><div class="uni-prof"><span class="ko-text">이정아 교수님</span><span class="en-text">Prof. Lee Jeong-a</span></div><div class="uni-fullname"><span class="ko-text">숭의여자대학교</span><span class="en-text">Sungui Women's College</span></div></div>
       <div class="uni-card reveal delay-1"><div class="uni-prof"><span class="ko-text">송지선 교수님</span><span class="en-text">Prof. Song Ji-seon</span></div><div class="uni-fullname"><span class="ko-text">숭의여자대학교</span><span class="en-text">Sungui Women's College</span></div></div>
@@ -1766,35 +1745,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
   </div>
 </div>
 
-<!-- ============ 안내 팝업 (주제 공개 / 접수 안내) ============ -->
-<div class="notice-pop" id="themePop" aria-hidden="true" hidden>
-  <div class="notice-pop-backdrop" data-notice-close></div>
-  <div class="notice-pop-box" role="dialog" aria-modal="true" aria-labelledby="themePopTitle">
-    <button type="button" class="notice-pop-close" aria-label="Close" data-notice-close>&times;</button>
-    <div class="np-eyebrow">🎉 <span class="ko-text">공모 주제 공개</span><span class="en-text">Theme Revealed</span></div>
-    <h3 class="np-title" id="themePopTitle"><span class="ko-text">2036년, 나의 하루</span><span class="en-text">My Day in 2036</span></h3>
-    <p class="np-sub"><span class="ko-text">10년 뒤 오늘, 나는 어디서 무엇을 하고 있나요?</span><span class="en-text">Ten years from today — where will I be, and what will I be doing?</span></p>
-    <div class="np-tags"><span class="np-tag">#2036년나의하루</span><span class="np-tag">#MyDay2036</span></div>
-    <div class="np-divider"></div>
-    <p class="np-note"><span class="ko-text">작품 접수 <strong>9월 30일 — 10월 30일</strong><br/>온라인으로 접수합니다.</span><span class="en-text">Entries open <strong>Sep 30 — Oct 30</strong><br/>Submissions are accepted online.</span></p>
-    <button type="button" class="np-btn" data-notice-close><span class="ko-text">확인했어요</span><span class="en-text">Got it</span></button>
-  </div>
-</div>
-
-<div class="notice-pop" id="applyPop" aria-hidden="true" hidden>
-  <div class="notice-pop-backdrop" data-notice-close></div>
-  <div class="notice-pop-box" role="dialog" aria-modal="true" aria-labelledby="applyPopTitle">
-    <button type="button" class="notice-pop-close" aria-label="Close" data-notice-close>&times;</button>
-    <div class="np-eyebrow">📝 <span class="ko-text">접수 안내</span><span class="en-text">Application Notice</span></div>
-    <h3 class="np-title" id="applyPopTitle"><span class="ko-text">작품 접수는<br/>9월 30일부터 시작됩니다</span><span class="en-text">Entries open<br/>on September 30</span></h3>
-    <p class="np-sub"><span class="ko-text">접수 기간 <strong>2026년 9월 30일 — 10월 30일</strong><br/>온라인으로만 접수합니다.</span><span class="en-text">Entry period <strong>Sep 30 — Oct 30, 2026</strong><br/>Online submissions only.</span></p>
-    <div class="np-divider"></div>
-    <p class="np-note"><span class="ko-text">접수 기간에 이 화면에서 제출해 주세요.<br/>공모 주제는 <strong>‘2036년, 나의 하루’</strong>입니다.<br/>지금부터 작품을 준비해 보세요!</span><span class="en-text">Submit from this form during the entry period.<br/>This year&rsquo;s theme is <strong>&lsquo;My Day in 2036&rsquo;</strong>.<br/>Start preparing your work today!</span></p>
-    <div class="np-tags"><span class="np-tag">#2036년나의하루</span><span class="np-tag">#MyDay2036</span></div>
-    <button type="button" class="np-btn" data-notice-close><span class="ko-text">확인했어요</span><span class="en-text">Got it</span></button>
-  </div>
-</div>
-
 <!-- ============ APPLY MODAL ============ -->
 <div class="apply-modal" id="applyModal" aria-hidden="true" inert>
   <div class="modal-backdrop" data-close-modal></div>
@@ -1807,7 +1757,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     </div>
 
     <!-- ── 접수 기간 안내 (상태에 따라 자동 전환) ── -->
-    <div class="apply-notice" id="applyNotice" data-state="before">
+    <div class="apply-notice" id="applyNotice" data-state="open">
       <div class="an-row an-before">
         <span class="an-badge"><span class="ko-text">접수 시작 전</span><span class="en-text">Opens soon</span></span>
         <p class="an-text"><span class="ko-text"><strong>작품 접수는 2026년 9월 30일부터 시작됩니다.</strong><br/>지금은 미리 준비하는 기간이에요. 아래에서 부문별로 어떤 자료(기획안·본문·작품 보드 링크 등)를 내야 하는지 확인하고 준비해 주세요. 접수 기간(9.30 — 10.30)에 이 화면에서 제출해 주세요.</span><span class="en-text"><strong>Entries open on September 30, 2026.</strong><br/>This is the preparation period. Check below which materials each division requires (proposal, text, editor share link) and get them ready. Come back during the entry period (Sep 30 — Oct 30) to submit from this form.</span></p>
@@ -2648,7 +2598,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
     // 0. 접수 기간이 아니면 제출 대신 안내
     var nowTs = new Date();
     if (nowTs < APPLY_OPEN) {
-      if (typeof window._tcShowApplyNotice === 'function') window._tcShowApplyNotice();
       statusEl.hidden = false;
       statusEl.classList.add('error');
       statusEl.innerHTML = '📅 <strong>아직 접수 기간이 아닙니다.</strong><br/>작품 접수는 <strong>9월 30일 — 10월 30일</strong>에 진행됩니다.<br/>접수 기간에 다시 방문해 제출해 주세요.';
@@ -3266,7 +3215,7 @@ function hofTab(id, btn) {
     { keys:['ai배워','ai익혀','ai써봐','ai써볼','ai공부','인공지능배','ai익히','ai경험','ai스킬','ai능력','ai역량','투닝배워','투닝써봐','처음써봐도','초보도돼','초보가능','처음이라도'], ans:'🤖 AI를 처음 써봐도 괜찮아요!\n\n투닝은 누구나 쉽게 배울 수 있어요.\n공모전 준비하면서 자연스럽게\nAI 창작 스킬을 익힐 수 있어요.\n\nAI 시대의 핵심 역량을\n공모전으로 공식 인정받으세요! 🌱\n\n👉 tooning.io에서 무료 체험 가능' },
 
     // ── 어렵지 않아요 / 시작 방법 ───────────────────────
-    { keys:['어렵나','어려워','쉬운가','쉬워요','할수있나','해볼만해','만들수있나','처음해도','어떻게시작','어떻게만들','뭐부터','어디서시작','시작방법','시작어떻게'], ans:'😊 생각보다 쉬워요!\n\n① tooning.io 무료 가입\n② AI로 캐릭터·배경 자동 생성\n③ 내 이야기를 웹툰으로 완성\n④ 공유 링크 복사해서 제출!\n\n복잡한 그림 실력 없어도 돼요.\nAI가 도와주니까요! 🎨\n\n접수는 2026년 9월 30일부터 시작됩니다.' },
+    { keys:['어렵나','어려워','쉬운가','쉬워요','할수있나','해볼만해','만들수있나','처음해도','어떻게시작','어떻게만들','뭐부터','어디서시작','시작방법','시작어떻게'], ans:'😊 생각보다 쉬워요!\n\n① tooning.io 무료 가입\n② AI로 캐릭터·배경 자동 생성\n③ 내 이야기를 웹툰으로 완성\n④ 공유 링크 복사해서 제출!\n\n복잡한 그림 실력 없어도 돼요.\nAI가 도와주니까요! 🎨\n\n접수 기간은 2026년 9월 30일 — 10월 30일입니다.' },
 
     // ── 이전 제출 복구 / 이력 ────────────────────────────
     { keys:['복구','되돌리','되돌려','이전제출','이전 제출','이력','잘못제출','잘못 제출','실수로제출','실수로 제출','다시올렸','덮어썼','덮어씌','예전작품','원래작품'], ans:'__VERIFY__' },
@@ -3305,7 +3254,7 @@ function hofTab(id, btn) {
     { keys:['분량','몇컷','컷수','몇화','글자수','2000자','몇장','길이','최소분량','규격','몇자','자수','몇글자','원고분량','몇페이지'], ans:'부문별 분량 기준이에요. 📐\n\n· 만화/웹툰: 표지 포함 10컷 이상\n· 소설: 총 3화, 화당 2,000자 이상\n\n자세한 규격은 페이지의 [출품 규격] 섹션에서 확인하실 수 있어요!' },
 
     // ── 아직 접수가 안 될 때 ─────────────────────────────
-    { keys:['제출이안','접수가안','버튼이안','제출버튼','안눌려','접수불가','제출안돼','접수안돼','지금접수'], ans:'작품 접수는 2026년 9월 30일부터 시작됩니다. 📅\n\n그 전에는 제출 버튼을 눌러도 접수되지 않아요.\n지금은 접수 폼에서 무엇을 준비해야 하는지 미리 확인하는 기간이에요.\n\n접수 기간: 9월 30일 — 10월 30일 (온라인)' },
+    { keys:['제출이안','접수가안','버튼이안','제출버튼','안눌려','접수불가','제출안돼','접수안돼','지금접수'], ans:'접수가 진행 중입니다. 상단 [접수하기] 버튼을 눌러 제출해 주세요. 📅\n\n버튼을 눌러도 넘어가지 않는다면 빈 필수 항목이 있는 경우예요.\n빨간 테두리로 표시된 칸을 모두 채우시면 제출됩니다.\n\n접수 기간: 2026년 9월 30일 — 10월 30일 (온라인)' },
 
     // ── 마감 후 ──────────────────────────────────────────
     { keys:['마감후','마감이지','늦게','지각','기간지','뒤늦','마감지났','늦었','마감지나','기간지나','늦게제출','지났는데'], ans:'마감(10월 30일) 이후에는 접수와 수정이 모두 불가능해요. 🙏\n\n심사는 11월 초, 결과 발표는 11월 중순 예정입니다.\n부득이한 사정이 있으시면 support@tooning.io 로 문의해 주세요.' },
@@ -3347,7 +3296,7 @@ function hofTab(id, btn) {
     { keys:['공개설정','비공개','권한','접근안','링크열리','안열려','볼수없','공유설정','링크가안'], ans:'보드 공유 설정을 <링크를 가진 누구나>로 바꿔주세요. 🔓\n\n비공개 상태면 심사위원이 작품을 열 수 없어\n심사에서 불이익을 받을 수 있습니다.\n\n투닝 보드 → 공유 → 공유 대상 확인\n접수 폼의 [? 제출하는 법] 버튼에서 화면으로도 안내해 드려요.' },
 
     // ── 접수 후 수정 기한 ────────────────────────────────
-    { keys:['언제까지수정','수정기한','언제까지고칠','고칠수있','수정가능기간','마감전수정','언제까지수정할','접수후수정','제출후수정','수정은언제'], ans:'접수 기간(9월 30일 — 10월 30일) 안에는 몇 번이든 수정할 수 있어요. ✏️\n\n처음 접수할 때와 <같은 이메일>로 다시 제출하시면 내용이 갱신됩니다.\n이전 제출 내용은 자동 보관되어 접수키로 되돌릴 수도 있어요.\n\n단, 부문은 바꿀 수 없고 마감 이후에는 수정이 불가능합니다.' },
+    { keys:['언제까지수정','수정기한','언제까지고칠','고칠수있','수정가능기간','마감전수정','언제까지수정할','접수후수정','제출후수정','수정은언제'], ans:'접수 기간(9월 30일 — 10월 30일) 안에는 몇 번이든 다시 접수할 수 있어요. ✏️\n\n수정 기능은 따로 없고, 같은 정보로 <다시 접수>하시면 됩니다.\n마지막 접수 1건만 <최신>으로 심사하며, 부문도 바꿀 수 있어요.\n다시 접수할 때마다 새 접수번호가 메일로 발송됩니다.\n\n마감 이후에는 접수와 수정이 모두 불가능합니다.' },
 
     // ── 인사 ─────────────────────────────────────────────
     { keys:['안녕','하이','hello','hi','반가','처음','시작','헬로'], ans:'안녕하세요! 👋 투닝 공모전 도우미입니다.\n무엇이 궁금하신가요?' },
@@ -3839,72 +3788,6 @@ function hofTab(id, btn) {
   }, true);
 })();
 
-/* ══════════════════════════════════════════════════
-   [안내 팝업] 주제 공개 팝업 + 접수 시작 전 안내 팝업
-   닫기: 우측 상단 ×, 빈 영역(배경) 클릭, ESC, 확인 버튼
-   ══════════════════════════════════════════════════ */
-(function() {
-  // 접수 기간 상수는 접수 모달 스크립트(APPLY_OPEN/APPLY_CLOSE)와 DB RPC 에 있습니다.
-  var SEEN_KEY  = '_tc_themepop';                          // 주제 팝업 1일 1회
-
-  var themePop = document.getElementById('themePop');
-  var applyPop = document.getElementById('applyPop');
-
-  function open(pop) {
-    if (!pop) return;
-    pop.hidden = false;
-    pop.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    requestAnimationFrame(function() { pop.classList.add('open'); });
-    setTimeout(function() {
-      var btn = pop.querySelector('.notice-pop-close');
-      if (btn) btn.focus();
-    }, 60);
-  }
-
-  function close(pop) {
-    if (!pop || pop.hidden) return;
-    pop.classList.remove('open');
-    pop.setAttribute('aria-hidden', 'true');
-    if (pop.contains(document.activeElement)) document.activeElement.blur();
-    document.body.style.overflow = '';
-    setTimeout(function() {
-      if (!pop.classList.contains('open')) pop.hidden = true;   // 투명 오버레이가 화면을 덮지 않도록 완전히 제거
-    }, 280);
-  }
-
-  [themePop, applyPop].forEach(function(pop) {
-    if (!pop) return;
-    pop.querySelectorAll('[data-notice-close]').forEach(function(el) {
-      el.addEventListener('click', function() { close(pop); });
-    });
-  });
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key !== 'Escape') return;
-    [themePop, applyPop].forEach(function(pop) {
-      if (pop && !pop.hidden) close(pop);
-    });
-  });
-
-  /* [접수하기] 는 항상 접수 폼을 연다.
-     접수 기간 안내는 폼 상단 배너와 제출 시점 안내 팝업이 담당한다. */
-  window._tcShowApplyNotice = function() { open(applyPop); };
-
-  /* 주제 공개 팝업: 첫 진입 시 자동 노출 (하루 1회) */
-  function todayKey() {
-    var d = new Date();
-    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-  }
-  var seen = null;
-  try { seen = localStorage.getItem(SEEN_KEY); } catch (err) { seen = null; }
-  if (seen !== todayKey()) {
-    setTimeout(function() {
-      open(themePop);
-      try { localStorage.setItem(SEEN_KEY, todayKey()); } catch (err) {}
-    }, 900);
-  }
-})();
 </script>
 
 </body>
