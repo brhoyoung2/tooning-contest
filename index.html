@@ -2682,6 +2682,29 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
       return;
     }
 
+    // 4-1. 흔한 도메인 오타는 되묻는다. 접수번호가 이 주소로만 가기 때문이다.
+    //      막지는 않는다 — 한 번 더 확인하고 그대로 내겠다면 통과시킨다.
+    var TYPO_DOMAIN = {
+      'naver.con':'naver.com','naver.co':'naver.com','nave.com':'naver.com','navr.com':'naver.com',
+      'naver.cm':'naver.com','navber.com':'naver.com','gmial.com':'gmail.com','gmai.com':'gmail.com',
+      'gmil.com':'gmail.com','gmail.co':'gmail.com','gmaill.com':'gmail.com','gmail.con':'gmail.com',
+      'hanmail.ne':'hanmail.net','hanmai.net':'hanmail.net','daum.ne':'daum.net',
+      'nate.con':'nate.com','nate.co':'nate.com'
+    };
+    var emailDomain = emailVal.split('@')[1].toLowerCase();
+    if (TYPO_DOMAIN[emailDomain] && emailEl && emailEl.dataset.typoOk !== emailVal) {
+      emailEl.dataset.typoOk = emailVal;
+      markInvalid(emailEl, TYPO_DOMAIN[emailDomain] + ' 를 잘못 쓰신 건 아닌가요?');
+      statusEl.hidden = false;
+      statusEl.classList.add('error');
+      statusEl.innerHTML = '✉️ <strong>' + emailVal + '</strong> 주소가 맞나요?<br/>'
+        + '<strong>' + emailDomain + '</strong> 는 <strong>' + TYPO_DOMAIN[emailDomain]
+        + '</strong> 의 오타일 수 있습니다. 접수번호를 이 주소로 보내드리므로 한 번만 확인해 주세요.<br/>'
+        + '주소가 맞다면 <strong>제출 버튼을 한 번 더</strong> 눌러주세요.';
+      focusInvalid(emailEl);
+      return;
+    }
+
     // 5. 생성형 AI 활용 과정 (전 부문 공통 필수)
     var aiProcess = (aiEl && !aiEl.disabled) ? aiEl.value.trim() : '';
     if (!aiProcess) {

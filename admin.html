@@ -104,6 +104,18 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
 .detail{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
   padding:32px 20px;background:rgba(10,14,30,.6);overflow-y:auto}
 .detail.open{display:flex}
+.ml-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.ml-tbl th,.ml-tbl td{padding:8px 10px;border-bottom:1px solid #eef0f4;text-align:left;vertical-align:top}
+.ml-tbl th{font-size:12px;color:var(--soft);font-weight:700}
+.ml-badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800}
+.ml-sent{background:#e8f6ed;color:#1d7a43}
+.ml-failed{background:#fdeaea;color:#c0392b}
+.ml-error{background:#fdeaea;color:#c0392b}
+.ml-queued{background:#eef1f6;color:#5b6474}
+.ml-sum{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.ml-sum span{padding:7px 13px;border-radius:10px;background:#f4f6fa;font-size:13px;font-weight:700}
+.ml-warn{background:#fdeaea!important;color:#c0392b}
+.suspect{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:#fff3e0;color:#b36a00;font-size:11px;font-weight:800;cursor:help}
 .detail-box{width:100%;max-width:780px;background:#fff;border-radius:22px;padding:32px;position:relative}
 .detail-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border:none;border-radius:50%;
   background:#f1f3f7;font-size:19px;cursor:pointer;color:var(--soft)}
@@ -148,6 +160,7 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
     <h1>접수 관리 <span>·</span> 제2회 투닝 국제 공모전</h1>
     <div class="top-actions">
       <button class="btn" id="reloadBtn">새로고침</button>
+      <button class="btn" id="mailLogBtn">메일 발송 상태</button>
       <button class="btn" id="mailBtn">메일 양식</button>
       <button class="btn" id="csvBtn">CSV 내보내기</button>
       <button class="btn primary" id="logoutBtn">잠금</button>
@@ -195,6 +208,15 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
 </div>
 
 <!-- ── 메일 양식 ── -->
+<div class="detail" id="mailLogModal">
+  <div class="detail-box">
+    <button class="detail-close" id="mailLogClose">&times;</button>
+    <h2>접수 확인 메일 발송 상태</h2>
+    <div class="detail-meta">접수번호는 메일로만 안내됩니다. <b>실패</b> 로 표시된 참가자는 확인 메일을 받지 못했으므로 접수번호를 따로 알려주셔야 합니다.</div>
+    <div id="mailLogBody" style="margin-top:18px"></div>
+  </div>
+</div>
+
 <div class="detail" id="mailModal">
   <div class="detail-box">
     <button class="detail-close" id="mailClose">&times;</button>
@@ -262,7 +284,7 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
 
   var SECTION = { comic: '만화/웹툰', novel: '소설/이야기', cardnews: '카드뉴스', poster: '포스터' };
   var PW_KEY = '_tc_admin_pw';
-  var rows = [], pw = '';
+  var rows = [], pw = '', suspectMap = {};
 
   var $ = function (id) { return document.getElementById(id); };
 
@@ -335,6 +357,48 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
   }
   var dupMap = {};
 
+  /* ── 연락 이메일 오타 의심 감지 ──
+     접수번호는 메일로만 안내되므로, 주소가 한 글자 틀리면 참가자는 아무것도 받지 못한다.
+     ① 흔히 틀리는 도메인  ② 같은 학교 안에서 다른 주소와 한 글자만 다른 주소 */
+  var BAD_DOMAIN = ['naver.con','naver.co','nave.com','navr.com','navber.com','naver.cm',
+                    'gmial.com','gmai.com','gmil.com','gmail.co','gmaill.com','gmail.con',
+                    'hanmail.ne','hanmail.net.','daum.ne','nate.con','nate.co','hanmai.net'];
+
+  function lev(a, b) {
+    if (Math.abs(a.length - b.length) > 1) return 9;
+    var m = a.length, n = b.length, prev = [], cur = [], i, j;
+    for (j = 0; j <= n; j++) prev[j] = j;
+    for (i = 1; i <= m; i++) {
+      cur[0] = i;
+      for (j = 1; j <= n; j++) {
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1,
+                          prev[j - 1] + (a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1));
+      }
+      for (j = 0; j <= n; j++) prev[j] = cur[j];
+    }
+    return prev[n];
+  }
+
+  function mailSuspect(all) {
+    var flag = {}, count = {};
+    all.forEach(function (r) {
+      var e = String(r.contact_email || '').toLowerCase();
+      if (e) count[e] = (count[e] || 0) + 1;
+    });
+    all.forEach(function (r) {
+      var e = String(r.contact_email || '').toLowerCase();
+      if (!e) return;
+      var dom = e.split('@')[1] || '';
+      if (BAD_DOMAIN.indexOf(dom) !== -1) { flag[e] = '도메인 오타'; return; }
+      // 한 글자만 다른, 훨씬 더 많이 쓰인 주소가 있으면 이쪽이 오타일 가능성이 크다
+      Object.keys(count).forEach(function (o) {
+        if (o === e || flag[e]) return;
+        if (count[o] >= count[e] * 3 && count[o] >= 3 && lev(e, o) === 1) flag[e] = '유사 주소 ' + o;
+      });
+    });
+    return flag;
+  }
+
   function render() {
     dupMap = {};
     rows.forEach(function (r) {
@@ -359,10 +423,21 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
     stats.push(['PDF 첨부', pdfN, '건']);
     var dupCount = rows.filter(function (r) { return (dupMap[dupKey(r)] || 0) > 1; }).length;
     if (dupCount) stats.push(['이름 중복 확인', dupCount, '건']);
+    suspectMap = mailSuspect(rows);
+    var suspectN = rows.filter(function (r) {
+      return suspectMap[String(r.contact_email || '').toLowerCase()];
+    }).length;
+    if (suspectN) stats.push(['이메일 오타 의심', suspectN, '건']);
     $('stats').innerHTML = stats.map(function (s) {
       return '<div class="stat"><div class="stat-label">' + esc(s[0]) + '</div>'
            + '<div class="stat-val">' + esc(s[1]) + (s[2] ? '<small>' + s[2] + '</small>' : '') + '</div></div>';
     }).join('');
+
+    function mailBadge(r) {
+      var why = suspectMap[String(r.contact_email || '').toLowerCase()];
+      return why ? ' <span class="suspect" title="' + esc(why)
+                 + ' — 이 주소로는 접수 확인 메일이 가지 않았을 수 있습니다">오타 의심</span>' : '';
+    }
 
     $('rows').innerHTML = list.map(function (r, i) {
       var dupN = dupMap[dupKey(r)] || 0;
@@ -380,7 +455,7 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
         + '<td>' + esc(r.school) + '</td>'
         + '<td class="muted">' + esc(r.grade) + ' ' + esc(r.class || '') + '</td>'
         + '<td class="muted">' + esc(r.teacher_name || (r.contact_type === 'parent' ? '(개인 접수)' : '-')) + '</td>'
-        + '<td class="muted">' + esc(r.contact_email || '-') + '</td>'
+        + '<td class="muted">' + esc(r.contact_email || '-') + mailBadge(r) + '</td>'
         + '<td><span class="tag ' + esc(r.section) + '">' + esc(SECTION[r.section] || r.section) + '</span></td>'
         + '<td>' + esc(r.topic) + '</td>'
         + '<td class="muted">' + (r.episode_count ? r.episode_count + '화' : '-') + '</td>'
@@ -497,6 +572,49 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
   $('mailBtn').addEventListener('click', openMail);
   $('mailClose').addEventListener('click', closeMail);
   $('mailModal').addEventListener('click', function (e) { if (e.target === $('mailModal')) closeMail(); });
+
+  /* ── 메일 발송 상태 ──
+     pg_net 응답은 몇 시간 뒤 정리되므로, 오래된 건은 'queued'(발송 시도함)로 남는다. */
+  var ML_LABEL = { sent: '발송됨', failed: '실패', error: '오류', queued: '전송중' };
+
+  function openMailLog() {
+    $('mailLogBody').innerHTML = '<div class="empty">불러오는 중…</div>';
+    $('mailLogModal').classList.add('open');
+    sb.rpc('투닝콘테스트_메일상태', { p_pw: pw, p_limit: 300 }).then(function (res) {
+      if (res.error) {
+        $('mailLogBody').innerHTML = '<div class="empty">조회할 수 없습니다. v19 마이그레이션이 실행되었는지 확인해주세요.<br/><small>'
+          + esc(res.error.message || '') + '</small></div>';
+        return;
+      }
+      var d = res.data || [];
+      if (!d.length) { $('mailLogBody').innerHTML = '<div class="empty">기록이 없습니다.</div>'; return; }
+      var c = { sent: 0, failed: 0, error: 0, queued: 0 };
+      d.forEach(function (x) { c[x.status] = (c[x.status] || 0) + 1; });
+      var bad = c.failed + c.error;
+      var sum = '<div class="ml-sum">'
+        + '<span>전체 ' + d.length + '</span>'
+        + '<span>발송됨 ' + c.sent + '</span>'
+        + '<span>전송중 ' + c.queued + '</span>'
+        + '<span' + (bad ? ' class="ml-warn"' : '') + '>확인 필요 ' + bad + '</span></div>';
+      var body = d.map(function (x) {
+        var to = (x.recipients || []).join(', ');
+        return '<tr><td>' + esc(fmtDate(x.created_at)) + '</td>'
+             + '<td>' + esc(x.submit_key || '-') + '</td>'
+             + '<td>' + esc(to) + '</td>'
+             + '<td><span class="ml-badge ml-' + x.status + '">' + (ML_LABEL[x.status] || x.status) + '</span></td>'
+             + '<td>' + esc(x.detail || '') + '</td></tr>';
+      }).join('');
+      $('mailLogBody').innerHTML = sum
+        + '<table class="ml-tbl"><thead><tr><th>시각</th><th>접수번호</th><th>수신자</th><th>상태</th><th>응답</th></tr></thead>'
+        + '<tbody>' + body + '</tbody></table>';
+    });
+  }
+
+  $('mailLogBtn').addEventListener('click', openMailLog);
+  $('mailLogClose').addEventListener('click', function () { $('mailLogModal').classList.remove('open'); });
+  $('mailLogModal').addEventListener('click', function (e) {
+    if (e.target === $('mailLogModal')) $('mailLogModal').classList.remove('open');
+  });
 
   $('mailSave').addEventListener('click', function () {
     $('mailStatus').textContent = '저장 중…';
