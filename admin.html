@@ -104,6 +104,14 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
 .detail{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;
   padding:32px 20px;background:rgba(10,14,30,.6);overflow-y:auto}
 .detail.open{display:flex}
+.pro-act{display:flex;gap:6px;flex-wrap:wrap}
+.pro-btn{border:1.5px solid #dde1ea;background:#fff;border-radius:9px;padding:5px 10px;font:inherit;font-size:12px;font-weight:700;cursor:pointer;color:#2a3148}
+.pro-btn:hover{border-color:#5ba2dc;color:#2a5f90}
+.pro-btn.warn:hover{border-color:#ef4444;color:#c0392b}
+.pro-btn.ok{background:#e8f6ed;border-color:#b9e0c6;color:#1d7a43}
+.pro-works td{background:#fafbfd;font-size:12.5px;color:#4a5365}
+.pro-w{display:flex;flex-wrap:wrap;gap:6px 18px}
+.pro-w a{color:#2a5f90;font-weight:700;text-decoration:none}
 .ml-tbl{width:100%;border-collapse:collapse;font-size:13px}
 .ml-tbl th,.ml-tbl td{padding:8px 10px;border-bottom:1px solid #eef0f4;text-align:left;vertical-align:top}
 .ml-tbl th{font-size:12px;color:var(--soft);font-weight:700}
@@ -160,6 +168,7 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
     <h1>접수 관리 <span>·</span> 제2회 투닝 국제 공모전</h1>
     <div class="top-actions">
       <button class="btn" id="reloadBtn">새로고침</button>
+      <button class="btn" id="proBtn">교수 심사 현황</button>
       <button class="btn" id="mailLogBtn">메일 발송 상태</button>
       <button class="btn" id="mailBtn">메일 양식</button>
       <button class="btn" id="csvBtn">CSV 내보내기</button>
@@ -208,6 +217,15 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
 </div>
 
 <!-- ── 메일 양식 ── -->
+<div class="detail" id="proModal">
+  <div class="detail-box" style="max-width:1020px">
+    <button class="detail-close" id="proClose">&times;</button>
+    <h2>교수 심사 현황</h2>
+    <div class="detail-meta">교수님별 개인 링크와 진행 상황입니다. 링크는 <b>열쇠</b>이므로 화면에 표시하지 않고 <b>복사</b>로만 꺼냅니다. 해당 교수님 개인 메일로만 보내 주세요.</div>
+    <div id="proBody" style="margin-top:18px"></div>
+  </div>
+</div>
+
 <div class="detail" id="mailLogModal">
   <div class="detail-box">
     <button class="detail-close" id="mailLogClose">&times;</button>
@@ -609,6 +627,129 @@ tbody tr.dup-row td:nth-child(2){background:#fff7f7}
         + '<tbody>' + body + '</tbody></table>';
     });
   }
+
+  /* ── 교수 심사 현황 ──
+     링크(토큰)는 DOM 에 글자로 넣지 않고 메모리에만 두며, 복사 버튼으로만 꺼낸다. */
+  var PRO_LINK = location.origin + '/professor?k=';
+  var proTokens = {};          // 교수명|대학 → 토큰
+
+  function proKey(n, u) { return String(n || '') + '|' + String(u || ''); }
+
+  function copyText(text, btn, label) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = label || '복사됨'; btn.classList.add('ok');
+      setTimeout(function () { btn.textContent = old; btn.classList.remove('ok'); }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { window.prompt('아래 링크를 복사하세요', text); });
+    } else { window.prompt('아래 링크를 복사하세요', text); }
+  }
+
+  function openPro() {
+    $('proBody').innerHTML = '<div class="empty">불러오는 중…</div>';
+    $('proModal').classList.add('open');
+    Promise.all([
+      sb.rpc('투닝콘테스트_교수링크목록', { p_pw: pw }),
+      sb.rpc('투닝콘테스트_상장현황', { p_pw: pw })
+    ]).then(function (r) {
+      var a = r[0], b = r[1];
+      if (a.error) {
+        $('proBody').innerHTML = '<div class="empty">조회할 수 없습니다. v24 마이그레이션이 실행되었는지 확인해주세요.<br/><small>'
+          + esc(a.error.message || '') + '</small></div>';
+        return;
+      }
+      var judges = a.data || [];
+      if (!judges.length) {
+        $('proBody').innerHTML = '<div class="empty">등록된 교수님이 없습니다.<br/>judge_assign.py 로 등록·배정하면 여기에 나타납니다.</div>';
+        return;
+      }
+      // 교수님별 배정 작품 (상장현황은 교수님 단위가 아니라 배정 단위)
+      var works = {};
+      (b.data || []).forEach(function (x) {
+        if (!x.out_submit_key) return;
+        var k = proKey(x.out_교수명, x.out_대학);
+        (works[k] = works[k] || []).push(x);
+      });
+
+      proTokens = {};
+      var opened = 0, notOpened = 0, assigned = 0, issued = 0;
+      var rows = judges.map(function (j, i) {
+        var k = proKey(j.out_교수명, j.out_대학);
+        proTokens[k] = j.out_link;
+        assigned += j.out_배정수; issued += j.out_발급수;
+        var visited = j.out_접속횟수 > 0;
+        if (visited) opened++; else notOpened++;
+
+        var visit = visited
+          ? '<span class="ml-badge ml-sent">접속 ' + j.out_접속횟수 + '회</span><br/><small>' + esc(fmtDate(j.out_마지막접속)) + '</small>'
+          : (j.out_배정수 ? '<span class="suspect" style="margin-left:0">아직 안 열어 봄</span>' : '<span class="ml-badge ml-queued">배정 없음</span>');
+        var prog = j.out_배정수
+          ? (j.out_발급수 >= j.out_배정수
+              ? '<span class="ml-badge ml-sent">완료 ' + j.out_발급수 + '/' + j.out_배정수 + '</span>'
+              : '<span class="ml-badge ml-queued">' + j.out_발급수 + '/' + j.out_배정수 + ' 발급</span>')
+          : '<span class="muted">-</span>';
+
+        var main = '<tr data-i="' + i + '">'
+          + '<td><strong>' + esc(j.out_교수명) + '</strong> <small>' + esc(j.out_직함 || '') + '</small><br/><small>' + esc(j.out_대학) + '</small></td>'
+          + '<td>' + prog + '</td>'
+          + '<td>' + visit + '</td>'
+          + '<td><div class="pro-act">'
+          + '<button class="pro-btn" data-copy="' + i + '">링크 복사</button>'
+          + '<button class="pro-btn warn" data-reissue="' + i + '">재발급</button></div></td></tr>';
+
+        var ws = works[k] || [];
+        var detail = ws.length
+          ? '<tr class="pro-works"><td colspan="4"><div class="pro-w">' + ws.map(function (w) {
+              var st = w.out_발급
+                ? '발급완료 ' + (w.out_상장_url ? '<a href="' + esc(w.out_상장_url) + '" target="_blank" rel="noopener">상장 보기</a>' : '')
+                : '<span class="muted">대기</span>';
+              return '<span>' + esc(w.out_학생) + ' (' + esc(w.out_학교) + ')' + (w.out_상 ? ' · <b>' + esc(w.out_상) + '</b>' : '') + ' — ' + st + '</span>';
+            }).join('') + '</div></td></tr>'
+          : '';
+        return main + detail;
+      });
+      window._proJudges = judges;
+
+      $('proBody').innerHTML =
+        '<div class="ml-sum">'
+        + '<span>교수님 ' + judges.length + '분</span>'
+        + '<span>링크 열어 봄 ' + opened + '</span>'
+        + '<span' + (notOpened ? ' class="ml-warn"' : '') + '>아직 안 연 분 ' + notOpened + '</span>'
+        + '<span>상장 ' + issued + ' / ' + assigned + ' 발급</span></div>'
+        + '<table class="ml-tbl"><thead><tr><th>교수님</th><th>상장 진행</th><th>링크 접속</th><th>링크</th></tr></thead>'
+        + '<tbody>' + rows.join('') + '</tbody></table>';
+
+      $('proBody').querySelectorAll('[data-copy]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var j = window._proJudges[+btn.getAttribute('data-copy')];
+          copyText(PRO_LINK + proTokens[proKey(j.out_교수명, j.out_대학)], btn);
+        });
+      });
+      $('proBody').querySelectorAll('[data-reissue]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var j = window._proJudges[+btn.getAttribute('data-reissue')];
+          if (!window.confirm(j.out_대학 + ' ' + j.out_교수명 + ' 교수님의 링크를 재발급할까요?\n\n이전 링크는 즉시 입장도 상장 저장도 되지 않습니다.\n새 링크는 자동으로 복사됩니다.')) return;
+          btn.disabled = true;
+          sb.rpc('투닝콘테스트_링크재발급', { p_pw: pw, p_name: j.out_교수명, p_univ: j.out_대학 }).then(function (res) {
+            if (res.error || !res.data || !res.data.length) {
+              btn.disabled = false; window.alert('재발급하지 못했습니다. ' + ((res.error && res.error.message) || ''));
+              return;
+            }
+            var link = PRO_LINK + res.data[0].out_link;
+            copyText(link, btn, '새 링크 복사됨');
+            setTimeout(openPro, 1800);
+          });
+        });
+      });
+    });
+  }
+
+  $('proBtn').addEventListener('click', openPro);
+  $('proClose').addEventListener('click', function () { $('proModal').classList.remove('open'); });
+  $('proModal').addEventListener('click', function (e) {
+    if (e.target === $('proModal')) $('proModal').classList.remove('open');
+  });
 
   $('mailLogBtn').addEventListener('click', openMailLog);
   $('mailLogClose').addEventListener('click', function () { $('mailLogModal').classList.remove('open'); });
