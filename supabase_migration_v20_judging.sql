@@ -10,6 +10,13 @@
 --   · PDF 없이 텍스트만으로 채점한 건은 evidence='text_only' 로 구분
 --     (작품을 보지 않고 매긴 점수를 같은 선에서 비교하지 않기 위함)
 --
+--   ⚠️ 테이블 이름이 투닝콘테스트_'AI'심사 인 이유
+--      초기 스키마(supabase_schema.sql)에 이미 투닝콘테스트_심사 테이블이
+--      다른 구조(submission_id, ai_score_* INT 1~10)로 만들어져 있습니다.
+--      거기에 끼워 맞추면 CHECK 제약과 투닝콘테스트_리뷰 뷰까지 건드려야 해서,
+--      기존 테이블은 그대로 두고 새 테이블을 따로 만듭니다.
+--      기존 테이블은 나중에 교수님 최종 심사를 담는 용도로 쓸 수 있습니다.
+--
 -- 전제: v17, v18 실행 완료
 -- 성격: 비파괴 · 여러 번 실행해도 안전
 -- 실행: Supabase 대시보드 → SQL Editor → 전체 붙여넣기 → Run
@@ -17,7 +24,7 @@
 
 BEGIN;
 
-CREATE TABLE IF NOT EXISTS 투닝콘테스트_심사 (
+CREATE TABLE IF NOT EXISTS 투닝콘테스트_AI심사 (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   submit_key  text NOT NULL,
   round       int  NOT NULL DEFAULT 1,          -- 1 = 전량 1차, 2 = 상위밴드 재독
@@ -35,9 +42,9 @@ CREATE TABLE IF NOT EXISTS 투닝콘테스트_심사 (
   UNIQUE (submit_key, round)
 );
 
-CREATE INDEX IF NOT EXISTS 투닝콘테스트_심사_접수키_idx ON 투닝콘테스트_심사 (submit_key);
+CREATE INDEX IF NOT EXISTS 투닝콘테스트_AI심사_접수키_idx ON 투닝콘테스트_AI심사 (submit_key);
 
-ALTER TABLE 투닝콘테스트_심사 ENABLE ROW LEVEL SECURITY;
+ALTER TABLE 투닝콘테스트_AI심사 ENABLE ROW LEVEL SECURITY;
 -- 정책 없음 = anon 직접 접근 불가. 아래 RPC 로만 읽고 쓴다.
 
 COMMIT;
@@ -64,7 +71,7 @@ BEGIN
     RAISE EXCEPTION 'unauthorized';
   END IF;
 
-  INSERT INTO 투닝콘테스트_심사
+  INSERT INTO 투닝콘테스트_AI심사
     (submit_key, round, evidence, model, 주제적합성, 창의성, 완성도, 표현력, 총평, 근거, 세부)
   SELECT upper(btrim(r->>'submit_key')),
          coalesce((r->>'round')::int, 1),
@@ -148,7 +155,7 @@ BEGIN
            j.evidence, j.주제적합성, j.창의성, j.완성도, j.표현력, j.총점,
            j.총평, j.근거, l.pdf_url, l.board_link, j.created_at AS judged_at
       FROM live l
-      JOIN 투닝콘테스트_심사 j ON j.submit_key = l.submit_key AND j.round = p_round
+      JOIN 투닝콘테스트_AI심사 j ON j.submit_key = l.submit_key AND j.round = p_round
   )
   SELECT g.submit_key, g.name, g.school, g.school_level, g.grade, g.section, g.topic,
          g.evidence, g.주제적합성, g.창의성, g.완성도, g.표현력, g.총점,
