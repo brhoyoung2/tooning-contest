@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
+<meta name="referrer" content="no-referrer" />
 <title>교수 심사 · 제2회 투닝 국제 공모전</title>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,6 +16,7 @@
 html{-webkit-font-smoothing:antialiased}
 body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;word-break:keep-all;min-height:100vh}
 button{font-family:inherit;cursor:pointer}
+[hidden]{display:none!important}
 .top{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:960px;margin:0 auto}
 .brand{font-weight:800;letter-spacing:-.02em;font-size:15px}
 .brand b{color:var(--coral)}
@@ -112,47 +114,23 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
 
 <main>
 
-  <!-- 1. 안내 -->
+  <!-- 1. 안내 (개인 링크로 입장) -->
   <section class="screen active" id="s-intro">
     <div class="card">
       <div class="eyebrow">2nd International AI Tooning Contest</div>
-      <h1>제2회 투닝 국제 공모전<br/>교수 심사에 오신 것을 환영합니다</h1>
-      <p class="lead">
-        바쁘신 가운데 <strong>심사에 참여해 주셔서 진심으로 감사드립니다.</strong><br/>
-        교수님께 배정된 작품을 확인하시고, 교수님 명의의 <strong>디지털 상장</strong>을 발급해 주세요.
-        직인을 올려 위치와 크기를 맞추면 완성된 상장 이미지가 저장되고, 운영팀에 자동으로 전달됩니다.
+      <h1 id="introTitle">제2회 투닝 국제 공모전<br/>교수 심사</h1>
+      <p class="lead" id="introLead">
+        이 페이지는 운영팀이 교수님께 보내드린 <strong>개인 전용 링크</strong>로만 입장할 수 있습니다.<br/>
+        메일에 있는 링크를 눌러 다시 들어와 주세요.
       </p>
-      <div class="steps">
-        <div class="step"><i>STEP 1</i><span>성함과 대학 입력</span></div>
-        <div class="step"><i>STEP 2</i><span>배정된 작품 확인</span></div>
-        <div class="step"><i>STEP 3</i><span>직인을 올려 상장 완성</span></div>
+      <div class="msg" id="introMsg"></div>
+      <div class="steps" id="introSteps" hidden>
+        <div class="step"><i>STEP 1</i><span>배정된 작품 확인</span></div>
+        <div class="step"><i>STEP 2</i><span>직인을 올려 상장 완성</span></div>
+        <div class="step"><i>STEP 3</i><span>완료하면 운영팀에 전달</span></div>
       </div>
-      <div class="cta"><button class="btn primary" id="goId">시작하기</button></div>
-      <p class="note">운영팀에 등록된 심사위원만 입장할 수 있습니다. 등록 정보로 들어가지지 않는다면 support@tooning.io 로 문의해 주세요.</p>
-    </div>
-  </section>
-
-  <!-- 2. 신분 입력 -->
-  <section class="screen" id="s-id">
-    <div class="card">
-      <div class="eyebrow">STEP 1</div>
-      <h1>성함과 대학을 입력해 주세요</h1>
-      <p class="lead">운영팀에 등록된 심사위원 정보와 대조해 배정된 작품을 보여드립니다.</p>
-      <form id="idForm" autocomplete="off" novalidate>
-        <div class="row2">
-          <div class="field">
-            <label for="fName">성함 <em>*</em></label>
-            <input id="fName" placeholder="홍길동" />
-          </div>
-          <div class="field">
-            <label for="fUniv">대학 <em>*</em></label>
-            <input id="fUniv" placeholder="○○대학교" />
-            <div class="hint">'대학교'는 생략해도 됩니다.</div>
-          </div>
-        </div>
-        <div class="msg" id="idMsg"></div>
-        <div class="cta"><button class="btn primary block" id="idBtn" type="submit">배정 작품 보기</button></div>
-      </form>
+      <div class="cta"><button class="btn primary" id="goWorks" hidden>배정 작품 보기</button></div>
+      <p class="note">링크는 교수님 전용입니다. 다른 분께 전달하지 말아 주세요. 링크를 잃어버리셨거나 열리지 않으면 support@tooning.io 로 문의해 주세요.</p>
     </div>
   </section>
 
@@ -289,57 +267,69 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
     el.textContent = text;
   }
 
-  /* ── 1 → 2 ── */
-  $('goId').addEventListener('click', function () { show('s-id'); $('fName').focus(); });
-  // 직함은 로그인 뒤에 확인한다. 바꾸면 상장과 상단 표기에 바로 반영된다.
+  /* ── 개인 링크로 입장 ──
+     주소의 ?k=토큰 으로만 들어온다. 읽은 즉시 주소창에서 지우고(기록·공유 노출 방지)
+     같은 탭에서 새로고침해도 이어지도록 sessionStorage 에만 둔다. */
+  function readToken() {
+    var m = /[?&]k=([0-9a-fA-F]{32})(?:&|$)/.exec(location.search);
+    var t = m ? m[1].toLowerCase() : '';
+    try {
+      if (t) sessionStorage.setItem('_tc_pk', t);
+      else t = sessionStorage.getItem('_tc_pk') || '';
+    } catch (err) {}
+    if (m && window.history && history.replaceState) {
+      history.replaceState(null, '', location.pathname + (DEMO ? '?demo=1' : ''));
+    }
+    return t;
+  }
+
+  function clearToken() { try { sessionStorage.removeItem('_tc_pk'); } catch (err) {} }
+
+  function badLink(text) {
+    $('introTitle').innerHTML = '링크를 확인할 수 없습니다';
+    msg($('introMsg'), 'err', text);
+    $('introSteps').hidden = true;
+    $('goWorks').hidden = true;
+  }
+
+  function enter() {
+    var token = readToken();
+    var p;
+    if (DEMO && !token) p = Promise.resolve({ data: demoAuth() });
+    else if (!token) { badLink('개인 전용 링크로 접속해 주세요. 링크가 없으시면 support@tooning.io 로 문의해 주세요.'); return; }
+    else p = sb.rpc('투닝콘테스트_교수인증', { p_key: token });
+
+    msg($('introMsg'), 'info', '링크를 확인하는 중입니다…');
+    p.then(function (res) {
+      if (res.error) { badLink('확인 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
+      var d = res.data || {};
+      if (!d.ok) {
+        clearToken();
+        badLink('유효하지 않거나 더 이상 쓸 수 없는 링크입니다. 운영팀(support@tooning.io)에 새 링크를 요청해 주세요.');
+        return;
+      }
+      // 상장에는 운영팀이 등록한 정식 명칭이 들어간다
+      judge = { token: token, name: d['교수명'], univ: d['대학'], title: d['직함'] || '교수' };
+      works = d.works || [];
+      $('introMsg').className = 'msg';
+      $('introTitle').innerHTML = esc(judge.name) + ' 교수님,<br/>환영합니다';
+      $('introLead').innerHTML = '<strong>' + esc(judge.univ) + '</strong>의 심사에 참여해 주셔서 진심으로 감사드립니다.<br/>'
+        + '교수님께 배정된 작품을 확인하시고, 교수님 명의의 <strong>디지털 상장</strong>을 발급해 주세요. '
+        + '직인을 올려 위치와 크기를 맞추면 완성된 상장이 저장되고, 운영팀에 자동으로 전달됩니다.';
+      $('introSteps').hidden = false;
+      $('goWorks').hidden = false;
+    }).catch(function () {
+      badLink('네트워크 오류입니다. 연결을 확인한 뒤 다시 시도해 주세요.');
+    });
+  }
+
+  $('goWorks').addEventListener('click', function () { renderWorks(); show('s-works'); });
+
+  // 직함은 입장 뒤에 확인한다. 바꾸면 상장과 상단 표기에 바로 반영된다.
   $('wTitleIn').addEventListener('input', function () {
     judge.title = this.value.trim() || '교수';
     $('who').textContent = judge.univ + ' ' + judge.name + ' ' + judge.title;
     $('wTitle').textContent = judge.name + ' ' + judge.title + '님께 배정된 작품';
-  });
-
-  /* ── 신분 확인 (성함 + 대학) ── */
-  $('idForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var name = $('fName').value.trim();
-    var univ = $('fUniv').value.trim();
-    var m = $('idMsg');
-    ['fName', 'fUniv'].forEach(function (id) { $(id).classList.remove('bad'); });
-
-    var miss = [];
-    if (!name) miss.push('fName');
-    if (!univ) miss.push('fUniv');
-    if (miss.length) {
-      miss.forEach(function (id) { $(id).classList.add('bad'); });
-      $(miss[0]).focus();
-      msg(m, 'err', '성함과 대학을 모두 입력해 주세요.');
-      return;
-    }
-
-    $('idBtn').disabled = true;
-    msg(m, 'info', '확인하는 중입니다…');
-
-    var p = DEMO ? Promise.resolve({ data: demoAuth() })
-                 : sb.rpc('투닝콘테스트_교수인증', { p_name: name, p_univ: univ });
-    p.then(function (res) {
-      $('idBtn').disabled = false;
-      if (res.error) { msg(m, 'err', '확인 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
-      var d = res.data || {};
-      if (!d.ok) {
-        $('fName').classList.add('bad'); $('fUniv').classList.add('bad');
-        msg(m, 'err', '등록된 심사위원 정보와 일치하지 않습니다. 성함과 대학명을 다시 확인해 주세요. 계속 들어가지지 않으면 support@tooning.io 로 문의해 주세요.');
-        return;
-      }
-      // 상장에는 입력값이 아니라 운영팀에 등록된 정식 명칭이 들어간다
-      judge = { code: d.code, name: d['교수명'], univ: d['대학'], title: d['직함'] || '교수' };
-      works = d.works || [];
-      m.className = 'msg';
-      renderWorks();
-      show('s-works');
-    }).catch(function () {
-      $('idBtn').disabled = false;
-      msg(m, 'err', '네트워크 오류입니다. 연결을 확인한 뒤 다시 시도해 주세요.');
-    });
   });
 
   function demoAuth() {
@@ -655,7 +645,7 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
           if (r.error) throw new Error('upload');
           var url = sb.storage.from('submissions').getPublicUrl(path).data.publicUrl;
           return sb.rpc('투닝콘테스트_상장저장', {
-            p_code: judge.code, p_submit_key: cur.submit_key,
+            p_token: judge.token, p_submit_key: cur.submit_key,
             p_payload: {
               '상장_url': url, '교수명': judge.name, '대학': judge.univ, '직함': judge.title,
               '직인배치': { x: +seal.x.toFixed(4), y: +seal.y.toFixed(4), size: +seal.size.toFixed(4), multiply: seal.multiply }
@@ -698,6 +688,7 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
   }
   $('doneBack').addEventListener('click', function () { show('s-works'); });
 
+  enter();
 })();
 </script>
 </body>
