@@ -123,12 +123,12 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
         직인을 올려 위치와 크기를 맞추면 완성된 상장 이미지가 저장되고, 운영팀에 자동으로 전달됩니다.
       </p>
       <div class="steps">
-        <div class="step"><i>STEP 1</i><span>심사 코드와 소속 입력</span></div>
+        <div class="step"><i>STEP 1</i><span>성함과 대학 입력</span></div>
         <div class="step"><i>STEP 2</i><span>배정된 작품 확인</span></div>
         <div class="step"><i>STEP 3</i><span>직인을 올려 상장 완성</span></div>
       </div>
       <div class="cta"><button class="btn primary" id="goId">시작하기</button></div>
-      <p class="note">심사 코드는 운영팀이 교수님 개인 메일로 보내드렸습니다. 코드를 받지 못하셨다면 support@tooning.io 로 문의해 주세요.</p>
+      <p class="note">운영팀에 등록된 심사위원만 입장할 수 있습니다. 등록 정보로 들어가지지 않는다면 support@tooning.io 로 문의해 주세요.</p>
     </div>
   </section>
 
@@ -136,31 +136,22 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
   <section class="screen" id="s-id">
     <div class="card">
       <div class="eyebrow">STEP 1</div>
-      <h1>교수님 정보를 입력해 주세요</h1>
-      <p class="lead">입력하신 대학·직함·성함이 상장에 그대로 들어갑니다.</p>
+      <h1>성함과 대학을 입력해 주세요</h1>
+      <p class="lead">운영팀에 등록된 심사위원 정보와 대조해 배정된 작품을 보여드립니다.</p>
       <form id="idForm" autocomplete="off" novalidate>
-        <div class="field">
-          <label for="fCode">심사 코드 <em>*</em></label>
-          <input id="fCode" placeholder="PRO-XXXX-XXXX-XXXX" autocapitalize="characters" spellcheck="false" />
-          <div class="hint">메일로 받으신 코드를 그대로 붙여넣어 주세요.</div>
-        </div>
-        <div class="field">
-          <label for="fName">성함 <em>*</em></label>
-          <input id="fName" placeholder="홍길동" />
-        </div>
         <div class="row2">
+          <div class="field">
+            <label for="fName">성함 <em>*</em></label>
+            <input id="fName" placeholder="홍길동" />
+          </div>
           <div class="field">
             <label for="fUniv">대학 <em>*</em></label>
             <input id="fUniv" placeholder="○○대학교" />
-          </div>
-          <div class="field">
-            <label for="fTitle">직함 <em>*</em></label>
-            <input id="fTitle" list="titles" placeholder="교수" />
-            <datalist id="titles"><option value="교수"/><option value="부교수"/><option value="조교수"/><option value="겸임교수"/><option value="학장"/><option value="학과장"/></datalist>
+            <div class="hint">'대학교'는 생략해도 됩니다.</div>
           </div>
         </div>
         <div class="msg" id="idMsg"></div>
-        <div class="cta"><button class="btn primary block" id="idBtn" type="submit">확인하고 배정 작품 보기</button></div>
+        <div class="cta"><button class="btn primary block" id="idBtn" type="submit">배정 작품 보기</button></div>
       </form>
     </div>
   </section>
@@ -171,7 +162,11 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
       <div class="eyebrow">STEP 2</div>
       <h1 id="wTitle">배정된 작품</h1>
       <p class="lead" id="wLead"></p>
-      <div class="msg info" id="wNote"></div>
+      <div class="field" style="max-width:360px">
+        <label for="wTitleIn">상장에 들어갈 직함</label>
+        <input id="wTitleIn" list="titles" placeholder="교수" />
+        <datalist id="titles"><option value="교수"/><option value="부교수"/><option value="조교수"/><option value="겸임교수"/><option value="학장"/><option value="학과장"/></datalist>
+      </div>
     </div>
     <div class="works" id="works"></div>
     <p class="priv">표시되는 정보는 교수님께 배정된 작품에 한합니다. 학생의 개인정보는 심사와 상장 발급 외의 용도로 사용하지 말아 주세요.</p>
@@ -295,30 +290,29 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
   }
 
   /* ── 1 → 2 ── */
-  $('goId').addEventListener('click', function () { show('s-id'); $('fCode').focus(); });
+  $('goId').addEventListener('click', function () { show('s-id'); $('fName').focus(); });
+  // 직함은 로그인 뒤에 확인한다. 바꾸면 상장과 상단 표기에 바로 반영된다.
+  $('wTitleIn').addEventListener('input', function () {
+    judge.title = this.value.trim() || '교수';
+    $('who').textContent = judge.univ + ' ' + judge.name + ' ' + judge.title;
+    $('wTitle').textContent = judge.name + ' ' + judge.title + '님께 배정된 작품';
+  });
 
-  /* ── 신분 확인 ── */
+  /* ── 신분 확인 (성함 + 대학) ── */
   $('idForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    var code = $('fCode').value.trim().toUpperCase();
     var name = $('fName').value.trim();
     var univ = $('fUniv').value.trim();
-    var title = $('fTitle').value.trim();
     var m = $('idMsg');
-    ['fCode', 'fName', 'fUniv', 'fTitle'].forEach(function (id) { $(id).classList.remove('bad'); });
+    ['fName', 'fUniv'].forEach(function (id) { $(id).classList.remove('bad'); });
 
     var miss = [];
-    if (!code) miss.push('fCode'); if (!name) miss.push('fName');
-    if (!univ) miss.push('fUniv'); if (!title) miss.push('fTitle');
+    if (!name) miss.push('fName');
+    if (!univ) miss.push('fUniv');
     if (miss.length) {
       miss.forEach(function (id) { $(id).classList.add('bad'); });
       $(miss[0]).focus();
-      msg(m, 'err', '비어 있는 항목을 모두 입력해 주세요.');
-      return;
-    }
-    if (!/^PRO-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(code) && !(DEMO && code === 'PRO-DEMO')) {
-      $('fCode').classList.add('bad'); $('fCode').focus();
-      msg(m, 'err', '심사 코드 형식이 올바르지 않습니다. PRO-XXXX-XXXX-XXXX 형태인지 확인해 주세요.');
+      msg(m, 'err', '성함과 대학을 모두 입력해 주세요.');
       return;
     }
 
@@ -326,17 +320,18 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
     msg(m, 'info', '확인하는 중입니다…');
 
     var p = DEMO ? Promise.resolve({ data: demoAuth() })
-                 : sb.rpc('투닝콘테스트_교수인증', { p_code: code });
+                 : sb.rpc('투닝콘테스트_교수인증', { p_name: name, p_univ: univ });
     p.then(function (res) {
       $('idBtn').disabled = false;
       if (res.error) { msg(m, 'err', '확인 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
       var d = res.data || {};
       if (!d.ok) {
-        $('fCode').classList.add('bad'); $('fCode').focus();
-        msg(m, 'err', '유효하지 않은 심사 코드입니다. 코드를 다시 확인하시거나 support@tooning.io 로 문의해 주세요.');
+        $('fName').classList.add('bad'); $('fUniv').classList.add('bad');
+        msg(m, 'err', '등록된 심사위원 정보와 일치하지 않습니다. 성함과 대학명을 다시 확인해 주세요. 계속 들어가지지 않으면 support@tooning.io 로 문의해 주세요.');
         return;
       }
-      judge = { code: code, name: name, univ: univ, title: title, regName: d['교수명'], regUniv: d['대학'] };
+      // 상장에는 입력값이 아니라 운영팀에 등록된 정식 명칭이 들어간다
+      judge = { code: d.code, name: d['교수명'], univ: d['대학'], title: d['직함'] || '교수' };
       works = d.works || [];
       m.className = 'msg';
       renderWorks();
@@ -348,7 +343,7 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
   });
 
   function demoAuth() {
-    return { ok: true, '교수명': '홍길동', '대학': '샘플대학교', works: [
+    return { ok: true, code: 'PRO-DEMO', '교수명': '홍길동', '대학': '샘플대학교', '직함': '교수', works: [
       { submit_key: 'TC-DEMO-0001', name: '샘플학생', school: '샘플초등학교', school_level: '초등', grade: '초등 6학년', 'class': '3반',
         section: 'comic', topic: '2036년, 로봇 친구와 보내는 하루', pdf_url: '', board_link: '', teacher_name: '김선생', '상': '금상', issued: false },
       { submit_key: 'TC-DEMO-0002', name: '예시학생', school: '예시중학교', school_level: '중학', grade: '중학 1학년', 'class': '2반',
@@ -364,11 +359,7 @@ h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-h
     $('wLead').textContent = works.length
       ? '총 ' + works.length + '건 중 ' + done + '건의 상장이 발급되었습니다. 작품을 확인하신 뒤 상장을 만들어 주세요.'
       : '';
-    var n = $('wNote');
-    if (judge.regUniv && judge.regUniv !== judge.univ) {
-      msg(n, 'info', '운영팀에 등록된 소속(' + judge.regUniv + ')과 입력하신 소속이 다릅니다. 상장에는 입력하신 내용이 들어갑니다.');
-    } else n.className = 'msg';
-
+    $('wTitleIn').value = judge.title;
     if (!works.length) {
       $('works').innerHTML = '<div class="empty"><b>아직 배정된 작품이 없습니다.</b><br/>접수가 마감되고 심사가 끝나면 작품이 배정됩니다.<br/>배정되면 같은 코드로 다시 접속해 주세요.</div>';
       return;
