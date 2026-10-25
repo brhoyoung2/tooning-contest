@@ -36,11 +36,13 @@ CREATE TABLE IF NOT EXISTS 투닝콘테스트_심사위원 (
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
--- 배정 — 교수님 ↔ 작품. 교수님 1분당 작품 1건, 작품 1건당 교수님 1분 (아래 유니크 인덱스).
+-- 배정 — 교수님 ↔ 작품. 교수님(대학)당 부문별 1건 = 최대 4건, 작품 1건당 교수님 1분.
+-- (우수상 64명 = 16개 대학 x 4부문. 아래 유니크 인덱스가 이 규칙을 지킨다)
 CREATE TABLE IF NOT EXISTS 투닝콘테스트_배정 (
   id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   code       text NOT NULL REFERENCES 투닝콘테스트_심사위원(code) ON DELETE CASCADE,
   submit_key text NOT NULL,
+  section    text,                               -- comic/novel/cardnews/poster (접수에서 복사)
   상         text,                               -- 대상 / 금상 / 은상 / 동상 / 장려상
   created_at timestamptz NOT NULL DEFAULT now(),
   UNIQUE (code, submit_key)
@@ -61,9 +63,18 @@ CREATE TABLE IF NOT EXISTS 투닝콘테스트_상장 (
   UNIQUE (code, submit_key)
 );
 
--- 교수님당 1건 · 작품당 1분. 같은 교수님에게 다른 작품을 다시 배정하면 교체된다.
-CREATE UNIQUE INDEX IF NOT EXISTS 투닝콘테스트_배정_교수당1건_uq ON 투닝콘테스트_배정 (code);
-CREATE UNIQUE INDEX IF NOT EXISTS 투닝콘테스트_배정_작품당1명_uq ON 투닝콘테스트_배정 (submit_key);
+-- 이미 실행한 적이 있는 경우를 위한 정리: 예전의 '교수님당 1건' 규칙과 section 컬럼 보강
+ALTER TABLE 투닝콘테스트_배정 ADD COLUMN IF NOT EXISTS section text;
+DROP INDEX IF EXISTS 투닝콘테스트_배정_교수당1건_uq;
+UPDATE 투닝콘테스트_배정 a SET section = s.section
+  FROM 투닝콘테스트_접수 s
+ WHERE a.section IS NULL AND s.submit_key = a.submit_key;
+
+-- 교수님(대학)당 부문별 1건 · 작품당 1분.
+-- 같은 교수님에게 같은 부문의 다른 작품을 다시 배정하면 교체된다.
+CREATE UNIQUE INDEX IF NOT EXISTS 투닝콘테스트_배정_교수부문1건_uq ON 투닝콘테스트_배정 (code, section);
+CREATE UNIQUE INDEX IF NOT EXISTS 투닝콘테스트_배정_작품당1명_uq   ON 투닝콘테스트_배정 (submit_key);
+CREATE INDEX IF NOT EXISTS 투닝콘테스트_배정_코드_idx ON 투닝콘테스트_배정 (code);
 CREATE INDEX IF NOT EXISTS 투닝콘테스트_상장_코드_idx ON 투닝콘테스트_상장 (code);
 
 ALTER TABLE 투닝콘테스트_심사위원 ENABLE ROW LEVEL SECURITY;
@@ -111,7 +122,7 @@ BEGIN
     RETURN jsonb_build_object('ok', false, 'reason', 'invalid_code');
   END IF;
 
-  SELECT coalesce(jsonb_agg(w ORDER BY w->>'name'), '[]'::jsonb) INTO v_works
+  SELECT coalesce(jsonb_agg(w ORDER BY w->>'section', w->>'name'), '[]'::jsonb) INTO v_works
     FROM (
       SELECT jsonb_build_object(
                'submit_key',   s.submit_key,
@@ -272,7 +283,8 @@ FOR EACH ROW EXECUTE FUNCTION public.투닝콘테스트_상장알림();
 -- 4) 관리자 — 심사위원 코드 발급 + 작품 배정
 --    p_rows: [{"교수명":"홍길동","대학":"○○대학교","직함":"교수",
 --              "email":"...","submit_key":"TC-...","상":"금상"}, ...]
---    code 를 넣지 않으면 자동 생성한다.
+--    code 를 넣지 않으면 자동 생성한다. 같은 교수님께 다른 부문 작품을
+--    배정하려면 처음 발급된 code 를 적어 넣는다 (교수님당 부문별 1건, 최대 4건).
 -- =====================================================
 DROP FUNCTION IF EXISTS public.투닝콘테스트_심사위원등록(text, jsonb);
 
@@ -286,6 +298,8 @@ DECLARE
   v_pw CONSTANT text := '2509';
   r    jsonb;
   v_c  text;
+  v_k  text;
+  v_s  text;
 BEGIN
   IF p_pw IS DISTINCT FROM v_pw THEN
     PERFORM pg_sleep(1);
@@ -315,11 +329,19 @@ BEGIN
           email = coalesce(EXCLUDED.email, 투닝콘테스트_심사위원.email);
 
     IF coalesce(btrim(r->>'submit_key'), '') <> '' THEN
-      -- 교수님당 1건: 이미 배정된 교수님이면 작품을 교체한다.
+      v_k := upper(btrim(r->>'submit_key'));
+      -- 부문은 접수에서 가져온다 (재접수가 있으면 가장 최근 것)
+      SELECT s.section INTO v_s FROM 투닝콘테스트_접수 s
+       WHERE s.submit_key = v_k ORDER BY s.created_at DESC LIMIT 1;
+      IF v_s IS NULL THEN
+        RAISE EXCEPTION 'unknown_submit_key: %', v_k;
+      END IF;
+
+      -- 교수님당 부문별 1건: 같은 부문에 이미 배정돼 있으면 작품을 교체한다.
       -- 같은 작품이 다른 교수님에게 이미 배정돼 있으면 유니크 위반으로 멈춘다.
-      INSERT INTO 투닝콘테스트_배정 (code, submit_key, 상)
-      VALUES (v_c, upper(btrim(r->>'submit_key')), nullif(btrim(coalesce(r->>'상', '')), ''))
-      ON CONFLICT (code) DO UPDATE
+      INSERT INTO 투닝콘테스트_배정 (code, submit_key, section, 상)
+      VALUES (v_c, v_k, v_s, nullif(btrim(coalesce(r->>'상', '')), ''))
+      ON CONFLICT (code, section) DO UPDATE
         SET submit_key = EXCLUDED.submit_key, 상 = EXCLUDED.상;
     END IF;
 

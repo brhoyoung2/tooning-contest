@@ -11,8 +11,9 @@
     {"교수명": "홍길동", "대학": "○○대학교", "직함": "교수", "email": "prof@univ.ac.kr",
      "submit_key": "TC-0E4C-4394", "상": "금상"}
   ]
-code 를 적지 않으면 PRO-XXXX-XXXX-XXXX 가 자동 생성된다. 교수님당 작품은 1건이다.
-이미 코드를 받은 교수님께 다른 작품을 다시 배정하면 작품이 교체된다(code 를 적어 넣는다).
+code 를 적지 않으면 PRO-XXXX-XXXX-XXXX 가 자동 생성된다. 교수님(대학)당 부문별 1건, 최대 4건이다 (우수상 64명 = 16개 대학 x 4부문).
+같은 교수님께 다른 부문 작품을 주려면 처음 발급된 code 를 적어 넣는다.
+같은 부문의 다른 작품을 다시 주면 작품이 교체된다.
 
 결과 코드 목록은 _심사결과/심사코드_발급.csv 로 저장된다. 코드는 교수님 개인 메일로만 전달할 것.
 """
@@ -35,6 +36,14 @@ def rpc(fn, payload):
             return json.loads(r.read().decode('utf-8') or 'null')
     except urllib.error.HTTPError as e:
         return {'_error': e.code, 'body': e.read().decode('utf-8')[:400]}
+
+
+def latest_sections():
+    """심사 대상(최신 접수)의 접수번호 → 부문. 조회가 안 되면 빈 dict 로 두고 서버 검증에 맡긴다."""
+    rows = rpc('투닝콘테스트_관리자목록', {'p_pw': PW})
+    if not isinstance(rows, list):
+        return {}
+    return {r['submit_key']: r['section'] for r in rows if r.get('is_latest')}
 
 
 def status():
@@ -74,19 +83,27 @@ def main():
         c = str(r.get('code') or '').strip().upper()
         if c and not re.match(r'^PRO-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$', c):
             bad.append('%d행: 코드 형식 오류 %r' % (i, c))
-    # 교수님당 1건 · 작품당 1분
-    by_code, by_key = {}, {}
+    # 교수님(대학)당 부문별 1건 · 작품당 1분 — 우수상 64명 = 16개 대학 x 4부문
+    sections = latest_sections()
+    SEC = {'comic': '만화', 'novel': '소설', 'cardnews': '카드뉴스', 'poster': '포스터'}
+    by_slot, by_key = {}, {}
     for i, r in enumerate(rows, 1):
         sk = str(r.get('submit_key') or '').strip().upper()
-        c = str(r.get('code') or '').strip().upper() or ('(새 코드) ' + str(r.get('교수명')) + '|' + str(r.get('대학')))
         if not sk:
             continue
-        if c in by_code and by_code[c] != sk:
-            bad.append('%d행: %s 님께 이미 %s 가 배정돼 있습니다 — 교수님당 1건입니다' % (i, r.get('교수명'), by_code[c]))
-        by_code[c] = sk
-        if sk in by_key and by_key[sk] != c:
+        c = str(r.get('code') or '').strip().upper() or ('(새 코드) ' + str(r.get('교수명')) + '|' + str(r.get('대학')))
+        sec = sections.get(sk)
+        if sections and sec is None:
+            bad.append('%d행: %s 는 심사 대상(최신 접수)에 없는 접수번호입니다' % (i, sk))
+            continue
+        slot = (c, sec)
+        if slot in by_key.values() or (slot in by_slot and by_slot[slot] != sk):
+            bad.append('%d행: %s 님께 이미 %s 부문 작품(%s)이 배정돼 있습니다 — 부문별 1건입니다'
+                       % (i, r.get('교수명'), SEC.get(sec, sec), by_slot.get(slot)))
+        by_slot[slot] = sk
+        if sk in by_key and by_key[sk] != slot:
             bad.append('%d행: %s 는 이미 다른 교수님께 배정돼 있습니다 — 작품당 1분입니다' % (i, sk))
-        by_key[sk] = c
+        by_key[sk] = slot
     if bad:
         print('형식 문제 — 올리지 않았습니다.'); [print('  ·', b) for b in bad]; return 1
     print('형식 확인 OK — %d행' % len(rows))
