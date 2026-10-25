@@ -11,8 +11,8 @@
     {"교수명": "홍길동", "대학": "○○대학교", "직함": "교수", "email": "prof@univ.ac.kr",
      "submit_key": "TC-0E4C-4394", "상": "금상"}
   ]
-code 를 적지 않으면 PRO-XXXX-XXXX-XXXX 가 자동 생성된다. 같은 교수님이 여러 작품을
-맡으면 행을 여러 개 쓰되 code 를 같게 적는다(처음 발급된 코드를 복사해 넣는다).
+code 를 적지 않으면 PRO-XXXX-XXXX-XXXX 가 자동 생성된다. 교수님당 작품은 1건이다.
+이미 코드를 받은 교수님께 다른 작품을 다시 배정하면 작품이 교체된다(code 를 적어 넣는다).
 
 결과 코드 목록은 _심사결과/심사코드_발급.csv 로 저장된다. 코드는 교수님 개인 메일로만 전달할 것.
 """
@@ -74,6 +74,19 @@ def main():
         c = str(r.get('code') or '').strip().upper()
         if c and not re.match(r'^PRO-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$', c):
             bad.append('%d행: 코드 형식 오류 %r' % (i, c))
+    # 교수님당 1건 · 작품당 1분
+    by_code, by_key = {}, {}
+    for i, r in enumerate(rows, 1):
+        sk = str(r.get('submit_key') or '').strip().upper()
+        c = str(r.get('code') or '').strip().upper() or ('(새 코드) ' + str(r.get('교수명')) + '|' + str(r.get('대학')))
+        if not sk:
+            continue
+        if c in by_code and by_code[c] != sk:
+            bad.append('%d행: %s 님께 이미 %s 가 배정돼 있습니다 — 교수님당 1건입니다' % (i, r.get('교수명'), by_code[c]))
+        by_code[c] = sk
+        if sk in by_key and by_key[sk] != c:
+            bad.append('%d행: %s 는 이미 다른 교수님께 배정돼 있습니다 — 작품당 1분입니다' % (i, sk))
+        by_key[sk] = c
     if bad:
         print('형식 문제 — 올리지 않았습니다.'); [print('  ·', b) for b in bad]; return 1
     print('형식 확인 OK — %d행' % len(rows))

@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS 투닝콘테스트_심사위원 (
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
--- 배정 — 교수님 ↔ 작품. 지금은 1명당 1작품이지만 여러 건도 들어갈 수 있다.
+-- 배정 — 교수님 ↔ 작품. 교수님 1분당 작품 1건, 작품 1건당 교수님 1분 (아래 유니크 인덱스).
 CREATE TABLE IF NOT EXISTS 투닝콘테스트_배정 (
   id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   code       text NOT NULL REFERENCES 투닝콘테스트_심사위원(code) ON DELETE CASCADE,
@@ -61,7 +61,9 @@ CREATE TABLE IF NOT EXISTS 투닝콘테스트_상장 (
   UNIQUE (code, submit_key)
 );
 
-CREATE INDEX IF NOT EXISTS 투닝콘테스트_배정_코드_idx ON 투닝콘테스트_배정 (code);
+-- 교수님당 1건 · 작품당 1분. 같은 교수님에게 다른 작품을 다시 배정하면 교체된다.
+CREATE UNIQUE INDEX IF NOT EXISTS 투닝콘테스트_배정_교수당1건_uq ON 투닝콘테스트_배정 (code);
+CREATE UNIQUE INDEX IF NOT EXISTS 투닝콘테스트_배정_작품당1명_uq ON 투닝콘테스트_배정 (submit_key);
 CREATE INDEX IF NOT EXISTS 투닝콘테스트_상장_코드_idx ON 투닝콘테스트_상장 (code);
 
 ALTER TABLE 투닝콘테스트_심사위원 ENABLE ROW LEVEL SECURITY;
@@ -313,9 +315,12 @@ BEGIN
           email = coalesce(EXCLUDED.email, 투닝콘테스트_심사위원.email);
 
     IF coalesce(btrim(r->>'submit_key'), '') <> '' THEN
+      -- 교수님당 1건: 이미 배정된 교수님이면 작품을 교체한다.
+      -- 같은 작품이 다른 교수님에게 이미 배정돼 있으면 유니크 위반으로 멈춘다.
       INSERT INTO 투닝콘테스트_배정 (code, submit_key, 상)
       VALUES (v_c, upper(btrim(r->>'submit_key')), nullif(btrim(coalesce(r->>'상', '')), ''))
-      ON CONFLICT (code, submit_key) DO UPDATE SET 상 = EXCLUDED.상;
+      ON CONFLICT (code) DO UPDATE
+        SET submit_key = EXCLUDED.submit_key, 상 = EXCLUDED.상;
     END IF;
 
     RETURN QUERY
