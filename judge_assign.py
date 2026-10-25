@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-교수님 심사 코드 발급 + 작품 배정 (v21 의 투닝콘테스트_심사위원등록 RPC).
+교수님 등록 + 작품 배정 (투닝콘테스트_심사위원등록 RPC).
+
+교수님은 /professor 에서 '성함 + 대학'만 입력해 들어온다 (v23). 그래서 여기서 등록하는
+성함·대학이 곧 로그인 정보다. 홈페이지 심사위원 목록과 같은 표기로 적는다.
+('대학교' 생략·공백 차이는 서버가 흡수한다.) 내부 식별자(PRO-...)는 화면에 나오지 않는다.
 
   python judge_assign.py 배정.json            # 발급·배정
   python judge_assign.py 배정.json --dry      # 검사만
@@ -11,11 +15,11 @@
     {"교수명": "홍길동", "대학": "○○대학교", "직함": "교수", "email": "prof@univ.ac.kr",
      "submit_key": "TC-0E4C-4394", "상": "금상"}
   ]
-code 를 적지 않으면 PRO-XXXX-XXXX-XXXX 가 자동 생성된다. 교수님(대학)당 부문별 1건, 최대 4건이다 (우수상 64명 = 16개 대학 x 4부문).
+같은 성함+대학이 이미 등록돼 있으면 그 분께 배정이 추가되므로 code 는 적지 않아도 된다. 교수님(대학)당 부문별 1건, 최대 4건이다 (우수상 64명 = 16개 대학 x 4부문).
 같은 교수님께 다른 부문 작품을 주려면 처음 발급된 code 를 적어 넣는다.
 같은 부문의 다른 작품을 다시 주면 작품이 교체된다.
 
-결과 코드 목록은 _심사결과/심사코드_발급.csv 로 저장된다. 코드는 교수님 개인 메일로만 전달할 것.
+결과는 _심사결과/교수배정.csv 로 저장된다.
 """
 import argparse, csv, io, json, os, re, sys
 import urllib.request, urllib.parse, urllib.error
@@ -115,17 +119,18 @@ def main():
         print('실패:', res); print('v21 마이그레이션을 먼저 실행하셨는지 확인해주세요.'); return 1
 
     os.makedirs('_심사결과', exist_ok=True)
-    out = os.path.join('_심사결과', '심사코드_발급.csv')
+    out = os.path.join('_심사결과', '교수배정.csv')
     with io.open(out, 'w', encoding='utf-8-sig', newline='') as f:
         w = csv.writer(f)
-        w.writerow(['심사 코드', '교수명', '대학', '접수번호', '상'])
+        w.writerow(['교수명', '대학', '접수번호', '상', '내부 식별자'])
         for r in res:
-            w.writerow([r['out_code'], r['out_교수명'], r['out_대학'], r['out_submit_key'] or '', r['out_상'] or ''])
-    print('\n발급·배정 %d행' % len(res))
+            w.writerow([r['out_교수명'], r['out_대학'], r['out_submit_key'] or '', r['out_상'] or '', r['out_code']])
+    print('\n등록·배정 %d행' % len(res))
     for r in res:
-        print('  %-26s %-8s %-14s %s %s' % (r['out_code'], r['out_교수명'], (r['out_대학'] or '')[:14],
-                                          r['out_submit_key'] or '-', r['out_상'] or ''))
-    print('\n저장: %s  ← 코드는 교수님 개인 메일로만 전달하세요' % out)
+        print('  %-8s %-16s %s %s' % (r['out_교수명'], (r['out_대학'] or '')[:16],
+                                       r['out_submit_key'] or '-', r['out_상'] or ''))
+    print('\n저장: %s' % out)
+    print('교수님께는 /professor 주소와 성함+대학 입력 안내만 전하면 됩니다.')
     return 0
 
 
