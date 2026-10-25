@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>교수 심사 · 제2회 투닝 국제 공모전</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet" />
+<style>
+:root{--sky:#5ba2dc;--sky-bg:#dceefa;--coral:#ff6b6b;--ink:#141b31;--soft:#636e82;--cream:#fef8f0;--line:#e6e9f0;--ivory:#fdfaf1;--gold:#b88a2e}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;word-break:keep-all;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:960px;margin:0 auto}
+.brand{font-weight:800;letter-spacing:-.02em;font-size:15px}
+.brand b{color:var(--coral)}
+.who{font-size:13px;color:var(--soft)}
+main{max-width:960px;margin:0 auto;padding:8px 16px 72px}
+.screen{display:none}
+.screen.active{display:block;animation:in .35s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:#fff;border-radius:28px;padding:44px 40px;box-shadow:0 14px 44px rgba(20,27,49,.08)}
+.eyebrow{font-weight:800;font-size:12px;letter-spacing:.16em;color:var(--coral);text-transform:uppercase}
+h1{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.03em;line-height:1.25;margin-top:12px}
+.lead{font-size:16px;color:var(--soft);margin-top:16px;line-height:1.8}
+.lead strong{color:var(--ink)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
+.step{background:var(--sky-bg);border-radius:18px;padding:16px 18px}
+.step i{font-style:normal;display:block;font-weight:800;font-size:12px;color:var(--sky);margin-bottom:4px}
+.step span{font-size:14px;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 26px;border:none;border-radius:16px;font-weight:700;font-size:15px;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--coral);color:#fff;box-shadow:0 8px 20px rgba(255,107,107,.3)}
+.btn.ghost{background:#eef1f6;color:var(--ink)}
+.btn.dark{background:var(--ink);color:#fff}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.btn.block{width:100%}
+.cta{margin-top:30px}
+.note{font-size:13px;color:var(--soft);margin-top:18px;line-height:1.7}
+.field{margin-top:18px}
+.field label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+.field label em{font-style:normal;color:var(--coral)}
+.field input{width:100%;height:52px;border:1.5px solid #dde1ea;border-radius:14px;padding:0 16px;font:inherit;font-size:16px;background:#fff}
+.field input:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 4px rgba(91,162,220,.16)}
+.field input.bad{border-color:#ef4444;background:#fff6f6}
+.field .hint{font-size:12.5px;color:var(--soft);margin-top:6px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.msg{margin-top:16px;padding:12px 16px;border-radius:12px;font-size:14px;display:none}
+.msg.show{display:block}
+.msg.err{background:#fdeaea;color:#c0392b}
+.msg.ok{background:#e8f6ed;color:#1d7a43}
+.msg.info{background:#eef5fc;color:#2a5f90}
+.works{display:grid;gap:16px;margin-top:24px}
+.work{background:#fff;border-radius:24px;padding:26px 28px;box-shadow:0 8px 28px rgba(20,27,49,.07);display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+.work h3{font-size:19px;font-weight:800;letter-spacing:-.02em}
+.work .meta{font-size:14px;color:var(--soft);margin-top:4px}
+.work .topic{font-size:15px;margin-top:10px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chip{font-size:12px;font-weight:700;padding:4px 11px;border-radius:999px;background:#eef1f6;color:var(--soft)}
+.chip.award{background:#fff3d6;color:#9a6a00}
+.chip.done{background:#e8f6ed;color:#1d7a43}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.links a{font-size:13px;font-weight:700;color:var(--sky);text-decoration:none;border:1.5px solid #cfe3f4;border-radius:10px;padding:6px 12px}
+.work .act{display:flex;flex-direction:column;gap:8px;min-width:150px}
+.empty{background:#fff;border-radius:24px;padding:48px 28px;text-align:center;color:var(--soft);margin-top:24px}
+.modal{position:fixed;inset:0;z-index:100;background:rgba(10,14,30,.7);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 14px}
+.modal.open{display:flex}
+.panel{background:#fff;border-radius:26px;width:100%;max-width:1040px;padding:28px 28px 26px;position:relative;margin:auto}
+.panel h2{font-size:21px;font-weight:800;letter-spacing:-.02em;padding-right:44px}
+.panel .sub{font-size:14px;color:var(--soft);margin-top:4px}
+.x{position:absolute;top:16px;right:16px;width:38px;height:38px;border:none;border-radius:50%;background:#f1f3f8;font-size:22px;line-height:1;color:var(--soft)}
+.stage{margin-top:18px;background:#e9edf4;border-radius:16px;padding:14px;display:flex;justify-content:center}
+.stage canvas{width:100%;height:auto;max-width:100%;border-radius:6px;box-shadow:0 10px 30px rgba(20,27,49,.22);touch-action:none;background:#fff}
+.stage canvas.grab{cursor:grab}
+.stage canvas.grabbing{cursor:grabbing}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.bar .grow{flex:1}
+.ctrl{display:flex;align-items:center;gap:10px;flex:1;min-width:240px}
+.ctrl label{font-weight:700;font-size:14px;white-space:nowrap}
+.ctrl input[type=range]{flex:1;accent-color:var(--coral)}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
+.drop{border:2px dashed #c9d3e2;border-radius:18px;padding:30px 20px;text-align:center;color:var(--soft);background:#fafbfd}
+.drop b{color:var(--ink);display:block;font-size:16px;margin-bottom:4px}
+.priv{font-size:12.5px;color:var(--soft);margin-top:12px;line-height:1.7}
+.done-card{text-align:center}
+.done-card .tick{width:68px;height:68px;border-radius:50%;background:#e8f6ed;color:#1d7a43;font-size:34px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.done-card img{width:100%;max-width:640px;border-radius:8px;box-shadow:0 10px 30px rgba(20,27,49,.18);margin-top:22px}
+.demo{background:#fff3d6;color:#8a5d00;text-align:center;font-size:13px;font-weight:700;padding:8px}
+@media(max-width:700px){
+  .card{padding:30px 22px;border-radius:22px}
+  .steps{grid-template-columns:1fr}
+  .row2{grid-template-columns:1fr}
+  .work{grid-template-columns:1fr}
+  .work .act{flex-direction:row;min-width:0}
+  .work .act .btn{flex:1}
+  .panel{padding:22px 16px}
+}
+</style>
+</head>
+<body>
+
+<div class="demo" id="demoBar" hidden>데모 모드 — 샘플 데이터입니다. 아무것도 저장되지 않습니다.</div>
+
+<div class="top">
+  <div class="brand">투닝 국제 공모전 <b>· 교수 심사</b></div>
+  <div class="who" id="who"></div>
+</div>
+
+<main>
+
+  <!-- 1. 안내 -->
+  <section class="screen active" id="s-intro">
+    <div class="card">
+      <div class="eyebrow">2nd International AI Tooning Contest</div>
+      <h1>제2회 투닝 국제 공모전<br/>교수 심사에 오신 것을 환영합니다</h1>
+      <p class="lead">
+        바쁘신 가운데 <strong>심사에 참여해 주셔서 진심으로 감사드립니다.</strong><br/>
+        교수님께 배정된 작품을 확인하시고, 교수님 명의의 <strong>디지털 상장</strong>을 발급해 주세요.
+        직인을 올려 위치와 크기를 맞추면 완성된 상장 이미지가 저장되고, 운영팀에 자동으로 전달됩니다.
+      </p>
+      <div class="steps">
+        <div class="step"><i>STEP 1</i><span>심사 코드와 소속 입력</span></div>
+        <div class="step"><i>STEP 2</i><span>배정된 작품 확인</span></div>
+        <div class="step"><i>STEP 3</i><span>직인을 올려 상장 완성</span></div>
+      </div>
+      <div class="cta"><button class="btn primary" id="goId">시작하기</button></div>
+      <p class="note">심사 코드는 운영팀이 교수님 개인 메일로 보내드렸습니다. 코드를 받지 못하셨다면 support@tooning.io 로 문의해 주세요.</p>
+    </div>
+  </section>
+
+  <!-- 2. 신분 입력 -->
+  <section class="screen" id="s-id">
+    <div class="card">
+      <div class="eyebrow">STEP 1</div>
+      <h1>교수님 정보를 입력해 주세요</h1>
+      <p class="lead">입력하신 대학·직함·성함이 상장에 그대로 들어갑니다.</p>
+      <form id="idForm" autocomplete="off" novalidate>
+        <div class="field">
+          <label for="fCode">심사 코드 <em>*</em></label>
+          <input id="fCode" placeholder="PRO-XXXX-XXXX-XXXX" autocapitalize="characters" spellcheck="false" />
+          <div class="hint">메일로 받으신 코드를 그대로 붙여넣어 주세요.</div>
+        </div>
+        <div class="field">
+          <label for="fName">성함 <em>*</em></label>
+          <input id="fName" placeholder="홍길동" />
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="fUniv">대학 <em>*</em></label>
+            <input id="fUniv" placeholder="○○대학교" />
+          </div>
+          <div class="field">
+            <label for="fTitle">직함 <em>*</em></label>
+            <input id="fTitle" list="titles" placeholder="교수" />
+            <datalist id="titles"><option value="교수"/><option value="부교수"/><option value="조교수"/><option value="겸임교수"/><option value="학장"/><option value="학과장"/></datalist>
+          </div>
+        </div>
+        <div class="msg" id="idMsg"></div>
+        <div class="cta"><button class="btn primary block" id="idBtn" type="submit">확인하고 배정 작품 보기</button></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- 3. 배정 작품 -->
+  <section class="screen" id="s-works">
+    <div class="card">
+      <div class="eyebrow">STEP 2</div>
+      <h1 id="wTitle">배정된 작품</h1>
+      <p class="lead" id="wLead"></p>
+      <div class="msg info" id="wNote"></div>
+    </div>
+    <div class="works" id="works"></div>
+    <p class="priv">표시되는 정보는 교수님께 배정된 작품에 한합니다. 학생의 개인정보는 심사와 상장 발급 외의 용도로 사용하지 말아 주세요.</p>
+  </section>
+
+  <!-- 완료 -->
+  <section class="screen" id="s-done">
+    <div class="card done-card">
+      <div class="tick">✓</div>
+      <h1>상장이 저장되었습니다</h1>
+      <p class="lead" id="doneLead"></p>
+      <img id="doneImg" alt="발급된 디지털 상장" />
+      <div class="bar" style="justify-content:center;margin-top:24px">
+        <a class="btn primary" id="doneDl" download>상장 이미지 저장</a>
+        <button class="btn ghost" id="doneBack">작품 목록으로</button>
+      </div>
+      <p class="note">완성된 상장은 운영팀 메일로도 전달되었습니다.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- 상장 최종 확인 -->
+<div class="modal" id="m-cert" role="dialog" aria-modal="true">
+  <div class="panel">
+    <button class="x" data-close="m-cert" aria-label="닫기">&times;</button>
+    <h2 id="cTitle">디지털 상장</h2>
+    <p class="sub">직인이 들어간 최종 모습입니다. 이상이 없으면 <b>완료하고 전달</b>을 눌러 주세요.</p>
+    <div class="stage"><canvas id="cvFinal"></canvas></div>
+    <div class="msg" id="cMsg"></div>
+    <div class="bar">
+      <button class="btn ghost" id="openSeal">직인 올리기 · 위치 조정</button>
+      <span class="grow"></span>
+      <button class="btn primary" id="finish">완료하고 전달</button>
+    </div>
+    <p class="priv">직인 이미지 원본은 서버에 저장되지 않습니다. 이 화면에서 상장에 합성만 하고, 완성된 상장 이미지와 직인을 놓은 위치만 보관합니다.</p>
+  </div>
+</div>
+
+<!-- 직인 팝업 -->
+<div class="modal" id="m-seal" role="dialog" aria-modal="true" style="z-index:110">
+  <div class="panel">
+    <button class="x" data-close="m-seal" aria-label="닫기">&times;</button>
+    <h2>직인 올리기</h2>
+    <p class="sub">직인 이미지를 올린 뒤, 상장 위에서 끌어 위치를 맞추고 슬라이더로 크기를 조절해 주세요.</p>
+
+    <div id="sealDrop" class="drop" style="margin-top:16px">
+      <b>직인 이미지를 선택해 주세요</b>
+      PNG · JPG · 10MB 이하 (흰 배경이어도 괜찮습니다)
+      <div style="margin-top:14px"><button class="btn dark" id="pickSeal" type="button">파일 선택</button></div>
+    </div>
+    <input type="file" id="sealFile" accept="image/*" hidden />
+
+    <div id="sealEditor" hidden>
+      <div class="stage"><canvas id="cvSeal" class="grab"></canvas></div>
+      <div class="bar">
+        <div class="ctrl"><label for="sealSize">크기</label><input type="range" id="sealSize" min="40" max="260" value="110" /></div>
+        <label class="chk"><input type="checkbox" id="sealMul" checked /> 흰 배경 투명하게</label>
+      </div>
+      <div class="bar">
+        <button class="btn ghost" id="sealAgain" type="button">다른 이미지</button>
+        <span class="grow"></span>
+        <button class="btn primary" id="sealApply" type="button">이 위치로 적용</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function () {
+  var SB_URL = 'https://mllbsqnrvhvnqvxkpxof.supabase.co';
+  var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1sbGJzcW5ydmh2bnF2eGtweG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyOTQ4MDUsImV4cCI6MjA5NTg3MDgwNX0.X4vB-JwtbrQOUg_It5dSuvTrIWOOFfg7ThIiU8FKhjI';
+  var sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+  var DEMO = /[?&]demo=1\b/.test(location.search);
+  var SECTION = { comic: '만화/웹툰', novel: '소설/이야기', cardnews: '카드뉴스', poster: '포스터' };
+  var CW = 2000, CH = 1414;                       // 상장 캔버스 (A4 가로 비율)
+
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(t) {
+    return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  var judge = null;        // { code, name, univ, title }
+  var works = [];
+  var cur = null;          // 지금 상장을 만드는 작품
+  var seal = { img: null, x: 0.7, y: 0.8, size: 0.095, multiply: true, placed: false };
+  var lastBlob = null;
+
+  if (DEMO) $('demoBar').hidden = false;
+
+  /* ── 화면 전환 ── */
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(function (s) { s.classList.toggle('active', s.id === id); });
+    window.scrollTo(0, 0);
+  }
+  function openM(id) { $(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeM(id) {
+    $(id).classList.remove('open');
+    if (!document.querySelector('.modal.open')) document.body.style.overflow = '';
+  }
+  document.querySelectorAll('[data-close]').forEach(function (b) {
+    b.addEventListener('click', function () { closeM(b.getAttribute('data-close')); });
+  });
+  document.querySelectorAll('.modal').forEach(function (m) {
+    m.addEventListener('click', function (e) { if (e.target === m) closeM(m.id); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    ['m-seal', 'm-cert'].some(function (id) {
+      if ($(id).classList.contains('open')) { closeM(id); return true; }
+    });
+  });
+
+  function msg(el, kind, text) {
+    el.className = 'msg show ' + kind;
+    el.textContent = text;
+  }
+
+  /* ── 1 → 2 ── */
+  $('goId').addEventListener('click', function () { show('s-id'); $('fCode').focus(); });
+
+  /* ── 신분 확인 ── */
+  $('idForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var code = $('fCode').value.trim().toUpperCase();
+    var name = $('fName').value.trim();
+    var univ = $('fUniv').value.trim();
+    var title = $('fTitle').value.trim();
+    var m = $('idMsg');
+    ['fCode', 'fName', 'fUniv', 'fTitle'].forEach(function (id) { $(id).classList.remove('bad'); });
+
+    var miss = [];
+    if (!code) miss.push('fCode'); if (!name) miss.push('fName');
+    if (!univ) miss.push('fUniv'); if (!title) miss.push('fTitle');
+    if (miss.length) {
+      miss.forEach(function (id) { $(id).classList.add('bad'); });
+      $(miss[0]).focus();
+      msg(m, 'err', '비어 있는 항목을 모두 입력해 주세요.');
+      return;
+    }
+    if (!/^PRO-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(code) && !(DEMO && code === 'PRO-DEMO')) {
+      $('fCode').classList.add('bad'); $('fCode').focus();
+      msg(m, 'err', '심사 코드 형식이 올바르지 않습니다. PRO-XXXX-XXXX-XXXX 형태인지 확인해 주세요.');
+      return;
+    }
+
+    $('idBtn').disabled = true;
+    msg(m, 'info', '확인하는 중입니다…');
+
+    var p = DEMO ? Promise.resolve({ data: demoAuth() })
+                 : sb.rpc('투닝콘테스트_교수인증', { p_code: code });
+    p.then(function (res) {
+      $('idBtn').disabled = false;
+      if (res.error) { msg(m, 'err', '확인 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
+      var d = res.data || {};
+      if (!d.ok) {
+        $('fCode').classList.add('bad'); $('fCode').focus();
+        msg(m, 'err', '유효하지 않은 심사 코드입니다. 코드를 다시 확인하시거나 support@tooning.io 로 문의해 주세요.');
+        return;
+      }
+      judge = { code: code, name: name, univ: univ, title: title, regName: d['교수명'], regUniv: d['대학'] };
+      works = d.works || [];
+      m.className = 'msg';
+      renderWorks();
+      show('s-works');
+    }).catch(function () {
+      $('idBtn').disabled = false;
+      msg(m, 'err', '네트워크 오류입니다. 연결을 확인한 뒤 다시 시도해 주세요.');
+    });
+  });
+
+  function demoAuth() {
+    return { ok: true, '교수명': '홍길동', '대학': '샘플대학교', works: [
+      { submit_key: 'TC-DEMO-0001', name: '샘플학생', school: '샘플초등학교', school_level: '초등', grade: '초등 6학년', 'class': '3반',
+        section: 'comic', topic: '2036년, 로봇 친구와 보내는 하루', pdf_url: '', board_link: '', teacher_name: '김선생', '상': '금상', issued: false },
+      { submit_key: 'TC-DEMO-0002', name: '예시학생', school: '예시중학교', school_level: '중학', grade: '중학 1학년', 'class': '2반',
+        section: 'poster', topic: '10년 후, 창가에서 쉬는 순간', pdf_url: '', board_link: '', teacher_name: '', '상': '은상', issued: false }
+    ] };
+  }
+
+  /* ── 배정 작품 ── */
+  function renderWorks() {
+    $('who').textContent = judge.univ + ' ' + judge.name + ' ' + judge.title;
+    $('wTitle').textContent = judge.name + ' ' + judge.title + '님께 배정된 작품';
+    var done = works.filter(function (w) { return w.issued; }).length;
+    $('wLead').textContent = works.length
+      ? '총 ' + works.length + '건 중 ' + done + '건의 상장이 발급되었습니다. 작품을 확인하신 뒤 상장을 만들어 주세요.'
+      : '';
+    var n = $('wNote');
+    if (judge.regUniv && judge.regUniv !== judge.univ) {
+      msg(n, 'info', '운영팀에 등록된 소속(' + judge.regUniv + ')과 입력하신 소속이 다릅니다. 상장에는 입력하신 내용이 들어갑니다.');
+    } else n.className = 'msg';
+
+    if (!works.length) {
+      $('works').innerHTML = '<div class="empty"><b>아직 배정된 작품이 없습니다.</b><br/>접수가 마감되고 심사가 끝나면 작품이 배정됩니다.<br/>배정되면 같은 코드로 다시 접속해 주세요.</div>';
+      return;
+    }
+    $('works').innerHTML = works.map(function (w, i) {
+      var links = '';
+      if (w.pdf_url) links += '<a href="' + esc(w.pdf_url) + '" target="_blank" rel="noopener">작품 PDF 열기</a>';
+      if (w.board_link) links += '<a href="' + esc(w.board_link) + '" target="_blank" rel="noopener">작품 보드 열기</a>';
+      var chips = '<span class="chip">' + esc(SECTION[w.section] || w.section) + '</span>'
+                + '<span class="chip">' + esc(w.school_level || '') + '</span>';
+      if (w['상']) chips += '<span class="chip award">' + esc(w['상']) + '</span>';
+      if (w.issued) chips += '<span class="chip done">상장 발급 완료</span>';
+      var act = w.issued
+        ? '<a class="btn dark" href="' + esc(w.issued_url || '#') + '" target="_blank" rel="noopener">상장 보기</a>'
+          + '<button class="btn ghost" data-make="' + i + '">다시 발급</button>'
+        : '<button class="btn primary" data-make="' + i + '">상장 만들기</button>';
+      return '<article class="work"><div>'
+        + '<h3>' + esc(w.name) + '</h3>'
+        + '<div class="meta">' + esc(w.school) + ' · ' + esc(w.grade) + (w['class'] ? ' ' + esc(w['class']) : '') + '</div>'
+        + '<div class="topic">' + esc(w.topic) + '</div>'
+        + '<div class="chips">' + chips + '</div>'
+        + (links ? '<div class="links">' + links + '</div>' : '')
+        + '</div><div class="act">' + act + '</div></article>';
+    }).join('');
+    document.querySelectorAll('[data-make]').forEach(function (b) {
+      b.addEventListener('click', function () { startCert(works[+b.getAttribute('data-make')]); });
+    });
+  }
+
+  /* ════════ 상장 그리기 ════════ */
+  // 어절(공백) 단위로 줄을 나눈다. 한 어절이 한 줄보다 길면 그때만 글자 단위로 끊는다.
+  function wrap(ctx, text, maxW) {
+    var lines = [], line = '';
+    String(text).split(' ').forEach(function (word) {
+      var t = line ? line + ' ' + word : word;
+      if (ctx.measureText(t).width <= maxW) { line = t; return; }
+      if (line) { lines.push(line); line = ''; }
+      if (ctx.measureText(word).width <= maxW) { line = word; return; }
+      word.split('').forEach(function (ch) {
+        if (ctx.measureText(line + ch).width > maxW && line) { lines.push(line); line = ch; }
+        else line += ch;
+      });
+    });
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  function certData() {
+    var w = cur;
+    var sec = SECTION[w.section] || w.section;
+    var award = w['상'] || '';
+    var d = new Date();
+    return {
+      award: award,
+      student: w.name,
+      who: w.school + ' · ' + w.grade,
+      topic: w.topic,
+      body: '위 학생은 「2036년, 나의 하루」를 주제로 한 제2회 투닝 국제 공모전 ' + sec + ' 부문에서 '
+          + '뛰어난 작품을 출품하여 ' + (award ? award + '을 수상하였기에' : '우수한 성과를 거두었기에')
+          + ' 이 상장을 수여합니다.',
+      date: d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일',
+      sig: judge.univ + ' ' + judge.title + ' ' + judge.name
+    };
+  }
+
+  var SERIF = '"Noto Serif KR","Nanum Myeongjo",serif';
+  var SANS = '"Pretendard Variable",Pretendard,sans-serif';
+
+  function sigLayout(ctx, d) {
+    ctx.font = '700 46px ' + SERIF;
+    var w = ctx.measureText(d.sig).width;
+    return { cx: CW / 2, cy: 1180, w: w };
+  }
+
+  function drawCert(ctx, d, opt) {
+    opt = opt || {};
+    ctx.clearRect(0, 0, CW, CH);
+    ctx.fillStyle = '#fffdf6';
+    ctx.fillRect(0, 0, CW, CH);
+
+    // 이중 테두리
+    ctx.strokeStyle = '#b88a2e';
+    ctx.lineWidth = 8; ctx.strokeRect(60, 60, CW - 120, CH - 120);
+    ctx.lineWidth = 2; ctx.strokeRect(86, 86, CW - 172, CH - 172);
+
+    // 모서리 장식
+    ctx.fillStyle = '#b88a2e';
+    [[86, 86], [CW - 86, 86], [86, CH - 86], [CW - 86, CH - 86]].forEach(function (p) {
+      ctx.beginPath(); ctx.arc(p[0], p[1], 15, 0, Math.PI * 2); ctx.fill();
+    });
+
+    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+
+    ctx.fillStyle = '#8a6a22';
+    ctx.font = '600 34px ' + SERIF;
+    ctx.fillText('제 2 회   투 닝   국 제   공 모 전', CW / 2, 215);
+
+    ctx.fillStyle = '#141b31';
+    ctx.font = '900 168px ' + SERIF;
+    ctx.fillText('상    장', CW / 2, 410);
+
+    if (d.award) {
+      ctx.fillStyle = '#c0392b';
+      ctx.font = '900 80px ' + SERIF;
+      ctx.fillText(d.award, CW / 2, 530);
+    }
+
+    // 수상자
+    ctx.fillStyle = '#141b31';
+    ctx.font = '700 64px ' + SERIF;
+    ctx.fillText(d.student, CW / 2, 660);
+    ctx.fillStyle = '#636e82';
+    ctx.font = '500 32px ' + SANS;
+    ctx.fillText(d.who, CW / 2, 714);
+
+    // 작품명
+    ctx.fillStyle = '#141b31';
+    ctx.font = '600 36px ' + SERIF;
+    var tl = wrap(ctx, '작품명  ' + d.topic, 1300).slice(0, 2);
+    tl.forEach(function (l, i) { ctx.fillText(l, CW / 2, 790 + i * 50); });
+
+    // 본문
+    ctx.font = '500 40px ' + SERIF;
+    ctx.fillStyle = '#2a3148';
+    var bl = wrap(ctx, d.body, 1240);
+    var by = 790 + tl.length * 50 + 50;
+    bl.forEach(function (l, i) { ctx.fillText(l, CW / 2, by + i * 66); });
+
+    // 날짜
+    ctx.fillStyle = '#2a3148';
+    ctx.font = '500 38px ' + SERIF;
+    ctx.fillText(d.date, CW / 2, 1090);
+
+    // 서명
+    ctx.fillStyle = '#141b31';
+    ctx.font = '700 46px ' + SERIF;
+    ctx.fillText(d.sig, CW / 2, 1195);
+
+    // 주최
+    ctx.fillStyle = '#8a8f9e';
+    ctx.font = '500 26px ' + SANS;
+    ctx.fillText('주최 · 주관  투닝 (주식회사 툰스퀘어)', CW / 2, 1290);
+
+    // 직인
+    if (seal.img) {
+      var sw = seal.size * CW;
+      var ratio = seal.img.naturalHeight / seal.img.naturalWidth;
+      var sh = sw * ratio;
+      ctx.save();
+      ctx.globalCompositeOperation = seal.multiply ? 'multiply' : 'source-over';
+      ctx.drawImage(seal.img, seal.x * CW - sw / 2, seal.y * CH - sh / 2, sw, sh);
+      ctx.restore();
+      if (opt.guide) {
+        ctx.save();
+        ctx.setLineDash([14, 10]);
+        ctx.lineWidth = 4; ctx.strokeStyle = '#5ba2dc';
+        ctx.strokeRect(seal.x * CW - sw / 2 - 6, seal.y * CH - sh / 2 - 6, sw + 12, sh + 12);
+        ctx.restore();
+      }
+    }
+  }
+
+  function loadFonts(d) {
+    var text = d.student + d.who + d.topic + d.body + d.sig + d.award + '상장제투닝국제공모전주최주관';
+    if (!document.fonts || !document.fonts.load) return Promise.resolve();
+    return Promise.all([
+      document.fonts.load('900 100px "Noto Serif KR"', text),
+      document.fonts.load('700 40px "Noto Serif KR"', text),
+      document.fonts.load('500 40px "Noto Serif KR"', text),
+      document.fonts.load('500 30px "Pretendard Variable"', text)
+    ]).catch(function () {});
+  }
+
+  var cvFinal = $('cvFinal'), cvSeal = $('cvSeal');
+  cvFinal.width = CW; cvFinal.height = CH;
+  cvSeal.width = CW; cvSeal.height = CH;
+
+  function paintFinal() { drawCert(cvFinal.getContext('2d'), certData(), { guide: false }); }
+  function paintSeal() { drawCert(cvSeal.getContext('2d'), certData(), { guide: true }); }
+
+  function startCert(w) {
+    cur = w;
+    $('cTitle').textContent = w.name + ' 학생 디지털 상장';
+    $('cMsg').className = 'msg';
+    openM('m-cert');
+    loadFonts(certData()).then(paintFinal);
+    paintFinal();
+  }
+
+  /* ════════ 직인 팝업 ════════ */
+  $('openSeal').addEventListener('click', function () {
+    openM('m-seal');
+    if (seal.img) { $('sealDrop').hidden = true; $('sealEditor').hidden = false; syncSealUi(); paintSeal(); }
+    else { $('sealDrop').hidden = false; $('sealEditor').hidden = true; }
+  });
+  $('pickSeal').addEventListener('click', function () { $('sealFile').click(); });
+  $('sealAgain').addEventListener('click', function () { $('sealFile').value = ''; $('sealFile').click(); });
+
+  $('sealFile').addEventListener('change', function () {
+    var f = this.files && this.files[0];
+    if (!f) return;
+    if (!/^image\//.test(f.type)) { alert('이미지 파일(PNG·JPG)을 선택해 주세요.'); return; }
+    if (f.size > 10 * 1024 * 1024) { alert('10MB 이하의 이미지를 선택해 주세요.'); return; }
+    var url = URL.createObjectURL(f);
+    var img = new Image();
+    img.onload = function () {
+      seal.img = img;
+      if (!seal.placed) {                                      // 처음이면 서명 오른쪽 끝에 놓는다
+        var ctx = cvSeal.getContext('2d');
+        var L = sigLayout(ctx, certData());
+        seal.size = 0.095;
+        seal.x = Math.min(0.9, (L.cx + L.w / 2) / CW + 0.045);
+        seal.y = L.cy / CH - 0.012;
+      }
+      $('sealDrop').hidden = true; $('sealEditor').hidden = false;
+      syncSealUi();
+      loadFonts(certData()).then(paintSeal);
+      paintSeal();
+    };
+    img.onerror = function () { alert('이미지를 읽을 수 없습니다. 다른 파일을 선택해 주세요.'); };
+    img.src = url;
+  });
+
+  function syncSealUi() {
+    $('sealSize').value = Math.round(seal.size * 1000);
+    $('sealMul').checked = seal.multiply;
+  }
+  $('sealSize').addEventListener('input', function () { seal.size = this.value / 1000; paintSeal(); });
+  $('sealMul').addEventListener('change', function () { seal.multiply = this.checked; paintSeal(); });
+
+  // 끌어서 이동 (마우스·터치 공통)
+  var drag = null;
+  function pt(e) {
+    var r = cvSeal.getBoundingClientRect();
+    return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height };
+  }
+  cvSeal.addEventListener('pointerdown', function (e) {
+    if (!seal.img) return;
+    var p = pt(e);
+    drag = { dx: seal.x - p.x, dy: seal.y - p.y };
+    cvSeal.setPointerCapture(e.pointerId);
+    cvSeal.classList.remove('grab'); cvSeal.classList.add('grabbing');
+  });
+  cvSeal.addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    var p = pt(e);
+    seal.x = Math.max(0.02, Math.min(0.98, p.x + drag.dx));
+    seal.y = Math.max(0.02, Math.min(0.98, p.y + drag.dy));
+    seal.placed = true;
+    paintSeal();
+  });
+  function endDrag() { drag = null; cvSeal.classList.remove('grabbing'); cvSeal.classList.add('grab'); }
+  cvSeal.addEventListener('pointerup', endDrag);
+  cvSeal.addEventListener('pointercancel', endDrag);
+  cvSeal.addEventListener('wheel', function (e) {
+    if (!seal.img) return;
+    e.preventDefault();
+    seal.size = Math.max(0.04, Math.min(0.26, seal.size + (e.deltaY < 0 ? 0.006 : -0.006)));
+    $('sealSize').value = Math.round(seal.size * 1000);
+    paintSeal();
+  }, { passive: false });
+
+  $('sealApply').addEventListener('click', function () {
+    seal.placed = true;
+    closeM('m-seal');
+    paintFinal();
+  });
+
+  /* ════════ 완료 → 저장 ════════ */
+  function dlName() { return '상장_' + cur.name + '_' + cur.submit_key + '.png'; }
+
+  $('finish').addEventListener('click', function () {
+    var m = $('cMsg');
+    if (!seal.img) {
+      msg(m, 'err', '직인을 올려야 상장을 전달할 수 있습니다. [직인 올리기 · 위치 조정]을 눌러 주세요.');
+      return;
+    }
+    var btn = this;
+    btn.disabled = true;
+    msg(m, 'info', '상장을 저장하고 있습니다…');
+    paintFinal();
+
+    cvFinal.toBlob(function (blob) {
+      if (!blob) { btn.disabled = false; msg(m, 'err', '상장 이미지를 만들지 못했습니다. 다시 시도해 주세요.'); return; }
+      lastBlob = blob;
+
+      if (DEMO) { btn.disabled = false; closeM('m-cert'); finishUi(URL.createObjectURL(blob)); return; }
+
+      var rnd = Math.random().toString(36).slice(2, 10);
+      var path = 'certificates/' + Date.now() + '-' + rnd + '.png';
+      sb.storage.from('submissions').upload(path, blob, { contentType: 'image/png', upsert: false })
+        .then(function (r) {
+          if (r.error) throw new Error('upload');
+          var url = sb.storage.from('submissions').getPublicUrl(path).data.publicUrl;
+          return sb.rpc('투닝콘테스트_상장저장', {
+            p_code: judge.code, p_submit_key: cur.submit_key,
+            p_payload: {
+              '상장_url': url, '교수명': judge.name, '대학': judge.univ, '직함': judge.title,
+              '직인배치': { x: +seal.x.toFixed(4), y: +seal.y.toFixed(4), size: +seal.size.toFixed(4), multiply: seal.multiply }
+            }
+          }).then(function (res) {
+            if (res.error) throw new Error(res.error.message || 'save');
+            cur.issued = true; cur.issued_url = url;
+            btn.disabled = false; closeM('m-cert');
+            finishUi(url);
+          });
+        })
+        .catch(function (err) {
+          btn.disabled = false;
+          var t = String(err && err.message || '');
+          msg(m, 'err', /not_assigned/.test(t)
+            ? '이 작품은 교수님께 배정된 작품이 아닙니다.'
+            : '저장하지 못했습니다. 네트워크를 확인한 뒤 다시 시도해 주세요. 계속되면 상장 이미지를 직접 저장해 support@tooning.io 로 보내 주세요.');
+          $('dlFallback') || addFallback(m);
+        });
+    }, 'image/png');
+  });
+
+  function addFallback(m) {
+    var a = document.createElement('a');
+    a.id = 'dlFallback'; a.className = 'btn ghost'; a.style.marginTop = '12px';
+    a.textContent = '상장 이미지 직접 저장';
+    a.href = URL.createObjectURL(lastBlob); a.download = dlName();
+    m.parentNode.insertBefore(a, m.nextSibling);
+  }
+
+  function finishUi(url) {
+    $('doneLead').textContent = cur.name + ' 학생의 ' + (cur['상'] || '') + ' 상장이 저장되었습니다.';
+    $('doneImg').src = url;
+    var dl = $('doneDl');
+    dl.href = URL.createObjectURL(lastBlob);
+    dl.download = dlName();
+    var fb = $('dlFallback'); if (fb) fb.remove();
+    renderWorks();
+    show('s-done');
+  }
+  $('doneBack').addEventListener('click', function () { show('s-works'); });
+
+})();
+</script>
+</body>
+</html>

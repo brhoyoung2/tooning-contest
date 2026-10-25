@@ -77,6 +77,10 @@
     {
       "source": "/admin",
       "destination": "/admin.html"
+    },
+    {
+      "source": "/professor",
+      "destination": "/professor.html"
     }
   ]
 }
