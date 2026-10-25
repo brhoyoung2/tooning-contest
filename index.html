@@ -895,6 +895,28 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
 .an-text strong{color:var(--text-dark);font-weight:700}
 @media(max-width:600px){.apply-notice .an-row{flex-direction:column;gap:10px}}
 
+/* ── [접수 종료] 안내 팝업 ───────────────────────────── */
+.cpop{position:fixed;inset:0;z-index:10050;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(10,14,30,.72);opacity:0;transition:opacity .25s}
+.cpop[hidden]{display:none!important}
+.cpop.open{opacity:1}
+.cpop-backdrop{position:absolute;inset:0;cursor:pointer}
+.cpop-box{position:relative;z-index:1;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;background:#fff;border-radius:28px;padding:46px 34px 30px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);transform:scale(.94) translateY(10px);transition:transform .25s}
+.cpop.open .cpop-box{transform:none}
+.cpop-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border:none;border-radius:50%;background:rgba(20,27,49,.06);color:var(--text-soft);font-size:22px;line-height:1;cursor:pointer;transition:background .2s,color .2s}
+.cpop-close:hover{background:rgba(255,107,107,.12);color:var(--coral)}
+.cpop-eyebrow{font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
+.cpop-title{font-weight:800;font-size:clamp(24px,4.4vw,31px);letter-spacing:-.03em;line-height:1.3;color:var(--text-dark);margin-top:14px}
+.cpop-sub{font-size:15px;line-height:1.75;color:var(--text-soft);margin-top:12px}
+.cpop-sub strong{color:var(--text-dark);font-weight:700}
+.cpop-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}
+.cpop-step{background:var(--sky-light);border-radius:14px;padding:12px 6px}
+.cpop-step b{display:block;font-size:12px;color:var(--sky-deep);font-weight:800;margin-bottom:2px}
+.cpop-step span{font-size:13.5px;font-weight:700;color:var(--text-dark)}
+.cpop-note{font-size:13.5px;line-height:1.75;color:var(--text-soft);margin-top:20px}
+.cpop-note strong{color:var(--text-dark);font-weight:700}
+.cpop-btn{display:block;width:100%;margin-top:22px;padding:15px 20px;background:var(--coral);color:#fff;border:none;border-radius:16px;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.cpop-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(255,107,107,.35)}
+@media(max-width:768px){.cpop-box{padding:40px 22px 24px;border-radius:24px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
@@ -1742,6 +1764,24 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.7);padding:60px 0 40p
         <div class="hs-img"><img src="./images/help-pdf-2.jpg" alt="2단계 — 접수 폼에서 PDF 첨부" loading="lazy" onerror="this.parentNode.remove()" /></div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ============ 접수 종료 안내 팝업 (마감 시각에 자동 전환) ============ -->
+<div class="cpop" id="closedPop" aria-hidden="true" hidden>
+  <div class="cpop-backdrop" data-cpop-close></div>
+  <div class="cpop-box" role="dialog" aria-modal="true" aria-labelledby="closedPopTitle">
+    <button type="button" class="cpop-close" aria-label="Close" data-cpop-close>&times;</button>
+    <div class="cpop-eyebrow">📪 <span class="ko-text">접수 종료</span><span class="en-text">Entries Closed</span></div>
+    <h3 class="cpop-title" id="closedPopTitle"><span class="ko-text">작품 접수가<br/>마감되었습니다</span><span class="en-text">Entries are<br/>now closed</span></h3>
+    <p class="cpop-sub"><span class="ko-text">제2회 투닝 국제 공모전에<br/><strong>참여해 주셔서 진심으로 감사드립니다.</strong><br/>접수 기간은 2026년 9월 30일 — 10월 30일이었습니다.</span><span class="en-text">Thank you so much for taking part in the<br/><strong>2nd International Tooning Contest.</strong><br/>The entry period ran from Sep 30 to Oct 30, 2026.</span></p>
+    <div class="cpop-steps">
+      <div class="cpop-step"><b><span class="ko-text">심사</span><span class="en-text">Judging</span></b><span><span class="ko-text">11월 초</span><span class="en-text">Early Nov</span></span></div>
+      <div class="cpop-step"><b><span class="ko-text">결과 발표</span><span class="en-text">Results</span></b><span><span class="ko-text">11월 중순</span><span class="en-text">Mid Nov</span></span></div>
+      <div class="cpop-step"><b><span class="ko-text">시상식</span><span class="en-text">Ceremony</span></b><span><span class="ko-text">11월 말</span><span class="en-text">Late Nov</span></span></div>
+    </div>
+    <p class="cpop-note"><span class="ko-text">결과는 홈페이지와 <strong>접수 확인 메일 주소</strong>로 안내드립니다.<br/>접수 현황은 챗봇에서 접수번호로 확인할 수 있어요.<br/>문의: support@tooning.io</span><span class="en-text">Results will be announced on this site and by <strong>email</strong>.<br/>You can check your entry in the chatbot with your entry number.<br/>Contact: support@tooning.io</span></p>
+    <button type="button" class="cpop-btn" data-cpop-close><span class="ko-text">확인했어요</span><span class="en-text">Got it</span></button>
   </div>
 </div>
 
@@ -3435,8 +3475,16 @@ function hofTab(id, btn) {
     }
     if (!best || bestScore < MIN) return FALLBACK;
     if (bestScore < STRONG && best.ans.indexOf('__') !== 0)
-      return '이 내용이 궁금하신 게 맞을까요? 🤔\n\n' + best.ans;
-    return best.ans;
+      return closedNote('이 내용이 궁금하신 게 맞을까요? 🤔\n\n' + best.ans);
+    return closedNote(best.ans);
+  }
+
+  // 마감 뒤에는 '접수하기 버튼을 눌러…' 같은 안내가 사실과 어긋난다. 그런 답 앞에 마감을 먼저 알린다.
+  function closedNote(ans) {
+    if (!(window._tcClosed && window._tcClosed())) return ans;
+    if (ans.indexOf('__') === 0 || /마감/.test(ans)) return ans;
+    if (!/접수하기|제출해|접수해|\[접수|접수 기간에|지금 접수|접수는 2026|접수 폼/.test(ans)) return ans;
+    return '📪 작품 접수는 10월 30일 밤 11시 59분에 마감되었습니다.\n\n' + ans;
   }
 
   function openMailto(subject, body) {
@@ -3811,6 +3859,92 @@ function hofTab(id, btn) {
   }, true);
 })();
 
+</script>
+
+<script>
+/* ══════════════════════════════════════════════════
+   [접수 종료] 마감 시각이 지나면 팝업으로 전환
+   · 접속 시 한 번(하루 1회), 페이지를 열어 둔 채 마감을 넘기면 바로
+   · 마감 뒤에는 접수하기 버튼이 접수 폼 대신 이 팝업을 연다
+   · 닫기: 우측 상단 ×, 빈 영역, ESC, 확인 버튼
+   · ?closed=1 로 열면 마감 상태를 미리 볼 수 있다 (표시만 바뀌고, 접수 차단은 서버가 한다)
+   ══════════════════════════════════════════════════ */
+(function() {
+  var CLOSE_AT = new Date('2026-10-30T23:59:59+09:00');
+  var FORCE    = /[?&]closed=1\b/.test(location.search);
+  var SEEN_KEY = '_tc_closedpop';
+  var pop = document.getElementById('closedPop');
+  if (!pop) return;
+
+  function isClosed() { return FORCE || new Date() > CLOSE_AT; }
+  window._tcClosed = isClosed;
+
+  function open() {
+    pop.hidden = false;
+    pop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function() { pop.classList.add('open'); });
+    setTimeout(function() { var b = pop.querySelector('.cpop-close'); if (b) b.focus(); }, 60);
+  }
+
+  function close() {
+    if (pop.hidden) return;
+    pop.classList.remove('open');
+    pop.setAttribute('aria-hidden', 'true');
+    if (pop.contains(document.activeElement)) document.activeElement.blur();
+    document.body.style.overflow = '';
+    setTimeout(function() { if (!pop.classList.contains('open')) pop.hidden = true; }, 280);
+  }
+
+  pop.querySelectorAll('[data-cpop-close]').forEach(function(el) { el.addEventListener('click', close); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && !pop.hidden) close(); });
+
+  // 접수하기 버튼 문구를 '접수 마감' 으로
+  function relabel() {
+    var targets = document.querySelectorAll('[data-open-modal="apply"], #floatCtaBtn');
+    targets.forEach(function(el) {
+      var ko = el.querySelector('.ko-text'), en = el.querySelector('.en-text');
+      if (ko) ko.textContent = '접수 마감';
+      if (en) en.textContent = 'Closed';
+      el.setAttribute('aria-label', '접수 마감');
+      el.style.whiteSpace = 'nowrap';   // 짧아진 문구가 두 줄로 꺾이지 않게
+    });
+  }
+
+  // 마감 뒤에는 접수 폼 대신 이 팝업을 연다. 문서 단계(capture)에서 먼저 받아 기존 열기 동작을 막는다.
+  document.addEventListener('click', function(e) {
+    if (!isClosed()) return;
+    var t = e.target.closest ? e.target.closest('[data-open-modal="apply"], #floatCtaBtn') : null;
+    if (!t) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    open();
+  }, true);
+
+  function today() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+
+  var wasClosed = isClosed();
+  if (wasClosed) {
+    relabel();
+    var seen = null;
+    try { seen = localStorage.getItem(SEEN_KEY); } catch (err) {}
+    if (FORCE || seen !== today()) {
+      setTimeout(function() {
+        open();
+        if (!FORCE) { try { localStorage.setItem(SEEN_KEY, today()); } catch (err) {} }
+      }, 700);
+    }
+  }
+
+  // 페이지를 열어 둔 채 마감 시각을 넘기는 경우
+  setInterval(function() {
+    if (!wasClosed && isClosed()) {
+      wasClosed = true;
+      relabel();
+      open();
+    }
+  }, 15000);
+})();
 </script>
 
 </body>
